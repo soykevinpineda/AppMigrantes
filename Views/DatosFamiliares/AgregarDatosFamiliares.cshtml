@@ -1,0 +1,270 @@
+﻿@using Migrantes.ViewModels
+@model Migrantes.ViewModels.DatosFamiliaresViewModel
+
+@{
+    ViewData["Title"] = "Formulario para agregar datos de familiares";
+    ViewData["TitleDatosFamiliares"] = "Datos de familiares";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<DatosFamiliaresViewModel> ListDatosFamiliares = ViewBag.ListDatosFam;
+}
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" />
+
+@*
+    <ul>
+    <li>
+    <strong>@Html.ActionLink("Menú principal", "Personas", "Personas")</strong>
+    </li>
+    </ul>*@
+
+
+@*
+    --Si no tiene datos familiares se muestra formulario--.*@
+
+
+@if (ViewBag.IdDatosFam == null)
+{
+        <div class="alert alert-dark d-flex alert-dismissible fade show" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+            </svg>
+        @TempData["msjValidacionFamiliar"]
+            <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                <span arie-hidden="true">&times;</span>
+            </button>
+            <div>
+            </div>
+            <script>
+                window.setTimeout(function() {
+                    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+                        $(this).remove();
+                    });
+                }, 5000);
+            </script>
+        </div>
+
+
+        <div class="p-2 shadow-2 rounded-3 mb-2" style="background-color: hsl(0, 0%, 94%);font-family:Helvetica;border-radius: 9px;">
+            <h2 class="text-center text-primary"><strong>@ViewData["Title"]</strong></h2>
+        </div>
+        <hr>
+
+
+        <div style="justify-content:center;display:flex;align-items:center;font-family:Helvetica" class="mb-2">
+            <div class="toast" data-delay="5000" style="border:thin;color:blue;border-radius: 9px;" role="alert" aria-live="assertive" aria-atomic="true">
+                <div style="background:#007bff" class="toast-header">
+                    <img src="~/img/scblancopeque-200x91.png" style="width:10%;height:10%" class="rounded mr-2" alt="..." />
+                    <strong class="mr-auto text-white">Notificación SC</strong>
+                    <small class="text-white">justo ahora</small>
+                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="toast-body">
+                    <h4 class="text-primary text-center">
+                        Recuerda que los campos en
+                        <strong style="color:grey">*</strong>
+                        son requeridos.
+                    </h4>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row justify-content-center">
+            <form style="font-family:Helvetica" class="form-group" asp-controller="DatosFamiliares" asp-action="AgregarDatosFamiliares" method="post" id="frm">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="per_codigo_id" value="@ViewBag.IdPersona" />
+            @*//Datos madre*@
+                <div class="form-group">
+                    <input type="hidden" asp-for="per_codigo_id" value="@ViewBag.Idpersona" class="form-control" />
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <strong style="color:hsl(0, 0%, 50%)">
+                            <label class="form-group row justify-content-center mb-0" asp-for="nombres_madre"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black" asp-for="nombres_madre" class="form-control" />
+                        <span asp-validation-for="nombres_madre" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <strong style="color:hsl(0, 0%, 50%)">
+                            <label class="form-group row justify-content-center mb-0" asp-for="primer_apellido_madre"></label>
+                        </strong>
+                        <input * style="border:1px solid;color:black" asp-for="primer_apellido_madre" class="form-control" />
+                        <span asp-validation-for="primer_apellido_madre" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <strong style="color:hsl(0, 0%, 50%)">
+                            <label class="form-group row justify-content-center mb-0" asp-for="segundo_apellido_madre"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black" asp-for="segundo_apellido_madre" class="form-control" placeholder="Opcional" />
+                        <span asp-validation-for="segundo_apellido_madre" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <strong style="color:hsl(0, 0%, 50%)">
+                            <label class="form-group row justify-content-center mb-0" asp-for="edad_madre"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black" asp-for="edad_madre" class="form-control" />
+                        <span asp-validation-for="edad_madre" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <strong style="color:hsl(0, 0%, 50%)">
+                            <label class="form-group row justify-content-center mb-0" asp-for="profesion_madre"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black" asp-for="profesion_madre" class="form-control" placeholder="Opcional" />
+                        <span asp-validation-for="profesion_madre" class="text-danger"></span>
+                    </div>
+                </div>
+                <br />
+                <hr>
+                <br />
+            @*//Datos padre*@
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <strong style="color:hsl(0, 0%, 50%)">
+                            <label class="form-group row justify-content-center mb-0" asp-for="nombres_padre"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black" asp-for="nombres_padre" class="form-control" />
+                        <span asp-validation-for="nombres_padre" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <strong style="color:hsl(0, 0%, 50%)">
+                            <label class="form-group row justify-content-center mb-0" asp-for="primer_apellido_padre"></label>
+                        </strong>
+                        <input * style="border:1px solid;color:black" asp-for="primer_apellido_padre" class="form-control" />
+                        <span asp-validation-for="primer_apellido_padre" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <strong style="color:hsl(0, 0%, 50%)">
+                            <label class="form-group row justify-content-center mb-0" asp-for="segundo_apellido_padre"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black" asp-for="segundo_apellido_padre" class="form-control" placeholder="Opcional" />
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <strong style="color:hsl(0, 0%, 50%)">
+                            <label class="form-group row justify-content-center mb-0" asp-for="edad_padre"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black" asp-for="edad_padre" class="form-control" />
+                        <span asp-validation-for="edad_padre" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <strong style="color:hsl(0, 0%, 50%)">
+                            <label class="form-group row justify-content-center mb-0" asp-for="profesion_padre"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black" asp-for="profesion_padre" class="form-control" placeholder="Opcional" />
+                    </div>
+                </div>
+
+                <div style="width:100%;padding:0 25% 0 25%" class="form-group">
+                    <input type="button" value="Agregar datos familiares" onclick="Guardar()" class="btn btn-success btn-block" />
+                </div>
+
+                <div style="width:100%;padding:0 25% 0 25%">
+                    <a class="btn btn-primary btn-block" asp-controller="Personas" asp-action="Personas">Lista de personas</a>
+                </div>
+                <br />
+                <caption>
+                    <strong class="text-success">
+                        Formulario para agregar datos de familiares.
+                        <br /><strong class="text-danger">Powered by</strong><strong style="color:black;font-family:Helvetica">--Sourcing-Corp &copy;--</strong>
+                    </strong>
+                </caption>
+            </form>
+        </div>
+}
+
+@*
+    Si tiene datos familiares mostrar tarjetas de los padres.*@
+else
+{
+    @foreach (var item in ListDatosFamiliares)
+    {
+                <a class="btn btn-outline-primary" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+                <br />
+                <br />
+                <div class="box">
+                    <div class="card" style="width:230px;">
+                        <img src="~/cabeza-de-mujer.png" style="width:auto;height:auto;" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Madre</h5>
+                            <p class="card-text">@item.nombres_madre</p>
+                            <h5 class="card-title">Profesión</h5>
+                            <p class="card-text">@item.profesion_madre</p>
+                            <h5 class="card-title">Edad</h5>
+                            <p class="card-text">@item.edad_madre</p>
+                        </div>
+                    </div>
+
+                    <div class="card" style="width:230px;">
+                        <img src="~/cabeza-de-hombre.png" style="width:auto;height:auto;" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Padre</h5>
+                            <p class="card-text">@item.nombres_padre</p>
+                            <h5 class="card-title">Profesión</h5>
+                            <p class="card-text">@item.profesion_padre</p>
+                            <h5 class="card-title">Edad</h5>
+                            <p class="card-text">@item.edad_padre</p>
+                        </div>
+
+                        <style>
+                            .box {
+                                display: flex;
+                                justify-content: space-evenly;
+                            }
+                        </style>
+                    </div>
+                </div>
+                <br />
+                <center>
+                    <div class="form-group">
+                        <a class="btn btn-primary" asp-controller="DatosFamiliares" asp-route-id="@ViewBag.IdPersona" asp-action="EditarDatosFamiliares">Editar</a>&nbsp;
+                        <a class="btn btn-outline-primary" asp-action="Personas">Eliminar</a>
+                    </div>
+                </center>
+    }
+}
+
+
+@section Scripts {
+    @{
+     await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+
+<script src="~/js/generic.js"></script>
+<script src="~/js/sweetalert.js"></script>
+
+<script>
+    function Guardar() {
+        var frm = document.getElementById("frm");
+        MostrarModal().then(res => {
+            if (res.value) {
+                frm.submit();
+                MostrarSuccess();
+            }
+        })
+    }
+    $(document).ready(function () {
+        $('.toast').toast('show');
+    });
+    $('.toast').toast(option)
+</script>
+}

@@ -1,0 +1,254 @@
+﻿@model Migrantes.Models.Entities.Persona
+
+@{
+    ViewData["Title"] = "Eliminar una persona";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<ul>
+    <li>
+        <strong>@Html.ActionLink("Menú principal", "Personas", "Personas")</strong>
+    </li>
+</ul>
+<div class="p-2 shadow-2 rounded-3 mb-2" style="background-color: hsl(0, 0%, 94%);font-family:Helvetica;border-radius: 9px;">
+    <h2 class="text-center text-danger"><strong>@ViewData["Title"]</strong></h2>
+</div>
+<div style="justify-content:center;display:flex;align-items:center" class="mb-2">
+    <div class="toast" data-delay="5000" style="border:thin;color:blue;border-radius: 9px;" role="alert" aria-live="assertive" aria-atomic="true">
+        <div style="background:#007bff" class="toast-header">
+            <img src="~/img/scblancopeque-200x91.png" style="width:10%;height:10%" class="rounded mr-2" alt="..." />
+            <strong class="mr-auto text-white">Notificación SC</strong>
+            <small class="text-white">justo ahora</small>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            <h4 class="text-danger text-center">
+                <strong>
+                    Recuerda verificar bien antes de eliminar.
+                </strong>
+            </h4>
+        </div>
+    </div>
+</div>
+<div style="font-family:Helvetica">
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_estado)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_estado)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_codigo_alternativo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_codigo_alternativo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_letra_indice)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_letra_indice)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_primer_ape)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_primer_ape)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_segundo_ape)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_segundo_ape)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_apellido_cas)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_apellido_cas)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_primer_nom)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_primer_nom)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_segundo_nom)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_segundo_nom)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_otros_nom)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_otros_nom)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_nombre_usual)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_nombre_usual)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_codpai_nacionalidad)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_codpai_nacionalidad)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_codpai_nacimiento)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_codpai_nacimiento)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_sexo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_sexo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_edad)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_edad)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_fecha_nac)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_fecha_nac)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_profesion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_profesion)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_estado_civil)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_estado_civil)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_codmun_nac)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_codmun_nac)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_coddep_nac)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_coddep_nac)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_lugar_nac)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_lugar_nac)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_email_interno)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_email_interno)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_telefono_movil)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_telefono_movil)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_telefono_interno)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_telefono_interno)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_apellidos_nombres)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_apellidos_nombres)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_observaciones)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_observaciones)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_codpai_digita)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_codpai_digita)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_usuario_grabacion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_usuario_grabacion)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_fecha_grabacion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_fecha_grabacion)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_usuario_modificacion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_usuario_modificacion)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_fecha_modificacion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_fecha_modificacion)
+        </dd>
+    </dl>
+    <form asp-action="Delete" id="frm">
+        <input type="hidden" asp-for="per_codigo_id" />
+        <input type="button" value="Eliminar" class="btn btn-danger" onclick="Eliminar()" /><strong> |</strong>
+        <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model.per_codigo_id">Editar</a>
+        <a class="btn btn-outline-primary" asp-action="Personas">Volver a la lista</a><strong> |</strong>
+
+    </form>
+</div>
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+<script src="~/js/generic.js"></script>
+<script src="~/js/sweetalert.js"></script>
+<script>
+    function Eliminar() {
+        var frm = document.getElementById("frm");
+        MostrarModalDelete().then(res => {
+            if (res.value) {
+                frm.submit();
+                MostrarSuccessEliminar();
+            }
+        })
+    }
+
+    $(document).ready(function () {
+        $('.toast').toast('show');
+    });
+
+    $('.toast').toast(option)
+</script>
+}

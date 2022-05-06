@@ -1,0 +1,217 @@
+﻿@model IEnumerable<Migrantes.Models.Entities.Persona>
+
+@{
+    ViewData["Title"] = "Lista de candidatos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="p-2 shadow-2 rounded-3 mb-2" style="background-color: hsl(0, 0%, 94%);font-family:Helvetica;border-radius: 9px;">
+    <h2 class="text-center text-primary"><strong>@ViewData["Title"]</strong></h2>    
+</div>
+<p>
+    <a class="btn btn-success" asp-action="Create">Crear nuevo</a>
+</p>
+<table class="table" style="font-family:Helvetica">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.per_estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_codigo_alternativo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_letra_indice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_primer_ape)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_segundo_ape)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_apellido_cas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_primer_nom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_segundo_nom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_otros_nom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_nombre_usual)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_codpai_nacionalidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_codpai_nacimiento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_sexo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_edad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_fecha_nac)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_profesion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_estado_civil)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_codmun_nac)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_coddep_nac)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_lugar_nac)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_email_interno)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_telefono_movil)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_telefono_interno)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_apellidos_nombres)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_observaciones)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_codpai_digita)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_usuario_grabacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_fecha_grabacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_usuario_modificacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.per_fecha_modificacion)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_estado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_codigo_alternativo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_letra_indice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_primer_ape)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_segundo_ape)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_apellido_cas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_primer_nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_segundo_nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_otros_nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_nombre_usual)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_codpai_nacionalidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_codpai_nacimiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_sexo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_edad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_fecha_nac)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_profesion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_estado_civil)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_codmun_nac)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_coddep_nac)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_lugar_nac)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_email_interno)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_telefono_movil)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_telefono_interno)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_apellidos_nombres)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_observaciones)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_codpai_digita)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_usuario_grabacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_fecha_grabacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_usuario_modificacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.per_fecha_modificacion)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.per_codigo_id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.per_codigo_id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.per_codigo_id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

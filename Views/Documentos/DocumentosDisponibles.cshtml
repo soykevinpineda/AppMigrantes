@@ -1,0 +1,199 @@
+﻿@using Migrantes.Models.DTO
+@model Migrantes.Models.DTO.DocumentosPersonaDTO
+
+@{
+    ViewData["TitleDocumentos"] = "Documentos Disponibles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<SelectListItem> TipoDocSelect = ViewBag.ListDoc;
+    List<DocumentosPersonaDTO> DocumentosPersona = ViewBag.ListadoDocumentos;
+}
+
+@*<ul>
+    <li>
+    <strong>@Html.ActionLink("Crear persona", "CrearPersona", "Personas")</strong>
+    </li>
+    </ul>*@
+
+
+
+@if (ViewBag.IdDocumento == null)
+{
+    <div class="alert alert-dark d-flex alert-dismissible fade show" role="alert">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+        </svg>
+        @TempData["msjDocumentosDisponibles"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="close">
+            <span arie-hidden="true">&times;</span>
+        </button>
+        <div>
+        </div>
+    </div>
+    <hr>
+
+    <center>
+        <div class="form-group">
+            <a class="btn btn-primary" asp-controller="Documentos" asp-route-id="@ViewBag.IdPersona" asp-action="CrearDocumento">Agregar documento</a>&nbsp;
+            <a class="btn btn-outline-primary" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+        </div>
+    </center>
+}
+
+
+else
+{
+
+    <div class="p-2 shadow-2 rounded-3 mb-2" style="background-color: hsl(0, 0%, 94%);font-family:Helvetica;border-radius: 9px;">
+        <h2 class="text-center text-primary"><strong>@ViewData["TitleDocumentos"]</strong></h2>
+    </div>
+
+
+    <hr>
+    <br />
+    <div class="table-responsive text-nowrap" style="font-family:Helvetica">
+        <form asp-action="ExportarPersonasExcel" asp-controller="Documentos" id="FormChecks">
+            <table class="table-light table-striped text-center table-hover table-sm table-responsive-xl pre-scrollable">
+                <thead class="text-center" style="color:white">
+                    <tr>
+                        <th>
+                            <input type="checkbox" checked name="nombrePropiedades" value="per_primer_ape" />
+                        </th>
+                        <th>
+                            <input type="checkbox" checked name="nombrePropiedades" value="per_segundo_ape" />
+                        </th>
+                        <th>
+                            <input type="checkbox" checked name="nombrePropiedades" value="per_primer_nom" />
+                        </th>
+                        <th>
+                            <input type="checkbox" checked name="nombrePropiedades" value="per_segundo_nom" />
+                        </th>
+                        <th>
+                            <input type="checkbox" checked name="nombrePropiedades" value="Sexo" />
+                        </th>
+                        <th>
+                            <input type="checkbox" checked name="nombrePropiedades" value="Edad" />
+                        </th>
+                        <th>
+
+                        </th>
+
+                    </tr>
+
+                    <tr>
+                        <th>
+                            <strong>
+                                Tipo de documento
+                            </strong>
+                        </th>
+                        <th>
+                            <strong>
+                                Número del documento
+                            </strong>
+                        </th>
+                        <th>
+                            <strong>
+                                Fecha emisión
+                            </strong>
+                        </th>
+                        <th>
+                            <strong>
+                                Fecha vencimiento
+                            </strong>
+                        </th>
+                        <th>
+                            <strong>
+                                Portada
+                            </strong>
+                        </th>
+                        <th>
+                            <strong>
+                                Contraportada
+                            </strong>
+                        </th>
+                        <th>
+                            <strong>
+                                Operaciones
+                            </strong>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody class="table-light text-center">
+                    @foreach (var item in DocumentosPersona)
+                    {
+                        <tr class="table-">
+                            <td>
+                                @Html.DisplayFor(x => item.NombreDocumento)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.ide_numero)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.ide_fecha_emision)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.ide_fecha_vencimiento)
+                            </td>
+                            <td>
+                                <img style="border:1px solid;border-radius:9px" src="@item.RutaImagenPortada_A" width="200" height="100" />
+                                <span asp-validation-for="FotoDocumento" class="text-danger"></span>
+                            </td>
+                            <td>
+                                <img style="border:1px solid;border-radius:9px" src="@item.RutaImagenPortada_B" width="200" height="100" />
+                                <span asp-validation-for="FotoDocumento_LadoB" class="text-danger"></span>
+                            </td>
+                            <td>
+                                <a class="btn btn-warning" asp-controller="Documentos" asp-action="EditarDocumento" asp-route-id="@item.ide_id_persona">Editar</a> |
+                                <a class="btn btn-secondary" asp-controller="Documentos" asp-action="DetallesDocumento" asp-route-id="@item.ide_id_persona">Detalles</a> |
+                                <a class="btn btn-danger" asp-controller="Documentos" asp-action="EliminarDocumento" asp-route-id="@item.ide_id_persona">Eliminar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </form>
+
+
+
+        <style type="text/css">
+            thead tr th {
+                position: sticky;
+                top: 0;
+                z-index: 10;
+                background-color: #007bff;
+                font-family: Helvetica;
+            }
+
+            .table-responsive {
+                height: 300px;
+                border-radius: 8px;
+            }
+
+            .search {
+                border: 3px dotted #999;
+                border-radius: 10px;
+                height: 32px;
+                -webkit-appearance: none;
+            }
+        </style>
+    </div>
+
+    <br />
+    <hr>
+    <center>
+        <div class="form-group">
+            <a class="btn btn-primary" asp-controller="Documentos" asp-route-id="@ViewBag.IdPersona" asp-action="CrearDocumento">Crear nuevo documento</a>&nbsp;
+            <a class="btn btn-outline-primary" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+        </div>
+    </center>
+}
+
+<br />
+<br />
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+<script src="~/js/generic.js"></script>
+<script src="~/js/sweetalert.js"></script>
+}

@@ -1,0 +1,286 @@
+﻿@model Migrantes.Models.Entities.Persona
+
+@{
+    ViewData["Title"] = "Detalles de la persona";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<ul>
+    <li>
+    <strong>@Html.ActionLink("Menú principal", "Personas", "Personas")</strong>
+    </li>
+    </ul>*@
+
+<div class="p-2 shadow-2 rounded-3 mb-2" style="background-color: hsl(0, 0%, 94%);font-family:Helvetica;border-radius: 9px;">
+    <h2 class="text-center text-primary"><strong>@ViewData["Title"]</strong></h2>
+</div>
+
+<hr>
+
+
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a asp-action="DocumentosDisponibles" asp-route-id="@ViewBag.IdPersona">Documentos personales</a>
+    <a asp-action="AgregarDatosFamiliares" asp-route-id="@ViewBag.IdPersona">Datos de familiares</a>
+    <a asp-action="ExpedientesDisponibles" asp-route-id="@ViewBag.IdPersona">Expedientes</a>
+    <a href="#">Datos de familiares</a>
+    <a href="#">Pasaporte/Visa</a>
+    <a href="#">Fiador</a>
+</div>
+<span style="font-size:30px;cursor:pointer" onclick="openNav()">
+    &#9776;
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="27" fill="currentColor" class="bi bi-person-square" viewBox="0 0 16 16">
+        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z" />
+    </svg>
+</span>
+
+<style>
+    .sidenav {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #111;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+    }
+
+        .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+            .sidenav a:hover {
+                color: #f1f1f1;
+            }
+
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+</style>
+
+
+
+<div class="card-group" style="font-family:Helvetica">
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_estado)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_estado)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_codigo_alternativo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_codigo_alternativo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_letra_indice)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_letra_indice)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_primer_ape)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_primer_ape)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_segundo_ape)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_segundo_ape)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_apellido_cas)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_apellido_cas)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_primer_nom)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_primer_nom)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_segundo_nom)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_segundo_nom)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_otros_nom)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_otros_nom)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_nombre_usual)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_nombre_usual)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_codpai_nacionalidad)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_codpai_nacionalidad)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_codpai_nacimiento)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_codpai_nacimiento)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_sexo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_sexo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_edad)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_edad)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_fecha_nac)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_fecha_nac)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_profesion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_profesion)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_estado_civil)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_estado_civil)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_codmun_nac)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_codmun_nac)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_coddep_nac)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_coddep_nac)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_lugar_nac)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_lugar_nac)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_email_interno)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_email_interno)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_telefono_movil)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_telefono_movil)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_telefono_interno)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_telefono_interno)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_apellidos_nombres)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_apellidos_nombres)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_observaciones)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_observaciones)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_codpai_digita)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_codpai_digita)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_usuario_grabacion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_usuario_grabacion)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_fecha_grabacion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_fecha_grabacion)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_usuario_modificacion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_usuario_modificacion)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.per_fecha_modificacion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.per_fecha_modificacion)
+        </dd>
+    </dl>
+</div>
+
+
+<div>
+    <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model.per_codigo_id">Editar</a><strong> |</strong>
+ 
+    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.per_codigo_id">Eliminar</a><strong> |</strong>
+       <a class="btn btn-outline-primary" asp-action="Personas">Regresar a lista de personas</a><strong> |</strong>
+    
+    <hr>
+</div>
+
+
+<script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+    }
+
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+    }
+</script>
