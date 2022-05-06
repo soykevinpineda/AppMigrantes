@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Migrantes.Data;
 using Migrantes.Data.Servicios.Documentos;
@@ -30,6 +31,7 @@ namespace Migrantes.Controllers
             this._familiares = agregandofamiliares;
             this._context = context;
         }
+
 
 
         #region Area Datos de familiares
@@ -81,25 +83,9 @@ namespace Migrantes.Controllers
             return RedirectToAction("Personas", "Personas");
         }
 
-
-
-        [HttpGet]
-        public IActionResult DetallesDatosFamiliares(int? id)
-
-        {
-            var PersonaDatoFam = this._context.PersonasDb.FirstOrDefault(x => x.per_codigo_id == id);
-            ViewBag.IdPersona = PersonaDatoFam.per_codigo_id;
-
-            var ValidacionDatosFamiliares = this._context.DatosFamiliaresDb.FirstOrDefault(x => x.per_codigo_id == id);
-            ViewBag.IdDatosFam = ValidacionDatosFamiliares;
-
-            DatosFamiliaresDisponibles(PersonaDatoFam.per_codigo_id);
-      
-            return View();
-
-        }
-
         #endregion Area Datos de familiares
+
+
 
 
         [HttpGet]
@@ -107,7 +93,12 @@ namespace Migrantes.Controllers
 
         {
 
-            var ObjDatosFamiliares = this._context.DatosFamiliaresDb.FirstOrDefault(x => x.per_codigo_id == id);
+            var ObjDatosFamiliares = this. _context.DatosFamiliaresDb.FirstOrDefault(x => x.per_codigo_id == id);
+
+            if (id == null)
+            {
+                return NotFound();
+            }
 
             DatosFamiliaresDisponibles(ObjDatosFamiliares.per_codigo_id);
 
@@ -116,61 +107,26 @@ namespace Migrantes.Controllers
         }
 
 
-        [HttpPost]
-        public async Task<IActionResult> ActualizarFamiliaresEditados(int? id)
 
+        [HttpPost]
+        public async Task<IActionResult> ActualizarFamiliaresEditados(DatosFamiliaresViewModel DatosFamiliaresEditados)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
-        
-                    try
-                    {
-                        if (!ModelState.IsValid)
-                        {
-                            return RedirectToAction("CrearPersona", "Personas");
-                        }
-                        else
-                        {
-                            await this._persona.GuardarPersona();
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        throw;
-                    }
-
-
-
+                try
+                {
+                    await this._familiares.ActualizarFamiliaresEditados(DatosFamiliaresEditados);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
             }
 
-            var ObjDatosFamiliares = this._context.DatosFamiliaresDb.FirstOrDefaultAsync(x => x.per_codigo_id == id);
-
-        
-
-            return View(ObjDatosFamiliares);
+            return RedirectToAction("Personas", "Personas");
 
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -185,7 +141,7 @@ namespace Migrantes.Controllers
 
             ListDatosFamiliares = (from oDatosFam in this._context.DatosFamiliaresDb
                                    join persona in this._context.PersonasDb
-                              on oDatosFam.per_codigo_id equals persona.per_codigo_id
+                                    on oDatosFam.per_codigo_id equals persona.per_codigo_id
                                    where persona.per_codigo_id == idPersona
 
 
