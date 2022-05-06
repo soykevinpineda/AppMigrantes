@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\04 Kevin\\DevPineda\\migrantes-sc-master\\Migrantes\\Migrantes.csproj": {}
+    "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\Migrantes.csproj": {}
   },
   "projects": {
-    "D:\\04 Kevin\\DevPineda\\migrantes-sc-master\\Migrantes\\Migrantes.csproj": {
+    "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\Migrantes.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\04 Kevin\\DevPineda\\migrantes-sc-master\\Migrantes\\Migrantes.csproj",
+        "projectUniqueName": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\Migrantes.csproj",
         "projectName": "Migrantes",
-        "projectPath": "D:\\04 Kevin\\DevPineda\\migrantes-sc-master\\Migrantes\\Migrantes.csproj",
+        "projectPath": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\Migrantes.csproj",
         "packagesPath": "C:\\Users\\khernandez\\.nuget\\packages\\",
-        "outputPath": "D:\\04 Kevin\\DevPineda\\migrantes-sc-master\\Migrantes\\obj\\",
+        "outputPath": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages"

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "sra1mOXSt4Na6WC5xOjlcwCoF8YVOsIJ5Px0Oq+o5+19wx2+BkSMAky2b1bosVY+PYti6RS3B5/MM6L7a53UJQ==",
+  "dgSpecHash": "8bpk85a1Z9FKR4oj/oDbtE1kEri0tXvn07f1TX7d9bEO3t+f7kpO0d8ZPJvesQlmQjlKkzNAnvrnVPU8/Q1XVg==",
   "success": true,
-  "projectFilePath": "D:\\04 Kevin\\DevPineda\\migrantes-sc-master\\Migrantes\\Migrantes.csproj",
+  "projectFilePath": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\Migrantes.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\khernandez\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
     "C:\\Users\\khernandez\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
