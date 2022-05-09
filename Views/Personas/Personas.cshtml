@@ -176,9 +176,7 @@ else if (ViewBag.Validacion == 2 || ViewBag.Validacion == 1)
                     </th>
 
                     <th>
-                        <strong>
-                            Operaciones
-                        </strong>
+
                     </th>
                 </tr>
             </thead>
@@ -274,9 +272,22 @@ else if (ViewBag.Validacion == 2 || ViewBag.Validacion == 1)
 
                             </td>*@
                         <td>
-                            <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.per_codigo_id">Editar</a> |
-                            <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.per_codigo_id">Detalles</a> |
-                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.per_codigo_id">Eliminar</a>
+                            <div class="dropdown">
+                                <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">
+                                    <strong>
+                                        Acciones
+                                    </strong> <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.per_codigo_id">Editar</a>
+                                    <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.per_codigo_id">Detalles</a>
+                                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.per_codigo_id">Eliminar</a>
+                                </ul>
+                            </div>
+
+                            @*  <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.per_codigo_id">Editar</a> |
+                                < a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.per_codigo_id">Detalles</a> |
+                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.per_codigo_id">Eliminar</a>*@
                         </td>
                     </tr>
                 }

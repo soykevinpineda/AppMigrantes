@@ -156,9 +156,7 @@ namespace Migrantes.Controllers
             }
 
 
-            var urlRetorno = HttpContext.Session.GetString("UrlRetorno");
-
-            return LocalRedirect(urlRetorno);
+            return RedirectToAction("Personas", "Personas");
         }
 
         private bool PersonaExists(int id)
@@ -199,7 +197,7 @@ namespace Migrantes.Controllers
 
             if (oDocumento == null)
             {
-                TempData["msj"] = "La persona no tiene documentos agregados";
+                TempData["msj"] = "La persona no tiene documentos agregados...";
                 return View(persona);
             }
 
