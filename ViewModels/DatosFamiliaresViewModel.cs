@@ -13,6 +13,8 @@ namespace Migrantes.ViewModels
     public class DatosFamiliaresViewModel
     {
 
+        public int id_datos_familiares { get; set; }
+
         [ForeignKey("Persona")]
         public int per_codigo_id { get; set; }
 

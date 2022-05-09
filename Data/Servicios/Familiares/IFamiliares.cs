@@ -7,6 +7,6 @@ namespace Migrantes.Data.Servicios.Familiares
     {
         Task ActualizarFamiliaresEditados(DatosFamiliaresViewModel DatosFamiliaresEditados);
         Task AgregandoDatosFamiliares(DatosFamiliaresViewModel oDatosFamiliares);
-       
+        Task EliminarConfirmadoDatosFamiliares(DatosFamiliaresViewModel DatosFamiliaresEliminados);
     }
 }

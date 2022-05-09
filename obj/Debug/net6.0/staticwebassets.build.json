@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "iybHEmIGzNlpG8Be3uyE5SK6U60eIsLLUEPsm+JoBUM=",
+  "Hash": "B7P4M9tf+tARxLkN0Vh9WSqqu+OUGGdDq1y6yGPBfQA=",
   "Source": "Migrantes",
   "BasePath": "_content/Migrantes",
   "Mode": "Default",
@@ -627,40 +627,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\khernandez\\.nuget\\packages\\microsoft.aspnetcore.identity.ui\\5.0.9\\staticwebassets\\V4\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
-    },
-    {
-      "Identity": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\cabeza-de-hombre.png",
-      "SourceId": "Migrantes",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\",
-      "BasePath": "_content/Migrantes",
-      "RelativePath": "cabeza-de-hombre.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\cabeza-de-hombre.png"
-    },
-    {
-      "Identity": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\cabeza-de-mujer.png",
-      "SourceId": "Migrantes",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\",
-      "BasePath": "_content/Migrantes",
-      "RelativePath": "cabeza-de-mujer.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\cabeza-de-mujer.png"
     },
     {
       "Identity": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\css\\button.css",
@@ -1479,6 +1445,23 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
+      "Identity": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\Hombre.png",
+      "SourceId": "Migrantes",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\",
+      "BasePath": "_content/Migrantes",
+      "RelativePath": "Hombre.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Hombre.png"
+    },
+    {
       "Identity": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\img\\navbarmenu.png",
       "SourceId": "Migrantes",
       "SourceType": "Discovered",
@@ -2123,6 +2106,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\Mujer.png",
+      "SourceId": "Migrantes",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\",
+      "BasePath": "_content/Migrantes",
+      "RelativePath": "Mujer.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Mujer.png"
     },
     {
       "Identity": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\no-fotos.png",

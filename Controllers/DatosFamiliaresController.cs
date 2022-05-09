@@ -25,7 +25,7 @@ namespace Migrantes.Controllers
         public DatosFamiliaresController(ApplicationDbContext context,
             IDocumentos documentos, IPersonas persona, IFamiliares agregandofamiliares)
         {
-           
+
             this._documentos = documentos;
             this._persona = persona;
             this._familiares = agregandofamiliares;
@@ -40,6 +40,10 @@ namespace Migrantes.Controllers
         public IActionResult AgregarDatosFamiliares(int? id)
 
         {
+            //Obtenemos la ruta de inicio del usuario.
+            var urlRetornoDatosFamiliares = HttpContext.Request.Path + HttpContext.Request.QueryString;
+            HttpContext.Session.SetString("UrlRetorno", urlRetornoDatosFamiliares);
+
             var PersonaDatoFam = this._context.PersonasDb.FirstOrDefault(x => x.per_codigo_id == id);
             ViewBag.IdPersona = PersonaDatoFam.per_codigo_id;
 
@@ -52,7 +56,7 @@ namespace Migrantes.Controllers
             }
 
             DatosFamiliaresDisponibles(PersonaDatoFam.per_codigo_id);
-    
+
 
             return View();
 
@@ -89,11 +93,11 @@ namespace Migrantes.Controllers
 
 
         [HttpGet]
-        public IActionResult EditarDatosFamiliares (int? id)
+        public IActionResult EditarDatosFamiliares(int? id)
 
         {
 
-            var ObjDatosFamiliares = this. _context.DatosFamiliaresDb.FirstOrDefault(x => x.per_codigo_id == id);
+            var ObjDatosFamiliares = this._context.DatosFamiliaresDb.FirstOrDefault(x => x.per_codigo_id == id);
 
             if (id == null)
             {
@@ -105,7 +109,6 @@ namespace Migrantes.Controllers
             return View(ObjDatosFamiliares);
 
         }
-
 
 
         [HttpPost]
@@ -124,9 +127,80 @@ namespace Migrantes.Controllers
                 }
             }
 
-            return RedirectToAction("Personas", "Personas");
+            var urlRetornoDatosFamiliares = HttpContext.Session.GetString("UrlRetorno");
+            return LocalRedirect(urlRetornoDatosFamiliares);
 
         }
+
+
+
+        //GET: Eliminar Datos Familiares
+        [HttpGet]
+        public async Task<IActionResult> EliminarDatosFamiliares(int? id)
+        {
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var eDatosFamiliares = await this._context.DatosFamiliaresDb
+                .FirstOrDefaultAsync(x => x.per_codigo_id == id);
+
+            if (eDatosFamiliares == null)
+            {
+                return NotFound();
+            }
+
+            var DatosFamiliaresEliminar = new DatosFamiliaresViewModel()
+
+            {
+                id_datos_familiares = eDatosFamiliares.id_datos_familiares,
+                per_codigo_id = eDatosFamiliares.per_codigo_id,
+                nombres_madre = eDatosFamiliares.nombres_madre,
+                primer_apellido_madre = eDatosFamiliares.primer_apellido_madre,
+                segundo_apellido_madre = eDatosFamiliares.segundo_apellido_madre,
+                edad_madre = eDatosFamiliares.edad_madre,
+                profesion_madre = eDatosFamiliares.profesion_madre,
+
+                nombres_padre = eDatosFamiliares.nombres_padre,
+                primer_apellido_padre = eDatosFamiliares.primer_apellido_padre,
+                segundo_apellido_padre = eDatosFamiliares.segundo_apellido_padre,
+                edad_padre = eDatosFamiliares.edad_padre,
+                profesion_padre = eDatosFamiliares.profesion_padre,
+                estado_datosfamiliares = eDatosFamiliares.estado_datosfamiliares
+            };
+
+            return View(DatosFamiliaresEliminar);
+        }
+
+
+        //POST: Eliminar Confirmado Datos Familiares
+        [HttpPost]
+        public async Task<IActionResult> EliminarConfirmadoDatosFamiliares(DatosFamiliaresViewModel DatosFamiliaresEliminados)
+        {
+
+            var datosFamiliares = await this._context.DatosFamiliaresDb.AsNoTracking().FirstOrDefaultAsync(x => x.per_codigo_id == DatosFamiliaresEliminados.per_codigo_id);
+
+            if (DatosFamiliaresEliminados == null)
+            {
+                return NotFound();
+
+            }
+
+            try
+            {
+                await this._familiares.EliminarConfirmadoDatosFamiliares(DatosFamiliaresEliminados);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+
+            return RedirectToAction("Personas", "Personas");
+        }
+
 
 
 
@@ -167,8 +241,6 @@ namespace Migrantes.Controllers
 
         }
         #endregion
-
-
 
     }
 }
