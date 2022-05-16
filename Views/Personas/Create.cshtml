@@ -4,10 +4,14 @@
     ViewData["Title"] = "Formulario para crear una persona";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="p-2 shadow-2 rounded-3 mb-2" style="background-color: hsl(0, 0%, 94%);">
-    <h2 class="text-center text-primary"><strong>@ViewData["Title"]</strong></h2>
-</div>
-<hr />
+
+<center>
+    <div class="p-2 shadow-2 rounded-3 mb-2" style="background-color: hsl(0, 0%, 94%);width:fit-content;">
+        <h2 class="text-center text-primary"><strong>@ViewData["Title"]</strong></h2>
+    </div>
+    <hr />
+</center>
+
 
 <div class="row">
     <div class="col-md-4">
@@ -211,5 +215,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
 }

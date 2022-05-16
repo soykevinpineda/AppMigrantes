@@ -53,17 +53,15 @@ namespace Migrantes.ViewModels
         [MaxLength(250)]
         public string RutaImagenPortada_B { get; set; }
 
+        [Display(Name = ("Portada del documento"))]
+        [Required(ErrorMessage = "Seleccione una foto por favor...")]
+        [NotMapped]
+        public IFormFile FotoDocumento { get; set; }
 
-        //[Display(Name = ("Fotografía del documento Lado A"))]
-        //[Required(ErrorMessage = "Seleccione una foto por favor...")]
-        //[NotMapped]
-        //public IFormFile FotoDocumento { get; set; }
-
-
-        //[Display(Name = ("Fotografía del documento Lado B"))]
-        //[Required(ErrorMessage = "Seleccione una foto por favor...")]
-        //[NotMapped]
-        //public IFormFile FotoDocumento_LadoB { get; set; }
+        [Display(Name = ("Contraportada del documento"))]
+        [Required(ErrorMessage = "Seleccione una foto por favor...")]
+        [NotMapped]
+        public IFormFile FotoDocumento_LadoB { get; set; }
 
 
         public int ide_estado { get; set; }

@@ -59,5 +59,34 @@ namespace Migrantes.ViewModels
 
         public int estado_datosfamiliares { get; set; }
 
+
+
+
+
+
+        [Display(Name = ("Primer nombre"))]
+        [MaxLength(50)]
+        public string per_primer_nom { get; set; }
+
+        [Display(Name = ("Segundo nombre"))]
+        [MaxLength(50)]
+        public string per_segundo_nom { get; set; }
+
+
+
+        [Display(Name = ("Primer apellido"))]
+        [MaxLength(50)]
+        public string per_primer_ape { get; set; }
+
+        [Display(Name = ("Segundo apellido"))]
+        [MaxLength(50)]
+        public string per_segundo_ape { get; set; }
+
+
+
+
+
+
+
     }
 }

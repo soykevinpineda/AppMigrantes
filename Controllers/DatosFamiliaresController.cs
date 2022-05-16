@@ -16,6 +16,7 @@ namespace Migrantes.Controllers
     public class DatosFamiliaresController : GenericController
     {
 
+
         private readonly ApplicationDbContext _context;
         private readonly IDocumentos _documentos;
         private readonly IPersonas _persona;
@@ -36,6 +37,8 @@ namespace Migrantes.Controllers
 
         #region Area Datos de familiares
 
+
+        //Get: Se agregan datos de familiares asociado al ID de la persona
         [HttpGet]
         public IActionResult AgregarDatosFamiliares(int? id)
 
@@ -63,6 +66,7 @@ namespace Migrantes.Controllers
         }
 
 
+        //Post: Se guardan datos de familiares asociado al ID de la persona
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AgregandoDatosFamiliares(DatosFamiliaresViewModel oDatosFamiliares)
@@ -92,12 +96,14 @@ namespace Migrantes.Controllers
 
 
 
+        //Get: Se editan datos de familiares asociado al ID de la persona
         [HttpGet]
         public IActionResult EditarDatosFamiliares(int? id)
 
         {
 
-            var ObjDatosFamiliares = this._context.DatosFamiliaresDb.FirstOrDefault(x => x.per_codigo_id == id);
+            var ObjDatosFamiliares = this._context.DatosFamiliaresDb
+                .FirstOrDefault(x => x.per_codigo_id == id);
 
             if (id == null)
             {
@@ -111,6 +117,8 @@ namespace Migrantes.Controllers
         }
 
 
+
+        //Post: Se actualiza datos editados de familiares asociado al ID de la persona
         [HttpPost]
         public async Task<IActionResult> ActualizarFamiliaresEditados(DatosFamiliaresViewModel DatosFamiliaresEditados)
         {
@@ -134,7 +142,9 @@ namespace Migrantes.Controllers
 
 
 
-        //GET: Eliminar Datos Familiares
+
+        //Get: Se obtiene datos de familiares asociado al ID de la persona
+        //para eliminar
         [HttpGet]
         public async Task<IActionResult> EliminarDatosFamiliares(int? id)
         {
@@ -152,7 +162,7 @@ namespace Migrantes.Controllers
                 return NotFound();
             }
 
-            var DatosFamiliaresEliminar = new DatosFamiliaresViewModel()
+            var datosFamiliaresEliminar = new DatosFamiliaresViewModel()
 
             {
                 id_datos_familiares = eDatosFamiliares.id_datos_familiares,
@@ -171,11 +181,11 @@ namespace Migrantes.Controllers
                 estado_datosfamiliares = eDatosFamiliares.estado_datosfamiliares
             };
 
-            return View(DatosFamiliaresEliminar);
+            return View(datosFamiliaresEliminar);
         }
 
 
-        //POST: Eliminar Confirmado Datos Familiares
+        //Post: Se eliminan datos de familiares asociado al ID de la persona
         [HttpPost]
         public async Task<IActionResult> EliminarConfirmadoDatosFamiliares(DatosFamiliaresViewModel DatosFamiliaresEliminados)
         {
@@ -197,7 +207,6 @@ namespace Migrantes.Controllers
                 throw;
             }
 
-
             return RedirectToAction("Personas", "Personas");
         }
 
@@ -211,29 +220,39 @@ namespace Migrantes.Controllers
 
         {
 
+            //Se crea una lista utilizando un ViewModel
+
             List<DatosFamiliaresViewModel> ListDatosFamiliares = new List<DatosFamiliaresViewModel>();
 
-            ListDatosFamiliares = (from oDatosFam in this._context.DatosFamiliaresDb
+
+            //Se realiza una consulta a la Db uniendo
+            //tabla persona con tabla datos familiares
+
+            ListDatosFamiliares = (from oDatosFamiliares in this._context.DatosFamiliaresDb
                                    join persona in this._context.PersonasDb
-                                    on oDatosFam.per_codigo_id equals persona.per_codigo_id
+                                    on oDatosFamiliares.per_codigo_id equals persona.per_codigo_id
                                    where persona.per_codigo_id == idPersona
 
 
                                    select new DatosFamiliaresViewModel
 
                                    {
-                                       per_codigo_id = oDatosFam.per_codigo_id,
-                                       nombres_madre = oDatosFam.nombres_madre,
-                                       primer_apellido_madre = oDatosFam.primer_apellido_madre,
-                                       segundo_apellido_madre = oDatosFam.segundo_apellido_madre,
-                                       edad_madre = oDatosFam.edad_madre,
-                                       profesion_madre = oDatosFam.profesion_madre,
+                                       per_primer_ape = persona.per_primer_ape,
+                                       per_segundo_ape = persona.per_segundo_ape,
+                                       per_segundo_nom = persona.per_segundo_nom,
+                                       per_primer_nom = persona.per_primer_nom,
+                                       per_codigo_id = oDatosFamiliares.per_codigo_id,
+                                       nombres_madre = oDatosFamiliares.nombres_madre,
+                                       primer_apellido_madre = oDatosFamiliares.primer_apellido_madre,
+                                       segundo_apellido_madre = oDatosFamiliares.segundo_apellido_madre,
+                                       edad_madre = oDatosFamiliares.edad_madre,
+                                       profesion_madre = oDatosFamiliares.profesion_madre,
 
-                                       nombres_padre = oDatosFam.nombres_padre,
-                                       primer_apellido_padre = oDatosFam.primer_apellido_padre,
-                                       segundo_apellido_padre = oDatosFam.segundo_apellido_padre,
-                                       edad_padre = oDatosFam.edad_padre,
-                                       profesion_padre = oDatosFam.profesion_padre,
+                                       nombres_padre = oDatosFamiliares.nombres_padre,
+                                       primer_apellido_padre = oDatosFamiliares.primer_apellido_padre,
+                                       segundo_apellido_padre = oDatosFamiliares.segundo_apellido_padre,
+                                       edad_padre = oDatosFamiliares.edad_padre,
+                                       profesion_padre = oDatosFamiliares.profesion_padre,
 
                                    }).ToList();
 

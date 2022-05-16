@@ -5,8 +5,12 @@ namespace Migrantes.Data.Servicios.Familiares
 {
     public interface IFamiliares
     {
-        Task ActualizarFamiliaresEditados(DatosFamiliaresViewModel DatosFamiliaresEditados);
         Task AgregandoDatosFamiliares(DatosFamiliaresViewModel oDatosFamiliares);
+
         Task EliminarConfirmadoDatosFamiliares(DatosFamiliaresViewModel DatosFamiliaresEliminados);
+
+        Task ActualizarFamiliaresEditados(DatosFamiliaresViewModel DatosFamiliaresEditados);
+
     }
+
 }

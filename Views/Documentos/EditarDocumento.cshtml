@@ -8,14 +8,18 @@
     List<DocumentosPersonaDTO> DocumentosPersona = ViewBag.ListadoDocumentos;
 }
 
-<div class="p-2 shadow-2 rounded-3 mb-2" style="background-color: hsl(0, 0%, 94%);font-family:Helvetica;border-radius: 9px;">
+
+<center>
+    <div class="p-2 shadow-2 rounded-3 mb-2" style="background-color: hsl(0, 0%, 94%);font-family:Helvetica;border-radius: 9px;width:fit-content;">
     <h2 class="text-center text-primary"><strong>@ViewData["Title"]</strong></h2>
 </div>
 <hr />
+</center>
+
 
 <div class="row justify-content-center">
     <div style="text-align: center" class="col-md-4 offset-sm-0">
-        <form asp-action="GuardarDocEditado" asp-controller="Documentos" method="post" id="frm">
+        <form asp-action="GuardarDocumentoEditado" asp-controller="Documentos" method="post" id="frm">
            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="@Model.ide_id_persona"/>
 

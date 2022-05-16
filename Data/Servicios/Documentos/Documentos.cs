@@ -7,8 +7,8 @@ namespace Migrantes.Data.Servicios.Documentos
 {
     public class Documentos : IDocumentos
     {
-        private readonly ApplicationDbContext _context;
 
+        private readonly ApplicationDbContext _context;
 
         public Documentos(ApplicationDbContext context)
         {
@@ -17,30 +17,7 @@ namespace Migrantes.Data.Servicios.Documentos
         }
 
 
-        public async Task GuardarDocumentoEditado(DocumentosViewModel identidad)
-        {
-
-            IdentidadPersona oDocumento = new IdentidadPersona();
-
-            oDocumento.ide_codigo_id = identidad.ide_codigo_id;
-            oDocumento.ide_id_documento = identidad.ide_id_documento;
-            oDocumento.ide_numero = identidad.ide_numero;
-            oDocumento.ide_fecha_emision = identidad.ide_fecha_emision;
-            oDocumento.ide_fecha_vencimiento = identidad.ide_fecha_vencimiento;
-            oDocumento.ide_estado = 1;
-            oDocumento.ide_entregado = true;
-            oDocumento.NombreImagenPortada_A = identidad.NombreImagenPortada_A;
-            oDocumento.NombreImagenPortada_B = identidad.NombreImagenPortada_B;
-            oDocumento.RutaImagenPortada_A = identidad.RutaImagenPortada_A;
-            oDocumento.RutaImagenPortada_B = identidad.RutaImagenPortada_B;
-  
-            this._context.IdentidadPersonasDb.Update(oDocumento);
-            await this._context.SaveChangesAsync();
-
-        }
-
-
-        public async Task GuardarDocumento(IdentidadPersona DocGuardado, string fileName, string path2, string fileNameB,string path2B)
+        public async Task GuardarDocumento(IdentidadPersona DocGuardado, string fileName, string path2, string fileNameB, string path2B)
 
         {
             IdentidadPersona oDocumento = new IdentidadPersona();
@@ -63,19 +40,40 @@ namespace Migrantes.Data.Servicios.Documentos
 
         }
 
+        public async Task GuardarDocumentoEditado(DocumentosViewModel documentoEditado)
+        {
 
-        public async Task EliminarDocumento(DocumentosViewModel IdentidadEliminada)
+            IdentidadPersona oDocumento = new IdentidadPersona();
+
+            oDocumento.ide_codigo_id = documentoEditado.ide_codigo_id;
+            oDocumento.ide_id_documento = documentoEditado.ide_id_documento;
+            oDocumento.ide_numero = documentoEditado.ide_numero;
+            oDocumento.ide_fecha_emision = documentoEditado.ide_fecha_emision;
+            oDocumento.ide_fecha_vencimiento = documentoEditado.ide_fecha_vencimiento;
+            oDocumento.ide_estado = 1;
+            oDocumento.ide_entregado = true;
+            oDocumento.NombreImagenPortada_A = documentoEditado.NombreImagenPortada_A;
+            oDocumento.NombreImagenPortada_B = documentoEditado.NombreImagenPortada_B;
+            oDocumento.RutaImagenPortada_A = documentoEditado.RutaImagenPortada_A;
+            oDocumento.RutaImagenPortada_B = documentoEditado.RutaImagenPortada_B;
+
+            this._context.IdentidadPersonasDb.Update(oDocumento);
+            await this._context.SaveChangesAsync();
+
+        }
+
+        public async Task EliminarDocumento(DocumentosViewModel documentoEliminado)
 
         {
 
             IdentidadPersona oDocumento = new IdentidadPersona();
 
-            oDocumento.ide_id_persona = IdentidadEliminada.ide_id_persona;
-            oDocumento.ide_codigo_id = IdentidadEliminada.ide_codigo_id;
-            oDocumento.ide_id_documento = IdentidadEliminada.ide_id_documento;
-            oDocumento.ide_numero = IdentidadEliminada.ide_numero;
-            oDocumento.ide_fecha_emision = IdentidadEliminada.ide_fecha_emision;
-            oDocumento.ide_fecha_vencimiento = IdentidadEliminada.ide_fecha_vencimiento;
+            oDocumento.ide_id_persona = documentoEliminado.ide_id_persona;
+            oDocumento.ide_codigo_id = documentoEliminado.ide_codigo_id;
+            oDocumento.ide_id_documento = documentoEliminado.ide_id_documento;
+            oDocumento.ide_numero = documentoEliminado.ide_numero;
+            oDocumento.ide_fecha_emision = documentoEliminado.ide_fecha_emision;
+            oDocumento.ide_fecha_vencimiento = documentoEliminado.ide_fecha_vencimiento;
             oDocumento.ide_estado = 1;
             oDocumento.ide_entregado = true;
 

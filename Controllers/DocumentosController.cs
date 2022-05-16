@@ -98,23 +98,23 @@ namespace Migrantes.Controllers
         }
 
 
-        //GET CREAR DOCUMENTO ASOCIADO AL ID DE LA PERSONA
+        //GET: Creamos Documento de la persona
         [HttpGet]
         public IActionResult CrearDocumento(int id)
 
 
         {
-            var DocumentoPersona = this._context.PersonasDb.FirstOrDefault(x => x.per_codigo_id == id);
+            var DocumentoPersona = this._context.PersonasDb
+                .FirstOrDefault(x => x.per_codigo_id == id);
 
             ViewBag.IdPersona = DocumentoPersona.per_codigo_id;
 
             TipoDoc(DocumentoPersona.per_codigo_id);
 
-
             return View();
         }
 
-        //Guardamos el documento asociado al id de la persona
+        //POST: Guardamos el documento asociado al id de la persona
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> GuardarDoc(IdentidadPersona identidad)
@@ -168,12 +168,13 @@ namespace Migrantes.Controllers
         }
 
 
-        //GET DETALLES DEL DOCUMENTO GUARDADO DE LA PERSONA
+        //GET: Detalles del documento de la persona
         [HttpGet]
         public async Task<IActionResult> DetallesDocumento(int? id)
         {
 
-            var documento = await this._context.IdentidadPersonasDb.FirstOrDefaultAsync(x => x.ide_id_persona == id);
+            var documento = await this._context.IdentidadPersonasDb
+                .FirstOrDefaultAsync(x => x.ide_id_persona == id);
 
             TipoDoc(documento.ide_id_documento);
 
@@ -189,7 +190,7 @@ namespace Migrantes.Controllers
             }
 
             //Declarando una instancia de ViewModel
-            //a utilizar igualandolo al objeto de la db.
+            //a utilizar igualandolo al objeto de la Db
             var doc = new DocumentosViewModel()
             {
                 ide_codigo_id = documento.ide_codigo_id,
@@ -205,11 +206,12 @@ namespace Migrantes.Controllers
         }
 
 
-        //GET EDITAR DOCUMENTO
+        //GET: Editar documento de la persona
         [HttpGet]
         public async Task<IActionResult> EditarDocumento(int? id)
         {
-            var documento = await this._context.IdentidadPersonasDb.FirstOrDefaultAsync(x => x.ide_id_persona == id);
+            var documento = await this._context.IdentidadPersonasDb
+                .FirstOrDefaultAsync(x => x.ide_id_persona == id);
 
             if (id == null)
             {
@@ -222,7 +224,7 @@ namespace Migrantes.Controllers
             }
 
             //Declarando una instancia para usar un ViewModel
-            //a utilizar igualandolo al objeto de la db.
+            //a utilizar igualandolo al objeto de la db
             var Doc = new DocumentosViewModel()
             {
                 ide_id_persona = documento.ide_id_persona,
@@ -241,10 +243,9 @@ namespace Migrantes.Controllers
         }
 
 
-        //POST EDITAR DOCUMENTO
-        //Guardamos el documento ya editado asociado al id de la persona
+        //POST: Guardar documento ya editado de la persona
         [HttpPost]
-        public async Task<IActionResult> GuardarDocEditado(DocumentosViewModel identidad)
+        public async Task<IActionResult> GuardarDocumentoEditado(DocumentosViewModel identidad)
         {
 
             if (ModelState.IsValid)
@@ -265,7 +266,7 @@ namespace Migrantes.Controllers
 
 
 
-        //GET ELIMINAR DOCUMENTO
+        //GET: Eliminar documento de la persona
         [HttpGet]
         public async Task<IActionResult> EliminarDocumento(int? id)
         {
@@ -275,7 +276,8 @@ namespace Migrantes.Controllers
                 return NotFound();
             }
 
-            var documento = await this._context.IdentidadPersonasDb.FirstOrDefaultAsync(x => x.ide_id_persona == id);
+            var documento = await this._context.IdentidadPersonasDb
+                .FirstOrDefaultAsync(x => x.ide_id_persona == id);
 
             TipoDoc(documento.ide_id_documento);
 
@@ -306,7 +308,8 @@ namespace Migrantes.Controllers
         public async Task<IActionResult> EliminarDocumento(DocumentosViewModel IdentidadEliminada)
         {
 
-            var documento = await this._context.IdentidadPersonasDb.AsNoTracking().FirstOrDefaultAsync(x => x.ide_id_persona == IdentidadEliminada.ide_id_persona);
+            var documento = await this._context.IdentidadPersonasDb
+                .AsNoTracking().FirstOrDefaultAsync(x => x.ide_id_persona == IdentidadEliminada.ide_id_persona);
 
             if (IdentidadEliminada == null)
             {
@@ -337,16 +340,37 @@ namespace Migrantes.Controllers
             HttpContext.Session.SetString("UrlRetorno", urlRetornoDocs);
 
             //Obtenemos el ID de la persona.
-            var PersonaDoc = this._context.PersonasDb.FirstOrDefault(x => x.per_codigo_id == id);
+            var PersonaDoc = this._context.PersonasDb
+                .FirstOrDefault(x => x.per_codigo_id == id);
             ViewBag.IdPersona = PersonaDoc.per_codigo_id;
 
+            var oDocumentoDisponible = this._context.IdentidadPersonasDb
+            .FirstOrDefault(x => x.ide_codigo_id == id);
+            ViewBag.IdDocumentoDisponible = oDocumentoDisponible;
+
             //Obtenemos el ID del documento asociado a la persona.
-            var oDocumento = this._context.IdentidadPersonasDb.FirstOrDefault(x => x.ide_codigo_id == id);
+            var oDocumento = this._context.IdentidadPersonasDb
+                .Count(x => x.ide_codigo_id == id);
             ViewBag.IdDocumento = oDocumento;
 
-            if (oDocumento == null)
+            var NombrePersonaDocumento = this._context.PersonasDb
+               .Where(x => x.per_codigo_id == id)
+               .Select(x => x.per_primer_nom).FirstOrDefault();
+            ViewBag.NombrePersonaDocumento = NombrePersonaDocumento;
+
+            var segNombrePersonaDocumento = this._context.PersonasDb
+           .Where(x => x.per_codigo_id == id)
+           .Select(x => x.per_segundo_nom).FirstOrDefault();
+            ViewBag.segNombrePersonaDocumento = segNombrePersonaDocumento;
+
+            var primerApeDocumento = this._context.PersonasDb
+           .Where(x => x.per_codigo_id == id)
+           .Select(x => x.per_primer_ape).FirstOrDefault();
+            ViewBag.primerApeDocumento = primerApeDocumento;
+
+            if (ViewBag.IdDocumento == 0)
             {
-                TempData["msjDocumentosDisponibles"] = "La persona no tiene documentos agregados...";
+                TempData["msjDocsDisponibles"] = "La persona no tiene documentos agregados...";
             }
 
             if (id == null)
@@ -359,7 +383,7 @@ namespace Migrantes.Controllers
             return View();
         }
 
-        
+
         #endregion Area Documentos
 
 
@@ -372,6 +396,7 @@ namespace Migrantes.Controllers
             ListDocumentos = (from identidad in this._context.IdentidadPersonasDb
                               join persona in this._context.PersonasDb
                               on identidad.ide_codigo_id equals persona.per_codigo_id
+
                               join TipoDoc in this._context.TipoDocumentosDb
                               on identidad.ide_id_documento equals TipoDoc.tid_id_documento
                               where persona.per_codigo_id == idPersona
@@ -380,6 +405,10 @@ namespace Migrantes.Controllers
                               select new DocumentosPersonaDTO
 
                               {
+                                  tid_descripcion= TipoDoc.tid_descripcion,
+                                  per_segundo_nom = persona.per_segundo_nom,
+                                  ide_codigo_id = identidad.ide_codigo_id,    
+                                 
                                   RutaImagenPortada_A = identidad.RutaImagenPortada_A,
                                   NombreImagenPortada_A = identidad.NombreImagenPortada_A,
                                   RutaImagenPortada_B = identidad.RutaImagenPortada_B,
