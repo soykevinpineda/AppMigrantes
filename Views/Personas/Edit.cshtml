@@ -10,356 +10,345 @@
     List<DocumentosPersonaDTO> DocumentosPersona = ViewBag.ListadoDocumentos;
 }
 
-@*<ul>
-    <li>
-    <strong>@Html.ActionLink("Menú principal", "Personas", "Personas")</strong>
-    </li>
-    </ul>*@
-
-
-<div class="p-2 shadow-2 rounded-3 mb-2" style="background-color: hsl(0, 0%, 94%);font-family:Helvetica;border-radius: 9px;">
-    <h2 class="text-center text-primary"><strong>@ViewData["Title"]</strong></h2>
-</div>
-<hr>
-
-<div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a asp-controller="Documentos" asp-action="DocumentosDisponibles" asp-route-id="@ViewBag.IdPersona">Documentos personales</a>
-    <a asp-controller="DatosFamiliares" asp-action="AgregarDatosFamiliares" asp-route-id="@ViewBag.IdPersona">Datos de familiares</a>
-    <a asp-action="ExpedientesDisponibles" asp-route-id="@ViewBag.IdPersona">Expedientes</a>
-    <a href="#">Pasaporte/Visa</a>
-    <a href="#">Fiador</a>
-</div>
-<span style="font-size:30px;cursor:pointer" onclick="openNav()">
-    &#9776;
-
-    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="27" fill="black" class="bi bi-person-square" viewBox="0 0 16 16">
-        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z" />
-    </svg>
-</span>
-
 <style>
-    .sidenav {
-        height: 100%;
-        width: 0;
-        position: fixed;
-        z-index: 1;
-        top: 0;
-        left: 0;
-        background-color: #111;
-        overflow-x: hidden;
-        transition: 0.5s;
-        padding-top: 60px;
+    /* Style the links inside the sidenav */
+    #mySidenav a {
+        margin-top: 34px;
+        position: fixed; /* Position them relative to the browser window */
+        left: 0px; /* Position them outside of the screen */
+        transition: 0.3s; /* Add transition on hover */
+        padding: 15px; /* 15px padding */
+        width: 200px; /* Set a specific width */
+        text-decoration: dotted; /* Remove underline */
+        font-size: 20px; /* Increase font size */
+        color: white; /* White text color */
+        border-radius: 0 5px 5px 0; /* Rounded corners on the top right and bottom right side */
     }
 
-        .sidenav a {
-            padding: 8px 8px 8px 32px;
-            text-decoration: none;
-            font-size: 25px;
-            color: #818181;
-            display: block;
-            transition: 0.3s;
+        #mySidenav a:hover {
+            left: 20px; /* On mouse-over, make the elements appear as they should */
         }
 
-            .sidenav a:hover {
-                color: #f1f1f1;
-            }
+    /* The about link: 20px from the top with a green background */
+    #about {
+        top: 20px;
+        background-color: #2196F3;
+    }
 
-        .sidenav .closebtn {
-            position: absolute;
-            top: 0;
-            right: 25px;
-            font-size: 36px;
-            margin-left: 50px;
-        }
+    #blog {
+        top: 80px;
+        background-color: #2196F3; /* Blue */
+    }
+
+    #projects {
+        top: 140px;
+        background-color: #2196F3; /* Red */
+    }
+
+    #contact {
+        top: 200px;
+        background-color: #2196F3 /* Light Black */
+    }
 </style>
 
 
-<div class="row justify-content-center" style="font-family:Helvetica">
-    <div style="text-align:center" class="col-md-4 offset-sm-0">
-        <form style="font-family:Helvetica" asp-action="Edit" id="frm">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="per_codigo_id" />
-
-            <div class="form-group">
-                <strong>
-                    <label asp-for="per_estado" class="control-label"> </label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_estado" class="form-control text-center" />
-                <span asp-validation-for="per_estado" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <strong>
-                    <label asp-for="per_codigo_alternativo" class="control-label"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_codigo_alternativo" class="form-control text-center" />
-                <span asp-validation-for="per_codigo_alternativo" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <strong>
-                    <label asp-for="per_letra_indice" class="control-label"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_letra_indice" class="form-control text-center" />
-                <span asp-validation-for="per_letra_indice" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <strong>
-                    <label asp-for="per_primer_ape" class="control-label"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_primer_ape" class="form-control text-center" />
-                <span asp-validation-for="per_primer_ape" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <strong>
-                    <label asp-for="per_segundo_ape" class="control-label"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_segundo_ape" class="form-control text-center" />
-                <span asp-validation-for="per_segundo_ape" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <strong>
-                    <label asp-for="per_apellido_cas" class="control-label"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_apellido_cas" class="form-control text-center" />
-                <span asp-validation-for="per_apellido_cas" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <strong>
-                    <label asp-for="per_primer_nom" class="control-label"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_primer_nom" class="form-control text-center" />
-                <span asp-validation-for="per_primer_nom" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <strong>
-                    <label asp-for="per_segundo_nom" class="control-label"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_segundo_nom" class="form-control text-center" />
-                <span asp-validation-for="per_segundo_nom" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <strong>
-                    <label asp-for="per_otros_nom" class="control-label"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_otros_nom" class="form-control text-center" />
-                <span asp-validation-for="per_otros_nom" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <strong>
-                    <label asp-for="per_nombre_usual" class="control-label"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_nombre_usual" class="form-control text-center" />
-                <span asp-validation-for="per_nombre_usual" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <strong>
-                    <label asp-for="per_codpai_nacionalidad" class="control-label"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_codpai_nacionalidad" class="form-control text-center" />
-                <span asp-validation-for="per_codpai_nacionalidad" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <strong>
-                    <label asp-for="per_codpai_nacimiento" class="control-label"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_codpai_nacimiento" class="form-control text-center" />
-                <span asp-validation-for="per_codpai_nacimiento" class="text-danger"></span>
-            </div>
-
-
-            <div class="form-group">
-                <strong>
-                    <label asp-for="per_sexo" class="control-label"></label>
-                </strong>
-                <select asp-for="per_sexo" asp-items="@SexosSelect" class="form-control text-center" style="border:1px solid;color:black"> </select>
-                <span asp-validation-for="per_sexo" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <strong>
-                    <label asp-for="per_edad" class="control-label"></label>
-                </strong>
-                <input style="border:1px solid;color:black" readonly asp-for="per_edad" class="form-control text-center" />
-                <span asp-validation-for="per_edad" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <strong>
-                    <label asp-for="per_fecha_nac" class="control-label"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_fecha_nac" class="form-control text-center" />
-                <span asp-validation-for="per_fecha_nac" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <strong>
-                    <label asp-for="per_profesion" class="control-label"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_profesion" class="form-control text-center" />
-                <span asp-validation-for="per_profesion" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <strong>
-                    <label asp-for="per_estado_civil" class="control-label"></label>
-                </strong>
-                <select asp-for="per_estado_civil" asp-items="@EstCivilSelect" class="form-control text-center" style="border:1px solid;color:black"> </select>
-                <span asp-validation-for="per_estado_civil" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <strong>
-                    <label asp-for="per_email" class="control-label"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_email" class="form-control text-center" />
-                <span asp-validation-for="per_email" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <strong>
-                    <label asp-for="per_codmun_nac" class="control-label"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_codmun_nac" class="form-control text-center" />
-                <span asp-validation-for="per_codmun_nac" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <strong>
-                    <label asp-for="per_coddep_nac" class="control-label"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_coddep_nac" class="form-control text-center" />
-                <span asp-validation-for="per_coddep_nac" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <strong>
-                    <label asp-for="per_lugar_nac" class="control-label"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_lugar_nac" class="form-control text-center" />
-                <span asp-validation-for="per_lugar_nac" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <strong>
-                    <label asp-for="per_email_interno" class="control-label"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_email_interno" class="form-control text-center" />
-                <span asp-validation-for="per_email_interno" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <strong>
-                    <label asp-for="per_telefono_movil" class="control-label"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_telefono_movil" class="form-control text-center" />
-                <span asp-validation-for="per_telefono_movil" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <strong>
-                    <label asp-for="per_telefono_interno" class="control-label"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_telefono_interno" class="form-control text-center" />
-                <span asp-validation-for="per_telefono_interno" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <strong>
-                    <label asp-for="per_apellidos_nombres" class="control-label"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_apellidos_nombres" class="form-control text-center" />
-                <span asp-validation-for="per_apellidos_nombres" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <strong>
-                    <label asp-for="per_observaciones" class="control-label"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_observaciones" class="form-control text-center" />
-                <span asp-validation-for="per_observaciones" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <strong>
-                    <label asp-for="per_codpai_digita" class="control-label"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_codpai_digita" class="form-control text-center" />
-                <span asp-validation-for="per_codpai_digita" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <strong>
-                    <label asp-for="per_usuario_grabacion" class="control-label"></label>
-                </strong>
-                <input style="border:1px solid;color:black" readonly asp-for="per_usuario_grabacion" class="form-control text-center" />
-                <span asp-validation-for="per_usuario_grabacion" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <strong>
-                    <label asp-for="per_fecha_grabacion" class="control-label"></label>
-                </strong>
-                <input style="border:1px solid;color:black" readonly asp-for="per_fecha_grabacion" class="form-control text-center" />
-                <span asp-validation-for="per_fecha_grabacion" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <input type="button" onclick="Editar()" value="Actualizar información" class="btn btn-success" />
-                <br />
-                <br />
-                <a class="btn btn-outline-primary" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
-            </div>
-        </form>
-    </div>
-
-
+<!-- Sidenav -->
+<div id="mySidenav" class="sidenav">
+    <a asp-controller="Documentos" asp-route-id="@ViewBag.IdPersona" asp-action="DocumentosDisponibles" id="about">Documentos</a>
+    <a asp-controller="DatosFamiliares" asp-route-id="@ViewBag.IdPersona" asp-action="AgregarDatosFamiliares" id="blog">Datos familiares</a>
+    <a href="#" id="projects">Fiador</a>
+    <a href="#" id="contact">Contact</a>
 </div>
 
-<br />
-<br />
-
-@* //si tempdata contiene un mensaje se muestra de lo contrario no muestra msj.*@
-@if (ViewBag.IdDocumento == null)
-{
-
-    <div class="container">
-
-        @if (TempData["msj"] != null)
-        {
-            <div class="alert alert-warning d-flex alert-dismissible fade show" role="alert">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
-                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                </svg>
-                @TempData["msj"]
-                <button type="button" class="close" data-dismiss="alert" aria-label="close">
-                    <span arie-hidden="true">&times;</span>
-                </button>
+<div style="margin-left:0px;">
+    <!-- content -->
+    <div class="container-fluid">
+        <center>
+            <div class="p-2 shadow-2 rounded-3 mb-2" style="background-color: hsl(0, 0%, 94%);font-family:Helvetica;border-radius: 9px;width:fit-content;">
+                <h2 class="text-center text-primary"><strong>@ViewData["Title"]</strong></h2>
             </div>
-        }
+            <hr>
+        </center>
+
+        <br />
+        <div class="row justify-content-center" style="font-family:Helvetica;">
+            <div style="text-align:center" class="col-md-3 offset-sm-0">
+                <form style="font-family:Helvetica;" asp-action="Edit" id="frm">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="per_codigo_id" />
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="per_estado" class="control-label"> </label>
+                        </strong>
+                        <input style="border:1px solid;color:black;" asp-for="per_estado" class="form-control text-center" />
+                        <span asp-validation-for="per_estado" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="per_codigo_alternativo" class="control-label"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black;" asp-for="per_codigo_alternativo" class="form-control text-center" />
+                        <span asp-validation-for="per_codigo_alternativo" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="per_letra_indice" class="control-label"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black;" asp-for="per_letra_indice" class="form-control text-center" />
+                        <span asp-validation-for="per_letra_indice" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="per_primer_ape" class="control-label"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black;" asp-for="per_primer_ape" class="form-control text-center" />
+                        <span asp-validation-for="per_primer_ape" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="per_segundo_ape" class="control-label"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black;" asp-for="per_segundo_ape" class="form-control text-center" />
+                        <span asp-validation-for="per_segundo_ape" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="per_apellido_cas" class="control-label"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black;" asp-for="per_apellido_cas" class="form-control text-center" />
+                        <span asp-validation-for="per_apellido_cas" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="per_primer_nom" class="control-label"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black;" asp-for="per_primer_nom" class="form-control text-center" />
+                        <span asp-validation-for="per_primer_nom" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="per_segundo_nom" class="control-label"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black;" asp-for="per_segundo_nom" class="form-control text-center" />
+                        <span asp-validation-for="per_segundo_nom" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="per_otros_nom" class="control-label"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black;" asp-for="per_otros_nom" class="form-control text-center" />
+                        <span asp-validation-for="per_otros_nom" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="per_nombre_usual" class="control-label"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black;" asp-for="per_nombre_usual" class="form-control text-center" />
+                        <span asp-validation-for="per_nombre_usual" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="per_codpai_nacionalidad" class="control-label"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black;" asp-for="per_codpai_nacionalidad" class="form-control text-center" />
+                        <span asp-validation-for="per_codpai_nacionalidad" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="per_codpai_nacimiento" class="control-label"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black;" asp-for="per_codpai_nacimiento" class="form-control text-center" />
+                        <span asp-validation-for="per_codpai_nacimiento" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="per_sexo" class="control-label"></label>
+                        </strong>
+                        <select asp-for="per_sexo" asp-items="@SexosSelect" class="form-control text-center" style="border:1px solid;color:black;"> </select>
+                        <span asp-validation-for="per_sexo" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="per_edad" class="control-label"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black;" readonly asp-for="per_edad" class="form-control text-center" />
+                        <span asp-validation-for="per_edad" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="per_fecha_nac" class="control-label"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black;" asp-for="per_fecha_nac" class="form-control text-center" />
+                        <span asp-validation-for="per_fecha_nac" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="per_profesion" class="control-label"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black;" asp-for="per_profesion" class="form-control text-center" />
+                        <span asp-validation-for="per_profesion" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="per_estado_civil" class="control-label"></label>
+                        </strong>
+                        <select asp-for="per_estado_civil" asp-items="@EstCivilSelect" class="form-control text-center" style="border:1px solid;color:black;"> </select>
+                        <span asp-validation-for="per_estado_civil" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="per_email" class="control-label"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black;" asp-for="per_email" class="form-control text-center" />
+                        <span asp-validation-for="per_email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="per_codmun_nac" class="control-label"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black;" asp-for="per_codmun_nac" class="form-control text-center" />
+                        <span asp-validation-for="per_codmun_nac" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="per_coddep_nac" class="control-label"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black;" asp-for="per_coddep_nac" class="form-control text-center" />
+                        <span asp-validation-for="per_coddep_nac" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="per_lugar_nac" class="control-label"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black;" asp-for="per_lugar_nac" class="form-control text-center" />
+                        <span asp-validation-for="per_lugar_nac" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="per_email_interno" class="control-label"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black;" asp-for="per_email_interno" class="form-control text-center" />
+                        <span asp-validation-for="per_email_interno" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="per_telefono_movil" class="control-label"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black;" asp-for="per_telefono_movil" class="form-control text-center" />
+                        <span asp-validation-for="per_telefono_movil" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="per_telefono_interno" class="control-label"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black;" asp-for="per_telefono_interno" class="form-control text-center" />
+                        <span asp-validation-for="per_telefono_interno" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="per_apellidos_nombres" class="control-label"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black;" asp-for="per_apellidos_nombres" class="form-control text-center" />
+                        <span asp-validation-for="per_apellidos_nombres" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="per_observaciones" class="control-label"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black;" asp-for="per_observaciones" class="form-control text-center" />
+                        <span asp-validation-for="per_observaciones" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="per_codpai_digita" class="control-label"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black;" asp-for="per_codpai_digita" class="form-control text-center" />
+                        <span asp-validation-for="per_codpai_digita" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="per_usuario_grabacion" class="control-label"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black;" readonly asp-for="per_usuario_grabacion" class="form-control text-center" />
+                        <span asp-validation-for="per_usuario_grabacion" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="per_fecha_grabacion" class="control-label"></label>
+                        </strong>
+                        <input style="border:1px solid;color:black;" readonly asp-for="per_fecha_grabacion" class="form-control text-center" />
+                        <span asp-validation-for="per_fecha_grabacion" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <input type="button" onclick="Editar()" value="Actualizar información" class="btn btn-success" />
+                        <br />
+                        <br />
+                        <a class="btn btn-outline-primary" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+</div>
 
+@*
+    //si Tempdata contiene un mensaje se muestra
+    de lo contrario no muestra msj
 
+    @if (ViewBag.IdDocumento == null)
+    {
+    <div class="container">
+    @if (TempData["msj"] != null)
+    {
+    <div class="alert alert-warning d-flex alert-dismissible fade show" role="alert">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+    </svg>
+    @TempData["msj"]
+    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+    <span arie-hidden="true">&times;</span>
+    </button>
+    </div>
+    }
+    </div>
     <center>
-        <a class="btn btn-info" asp-route-id="@ViewBag.IdPersona" asp-action="CreateDPI">Agregar documento</a>
+    <a class="btn btn-info" asp-route-id="@ViewBag.IdPersona" asp-action="CreateDPI">Agregar documento</a>
     </center>
-}
-
-
+    }*@
 @section Scripts {
     @{
     await Html.RenderPartialAsync("_ValidationScriptsPartial");
 }
+
 <script src="~/js/generic.js"></script>
 <script src="~/js/sweetalert.js"></script>
 
@@ -379,15 +368,5 @@
     });
 
     $('.toast').toast(option)
-</script>
-
-<script>
-    function openNav() {
-      document.getElementById("mySidenav").style.width = "250px";
-    }
-
-    function closeNav() {
-      document.getElementById("mySidenav").style.width = "0";
-    }
 </script>
 }

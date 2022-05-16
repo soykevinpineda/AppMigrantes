@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Migrantes.Models.Entities;
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -25,11 +26,17 @@ namespace Migrantes.Models.DTO
         [MaxLength(50)]
         public string per_primer_nom { get; set; }
 
+        [Display(Name = ("Segundo nombre"))]
+        [MaxLength(50)]
+        public string per_segundo_nom { get; set; }
 
         [Display(Name = ("Primer apellido"))]
         [MaxLength(50)]
         public string per_primer_ape { get; set; }
 
+        [Display(Name = ("Segundo apellido"))]
+        [MaxLength(50)]
+        public string per_segundo_ape { get; set; }
 
         [Display(Name = ("Fecha grabación"))]
         [DataType(DataType.DateTime)]
@@ -47,7 +54,7 @@ namespace Migrantes.Models.DTO
 
 
 
-        #region TipoDocumento
+        #region Tipo de Documento
 
 
         [Display(Name = ("Nombre Documento"))]

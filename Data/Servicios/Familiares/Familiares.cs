@@ -6,14 +6,14 @@ namespace Migrantes.Data.Servicios.Familiares
 {
     public class Familiares : IFamiliares
     {
-        //ApplicationDbContext
+
+        //Declarando ApplicationDbContext
         private readonly ApplicationDbContext _context;
 
         public Familiares(ApplicationDbContext context)
         {
             this._context = context;
         }
-
 
         public async Task AgregandoDatosFamiliares(DatosFamiliaresViewModel oDatosFamiliares)
         {
@@ -38,7 +38,6 @@ namespace Migrantes.Data.Servicios.Familiares
             await this._context.SaveChangesAsync();
 
         }
-
 
         public async Task ActualizarFamiliaresEditados(DatosFamiliaresViewModel DatosFamiliaresEditados)
         {
@@ -65,7 +64,6 @@ namespace Migrantes.Data.Servicios.Familiares
 
         }
 
-
         public async Task EliminarConfirmadoDatosFamiliares(DatosFamiliaresViewModel DatosFamiliaresEliminados)
 
         {
@@ -91,13 +89,6 @@ namespace Migrantes.Data.Servicios.Familiares
             await this._context.SaveChangesAsync();
 
         }
-
-
-
-
-
-
-
 
     }
 }

@@ -1,5 +1,5 @@
 ﻿@using Migrantes.Models.DTO
-@model Migrantes.Models.Entities.IdentidadPersona
+@model Migrantes.ViewModels.DocumentosViewModel
 @{
     ViewData["Title"] = "Formulario para registro de documentos";
     ViewData["TitleCargaDocumentos"] = "Carga de archivos";
@@ -8,10 +8,14 @@
     List<DocumentosPersonaDTO> DocumentosPersona = ViewBag.ListadoDocumentos;
 }
 
-<div class="p-2 shadow-2 rounded-3 mb-2" style="background-color: hsl(0, 0%, 94%);font-family:Helvetica;border-radius: 9px;">
-    <h2 class="text-center text-primary"><strong>@ViewData["Title"]</strong></h2>
-</div>
-<hr />
+<center>
+    <div class="p-2 shadow-2 rounded-3 mb-2" style="background-color: hsl(0, 0%, 94%);font-family:Helvetica;border-radius: 9px;width:fit-content;">
+        <h2 class="text-center text-primary"><strong>@ViewData["Title"]</strong></h2>
+    </div>
+    <hr />
+</center>
+
+
 
 <div class="row justify-content-center">
     <div style="text-align: center" class="col-md-4 offset-sm-0">
