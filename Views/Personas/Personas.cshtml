@@ -4,21 +4,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@*<ul>
-    <li>
-    <strong>@Html.ActionLink("Crear persona", "CrearPersona", "Personas")</strong>
-    </li>
-    </ul>*@
 
-<center>
-    <div class="p-2 shadow-2 rounded-3 mb-2" style="background-color:hsl(0, 0%, 94%);font-family:Helvetica;border-radius:9px;width:fit-content;">
-        <h2 class="text-center text-primary"><strong>@ViewData["Title"]</strong></h2>
-    </div>
-    <hr>
-</center>
+   @*<form asp-action="Personas" asp-controller="Personas" method="get" id="frmForm" style="font-family:Helvetica">
+        <div class="form-actions no-color">
+            <p>
+                <strong>Busca por nombres o apellidos: </strong>
+                <input placeholder=" Busca por nombres o apellidos..." class="search" style="border:1.5px solid;color:black;width:375px" type="text" name="oBuscador" value="@ViewData["Buscador"]" id="frmBuscar" />&nbsp;
+                <input type="submit" value="Buscar" class="btn btn-outline-primary" />
+                <input type="submit" value="Limpiar" class="btn btn-outline-danger" onclick="Limpiar()" />
+            </p>
+        </div>
+    </form>*@
 
 
-<div style="justify-content:center;display:flex;align-items:center;font-family:Helvetica;" class="mb-2">
+<div style="justify-content:center;display:flex;align-items:center;font-family:Helvetica;font-size:36px" class="mb-2">
     <div class="toast" data-delay="5000" style="border:thin;color:blue;border-radius: 9px;" role="alert" aria-live="assertive" aria-atomic="true">
         <div style="background:#007bff" class="toast-header">
             <img src="~/img/scblancopeque-200x91.png" style="width:10%;height:10%" class="rounded mr-2" alt="..." />
@@ -33,7 +32,7 @@
         {
             <div class="toast-body">
                 <h4 class="text-primary text-center">
-                    Se encontró un total de
+                     Se encontró un total de
                     <strong class="text-success">@ViewBag.TotalPersonas</strong>
                     personas en la base de datos.
                 </h4>
@@ -43,11 +42,11 @@
         {
             <div class="toast-body">
                 <h4 class="text-primary text-center">
-                    
-                        El resultado de la búsqueda son:
-                        <strong class="text-success">@ViewBag.TotalPersonas</strong>
-                        persona(s) registrada(s).
-                
+
+                    El resultado de la búsqueda son:
+                    <strong class="text-success">@ViewBag.TotalPersonas</strong>
+                    persona(s) registrada(s).
+
                 </h4>
             </div>
         }
@@ -63,253 +62,292 @@
         }
     </div>
 </div>
-
-<p>
-    <a class="btn btn-outline-success btn-sm mb-2" asp-controller="Personas" asp-action="CrearPersona">Crear nueva persona</a>
-</p>
-
-@if (ViewBag.Validacion == 3 || ViewBag.Validacion == 0)
-{
-    <input type="button" class="btn btn-success btn-sm mb-2" disabled value="Exportar data a Excel"
-       onclick="DescargarExcel()" />
-}
-else if (ViewBag.Validacion == 2 || ViewBag.Validacion == 1)
-{
-    <input type="button" class="btn btn-success btn-sm mb-2" value="Exportar data a Excel"
-       onclick="DescargarExcel()" />
-}
-
 <br />
 <br />
 
-<form asp-action="Personas" asp-controller="Personas" method="get" id="frmForm" style="font-family:Helvetica">
-    <div class="form-actions no-color">
-        <p>
-            @*<strong>Busca por nombres o apellidos: </strong>*@
-            <input placeholder=" Busca por nombres o apellidos..." class="search" style="border:1.5px solid;color:black;width:375px" type="text" name="oBuscador" value="@ViewData["Buscador"]" id="frmBuscar" />&nbsp;
-            <input type="submit" value="Buscar" class="btn btn-outline-primary" />
-            <input type="submit" value="Limpiar" class="btn btn-outline-danger" onclick="Limpiar()" />
-        </p>
+
+
+<div class="row">
+    <div class="col-8" style="justify-content:flex-start;padding-right:0px;padding-left:15px;">
+        <div class="pb-3 shadow-2" style="font-family:Helvetica;border-radius:9px;">
+            <h1 class="text-primary" style="text-align:left;">
+                <strong>@ViewData["Title"]</strong><br/>
+            </h1>
+            <h6 class="text-success">
+                Lista de potenciales migrantes.
+                <br /><strong class="text-danger">Powered by </strong> <strong style="color:black">Sourcing-Corp&copy;</strong>
+            </h6>
+        </div>
     </div>
-</form>
 
+    <div class="col-4" style="justify-items:flex-end;display:inline-grid;padding-right:0px;padding-left:0px;">
+        <button class="btn btn-primary btn-sm" asp-controller="Personas" asp-action="CrearPersona">Crear nueva persona</button>
+        <br />
+        @if (ViewBag.Validacion == 3 || ViewBag.Validacion == 0)
+        {
+            <input type="button" class="btn btn-outline-primary btn-sm" disabled value="Exportar data a Excel"
+               onclick="DescargarExcel()" />
+        }
+        else if (ViewBag.Validacion == 2 || ViewBag.Validacion == 1)
+        {
+            <input type="button" class="btn btn-outline-primary btn-sm" value="Exportar data a Excel"
+               onclick="DescargarExcel()" />
+        }
+    </div>
+</div>
+<hr />
+<br />
 
-<div class="table-responsive text-nowrap" style="font-family:Helvetica;">
-    <form asp-action="ExportarPersonasExcel" asp-controller="Personas" id="FormChecks">
-        <table class="table-light table-striped text-center table-hover table-sm table-responsive-xl pre-scrollable">
-
-            <thead class="text-center" style="color:white">
-                <tr>
-                    <th>
-                        <input type="checkbox" checked name="nombrePropiedades" value="per_primer_ape" />
-                    </th>
-                    <th>
-                        <input type="checkbox" checked name="nombrePropiedades" value="per_segundo_ape" />
-                    </th>
-                    <th>
-                        <input type="checkbox" checked name="nombrePropiedades" value="per_primer_nom" />
-                    </th>
-                    <th>
-                        <input type="checkbox" checked name="nombrePropiedades" value="per_segundo_nom" />
-                    </th>
-                    <th>
-                        <input type="checkbox" checked name="nombrePropiedades" value="Sexo" />
-                    </th>
-                    <th>
-                        <input type="checkbox" checked name="nombrePropiedades" value="Edad" />
-                    </th>
-                    <th>
-                        <input type="checkbox" checked name="nombrePropiedades" value="EstadoCivil" />
-                    </th>
-                    <th>
-                        <input type="checkbox" checked name="nombrePropiedades" value="per_telefono_movil" />
-                    </th>
-                    <th>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        <strong>
-                            Primer apellido
-                        </strong>
-                    </th>
-                    <th>
-                        <strong>
-                            @Html.DisplayNameFor(model => model.per_segundo_ape)
-                        </strong>
-                    </th>
-                    <th>
-                        <strong>
-                            Primer nombre
-                        </strong>
-                    </th>
-                    <th>
-                        <strong>
-                            @Html.DisplayNameFor(model => model.per_segundo_nom)
-                        </strong>
-                    </th>
-                    <th>
-                        <strong>
-                            @Html.DisplayNameFor(model => model.Sexo)
-                        </strong>
-                    </th>
-                    <th>
-                        <strong>
-                            @Html.DisplayNameFor(model => model.Edad)
-                        </strong>
-                    </th>
-                    <th>
-                        <strong>
-                            @Html.DisplayNameFor(model => model.EstadoCivil)
-                        </strong>
-                    </th>
-                    <th>
-                        <strong>
-                            Número de teléfono
-                        </strong>
-                    </th>
-                    <th>
-                    </th>
-                </tr>
-            </thead>
-
-            <tbody class="table-light text-center">
-                @foreach (var item in Model)
-                {
-                    <tr class="table-">
-                        <td>
-                            @Html.DisplayFor(x => item.per_primer_ape)
-                        </td>
-                        <td>
-
-                            @Html.DisplayFor(x => item.per_segundo_ape)
-
-                        </td>
-
-                        <td>
-
-                            @Html.DisplayFor(x => item.per_primer_nom)
-
-                        </td>
-                        <td>
-                            @Html.DisplayFor(x => item.per_segundo_nom)
-                        </td>
-
-                        <td>
-                            @if (item.Sexo.Contains("M"))
-                            {
-                                <strong class="text-primary">@Html.DisplayFor(x => item.Sexo)</strong>
-                            }
-                            else
-                            {
-                                <strong style="color:hotpink">
-                                    @Html.DisplayFor(x => item.Sexo)
-                                </strong>
-                            }
-                        </td>
-                        <td>
-                            @if (item.per_edad > 18)
-                            {
-                                <strong class="text-success">
-                                    @Html.DisplayFor(x => item.Edad)
-                                </strong>
-                            }
-                            else
-                            {
-                                <strong class="text-danger">
-                                    @Html.DisplayFor(x => item.Edad)
-                                </strong>
-                            }
-                        </td>
-                        <td>
-                            @Html.DisplayFor(x => item.EstadoCivil)
-
-                        </td>
-                        <td>
-                            @Html.DisplayFor(x => item.per_telefono_movil)
-
-                        </td>
-                        @*
-                            <td>
-                            @if (item.per_usuario_modificacion.Contains("N/A"))
-                            {
-                            <p class="text-danger">
-                            <strong>No se ha modificado</strong>
-                            </p>
-                            }
-                            else
-                            {
-                            <strong class="text-success">
-                            @Html.DisplayFor(x => item.per_usuario_modificacion)
+<div class="card">
+    <div class="table-responsive text-nowrap" style="align-content:space-evenly">
+        <form asp-action="ExportarPersonasExcel" asp-controller="Personas" id="FormChecks">
+            <table class="table-light table-striped text-center table-hover table-sm table-responsive-xl pre-scrollable">
+                <thead class="text-center" style="color:white;">
+                    <tr>
+                        <th>
+                            <input type="checkbox" checked name="nombrePropiedades" value="per_primer_ape" />
+                        </th>
+                        <th>
+                            <input type="checkbox" checked name="nombrePropiedades" value="per_segundo_ape" />
+                        </th>
+                        <th>
+                            <input type="checkbox" checked name="nombrePropiedades" value="per_primer_nom" />
+                        </th>
+                        <th>
+                            <input type="checkbox" checked name="nombrePropiedades" value="per_segundo_nom" />
+                        </th>
+                        <th>
+                            <input type="checkbox" checked name="nombrePropiedades" value="Sexo" />
+                        </th>
+                        <th>
+                            <input type="checkbox" checked name="nombrePropiedades" value="Edad" />
+                        </th>
+                        <th>
+                            <input type="checkbox" checked name="nombrePropiedades" value="EstadoCivil" />
+                        </th>
+                        <th>
+                            <input type="checkbox" checked name="nombrePropiedades" value="per_telefono_movil" />
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <strong>
+                                Primer apellido
                             </strong>
-                            }
+                        </th>
+                        <th>
+                            <strong>
+                                @Html.DisplayNameFor(model => model.per_segundo_ape)
+                            </strong>
+                        </th>
+                        <th>
+                            <strong>
+                                Primer nombre
+                            </strong>
+                        </th>
+                        <th>
+                            <strong>
+                                @Html.DisplayNameFor(model => model.per_segundo_nom)
+                            </strong>
+                        </th>
+                        <th>
+                            <strong>
+                                @Html.DisplayNameFor(model => model.Sexo)
+                            </strong>
+                        </th>
+                        <th>
+                            <strong>
+                                @Html.DisplayNameFor(model => model.Edad)
+                            </strong>
+                        </th>
+                        <th>
+                            <strong>
+                                @Html.DisplayNameFor(model => model.EstadoCivil)
+                            </strong>
+                        </th>
+                        <th>
+                            <strong>
+                                Número de teléfono
+                            </strong>
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody class="table-light text-center">
+                    @foreach (var item in Model)
+                    {
+                        <tr class="table-">
+                            <td>
+                                @Html.DisplayFor(x => item.per_primer_ape)
                             </td>
                             <td>
-                            @if (item.per_usuario_modificacion.Contains("N/A"))
-                            {
-                            <p class="text-danger">
-                            <strong>No hay fecha</strong>
-                            </p>
-                            }
-                            else
-                            {
-                            <strong class="text-success">
-                            @Html.DisplayFor(x => item.per_fecha_modificacion)
-                            </strong>
-                            }
+                                @Html.DisplayFor(x => item.per_segundo_ape)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.per_primer_nom)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.per_segundo_nom)
+                            </td>
+                            <td>
+                                @if (item.Sexo.Contains("M"))
+                                {
+                                    <strong class="text-primary">@Html.DisplayFor(x => item.Sexo)</strong>
+                                }
+                                else
+                                {
+                                    <strong style="color:hotpink">
+                                        @Html.DisplayFor(x => item.Sexo)
+                                    </strong>
+                                }
+                            </td>
+                            <td>
+                                @if (item.per_edad > 18)
+                                {
+                                    <strong class="text-success">
+                                        @Html.DisplayFor(x => item.Edad)
+                                    </strong>
+                                }
+                                else
+                                {
+                                    <strong class="text-danger">
+                                        @Html.DisplayFor(x => item.Edad)
+                                    </strong>
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.EstadoCivil)
 
-                            </td>*@
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">
-                                    <strong>
-                                        Acciones
-                                    </strong> <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.per_codigo_id">Editar</a>
-                                    <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.per_codigo_id">Detalles</a>
-                                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.per_codigo_id">Eliminar</a>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.per_telefono_movil)
+
+                            </td>
+                            @*
+                                <td>
+                                @if (item.per_usuario_modificacion.Contains("N/A"))
+                                {
+                                <p class="text-danger">
+                                <strong>No se ha modificado</strong>
+                                </p>
+                                }
+                                else
+                                {
+                                <strong class="text-success">
+                                @Html.DisplayFor(x => item.per_usuario_modificacion)
+                                </strong>
+                                }
+                                </td>
+                                <td>
+                                @if (item.per_usuario_modificacion.Contains("N/A"))
+                                {
+                                <p class="text-danger">
+                                <strong>No hay fecha</strong>
+                                </p>
+                                }
+                                else
+                                {
+                                <strong class="text-success">
+                                @Html.DisplayFor(x => item.per_fecha_modificacion)
+                                </strong>
+                                }
+                                </td>*@
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">
+                                        <strong>
+                                            Acciones
+                                        </strong> <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <a class="glyphicon glyphicon-star btn btn-warning" asp-action="Edit" asp-route-id="@item.per_codigo_id">Editar</a>
+                                        <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.per_codigo_id">Detalles</a>
+                                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.per_codigo_id">Eliminar</a>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <style type="text/css">
+
+                .table-responsive {
+                    height: auto;
+                    font-family: "Helvetica", sans-serif;
                 }
-            </tbody>
-        </table>
-    </form>
 
+                thead tr th {
+                    position: sticky;
+                    top: 0;
+                    z-index: 10;
+                    background-color: #007bff;
+                    font-family: "Helvetica", sans-serif;
+                }
 
-    <style type="text/css">
-        thead tr th {
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            background-color: #007bff;
-            font-family: Helvetica;
-        }
-
-        .table-responsive {
-            height: 300px;
-            border-radius: 8px;
-        }
-
-        .search {
-            border: 3px dotted #999;
-            border-radius: 4px;
-            height: 36px;
-            -webkit-appearance: none;
-        }
-    </style>
+                .search {
+                    border: 3px dotted #999;
+                    border-radius: 4px;
+                    height: 36px;
+                    -webkit-appearance: none;
+                }
+            </style>
+        </form>
+    </div>
 </div>
+
+
+
+
+<br />
 <br />
 
-<caption>
-    <strong class="text-success">
-        Lista de potenciales migrantes.
-        <br /><strong class="text-danger">Powered by </strong> <strong style="color:black">Sourcing-Corp&copy;</strong>
-    </strong>
-</caption>
+
+
+
+
+
 
 @section Scripts{
 <script>

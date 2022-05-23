@@ -6,15 +6,17 @@
     <title>Migrantes</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" type="text/css" href="~/css/sideNav.css"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 </head>
 
 <body class="idbody">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-primary bg-primary border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-primary border-bottom box-shadow mb-3" style="color:#60A2F5;">
             <div class="container offset-sm-0">
                 <a class="navbar-brand" asp-controller="Personas" asp-action="CrearPersona">
-                    <img style="width:60px;height:2rem" src="~/img/scblancopeque-200x91.png" />
+                    <img style="width:70px;height:2rem" src="~/img/scblancopeque-200x91.png" />
                 </a>
                 <button class="navbar-toggler" type="button" style="background:#007bff" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -27,7 +29,6 @@
                         @*<li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
-
                         *@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Personas" asp-action="Personas">Lista de candidatos</a>
@@ -44,8 +45,8 @@
             @RenderBody()
         </main>
     </div>
-    <br/>
-    <br/>
+    <br />
+    <br />
     <footer class="border-top footer text-muted center">
         <center>
             <div class="container center">
