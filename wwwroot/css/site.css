@@ -7,6 +7,12 @@ a.navbar-brand {
   word-break: break-all;
 }
 
+.navbar{
+    margin-block-start: auto;
+  
+}
+
+
 /* Provide sufficient contrast against white background */
 a {
   color: #0366d6;

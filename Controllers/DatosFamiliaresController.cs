@@ -38,11 +38,13 @@ namespace Migrantes.Controllers
         #region Area Datos de familiares
 
 
+
         //Get: Se agregan datos de familiares asociado al ID de la persona
         [HttpGet]
-        public IActionResult AgregarDatosFamiliares(int? id)
+        public IActionResult DetallesDatosFamiliares(int? id)
 
         {
+
             //Obtenemos la ruta de inicio del usuario.
             var urlRetornoDatosFamiliares = HttpContext.Request.Path + HttpContext.Request.QueryString;
             HttpContext.Session.SetString("UrlRetorno", urlRetornoDatosFamiliares);
@@ -54,6 +56,35 @@ namespace Migrantes.Controllers
             ViewBag.IdDatosFam = ValidacionDatosFamiliares;
 
             if (ValidacionDatosFamiliares == null)
+
+            {
+                TempData["msjValidacionFamiliar"] = "La persona no tiene datos familiares agregados...";
+            }
+
+            DatosFamiliaresDisponibles(PersonaDatoFam.per_codigo_id);
+
+        
+            return View();
+           
+        }
+
+
+
+
+        //Get: Se agregan datos de familiares asociado al ID de la persona
+        [HttpGet]
+        public IActionResult AgregarDatosFamiliares(int? id)
+
+        {
+         
+            var PersonaDatoFam = this._context.PersonasDb.FirstOrDefault(x => x.per_codigo_id == id);
+            ViewBag.IdPersona = PersonaDatoFam.per_codigo_id;
+
+            var ValidacionDatosFamiliares = this._context.DatosFamiliaresDb.FirstOrDefault(x => x.per_codigo_id == id);
+            ViewBag.IdDatosFam = ValidacionDatosFamiliares;
+
+            if (ValidacionDatosFamiliares == null)
+
             {
                 TempData["msjValidacionFamiliar"] = "La persona no tiene datos familiares agregados...";
             }
@@ -88,7 +119,8 @@ namespace Migrantes.Controllers
                 throw;
             }
 
-            return RedirectToAction("Personas", "Personas");
+            var urlRetornoDatosFamiliares = HttpContext.Session.GetString("UrlRetorno");
+            return LocalRedirect(urlRetornoDatosFamiliares);
         }
 
         #endregion Area Datos de familiares

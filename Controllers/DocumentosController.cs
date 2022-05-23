@@ -358,10 +358,10 @@ namespace Migrantes.Controllers
                .Select(x => x.per_primer_nom).FirstOrDefault();
             ViewBag.NombrePersonaDocumento = NombrePersonaDocumento;
 
-            var segNombrePersonaDocumento = this._context.PersonasDb
-           .Where(x => x.per_codigo_id == id)
-           .Select(x => x.per_segundo_nom).FirstOrDefault();
-            ViewBag.segNombrePersonaDocumento = segNombrePersonaDocumento;
+           // var segNombrePersonaDocumento = this._context.PersonasDb
+           //.Where(x => x.per_codigo_id == id)
+           //.Select(x => x.per_segundo_nom).FirstOrDefault();
+           // ViewBag.segNombrePersonaDocumento = segNombrePersonaDocumento;
 
             var primerApeDocumento = this._context.PersonasDb
            .Where(x => x.per_codigo_id == id)
