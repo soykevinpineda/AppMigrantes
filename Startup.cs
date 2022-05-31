@@ -36,7 +36,8 @@ namespace Migrantes
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 
-            //Se agregan aqui en ConfigureServices las Interfaces relacionado con su modelo
+            //Se agregan aqui en ConfigureServices las Interfaces
+            //relacionado con su modelo
             
             services.AddTransient<IDocumentos, Documentos>();
             services.AddTransient<IPersonas, Personas>();
@@ -74,7 +75,7 @@ namespace Migrantes
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Personas}/{action=CrearPersona}/{id?}");
+                    pattern: "{controller=Personas}/{action=Personas}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

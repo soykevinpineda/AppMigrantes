@@ -9,6 +9,8 @@
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="~/css/site.css" />
 
+
+
 @*
     <ul>
     <li>
@@ -50,7 +52,7 @@
         <div class="row mb-4">
             <div class="col-md-6">
                 <strong style="color:hsl(0, 0%, 50%)">
-                    <label class="form-group row justify-content-center mb-0" asp-for="per_primer_ape"></label>
+                    <label class="form-group text-left row justify-content-center mb-0" asp-for="per_primer_ape"></label>
                 </strong>
                 <input * style="border:1px solid;color:black" asp-for="per_primer_ape" class="form-control" />
                 <span asp-validation-for="per_primer_ape" class="text-danger"></span>
@@ -215,27 +217,27 @@
 
 @section Scripts {
     @{
-     await Html.RenderPartialAsync("_ValidationScriptsPartial");
-}
-
-<script src="~/js/generic.js"></script>
-<script src="~/js/sweetalert.js"></script>
-
-<script>
-    function Guardar() {
-        var frm = document.getElementById("frm");
-        MostrarModal().then(res => {
-            if (res.value) {
-                frm.submit();
-                MostrarSuccess();
-            }
-        })
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 
-    $(document).ready(function () {
-        $('.toast').toast('show');
-    });
+    <script src="~/js/generic.js"></script>
+    <script src="~/js/sweetalert.js"></script>
 
-    $('.toast').toast(option)
-</script>
+    <script>
+        function Guardar() {
+            var frm = document.getElementById("frm");
+            MostrarModal().then(res => {
+                if (res.value) {
+                    frm.submit();
+                    MostrarSuccess();
+                }
+            })
+        }
+
+        $(document).ready(function() {
+            $('.toast').toast('show');
+        });
+
+        $('.toast').toast(option)
+    </script>
 }

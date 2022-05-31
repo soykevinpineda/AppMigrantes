@@ -4,6 +4,7 @@
     ViewData["Title"] = "Detalles de la persona";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 @*<ul>
     <li>
     <strong>@Html.ActionLink("Menú principal", "Personas", "Personas")</strong>
@@ -17,14 +18,8 @@
     <hr>
 </center>
 
-<center>
-   
-</center>
 
-
-
-
- <div class="card-group" style="font-family:Helvetica">
+<div class="card-group" style="font-family:Helvetica">
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.per_estado)
@@ -216,20 +211,18 @@
 </div>
 
 <div>
-    <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model.per_codigo_id">Editar</a><strong> |</strong>
-
-    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.per_codigo_id">Eliminar</a><strong> |</strong>
+    <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model.per_codigo_id"><i class="material-icons" style="font-size:14px">border_color</i>&nbsp;Editar</a><strong> |</strong>
+    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.per_codigo_id"><i class="material-icons" style="font-size:14px">delete</i>&nbsp;Eliminar</a><strong> |</strong>
     <a class="btn btn-outline-primary" asp-action="Personas">Regresar a lista de personas</a><strong> |</strong>
-
     <hr>
 </div>
 
 <script>
     function openNav() {
-      document.getElementById("mySidenav").style.width = "250px";
+        document.getElementById("mySidenav").style.width = "250px";
     }
 
     function closeNav() {
-      document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("mySidenav").style.width = "0";
     }
 </script>

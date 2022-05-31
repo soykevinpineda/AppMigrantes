@@ -100,6 +100,18 @@ namespace Migrantes.Controllers
         }
 
 
+        //GET CREAR PERSONA
+        public ActionResult CrearPersona()
+        {
+
+
+            Sexos();
+            EstadoCivil();
+
+            return View();
+        }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("per_codigo_id,per_estado,per_codigo_alternativo," +
@@ -119,17 +131,6 @@ namespace Migrantes.Controllers
             }
 
             return View(persona);
-        }
-
-        //GET CREAR PERSONA
-        public ActionResult CrearPersona()
-        {
-
-
-            Sexos();
-            EstadoCivil();
-
-            return View();
         }
 
 
@@ -291,7 +292,6 @@ namespace Migrantes.Controllers
 
         #region Procedimientos Sexo / Estado Civil
         //Combo Box: Tipo Sexo
-        //Lista para mostrar en la vista Editar
         public void Sexos()
         {
 
@@ -321,7 +321,7 @@ namespace Migrantes.Controllers
 
         }
 
-
+        //Lista para mostrar en la vista Editar
         public List<SelectListItem> SexosEditar()
         {
             List<SelectListItem> oSexo = new List<SelectListItem>();//Combo Box

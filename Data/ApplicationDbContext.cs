@@ -19,9 +19,13 @@ namespace Migrantes.Data
 
         }
 
+
+        //Aqui se agregan los modelos que se usaran
+        //para usarlos en ApplicationDbContext.
         public virtual DbSet<Persona> PersonasDb { get; set; }
         public virtual DbSet<IdentidadPersona> IdentidadPersonasDb { get; set; }
         public virtual DbSet<DatosFamiliares> DatosFamiliaresDb { get; set; }
+        public virtual DbSet<Fiador> FiadorDb { get; set; }
         public virtual DbSet<TipoDocumento> TipoDocumentosDb { get; set; }
         public virtual DbSet<TipoEstado> TipoEstadosDb { get; set; }
         public virtual DbSet<Sexo> SexosDb { get; set; }

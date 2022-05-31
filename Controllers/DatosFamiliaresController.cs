@@ -16,13 +16,12 @@ namespace Migrantes.Controllers
     public class DatosFamiliaresController : GenericController
     {
 
-
         private readonly ApplicationDbContext _context;
         private readonly IDocumentos _documentos;
         private readonly IPersonas _persona;
         private readonly IFamiliares _familiares;
 
-        //Aqui se van agregando las Interfaces creadas.
+        //Método constructor: aqui se van agregando las Interfaces creadas.
         public DatosFamiliaresController(ApplicationDbContext context,
             IDocumentos documentos, IPersonas persona, IFamiliares agregandofamiliares)
         {
@@ -38,45 +37,12 @@ namespace Migrantes.Controllers
         #region Area Datos de familiares
 
 
-
         //Get: Se agregan datos de familiares asociado al ID de la persona
         [HttpGet]
-        public IActionResult DetallesDatosFamiliares(int? id)
+        public IActionResult CrearDatosFamiliares(int? id)
 
         {
 
-            //Obtenemos la ruta de inicio del usuario.
-            var urlRetornoDatosFamiliares = HttpContext.Request.Path + HttpContext.Request.QueryString;
-            HttpContext.Session.SetString("UrlRetorno", urlRetornoDatosFamiliares);
-
-            var PersonaDatoFam = this._context.PersonasDb.FirstOrDefault(x => x.per_codigo_id == id);
-            ViewBag.IdPersona = PersonaDatoFam.per_codigo_id;
-
-            var ValidacionDatosFamiliares = this._context.DatosFamiliaresDb.FirstOrDefault(x => x.per_codigo_id == id);
-            ViewBag.IdDatosFam = ValidacionDatosFamiliares;
-
-            if (ValidacionDatosFamiliares == null)
-
-            {
-                TempData["msjValidacionFamiliar"] = "La persona no tiene datos familiares agregados...";
-            }
-
-            DatosFamiliaresDisponibles(PersonaDatoFam.per_codigo_id);
-
-        
-            return View();
-           
-        }
-
-
-
-
-        //Get: Se agregan datos de familiares asociado al ID de la persona
-        [HttpGet]
-        public IActionResult AgregarDatosFamiliares(int? id)
-
-        {
-         
             var PersonaDatoFam = this._context.PersonasDb.FirstOrDefault(x => x.per_codigo_id == id);
             ViewBag.IdPersona = PersonaDatoFam.per_codigo_id;
 
@@ -123,10 +89,35 @@ namespace Migrantes.Controllers
             return LocalRedirect(urlRetornoDatosFamiliares);
         }
 
-        #endregion Area Datos de familiares
 
+        //Get: Se agregan datos de familiares asociado al ID de la persona
+        [HttpGet]
+        public IActionResult DetallesDatosFamiliares(int? id)
 
+        {
 
+            //Obtenemos la ruta de inicio del usuario.
+            var urlRetornoDatosFamiliares = HttpContext.Request.Path + HttpContext.Request.QueryString;
+            HttpContext.Session.SetString("UrlRetorno", urlRetornoDatosFamiliares);
+
+            var PersonaDatoFam = this._context.PersonasDb.FirstOrDefault(x => x.per_codigo_id == id);
+            ViewBag.IdPersona = PersonaDatoFam.per_codigo_id;
+
+            var ValidacionDatosFamiliares = this._context.DatosFamiliaresDb.FirstOrDefault(x => x.per_codigo_id == id);
+            ViewBag.IdDatosFam = ValidacionDatosFamiliares;
+
+            if (ValidacionDatosFamiliares == null)
+
+            {
+                TempData["msjValidacionFamiliar"] = "La persona no tiene datos familiares agregados...";
+            }
+
+            DatosFamiliaresDisponibles(PersonaDatoFam.per_codigo_id);
+
+        
+            return View();
+           
+        }
 
         //Get: Se editan datos de familiares asociado al ID de la persona
         [HttpGet]
@@ -243,7 +234,7 @@ namespace Migrantes.Controllers
         }
 
 
-
+        #endregion Area Datos de familiares
 
 
 
