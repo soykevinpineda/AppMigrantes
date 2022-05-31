@@ -290,12 +290,69 @@ namespace Migrantes.Migrations
                     b.ToTable("estado_civil", "mig");
                 });
 
+            modelBuilder.Entity("Migrantes.Models.Entities.Fiador", b =>
+                {
+                    b.Property<int>("Id_Fiador")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("edad_Fiador")
+                        .HasColumnType("int");
+
+                    b.Property<string>("email_Fiador")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("fecha_grabacion_Fiador")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("pais_nacimiento_Fiador")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("per_codigo_id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("primer_apellido_Fiador")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("primer_nombre_Fiador")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("profesion_Fiador")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("segundo_apellido_Fiador")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("segundo_nombre_Fiador")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("sexo_Fiador")
+                        .HasColumnType("int");
+
+                    b.Property<int>("telefono_Fiador")
+                        .HasColumnType("int");
+
+                    b.Property<int>("telefono_alterno_Fiador")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id_Fiador");
+
+                    b.HasIndex("per_codigo_id")
+                        .IsUnique();
+
+                    b.ToTable("fiador", "mig");
+                });
+
             modelBuilder.Entity("Migrantes.Models.Entities.IdentidadPersona", b =>
                 {
                     b.Property<int>("ide_id_persona")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("FiadorId_Fiador")
+                        .HasColumnType("int");
 
                     b.Property<string>("NombreImagenPortada_A")
                         .HasMaxLength(150)
@@ -343,6 +400,8 @@ namespace Migrantes.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ide_id_persona");
+
+                    b.HasIndex("FiadorId_Fiador");
 
                     b.HasIndex("PersonaLinkper_codigo_id");
 
@@ -598,8 +657,23 @@ namespace Migrantes.Migrations
                     b.Navigation("PersonaLink");
                 });
 
+            modelBuilder.Entity("Migrantes.Models.Entities.Fiador", b =>
+                {
+                    b.HasOne("Migrantes.Models.Entities.Persona", "Persona")
+                        .WithOne("Fiador")
+                        .HasForeignKey("Migrantes.Models.Entities.Fiador", "per_codigo_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Persona");
+                });
+
             modelBuilder.Entity("Migrantes.Models.Entities.IdentidadPersona", b =>
                 {
+                    b.HasOne("Migrantes.Models.Entities.Fiador", null)
+                        .WithMany("IdentidadPersonaLink")
+                        .HasForeignKey("FiadorId_Fiador");
+
                     b.HasOne("Migrantes.Models.Entities.Persona", "PersonaLink")
                         .WithMany("IdentidadPersonaLink")
                         .HasForeignKey("PersonaLinkper_codigo_id");
@@ -613,8 +687,15 @@ namespace Migrantes.Migrations
                     b.Navigation("TipoDocumentoLink");
                 });
 
+            modelBuilder.Entity("Migrantes.Models.Entities.Fiador", b =>
+                {
+                    b.Navigation("IdentidadPersonaLink");
+                });
+
             modelBuilder.Entity("Migrantes.Models.Entities.Persona", b =>
                 {
+                    b.Navigation("Fiador");
+
                     b.Navigation("IdentidadPersonaLink");
                 });
 

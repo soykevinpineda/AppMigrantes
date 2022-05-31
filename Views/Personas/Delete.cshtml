@@ -229,32 +229,32 @@
     <form asp-action="Delete" id="frm">
         <input type="hidden" asp-for="per_codigo_id" />
         <input type="button" value="Eliminar" class="btn btn-danger" onclick="Eliminar()" /><strong> |</strong>
-        <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model.per_codigo_id">Editar</a>
+        <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model.per_codigo_id">Editar</a><strong> |</strong>
         <a class="btn btn-outline-primary" asp-action="Personas">Volver a la lista</a><strong> |</strong>
-
     </form>
+    <br />
 </div>
 @section Scripts {
     @{
-    await Html.RenderPartialAsync("_ValidationScriptsPartial");
-}
-<script src="~/js/generic.js"></script>
-<script src="~/js/sweetalert.js"></script>
-<script>
-    function Eliminar() {
-        var frm = document.getElementById("frm");
-        MostrarModalDelete().then(res => {
-            if (res.value) {
-                frm.submit();
-                MostrarSuccessEliminar();
-            }
-        })
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script src="~/js/generic.js"></script>
+    <script src="~/js/sweetalert.js"></script>
+    <script>
+        function Eliminar() {
+            var frm = document.getElementById("frm");
+            MostrarModalDelete().then(res => {
+                if (res.value) {
+                    frm.submit();
+                    MostrarSuccessEliminar();
+                }
+            })
+        }
 
-    $(document).ready(function () {
-        $('.toast').toast('show');
-    });
+        $(document).ready(function() {
+            $('.toast').toast('show');
+        });
 
-    $('.toast').toast(option)
-</script>
+        $('.toast').toast(option)
+    </script>
 }

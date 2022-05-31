@@ -27,6 +27,7 @@ namespace Migrantes.Models.Entities
 
 
         public int estado_datosfamiliares { get; set; }
+
         public virtual Persona PersonaLink { get; set; }
     }
 }

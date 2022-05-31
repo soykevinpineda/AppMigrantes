@@ -5,18 +5,6 @@
 }
 
 
-   @*<form asp-action="Personas" asp-controller="Personas" method="get" id="frmForm" style="font-family:Helvetica">
-        <div class="form-actions no-color">
-            <p>
-                <strong>Busca por nombres o apellidos: </strong>
-                <input placeholder=" Busca por nombres o apellidos..." class="search" style="border:1.5px solid;color:black;width:375px" type="text" name="oBuscador" value="@ViewData["Buscador"]" id="frmBuscar" />&nbsp;
-                <input type="submit" value="Buscar" class="btn btn-outline-primary" />
-                <input type="submit" value="Limpiar" class="btn btn-outline-danger" onclick="Limpiar()" />
-            </p>
-        </div>
-    </form>*@
-
-
 <div style="justify-content:center;display:flex;align-items:center;font-family:Helvetica;font-size:36px" class="mb-2">
     <div class="toast" data-delay="5000" style="border:thin;color:blue;border-radius: 9px;" role="alert" aria-live="assertive" aria-atomic="true">
         <div style="background:#007bff" class="toast-header">
@@ -32,7 +20,7 @@
         {
             <div class="toast-body">
                 <h4 class="text-primary text-center">
-                     Se encontró un total de
+                    Se encontró un total de
                     <strong class="text-success">@ViewBag.TotalPersonas</strong>
                     personas en la base de datos.
                 </h4>
@@ -66,22 +54,21 @@
 <br />
 
 
-
-<div class="row">
+<div class="row" style="font-family:Helvetica;">
     <div class="col-8" style="justify-content:flex-start;padding-right:0px;padding-left:15px;">
         <div class="pb-3 shadow-2" style="font-family:Helvetica;border-radius:9px;">
             <h1 class="text-primary" style="text-align:left;">
-                <strong>@ViewData["Title"]</strong><br/>
+                <strong>@ViewData["Title"]</strong><br />
             </h1>
-            <h6 class="text-success">
+            <h7 class="text-success">
                 Lista de potenciales migrantes.
                 <br /><strong class="text-danger">Powered by </strong> <strong style="color:black">Sourcing-Corp&copy;</strong>
-            </h6>
+            </h7>
         </div>
     </div>
 
     <div class="col-4" style="justify-items:flex-end;display:inline-grid;padding-right:0px;padding-left:0px;">
-        <button class="btn btn-primary btn-sm" asp-controller="Personas" asp-action="CrearPersona">Crear nueva persona</button>
+        <a type="button" class="btn btn-primary btn-sm" asp-controller="Personas" asp-action="CrearPersona">Crear nueva persona</a>
         <br />
         @if (ViewBag.Validacion == 3 || ViewBag.Validacion == 0)
         {
@@ -98,7 +85,9 @@
 <hr />
 <br />
 
-<div class="card">
+
+
+<div class="card" style="font-family:Helvetica;">
     <div class="table-responsive text-nowrap" style="align-content:space-evenly">
         <form asp-action="ExportarPersonasExcel" asp-controller="Personas" id="FormChecks">
             <table class="table-light table-striped text-center table-hover table-sm table-responsive-xl pre-scrollable">
@@ -252,36 +241,34 @@
 
                             </td>
                             @*
-                                <td>
-                                @if (item.per_usuario_modificacion.Contains("N/A"))
-                                {
-                                <p class="text-danger">
-                                <strong>No se ha modificado</strong>
-                                </p>
-                                }
-                                else
-                                {
-                                <strong class="text-success">
-                                @Html.DisplayFor(x => item.per_usuario_modificacion)
-                                </strong>
-                                }
-                                </td>
-                                <td>
-                                @if (item.per_usuario_modificacion.Contains("N/A"))
-                                {
-                                <p class="text-danger">
-                                <strong>No hay fecha</strong>
-                                </p>
-                                }
-                                else
-                                {
-                                <strong class="text-success">
-                                @Html.DisplayFor(x => item.per_fecha_modificacion)
-                                </strong>
-                                }
-                                </td>*@
-                            <td>
-                            </td>
+                        <td>
+                        @if (item.per_usuario_modificacion.Contains("N/A"))
+                        {
+                        <p class="text-danger">
+                        <strong>No se ha modificado</strong>
+                        </p>
+                        }
+                        else
+                        {
+                        <strong class="text-success">
+                        @Html.DisplayFor(x => item.per_usuario_modificacion)
+                        </strong>
+                        }
+                        </td>
+                        <td>
+                        @if (item.per_usuario_modificacion.Contains("N/A"))
+                        {
+                        <p class="text-danger">
+                        <strong>No hay fecha</strong>
+                        </p>
+                        }
+                        else
+                        {
+                        <strong class="text-success">
+                        @Html.DisplayFor(x => item.per_fecha_modificacion)
+                        </strong>
+                        }
+                        </td>*@
                             <td>
                             </td>
                             <td>
@@ -300,11 +287,13 @@
                                         </strong> <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <a class="glyphicon glyphicon-star btn btn-warning" asp-action="Edit" asp-route-id="@item.per_codigo_id">Editar</a>
-                                        <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.per_codigo_id">Detalles</a>
-                                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.per_codigo_id">Eliminar</a>
+                                        <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.per_codigo_id"><i class="material-icons" style="font-size:14px">border_color</i>&nbsp;Editar</a>
+                                        <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.per_codigo_id"><i class="material-icons" style="font-size:14px">description</i>&nbsp;Detalles</a>
+                                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.per_codigo_id"><i class="material-icons" style="font-size:14px">delete</i>&nbsp;Eliminar</a>
                                     </ul>
                                 </div>
+                            </td>
+                            <td>
                             </td>
                         </tr>
                     }
@@ -316,6 +305,7 @@
                 .table-responsive {
                     height: auto;
                     font-family: "Helvetica", sans-serif;
+                    box-shadow: initial;
                 }
 
                 thead tr th {
@@ -337,34 +327,26 @@
     </div>
 </div>
 
-
-
-
 <br />
 <br />
-
-
-
-
-
 
 
 @section Scripts{
-<script>
-    function DescargarExcel() {
-        var frmReporte = document.getElementById("FormChecks");
-        frmReporte.submit();
-    }
+    <script>
+        function DescargarExcel() {
+            var frmReporte = document.getElementById("FormChecks");
+            frmReporte.submit();
+        }
 
-    function Limpiar() {
-        document.getElementById("frmBuscar").value = "";
-        document.getElementById("frmForm").submit();
-    }
+        function Limpiar() {
+            document.getElementById("frmBuscar").value = "";
+            document.getElementById("frmForm").submit();
+        }
 
-    $(document).ready(function () {
-        $('.toast').toast('show');
-    });
+        $(document).ready(function() {
+            $('.toast').toast('show');
+        });
 
-    $('.toast').toast(option)
-</script>
+        $('.toast').toast(option)
+    </script>
 }

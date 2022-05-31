@@ -19,7 +19,7 @@
 
     #mySidenav a:hover {
         left: 20px; /* On mouse-over, make the elements appear as they should */
-        background-color: #7EC9F5;
+        background-color: gray;
     }
 
 /* The about link: 20px from the top with a green background */
