@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Migrantes.Data;
 using Migrantes.Data.Servicios.Documentos;
 using Migrantes.Data.Servicios.Familiares;
+using Migrantes.Data.Servicios.Fiador;
 using Migrantes.Data.Servicios.Personas;
 using Migrantes.ViewModels;
 using System;
@@ -22,13 +23,14 @@ namespace Migrantes.Controllers
         private readonly IDocumentos _documentos;
         private readonly IPersonas _persona;
         private readonly IFamiliares _familiares;
+        private readonly IFiador _fiador;
 
 
         //Método constructor: aqui se van agregando las Interfaces creadas.
         public FiadorController(ApplicationDbContext context,
-            IDocumentos documentos, IPersonas persona, IFamiliares agregandofamiliares)
+            IDocumentos documentos, IPersonas persona, IFamiliares agregandofamiliares,IFiador fiador)
         {
-
+            this._fiador = fiador;
             this._documentos = documentos;
             this._persona = persona;
             this._familiares = agregandofamiliares;
@@ -41,9 +43,33 @@ namespace Migrantes.Controllers
         [HttpGet]
         public  IActionResult CrearFiador()
         {
+         
+
             Sexos();
             return View();
         }
+
+        //POST: Guardando al fiador asociado a la persona.
+        [HttpPost]
+        public async Task<ActionResult> GuardarFiador(int? id,FiadorViewModel FiadorGuardado)
+        {
+ 
+            Sexos();
+
+            if (!ModelState.IsValid)
+            {
+                try
+                {
+                    await this._fiador.GuardarFiador(FiadorGuardado);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction("Personas", "Personas");
+        }
+
 
 
         #region Procedimientos Sexo 

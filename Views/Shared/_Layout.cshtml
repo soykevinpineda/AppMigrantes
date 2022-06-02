@@ -15,13 +15,13 @@
 
 <body class="idbody">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm box-shadow mb-3" style="background-image: linear-gradient(90deg, #0093E9 81%, #80D0C7 100%);">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm box-shadow mb-3" style="background: linear-gradient(329deg, rgba(255,255,255,1) 0%, rgba(0,123,255,1) 50%);">
             <div class="container offset-sm-0" style="margin-bottom:0px">
                 <a class="navbar-brand" asp-controller="Personas" asp-action="CrearPersona">
                     <img style="width:70px;height:2rem" src="~/img/scblancopeque-200x91.png" />
                 </a>
 
-                <button class="navbar-toggler" type="button" style="background:#007bff" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                <button class="navbar-toggler" type="button" style="background: #007bff;" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon">
                         <img style="width:100%;height:30px;" src="~/img/navbarmenu.png" />
@@ -33,7 +33,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Personas" asp-action="Personas">Lista de candidatos</a>
                         </li>
-                     
+
                         <li class="nav-item justify-content-center">
                             <form asp-action="Personas" asp-controller="Personas" method="get" id="frmForm" style="font-family:Helvetica">
                                 <div class="container justify-content-around">
@@ -43,8 +43,8 @@
                                         </div>
                                         &nbsp;
                                         <div class="row">
-                                             <input type="submit" value="Buscar" class="btn btn-secondary"/>
-                                             <input type="submit" value="Limpiar" class="btn btn-danger" onclick="Limpiar()" />
+                                            <input type="submit" value="Buscar" class="btn btn-secondary" />
+                                            <input type="submit" value="Limpiar" class="btn btn-danger" onclick="Limpiar()" />
                                         </div>
                                     </div>
                                 </div>
@@ -73,14 +73,14 @@
         </center>
     </footer>
 
-       <style type="text/css">
-                .search {
-                    border: 3px dotted #999;
-                    border-radius: 4px;
-                    height: 36px;
-                    -webkit-appearance: none;
-                }
-            </style>
+    <style type="text/css">
+        .search {
+            border: 3px dotted #999;
+            border-radius: 4px;
+            height: 36px;
+            -webkit-appearance: none;
+        }
+    </style>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

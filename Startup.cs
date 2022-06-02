@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Migrantes.Data;
 using Migrantes.Data.Servicios.Documentos;
 using Migrantes.Data.Servicios.Familiares;
+using Migrantes.Data.Servicios.Fiador;
 using Migrantes.Data.Servicios.Personas;
 
 namespace Migrantes
@@ -36,12 +37,13 @@ namespace Migrantes
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 
-            //Se agregan aqui en ConfigureServices las Interfaces
-            //relacionado con su modelo
+            //Se agregan aqui en ConfigureServices
+            //las Interfaces relacionado con su modelo.
             
             services.AddTransient<IDocumentos, Documentos>();
             services.AddTransient<IPersonas, Personas>();
             services.AddTransient<IFamiliares, Familiares>();
+            services.AddTransient<IFiador, Fiador>();
 
             services.AddAutoMapper(typeof(Program));
         }

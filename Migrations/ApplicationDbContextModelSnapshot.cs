@@ -219,6 +219,66 @@ namespace Migrantes.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Migrantes.Models.Entities.ClaseFiador", b =>
+                {
+                    b.Property<int>("IdFiador")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("EdadFiador")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EmailFiador")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("EntregoRecibo_Agua_o_Luz")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("FechaGrabacionFiador")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("NumCartasFamiliares")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumCartasPersonales")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PaisNacimientoFiador")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PrimerApellidoFiador")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PrimerNombreFiador")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SegundoApellidoFiador")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SegundoNombreFiador")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SexoFiador")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TelefonoAlternoFiador")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TelefonoFiador")
+                        .HasColumnType("int");
+
+                    b.Property<int>("per_codigo_id")
+                        .HasColumnType("int");
+
+                    b.HasKey("IdFiador");
+
+                    b.HasIndex("per_codigo_id")
+                        .IsUnique();
+
+                    b.ToTable("fiador", "mig");
+                });
+
             modelBuilder.Entity("Migrantes.Models.Entities.DatosFamiliares", b =>
                 {
                     b.Property<int>("id_datos_familiares")
@@ -290,60 +350,6 @@ namespace Migrantes.Migrations
                     b.ToTable("estado_civil", "mig");
                 });
 
-            modelBuilder.Entity("Migrantes.Models.Entities.Fiador", b =>
-                {
-                    b.Property<int>("Id_Fiador")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("edad_Fiador")
-                        .HasColumnType("int");
-
-                    b.Property<string>("email_Fiador")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("fecha_grabacion_Fiador")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("pais_nacimiento_Fiador")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("per_codigo_id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("primer_apellido_Fiador")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("primer_nombre_Fiador")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("profesion_Fiador")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("segundo_apellido_Fiador")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("segundo_nombre_Fiador")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("sexo_Fiador")
-                        .HasColumnType("int");
-
-                    b.Property<int>("telefono_Fiador")
-                        .HasColumnType("int");
-
-                    b.Property<int>("telefono_alterno_Fiador")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id_Fiador");
-
-                    b.HasIndex("per_codigo_id")
-                        .IsUnique();
-
-                    b.ToTable("fiador", "mig");
-                });
-
             modelBuilder.Entity("Migrantes.Models.Entities.IdentidadPersona", b =>
                 {
                     b.Property<int>("ide_id_persona")
@@ -351,7 +357,7 @@ namespace Migrantes.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("FiadorId_Fiador")
+                    b.Property<int?>("ClaseFiadorIdFiador")
                         .HasColumnType("int");
 
                     b.Property<string>("NombreImagenPortada_A")
@@ -401,7 +407,7 @@ namespace Migrantes.Migrations
 
                     b.HasKey("ide_id_persona");
 
-                    b.HasIndex("FiadorId_Fiador");
+                    b.HasIndex("ClaseFiadorIdFiador");
 
                     b.HasIndex("PersonaLinkper_codigo_id");
 
@@ -648,6 +654,17 @@ namespace Migrantes.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Migrantes.Models.Entities.ClaseFiador", b =>
+                {
+                    b.HasOne("Migrantes.Models.Entities.Persona", "Persona")
+                        .WithOne("Fiador")
+                        .HasForeignKey("Migrantes.Models.Entities.ClaseFiador", "per_codigo_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Persona");
+                });
+
             modelBuilder.Entity("Migrantes.Models.Entities.DatosFamiliares", b =>
                 {
                     b.HasOne("Migrantes.Models.Entities.Persona", "PersonaLink")
@@ -657,22 +674,11 @@ namespace Migrantes.Migrations
                     b.Navigation("PersonaLink");
                 });
 
-            modelBuilder.Entity("Migrantes.Models.Entities.Fiador", b =>
-                {
-                    b.HasOne("Migrantes.Models.Entities.Persona", "Persona")
-                        .WithOne("Fiador")
-                        .HasForeignKey("Migrantes.Models.Entities.Fiador", "per_codigo_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Persona");
-                });
-
             modelBuilder.Entity("Migrantes.Models.Entities.IdentidadPersona", b =>
                 {
-                    b.HasOne("Migrantes.Models.Entities.Fiador", null)
+                    b.HasOne("Migrantes.Models.Entities.ClaseFiador", null)
                         .WithMany("IdentidadPersonaLink")
-                        .HasForeignKey("FiadorId_Fiador");
+                        .HasForeignKey("ClaseFiadorIdFiador");
 
                     b.HasOne("Migrantes.Models.Entities.Persona", "PersonaLink")
                         .WithMany("IdentidadPersonaLink")
@@ -687,7 +693,7 @@ namespace Migrantes.Migrations
                     b.Navigation("TipoDocumentoLink");
                 });
 
-            modelBuilder.Entity("Migrantes.Models.Entities.Fiador", b =>
+            modelBuilder.Entity("Migrantes.Models.Entities.ClaseFiador", b =>
                 {
                     b.Navigation("IdentidadPersonaLink");
                 });

@@ -4,9 +4,9 @@ using Migrantes.Models.Entities;
 
 namespace Migrantes.Data.Configuraciones
 {
-    public class FiadorConfig : IEntityTypeConfiguration<Fiador>
+    public class FiadorConfig : IEntityTypeConfiguration<ClaseFiador>
     {
-        public void Configure(EntityTypeBuilder<Fiador> builder)
+        public void Configure(EntityTypeBuilder<ClaseFiador> builder)
         {
             builder.ToTable("fiador", "mig");
         }

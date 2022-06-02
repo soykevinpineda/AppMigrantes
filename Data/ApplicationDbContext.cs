@@ -25,7 +25,7 @@ namespace Migrantes.Data
         public virtual DbSet<Persona> PersonasDb { get; set; }
         public virtual DbSet<IdentidadPersona> IdentidadPersonasDb { get; set; }
         public virtual DbSet<DatosFamiliares> DatosFamiliaresDb { get; set; }
-        public virtual DbSet<Fiador> FiadorDb { get; set; }
+        public virtual DbSet<ClaseFiador> FiadorDb { get; set; }
         public virtual DbSet<TipoDocumento> TipoDocumentosDb { get; set; }
         public virtual DbSet<TipoEstado> TipoEstadosDb { get; set; }
         public virtual DbSet<Sexo> SexosDb { get; set; }

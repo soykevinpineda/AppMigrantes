@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Migrantes.Data;
 using Migrantes.Data.Servicios.Documentos;
 using Migrantes.Data.Servicios.Familiares;
+using Migrantes.Data.Servicios.Fiador;
 using Migrantes.Data.Servicios.Personas;
 using Migrantes.Models.DTO;
 using Migrantes.Models.Entities;
