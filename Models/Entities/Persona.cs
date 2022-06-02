@@ -129,6 +129,6 @@ namespace Migrantes.Models.Entities
         public virtual ICollection<IdentidadPersona> IdentidadPersonaLink { get; set; }
 
 
-        public virtual Fiador Fiador { get; set; }
+        public virtual ClaseFiador Fiador { get; set; }
     }
 }

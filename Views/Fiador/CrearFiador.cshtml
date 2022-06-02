@@ -45,28 +45,44 @@
 
 
     <div class="row justify-content-center">
-        <form style="font-family:Helvetica" class="form-group" asp-controller="Fiador" asp-action="AgregandoDatosFamiliares" method="post" id="frm">
+        <form style="font-family:Helvetica" class="form-group" asp-controller="Fiador" asp-action="GuardarFiador" method="post" id="frm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="per_codigo_id" value="@ViewBag.IdPersona" />
-
-            <div class="form-group">
-                <input type="hidden" asp-for="per_codigo_id" value="@ViewBag.Idpersona" class="form-control" />
+             <div class="form-group">
+                <input type="hidden" asp-for="IdFiador" class="form-control" />
             </div>
 
             <div class="row mb-4">
                 <div class="col-md-6">
                     <strong style="color:hsl(0, 0%, 50%)">
-                        <label class="form-group row justify-content-center mb-0" asp-for="Primer_nombre_Fiador"></label>
+                        <label class="form-group row justify-content-center mb-0" asp-for="PrimerNombreFiador"></label>
                     </strong>
-                    <input style="border:1px solid;color:black" asp-for="Primer_nombre_Fiador" class="form-control" />
-                    <span asp-validation-for="Primer_nombre_Fiador" class="text-danger"></span>
+                    <input style="border:1px solid;color:black" asp-for="PrimerNombreFiador" class="form-control" />
+                    <span asp-validation-for="PrimerNombreFiador" class="text-danger"></span>
                 </div>
                 <div class="col-md-6">
                     <strong style="color:hsl(0, 0%, 50%)">
-                        <label class="form-group row justify-content-center mb-0" asp-for="Segundo_nombre_Fiador"></label>
+                        <label class="form-group row justify-content-center mb-0" asp-for="SegundoNombreFiador"></label>
                     </strong>
-                    <input style="border:1px solid;color:black" asp-for="Segundo_nombre_Fiador" class="form-control" />
-                    <span asp-validation-for="Segundo_nombre_Fiador" class="text-danger"></span>
+                    <input style="border:1px solid;color:black" asp-for="SegundoNombreFiador" class="form-control" />
+                    <span asp-validation-for="SegundoNombreFiador" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <strong style="color:hsl(0, 0%, 50%)">
+                        <label class="form-group row justify-content-center mb-0" asp-for="PrimerApellidoFiador"></label>
+                    </strong>
+                    <input style="border:1px solid;color:black" asp-for="PrimerApellidoFiador" class="form-control" />
+                    <span asp-validation-for="PrimerApellidoFiador" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <strong style="color:hsl(0, 0%, 50%)">
+                        <label class="form-group row justify-content-center mb-0" asp-for="SegundoApellidoFiador"></label>
+                    </strong>
+                    <input style="border:1px solid;color:black" asp-for="SegundoApellidoFiador" class="form-control" />
+                    <span asp-validation-for="SegundoApellidoFiador" class="text-danger"></span>
                 </div>
             </div>
 
@@ -74,98 +90,78 @@
             <div class="row mb-4">
                 <div class="col-md-6">
                     <strong style="color:hsl(0, 0%, 50%)">
-                        <label class="form-group row justify-content-center mb-0" asp-for="Primer_apellido_Fiador"></label>
+                        <label class="form-group row justify-content-center mb-0" asp-for="EdadFiador"></label>
                     </strong>
-                    <input style="border:1px solid;color:black" asp-for="Primer_apellido_Fiador" class="form-control" placeholder="Opcional" />
-                    <span asp-validation-for="Primer_apellido_Fiador" class="text-danger"></span>
-                </div>
-                <div class="col-md-6">
-                    <strong style="color:hsl(0, 0%, 50%)">
-                        <label class="form-group row justify-content-center mb-0" asp-for="Segundo_apellido_Fiador"></label>
-                    </strong>
-                    <input style="border:1px solid;color:black" asp-for="Segundo_apellido_Fiador" class="form-control" />
-                    <span asp-validation-for="Segundo_apellido_Fiador" class="text-danger"></span>
-                </div>
-            </div>
-
-
-            <div class="row mb-4">
-                <div class="col-md-6">
-                    <strong style="color:hsl(0, 0%, 50%)">
-                        <label class="form-group row justify-content-center mb-0" asp-for="Edad_Fiador"></label>
-                    </strong>
-                    <input type="number" style="border:1px solid;color:black" asp-for="Edad_Fiador" class="form-control" />
-                    <span asp-validation-for="Edad_Fiador" class="text-danger"></span>
+                    <input type="number" style="border:1px solid;color:black" asp-for="EdadFiador" class="form-control" />
+                    <span asp-validation-for="EdadFiador" class="text-danger"></span>
                 </div>
 
                 <div class="col-md-6">
                     <strong style="color:hsl(0, 0%, 50%)">
-                        <label class="form-group row justify-content-center mb-0" asp-for="Sexo_Fiador"></label>
+                        <label class="form-group row justify-content-center mb-0" asp-for="SexoFiador"></label>
                     </strong>
-                    <select style="border:1px solid;color:black" class="form-control" asp-for="Sexo_Fiador" name="sexo_Fiador" asp-items="@oSexos">
+                    <select style="border:1px solid;color:black" class="form-control" asp-for="SexoFiador" name="SexoFiador" asp-items="@oSexos">
                     </select>
-                    <span asp-validation-for="Sexo_Fiador" class="text-danger"></span>
+                    <span asp-validation-for="SexoFiador" class="text-danger"></span>
                 </div>
             </div>
-
 
             <div class="row mb-4">
                 <div class="col-md-6">
                     <strong style="color:hsl(0, 0%, 50%)">
-                        <label class="form-group row justify-content-center mb-0" asp-for="Pais_nacimiento_Fiador"></label>
+                        <label class="form-group row justify-content-center mb-0" asp-for="PaisNacimientoFiador"></label>
                     </strong>
-                    <input style="border:1px solid;color:black" asp-for="Pais_nacimiento_Fiador" class="form-control" />
-                    <span asp-validation-for="Pais_nacimiento_Fiador" class="text-danger"></span>
+                    <input style="border:1px solid;color:black" asp-for="PaisNacimientoFiador" class="form-control" />
+                    <span asp-validation-for="PaisNacimientoFiador" class="text-danger"></span>
                 </div>
                 <div class="col-md-6">
                     <strong style="color:hsl(0, 0%, 50%)">
-                        <label class="form-group row justify-content-center mb-0" asp-for="Email_Fiador"></label>
+                        <label class="form-group row justify-content-center mb-0" asp-for="EmailFiador"></label>
                     </strong>
-                    <input style="border:1px solid;color:black" asp-for="Email_Fiador" class="form-control" />
-                    <span asp-validation-for="Email_Fiador" class="text-danger"></span>
+                    <input style="border:1px solid;color:black" asp-for="EmailFiador" class="form-control" />
+                    <span asp-validation-for="EmailFiador" class="text-danger"></span>
                 </div>
             </div>
-
-
 
             <div class="row mb-4">
                 <div class="col-md-6">
                     <strong style="color:hsl(0, 0%, 50%)">
-                        <label class="form-group row justify-content-center mb-0" asp-for="Telefono_Fiador"></label>
+                        <label class="form-group row justify-content-center mb-0" asp-for="TelefonoFiador"></label>
                     </strong>
-                    <input type="number" style="border:1px solid;color:black" asp-for="Telefono_Fiador" class="form-control" />
-                    <span asp-validation-for="Telefono_Fiador" class="text-danger"></span>
+                    <input type="number" style="border:1px solid;color:black" asp-for="TelefonoFiador" class="form-control" />
+                    <span asp-validation-for="TelefonoFiador" class="text-danger"></span>
                 </div>
                 <div class="col-md-6">
                     <strong style="color:hsl(0, 0%, 50%)">
-                        <label class="form-group row justify-content-center mb-0" asp-for="Telefono_alterno_Fiador"></label>
+                        <label class="form-group row justify-content-center mb-0" asp-for="TelefonoAlternoFiador"></label>
                     </strong>
-                    <input type="number" style="border:1px solid;color:black" asp-for="Telefono_alterno_Fiador" class="form-control" />
-                    <span asp-validation-for="Telefono_alterno_Fiador" class="text-danger"></span>
+                    <input type="number" style="border:1px solid;color:black" asp-for="TelefonoAlternoFiador" class="form-control" />
+                    <span asp-validation-for="TelefonoAlternoFiador" class="text-danger"></span>
                 </div>
             </div>
 
             <div class="row mb-4">
                 <div class="col-md-3">
                     <strong style="color:hsl(0, 0%, 50%)">
-                        <label class="form-group row justify-content-center mb-0" asp-for="Num_cartas_personales"></label>
+                        <label class="form-group row justify-content-center mb-0" asp-for="NumCartasPersonales"></label>
                     </strong>
-                    <input type="number" style="border:1px solid;color:black" asp-for="Num_cartas_personales" class="form-control" />
-                    <span asp-validation-for="Num_cartas_personales" class="text-danger"></span>
+                    <input type="number" style="border:1px solid;color:black" asp-for="NumCartasPersonales" class="form-control" />
+                    <span asp-validation-for="NumCartasPersonales" class="text-danger"></span>
                 </div>
                 <div class="col-md-3">
                     <strong style="color:hsl(0, 0%, 50%)">
-                        <label class="form-group row justify-content-center mb-0" asp-for="Num_cartas_familiares"></label>
+                        <label class="form-group row justify-content-center mb-0" asp-for="NumCartasFamiliares"></label>
                     </strong>
-                    <input type="number" style="border:1px solid;color:black" asp-for="Num_cartas_familiares" class="form-control" />
-                    <span asp-validation-for="Num_cartas_familiares" class="text-danger"></span>
+                    <input type="number" style="border:1px solid;color:black" asp-for="NumCartasFamiliares" class="form-control" />
+                    <span asp-validation-for="NumCartasFamiliares" class="text-danger"></span>
                 </div>
                 <div class="col-md-6">
                     <strong style="color:hsl(0, 0%, 50%)">
-                        <label class="form-group row justify-content-center mb-2" asp-for="Entrego_recibo_agua_o_luz"></label>
+                        <label class="form-group row justify-content-center mb-2" asp-for="EntregoRecibo_Agua_o_Luz"></label>
                     </strong>
                     <center>
-                        @Html.CheckBox("Entrega_recibo_agua_o_luz",false)
+                        @Html.DisplayFor(m => m.EntregoRecibo_Agua_o_Luz)
+                        @Html.CheckBoxFor(m => m.EntregoRecibo_Agua_o_Luz)
                     </center>
                 </div>
             </div>
