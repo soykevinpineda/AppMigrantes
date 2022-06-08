@@ -2,29 +2,35 @@
 @model Migrantes.ViewModels.DocumentosViewModel
 
 @{
-    ViewData["Title"] = "Editar Documento";
+    ViewData["Title"] = "Editar documento";
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<SelectListItem> TipoDocSelect = ViewBag.ListDoc;
     List<DocumentosPersonaDTO> DocumentosPersona = ViewBag.ListadoDocumentos;
 }
 
 
-<center>
-    <div class="p-2 shadow-2 rounded-3 mb-2" style="background-color: hsl(0, 0%, 94%);font-family:Helvetica;border-radius: 9px;width:fit-content;">
-    <h2 class="text-center text-primary"><strong>@ViewData["Title"]</strong></h2>
+
+<div class="row">
+    <div class="col" style="text-align:left">
+        <div class="p-1 shadow-2 rounded-3 mb-2" style="font-family:Helvetica;border-radius: 9px;">
+            <h2 class="text-primary"><strong>@ViewData["Title"]</strong></h2>
+        </div>
+    </div>
+    <div class="col" style="text-align:right">
+        <a class="btn btn-outline-primary" style="justify-items:right;" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+    </div>
 </div>
-<hr />
-</center>
+<hr>
 
 
-<div class="row justify-content-center">
+<div class="row justify-content-center" style="font-family:Helvetica">
     <div style="text-align: center" class="col-md-4 offset-sm-0">
         <form asp-action="GuardarDocumentoEditado" asp-controller="Documentos" method="post" id="frm">
-           <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="@Model.ide_id_persona"/>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="@Model.ide_id_persona" />
 
-           <div class="form-group">
-                <input type="hidden"  asp-for="ide_codigo_id" class="form-control text-center"/>
+            <div class="form-group">
+                <input type="hidden" asp-for="ide_codigo_id" class="form-control text-center" />
             </div>
 
             <div class="form-group">
@@ -60,16 +66,13 @@
                 <strong>
                     <label asp-for="ide_fecha_vencimiento" class="control-label"></label>
                 </strong>
-                <input asp-for="ide_fecha_vencimiento" class="form-control text-center" style="border:1px solid;color:black"/>
+                <input asp-for="ide_fecha_vencimiento" class="form-control text-center" style="border:1px solid;color:black" />
                 <span asp-validation-for="ide_fecha_vencimiento" class="text-danger"></span>
             </div>
 
             <br />
             <div class="form-group">
                 <input type="submit" value="Actualizar Documento" class="btn btn-success" />
-            </div>
-            <div class="form-group">
-                <a class="btn btn-outline-primary" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
             </div>
         </form>
     </div>
@@ -80,28 +83,28 @@
 
 @section Scripts {
     @{
-    await Html.RenderPartialAsync("_ValidationScriptsPartial");
-}
-<script src="~/js/generic.js"></script>
-<script src="~/js/sweetalert.js"></script>
-
-<script>
-
-    function SuccessDoc() {
-        var frm = document.getElementById("frm");
-        MostrarSuccessDoc().then(res => {
-            if (res.value) {
-                frm.submit();
-                MostrarSuccessDoc();
-            }
-        })
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script src="~/js/generic.js"></script>
+    <script src="~/js/sweetalert.js"></script>
 
-    $(document).ready(function () {
-        $('.toast').toast('show');
-    });
+    <script>
 
-    $('.toast').toast(option)
-</script>
+        function SuccessDoc() {
+            var frm = document.getElementById("frm");
+            MostrarSuccessDoc().then(res => {
+                if (res.value) {
+                    frm.submit();
+                    MostrarSuccessDoc();
+                }
+            })
+        }
+
+        $(document).ready(function() {
+            $('.toast').toast('show');
+        });
+
+        $('.toast').toast(option)
+    </script>
 
 }

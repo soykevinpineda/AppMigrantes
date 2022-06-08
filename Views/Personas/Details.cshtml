@@ -11,12 +11,17 @@
     </li>
     </ul>*@
 
-<center>
-    <div class="p-2 shadow-2 rounded-3 mb-2" style="background-color: hsl(0, 0%, 94%);font-family:Helvetica;border-radius: 9px;width:fit-content;">
-        <h2 class="text-center text-primary"><strong>@ViewData["Title"]</strong></h2>
+<div class="row">
+    <div class="col" style="text-align:left">
+        <div class="p-1 shadow-2 rounded-3 mb-2" style="font-family:Helvetica;border-radius: 9px;">
+            <h2 class="text-primary"><strong>@ViewData["Title"]</strong></h2>
+        </div>
     </div>
-    <hr>
-</center>
+    <div class="col" style="text-align:right">
+        <a class="btn btn-outline-primary" style="justify-items:right;" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+    </div>
+</div>
+<hr>
 
 
 <div class="card-group" style="font-family:Helvetica">
@@ -211,9 +216,8 @@
 </div>
 
 <div>
-    <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model.per_codigo_id"><i class="material-icons" style="font-size:14px">border_color</i>&nbsp;Editar</a><strong> |</strong>
-    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.per_codigo_id"><i class="material-icons" style="font-size:14px">delete</i>&nbsp;Eliminar</a><strong> |</strong>
-    <a class="btn btn-outline-primary" asp-action="Personas">Regresar a lista de personas</a><strong> |</strong>
+    <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model.per_codigo_id">&nbsp;Editar</a><strong> |</strong>
+    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.per_codigo_id">&nbsp;Eliminar</a><strong> |</strong>
     <hr>
 </div>
 

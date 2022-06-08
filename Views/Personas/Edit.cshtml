@@ -318,28 +318,28 @@
 
 @section Scripts {
     @{
-    await Html.RenderPartialAsync("_ValidationScriptsPartial");
-}
-
-<script src="~/js/generic.js"></script>
-<script src="~/js/sweetalert.js"></script>
-
-
-<script>
-    function Editar() {
-        var frm = document.getElementById("frm");
-        MostrarModalEdit().then(res => {
-            if (res.value) {
-                frm.submit();
-                MostrarSuccessEdit();
-            }
-        })
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 
-    $(document).ready(function () {
-        $('.toast').toast('show');
-    });
+    <script src="~/js/generic.js"></script>
+    <script src="~/js/sweetalert.js"></script>
 
-    $('.toast').toast(option)
-</script>
+
+    <script>
+        function Editar() {
+            var frm = document.getElementById("frm");
+            MostrarModalEdit().then(res => {
+                if (res.value) {
+                    frm.submit();
+                    MostrarSuccessEdit();
+                }
+            })
+        }
+
+        $(document).ready(function() {
+            $('.toast').toast('show');
+        });
+
+        $('.toast').toast(option)
+    </script>
 }

@@ -14,6 +14,7 @@ using Migrantes.Models.Entities;
 using Migrantes.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -39,7 +40,7 @@ namespace Migrantes.Controllers
             IWebHostEnvironment IWebHostEnvironment, IMapper imapper,
             IDocumentos documentos, IPersonas persona, IFamiliares agregandofamiliares)
         {
-            
+
             this._IWebHostEnvironment = IWebHostEnvironment;
             this._imapper = imapper;
             this._documentos = documentos;
@@ -47,16 +48,6 @@ namespace Migrantes.Controllers
             this._familiares = agregandofamiliares;
             this._context = context;
         }
-
-        //public static List<PersonaDTO> oPersonasExcel;
-
-
-        //public FileResult ExportarPersonasExcel(string[] nombrePropiedades)
-        //{
-        //    byte[] buffer = ExportarExcelGeneric(nombrePropiedades, oPersonasExcel);
-        //    return File(buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        //}
-
 
 
         #region Area personas
@@ -67,7 +58,10 @@ namespace Migrantes.Controllers
             var urlRetorno1 = HttpContext.Request.Path + HttpContext.Request.QueryString;
             HttpContext.Session.SetString("UrlRetorno1", urlRetorno1);
 
+
             return View(await _context.PersonasDb.ToListAsync());
+
+     
         }
 
 
@@ -104,7 +98,6 @@ namespace Migrantes.Controllers
         //GET CREAR PERSONA
         public ActionResult CrearPersona()
         {
-
 
             Sexos();
             EstadoCivil();
@@ -173,8 +166,8 @@ namespace Migrantes.Controllers
             ViewBag.EstCivilEditar = EstadoCivilEditar();
             ViewBag.SexoEditar = SexosEditar();
 
-            var documento = this._context.PersonasDb.FirstOrDefault(x => x.per_codigo_id == id);
-            ViewBag.IdPersona = documento.per_codigo_id;
+            var documentoPersona = this._context.PersonasDb.FirstOrDefault(x => x.per_codigo_id == id);
+            ViewBag.IdPersona = documentoPersona.per_codigo_id;
 
             //Obtenemos el ID del documento asociado a la persona.
 
@@ -182,7 +175,7 @@ namespace Migrantes.Controllers
             ViewBag.IdDocumento = oDocumento;
 
 
-            DocPersona(documento.per_codigo_id);
+            DocPersona(documentoPersona.per_codigo_id);
 
             if (id == null)
             {

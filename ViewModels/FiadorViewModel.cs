@@ -38,6 +38,7 @@ namespace Migrantes.ViewModels
         [Display(Name = ("Email"))]
         public string EmailFiador { get; set; }
 
+
         [Display(Name = ("Teléfono movil"))]
         public int TelefonoFiador { get; set; }
 
@@ -55,7 +56,7 @@ namespace Migrantes.ViewModels
         [Display(Name = ("Entrego recibo de agua o luz?"))]
         public bool EntregoRecibo_Agua_o_Luz { get; set; }
 
-
+       
         [Display(Name = ("Fecha de grabación"))]
         [DataType(DataType.DateTime)]
         public DateTime FechaGrabacionFiador { get; set; } = DateTime.Now;

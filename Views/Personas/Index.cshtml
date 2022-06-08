@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Migrantes.Models.Entities.Persona>
+﻿@model IEnumerable<Migrantes.Models.DTO.PersonaDTO>
 
 @{
     ViewData["Title"] = "Lista de candidatos";
@@ -17,12 +17,7 @@
 <table class="table" style="font-family:Helvetica">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.per_estado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.per_codigo_alternativo)
-            </th>
+       
             <th>
                 @Html.DisplayNameFor(model => model.per_letra_indice)
             </th>
@@ -71,7 +66,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.per_email)
             </th>
-            <th>
+           @* <th>
                 @Html.DisplayNameFor(model => model.per_codmun_nac)
             </th>
             <th>
@@ -80,7 +75,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.per_lugar_nac)
             </th>
-            <th>
+            <th>*@
                 @Html.DisplayNameFor(model => model.per_email_interno)
             </th>
             <th>
@@ -89,7 +84,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.per_telefono_interno)
             </th>
-            <th>
+       @*     <th>
                 @Html.DisplayNameFor(model => model.per_apellidos_nombres)
             </th>
             <th>
@@ -97,7 +92,7 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.per_codpai_digita)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.per_usuario_grabacion)
             </th>
@@ -117,12 +112,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.per_estado)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.per_codigo_alternativo)
-                </td>
+            
                 <td>
                     @Html.DisplayFor(modelItem => item.per_letra_indice)
                 </td>
@@ -171,15 +161,8 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.per_email)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.per_codmun_nac)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.per_coddep_nac)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.per_lugar_nac)
-                </td>
+          
+              
                 <td>
                     @Html.DisplayFor(modelItem => item.per_email_interno)
                 </td>
@@ -189,15 +172,8 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.per_telefono_interno)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.per_apellidos_nombres)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.per_observaciones)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.per_codpai_digita)
-                </td>
+        
+              
                 <td>
                     @Html.DisplayFor(modelItem => item.per_usuario_grabacion)
                 </td>

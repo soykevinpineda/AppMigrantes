@@ -98,9 +98,9 @@ namespace Migrantes.Controllers
         }
 
 
-        //GET: Creamos Documento de la persona
+        //GET: Creamos documento de la persona
         [HttpGet]
-        public IActionResult CrearDocumento(int id)
+        public IActionResult CrearDocumento(int? id)
 
 
         {
@@ -245,6 +245,7 @@ namespace Migrantes.Controllers
 
         //POST: Guardar documento ya editado de la persona
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> GuardarDocumentoEditado(DocumentosViewModel identidad)
         {
 
@@ -305,6 +306,7 @@ namespace Migrantes.Controllers
 
         //POST ELIMINAR DOCUMENTO
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EliminarDocumento(DocumentosViewModel IdentidadEliminada)
         {
 
@@ -358,10 +360,15 @@ namespace Migrantes.Controllers
                .Select(x => x.per_primer_nom).FirstOrDefault();
             ViewBag.NombrePersonaDocumento = NombrePersonaDocumento;
 
-           // var segNombrePersonaDocumento = this._context.PersonasDb
-           //.Where(x => x.per_codigo_id == id)
-           //.Select(x => x.per_segundo_nom).FirstOrDefault();
-           // ViewBag.segNombrePersonaDocumento = segNombrePersonaDocumento;
+            var SegNombrePersonaDocumento = this._context.PersonasDb
+            .Where(x => x.per_codigo_id == id)
+            .Select(x => x.per_segundo_nom).FirstOrDefault();
+            ViewBag.SegNombrePersona_Documento = SegNombrePersonaDocumento;
+
+            // var segNombrePersonaDocumento = this._context.PersonasDb
+            //.Where(x => x.per_codigo_id == id)
+            //.Select(x => x.per_segundo_nom).FirstOrDefault();
+            // ViewBag.segNombrePersonaDocumento = segNombrePersonaDocumento;
 
             var primerApeDocumento = this._context.PersonasDb
            .Where(x => x.per_codigo_id == id)

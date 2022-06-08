@@ -143,6 +143,7 @@ namespace Migrantes.Controllers
 
         //Post: Se actualiza datos editados de familiares asociado al ID de la persona
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ActualizarFamiliaresEditados(DatosFamiliaresViewModel DatosFamiliaresEditados)
         {
 
@@ -210,6 +211,7 @@ namespace Migrantes.Controllers
 
         //Post: Se eliminan datos de familiares asociado al ID de la persona
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EliminarConfirmadoDatosFamiliares(DatosFamiliaresViewModel DatosFamiliaresEliminados)
         {
 
