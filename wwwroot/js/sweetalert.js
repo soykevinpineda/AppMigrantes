@@ -54,7 +54,7 @@ function MostrarSuccessEliminar() {
         icon: 'success',
         title: 'Se eliminó correctamente',
         showConfirmButton: false,
-        timer: 6000
+        timer: 7000
     })
 }
 
@@ -64,7 +64,7 @@ function MostrarSuccessEdit() {
         icon: 'success',
         title: 'Se actualizó correctamente',
         showConfirmButton: false,
-        timer: 6000
+        timer: 7000
     })
 }
 

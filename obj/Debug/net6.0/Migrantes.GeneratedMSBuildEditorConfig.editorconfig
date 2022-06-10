@@ -215,6 +215,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmlhZG9yXENyZWFyRmlhZG9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/khernandez/Documents/Project Migrantes/migrantes-sc-master/Migrantes/Views/Fiador/DetallesFiador.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmlhZG9yXERldGFsbGVzRmlhZG9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/khernandez/Documents/Project Migrantes/migrantes-sc-master/Migrantes/Views/Fiador/EditarFiador.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmlhZG9yXEVkaXRhckZpYWRvci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/khernandez/Documents/Project Migrantes/migrantes-sc-master/Migrantes/Views/Fiador/EliminarFiador.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmlhZG9yXEVsaW1pbmFyRmlhZG9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/khernandez/Documents/Project Migrantes/migrantes-sc-master/Migrantes/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

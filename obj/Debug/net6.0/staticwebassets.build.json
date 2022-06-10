@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "NqtKULgUenB3CyRBOtE95O/iDMgiN8VIzsXj3a4dVok=",
+  "Hash": "PT+WESZQ+yYFkxnCX1tTVf+XiXjRf6qDA3q0JhMTxrI=",
   "Source": "Migrantes",
   "BasePath": "_content/Migrantes",
   "Mode": "Default",
@@ -2769,6 +2769,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\persona.png"
+    },
+    {
+      "Identity": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\personal-guarantee.png",
+      "SourceId": "Migrantes",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\",
+      "BasePath": "_content/Migrantes",
+      "RelativePath": "personal-guarantee.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\personal-guarantee.png"
     },
     {
       "Identity": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\usuario (1).png",

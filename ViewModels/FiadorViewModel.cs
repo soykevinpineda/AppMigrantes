@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -6,25 +7,29 @@ namespace Migrantes.ViewModels
 {
     public class FiadorViewModel
     {
+        [ValidateNever]
         [Key]
         public int IdFiador { get; set; }
 
         [ForeignKey("Persona")]
         public int per_codigo_id { get; set; }
 
-
+        [Required(ErrorMessage = "Por favor ingrese nombre del fiador.")]
         [Display(Name = ("Primer nombre"))]
         public string PrimerNombreFiador { get; set; }
 
+        [Required(ErrorMessage = "Por favor ingrese segundo nombre del fiador.")]
         [Display(Name = ("Segundo nombre"))]
         public string SegundoNombreFiador { get; set; }
 
+        [Required(ErrorMessage = "Por favor ingrese primer apellido del fiador.")]
         [Display(Name = ("Primer apellido"))]
         public string PrimerApellidoFiador { get; set; }
 
-
+        [Required(ErrorMessage = "Por favor ingrese segundo apellido del fiador.")]
         [Display(Name = ("Segundo apellido"))]
         public string SegundoApellidoFiador { get; set; }
+
 
         [Display(Name = ("País de nacimiento"))]
         public string PaisNacimientoFiador { get; set; }
@@ -35,24 +40,31 @@ namespace Migrantes.ViewModels
         [Display(Name = ("Edad"))]
         public int EdadFiador { get; set; }
 
+        [EmailAddress]
         [Display(Name = ("Email"))]
         public string EmailFiador { get; set; }
 
 
+
+        [Required(ErrorMessage = "Por favor ingrese un teléfono movil.")]
         [Display(Name = ("Teléfono movil"))]
         public int TelefonoFiador { get; set; }
 
+        [Required(ErrorMessage = "Por favor ingrese un teléfono movil alterno.")]
         [Display(Name = ("Teléfono movil alternativo"))]
         public int TelefonoAlternoFiador { get; set; }
 
-
+        [Required]
+        [Range(0, 3)]
         [Display(Name = ("Nro. Cartas de recomendación personal"))]
         public int NumCartasPersonales { get; set; }
 
-
+        [Required]
+        [Range(0, 3)]
         [Display(Name = ("Nro. Cartas de recomendación familiar"))]
         public int NumCartasFamiliares { get; set; }
 
+        
         [Display(Name = ("Entrego recibo de agua o luz?"))]
         public bool EntregoRecibo_Agua_o_Luz { get; set; }
 

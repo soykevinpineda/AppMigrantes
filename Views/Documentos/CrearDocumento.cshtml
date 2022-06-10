@@ -39,7 +39,7 @@
                 <strong>
                     <label asp-for="ide_id_documento" class="control-label"></label>
                 </strong>
-                <select asp-for="ide_id_documento" asp-items="@TipoDocSelect" class="form-control text-center" style="border:1px solid;color:black"> </select>
+                <select asp-for="ide_id_documento" asp-items="@TipoDocSelect" class="form-control text-center"  > </select>
 
             </div>
             <br />
@@ -48,7 +48,7 @@
                 <strong>
                     <label asp-for="ide_numero" class="control-label"></label>
                 </strong>
-                <input type="number" asp-for="ide_numero" class="form-control text-center" name="ide_numero" style="border:1px solid;color:black" />
+                <input type="number" asp-for="ide_numero" class="form-control text-center" name="ide_numero"   />
                 <span asp-validation-for="ide_numero" class="text-danger"></span>
             </div>
 
@@ -57,7 +57,7 @@
                 <strong>
                     <label asp-for="ide_fecha_emision" class="control-label"></label>
                 </strong>
-                <input asp-for="ide_fecha_emision" class="form-control text-center" style="border:1px solid;color:black" />
+                <input asp-for="ide_fecha_emision" class="form-control text-center"   />
                 <span asp-validation-for="ide_fecha_emision" class="text-danger"></span>
             </div>
             <br />
@@ -66,7 +66,7 @@
                 <strong>
                     <label asp-for="ide_fecha_vencimiento" class="control-label"></label>
                 </strong>
-                <input asp-for="ide_fecha_vencimiento" class="form-control text-center" style="border:1px solid;color:black" />
+                <input asp-for="ide_fecha_vencimiento" class="form-control text-center"   />
                 <span asp-validation-for="ide_fecha_vencimiento" class="text-danger"></span>
             </div>
             <br />

@@ -13,311 +13,191 @@
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="~/css/site.css" />
 
-<!--Si no tiene un fiador creado, se muestra un formulario-->
-@if (ViewBag.FiadorPersona == null)
+<!--Si la persona seleccionada no tiene un fiador creado,
+se muestra un formulario para crearlo.-->
+@if (TempData["msjSinGuardar"] != null)
 {
-    <div class="alert alert-warning d-flex alert-dismissible fade show" role="alert">
+
+    <div  class="alert alert-warning alert-dismissible fade show" role="alert" style="font-size:large;font-family:Helvetica">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
             <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-        </svg>
-        @TempData["alertaFiador"]
-        <button type="button" class="close" data-dismiss="alert" aria-label="close">
+        </svg> &nbsp;@TempData["msjSinGuardar"]
+        <button type="button" class="close"  data-dismiss="alert" aria-label="close">
             <span arie-hidden="true">&times;</span>
         </button>
     </div>
+}
 
-    <div class="container-fluid">
-        <center>
-            <div class="p-2 shadow-2 rounded-3 mb-2" style="background-color:hsl(0, 0%, 94%);font-family:Helvetica;border-radius:9px;width:fit-content;">
-                <h2 class="text-center text-primary"><strong>@ViewData["Title"]</strong></h2>
-            </div>
-            <hr>
-        </center>
-
-
-        <div style="justify-content:center;display:flex;align-items:center;font-family:Helvetica" class="mb-2">
-            <div class="toast" data-delay="5000" style="border:thin;color:blue;border-radius: 9px;" role="alert" aria-live="assertive" aria-atomic="true">
-                <div style="background:#007bff" class="toast-header">
-                    <img src="~/img/scblancopeque-200x91.png" style="width:10%;height:10%" class="rounded mr-2" alt="..." />
-                    <strong class="mr-auto text-white">Notificación SC</strong>
-                    <small class="text-white">justo ahora</small>
-                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="toast-body">
-                    <h4 class="text-primary text-center">
-                        Recuerda que los campos en
-                        <strong style="color:grey">*</strong>
-                        son requeridos.
-                    </h4>
-                </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col" style="text-align:left">
+            <div class="p-1 shadow-2 rounded-3 mb-2" style="font-family:Helvetica;border-radius:9px;">
+                <h2 class="text-primary"><strong>@ViewData["Title"]</strong></h2>
             </div>
         </div>
+        <div class="col" style="text-align:right">
+            <a class="btn btn-outline-primary" style="justify-items:right;" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+        </div>
+    </div>
+    <hr>
 
-
-        <div class="row justify-content-center">
-            <form style="font-family:Helvetica" class="form-group" asp-controller="Fiador" asp-action="GuardarFiador" method="post" id="frm">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input asp-for="per_codigo_id" hidden value="@ViewBag.IdPersona" />
-
-
-                <div class="row mb-4">
-                    <div class="col-md-6">
-                        <strong style="color:hsl(0, 0%, 50%)">
-                            <label class="form-group row justify-content-center mb-0" asp-for="PrimerNombreFiador"></label>
-                        </strong>
-                        <input style="border:1px solid;color:black" asp-for="PrimerNombreFiador" class="form-control" />
-                        <span asp-validation-for="PrimerNombreFiador" class="text-danger"></span>
-                    </div>
-                    <div class="col-md-6">
-                        <strong style="color:hsl(0, 0%, 50%)">
-                            <label class="form-group row justify-content-center mb-0" asp-for="SegundoNombreFiador"></label>
-                        </strong>
-                        <input style="border:1px solid;color:black" asp-for="SegundoNombreFiador" class="form-control" />
-                        <span asp-validation-for="SegundoNombreFiador" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="row mb-4">
-                    <div class="col-md-6">
-                        <strong style="color:hsl(0, 0%, 50%)">
-                            <label class="form-group row justify-content-center mb-0" asp-for="PrimerApellidoFiador"></label>
-                        </strong>
-                        <input style="border:1px solid;color:black" asp-for="PrimerApellidoFiador" class="form-control" />
-                        <span asp-validation-for="PrimerApellidoFiador" class="text-danger"></span>
-                    </div>
-                    <div class="col-md-6">
-                        <strong style="color:hsl(0, 0%, 50%)">
-                            <label class="form-group row justify-content-center mb-0" asp-for="SegundoApellidoFiador"></label>
-                        </strong>
-                        <input style="border:1px solid;color:black" asp-for="SegundoApellidoFiador" class="form-control" />
-                        <span asp-validation-for="SegundoApellidoFiador" class="text-danger"></span>
-                    </div>
-                </div>
-
-
-                <div class="row mb-4">
-                    <div class="col-md-6">
-                        <strong style="color:hsl(0, 0%, 50%)">
-                            <label class="form-group row justify-content-center mb-0" asp-for="EdadFiador"></label>
-                        </strong>
-                        <input type="number" style="border:1px solid;color:black" asp-for="EdadFiador" class="form-control" />
-                        <span asp-validation-for="EdadFiador" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-6">
-                        <strong style="color:hsl(0, 0%, 50%)">
-                            <label class="form-group row justify-content-center mb-0" asp-for="SexoFiador"></label>
-                        </strong>
-                        <select style="border:1px solid;color:black" class="form-control" asp-for="SexoFiador" name="SexoFiador" asp-items="@oSexos">
-                        </select>
-                        <span asp-validation-for="SexoFiador" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="row mb-4">
-                    <div class="col-md-6">
-                        <strong style="color:hsl(0, 0%, 50%)">
-                            <label class="form-group row justify-content-center mb-0" asp-for="PaisNacimientoFiador"></label>
-                        </strong>
-                        <input style="border:1px solid;color:black" asp-for="PaisNacimientoFiador" class="form-control" />
-                        <span asp-validation-for="PaisNacimientoFiador" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-6">
-                        <strong style="color:hsl(0, 0%, 50%)">
-                            <label class="form-group row justify-content-center mb-0" asp-for="EmailFiador"></label>
-                        </strong>
-                        <input type="email" style="border:1px solid;color:black" asp-for="EmailFiador" class="form-control" />
-                        <span asp-validation-for="EmailFiador" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="row mb-4">
-                    <div class="col-md-6">
-                        <strong style="color:hsl(0, 0%, 50%)">
-                            <label class="form-group row justify-content-center mb-0" asp-for="TelefonoFiador"></label>
-                        </strong>
-                        <input type="number" style="border:1px solid;color:black" asp-for="TelefonoFiador" class="form-control" />
-                        <span asp-validation-for="TelefonoFiador" class="text-danger"></span>
-                    </div>
-                    <div class="col-md-6">
-                        <strong style="color:hsl(0, 0%, 50%)">
-                            <label class="form-group row justify-content-center mb-0" asp-for="TelefonoAlternoFiador"></label>
-                        </strong>
-                        <input type="number" style="border:1px solid;color:black" asp-for="TelefonoAlternoFiador" class="form-control" />
-                        <span asp-validation-for="TelefonoAlternoFiador" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="row mb-4">
-                    <div class="col-md-3">
-                        <strong style="color:hsl(0, 0%, 50%)">
-                            <label class="form-group row justify-content-center mb-0" asp-for="NumCartasPersonales"></label>
-                        </strong>
-                        <input type="number" style="border:1px solid;color:black" asp-for="NumCartasPersonales" class="form-control" />
-                        <span asp-validation-for="NumCartasPersonales" class="text-danger"></span>
-                    </div>
-                    <div class="col-md-3">
-                        <strong style="color:hsl(0, 0%, 50%)">
-                            <label class="form-group row justify-content-center mb-0" asp-for="NumCartasFamiliares"></label>
-                        </strong>
-                        <input type="number" style="border:1px solid;color:black" asp-for="NumCartasFamiliares" class="form-control" />
-                        <span asp-validation-for="NumCartasFamiliares" class="text-danger"></span>
-                    </div>
-                    <div class="col-md-6">
-                        <strong style="color:hsl(0, 0%, 50%)">
-                            <label class="form-group row justify-content-center mb-2" asp-for="EntregoRecibo_Agua_o_Luz"></label>
-                        </strong>
-                        <center>
-                            @Html.CheckBoxFor(m => m.EntregoRecibo_Agua_o_Luz)
-                        </center>
-                    </div>
-                </div>
-                <br />
-                <div style="width:100%;padding:0 25% 0 25%" class="form-group">
-                    <input type="button" value="Crear fiador" onclick="Guardar()" class="btn btn-primary btn-block" />
-                </div>
-                <div style="width:100%;padding:0 25% 0 25%">
-                    <a class="btn btn-outline-primary btn-block" asp-controller="Personas" asp-action="Personas">Lista de personas</a>
-                </div>
-                <br />
-            </form>
+    <div style="justify-content:center;display:flex;align-items:center;font-family:Helvetica" class="mb-2">
+        <div class="toast" data-delay="5000" style="border:thin;color:blue;border-radius: 9px;" role="alert" aria-live="assertive" aria-atomic="true">
+            <div style="background:#007bff" class="toast-header">
+                <img src="~/img/scblancopeque-200x91.png" style="width:10%;height:10%" class="rounded mr-2" alt="..." />
+                <strong class="mr-auto text-white">Notificación SC</strong>
+                <small class="text-white">justo ahora</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                <h4 class="text-primary text-center">
+                    Recuerda que los campos en
+                    <strong style="color:grey">*</strong>
+                    son requeridos.
+                </h4>
+            </div>
         </div>
     </div>
 
 
-    <caption>
-        <strong class="text-success">
-            Formulario para registro del fiador.
-            <br /><strong class="text-danger">Powered by</strong><strong style="color:black;font-family:Helvetica">--Sourcing-Corp &copy;--</strong>
-        </strong>
-    </caption>
-
-}
-
-
-
-@*Si tiene un fiador muestra tarjeta.*@
-else
-{
-    @foreach (var item in FiadorDisponible)
-    {
-        <div class="row">
-            <div class="col" style="text-align:left">
-                <div class="p-1 shadow-2 rounded-3 mb-2" style="font-family:Helvetica;border-radius: 9px;">
-                    <h2 class="text-primary"><strong>@ViewData["TituloFiador"]</strong></h2>
-                </div>
-            </div>
-            <div class="col" style="text-align:right">
-                <a class="btn btn-outline-primary" style="justify-items:right;" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
-            </div>
-        </div>
-        <hr>
-        <br />
-
-        <div class="align-content-center" id="TituloPer">
-            <center>
-                <img src="~/persona.png" width="50" height="50" />
-                <h3 class="text-center text-dark"><strong>@ViewBag.Nombre_Persona @ViewBag.Apellido_Persona </strong></h3>
-            </center>
-        </div>
-        <br />
-
-        <div class="box">
-            <div class="card">
-                <img src="~/Hombre.png" style="width:125px;height:125px;" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <div class="row align-items-left">
-                        <div class="col-5">
-                            <h5 class="card-title"><strong>Nombre</strong></h5>
-                            <p class="card-text">@item.PrimerNombreFiador @item.SegundoNombreFiador @item.PrimerApellidoFiador @item.SegundoApellidoFiador</p>
-                            <br />
-                        </div>
-                        <div class="col">
-                            <h5 class="card-title"><strong>Edad</strong></h5>
-                            <p class="card-text">@item.EdadFiador</p>
-                            <br />
-                        </div>
-                        <div class="col">
-                            <h5 class="card-title"><strong>Género</strong></h5>
-                            @if (item.SexoFiador == 2)
-                            {
-                                <p> <strong class="text-primary">M</strong></p>
-                            }
-                            @if (item.SexoFiador != 2)
-                            {
-                                <strong style="color:hotpink">F</strong>
-                            }
-
-                            <br />
-                        </div>
-                    </div>
-
-                    <div class="row align-items-center">
-                        <div class="col-5">
-                            <h5 class="card-title"><strong>Email</strong></h5>
-                            <p class="card-text">@item.EmailFiador </p>
-                            <br />
-                        </div>
-                        <div class="col">
-                            <h5 class="card-title"><strong>Teléfono</strong></h5>
-                            <p class="card-text">@item.TelefonoFiador</p>
-                            <br />
-                        </div>
-                        <div class="col">
-                            <h5 class="card-title"><strong>Teléfono alternativo</strong></h5>
-                            <p class="card-text">@item.TelefonoAlternoFiador</p>
-                            <br />
-                        </div>
-                    </div>
-
-                    <div class="row align-items-center">
-                        <div class="col-5">
-                            <h5 class="card-title"><strong>Cartas personales</strong></h5>
-                            <p class="card-text">@item.NumCartasPersonales</p>
-                            <br />
-                        </div>
-                        <div class="col">
-                            <h5 class="card-title"><strong>Cartas familiares</strong></h5>
-                            <p class="card-text">@item.NumCartasFamiliares</p>
-                            <br />
-                        </div>
-                        <div class="col">
-                            <h5 class="card-title"><strong>Entrego recibo agua o luz?</strong></h5>
-                            <p class="card-text">@item.EntregoRecibo_Agua_o_Luz</p>
-                            <br />
-                        </div>
-                    </div>
-
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <h5 class="card-title"><strong>Fecha de creación</strong></h5>
-                            <p class="card-text">@item.FechaGrabacionFiador</p>
-                            <br />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <style>
-            .box {
-                display: flex;
-                justify-content: space-evenly;
-            }
-        </style>
-        <br />
-        <br />
-        <center>
+    <div class="row justify-content-center">
+        <form style="font-family:Helvetica" class="form-group" asp-controller="Fiador" asp-action="GuardarFiador" method="post" id="frm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="per_codigo_id" hidden value="@ViewBag.IdPersona" />
             <div class="form-group">
-                <a class="btn btn-primary" asp-controller="DatosFamiliares" asp-action="EditarDatosFamiliares" asp-route-id="@ViewBag.IdPersona">Editar</a>&nbsp;
-                <a class="btn btn-danger" asp-controller="DatosFamiliares" asp-action="EliminarDatosFamiliares" asp-route-id="@ViewBag.IdPersona">Eliminar</a>
+                <input type="hidden" asp-for="per_codigo_id" class="form-control text-center" />
             </div>
-        </center>
-    }
-}
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <strong style="color:hsl(200, 18%, 46%)">
+                        <label class="form-group row justify-content-center mb-0" asp-for="PrimerNombreFiador"></label>
+                    </strong>
+                    <input  asp-for="PrimerNombreFiador" class="form-control priNom" />
+                    <span asp-validation-for="PrimerNombreFiador" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <strong style="color:hsl(200, 18%, 46%)">
+                        <label class="form-group row justify-content-center mb-0" asp-for="SegundoNombreFiador"></label>
+                    </strong>
+                    <input  asp-for="SegundoNombreFiador" class="form-control" />
+                    <span asp-validation-for="SegundoNombreFiador" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <strong style="color:hsl(200, 18%, 46%)">
+                        <label class="form-group row justify-content-center mb-0" asp-for="PrimerApellidoFiador"></label>
+                    </strong>
+                    <input  asp-for="PrimerApellidoFiador" class="form-control" />
+                    <span asp-validation-for="PrimerApellidoFiador" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <strong style="color:hsl(200, 18%, 46%)">
+                        <label class="form-group row justify-content-center mb-0" asp-for="SegundoApellidoFiador"></label>
+                    </strong>
+                    <input  asp-for="SegundoApellidoFiador" class="form-control" />
+                    <span asp-validation-for="SegundoApellidoFiador" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <strong style="color:hsl(200, 18%, 46%)">
+                        <label class="form-group row justify-content-center mb-0" asp-for="EdadFiador"></label>
+                    </strong>
+                    <input type="number"  asp-for="EdadFiador" class="form-control" />
+                    <span asp-validation-for="EdadFiador" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <strong style="color:hsl(200, 18%, 46%)">
+                        <label class="form-group row justify-content-center mb-0" asp-for="SexoFiador"></label>
+                    </strong>
+                    <select  class="form-control" asp-for="SexoFiador" name="SexoFiador" asp-items="@oSexos">
+                    </select>
+                    <span asp-validation-for="SexoFiador" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <strong style="color:hsl(200, 18%, 46%)">
+                        <label class="form-group row justify-content-center mb-0" asp-for="PaisNacimientoFiador"></label>
+                    </strong>
+                    <input  asp-for="PaisNacimientoFiador" class="form-control" />
+                    <span asp-validation-for="PaisNacimientoFiador" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <strong style="color:hsl(200, 18%, 46%)">
+                        <label class="form-group row justify-content-center mb-0" asp-for="EmailFiador"></label>
+                    </strong>
+                    <input type="email"  asp-for="EmailFiador" class="form-control" />
+                    <span asp-validation-for="EmailFiador" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <strong style="color:hsl(200, 18%, 46%)">
+                        <label class="form-group row justify-content-center mb-0" asp-for="TelefonoFiador"></label>
+                    </strong>
+                    <input type="number"  asp-for="TelefonoFiador" class="form-control" />
+                    <span asp-validation-for="TelefonoFiador" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <strong style="color:hsl(200, 18%, 46%)">
+                        <label class="form-group row justify-content-center mb-0" asp-for="TelefonoAlternoFiador"></label>
+                    </strong>
+                    <input type="number"  asp-for="TelefonoAlternoFiador" class="form-control" />
+                    <span asp-validation-for="TelefonoAlternoFiador" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <strong style="color:hsl(200, 18%, 46%)">
+                        <label class="form-group row justify-content-center mb-0" asp-for="NumCartasPersonales"></label>
+                    </strong>
+                    <input type="number"  asp-for="NumCartasPersonales" class="form-control" />
+                    <span asp-validation-for="NumCartasPersonales" class="text-danger"></span>
+                </div>
+                <div class="col-md-3">
+                    <strong style="color:hsl(200, 18%, 46%)">
+                        <label class="form-group row justify-content-center mb-0" asp-for="NumCartasFamiliares"></label>
+                    </strong>
+                    <input type="number"  asp-for="NumCartasFamiliares" class="form-control" />
+                    <span asp-validation-for="NumCartasFamiliares" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <strong style="color:hsl(200, 18%, 46%)">
+                        <label class="form-group row justify-content-center mb-2" asp-for="EntregoRecibo_Agua_o_Luz"></label>
+                    </strong>
+                    <center>
+                        @Html.CheckBoxFor(m => m.EntregoRecibo_Agua_o_Luz)
+                    </center>
+                </div>
+            </div>
+            <br />
+            <div style="width:100%;padding:0 25% 0 25%" class="form-group">
+                <input type="button" value="Crear fiador" onclick="Guardar()" class="btn btn-primary btn-block" />
+            </div>
+            <br />
+        </form>
+    </div>
+</div>
+
+<caption>
+    <strong class="text-success">
+        Formulario para registro del fiador.
+        <br /><strong class="text-danger">Powered by</strong><strong style="color:black;font-family:Helvetica">--Sourcing-Corp &copy;--</strong>
+    </strong>
+</caption>
+
+
 
 @section Scripts {
     @{
@@ -329,8 +209,9 @@ else
 
     <script>
         function Guardar() {
-            var frm = document.ge
-            tElementById("frm");
+            var frm = document.getElementById("frm");
+            var prN = document.getElementsByClassName("priNom");
+            console.log(prN);
             MostrarModal().then(res => {
                 if (res.value) {
                     frm.submit();
@@ -342,5 +223,7 @@ else
             $('.toast').toast('show');
         });
         $('.toast').toast(option)
+
+      
     </script>
     }

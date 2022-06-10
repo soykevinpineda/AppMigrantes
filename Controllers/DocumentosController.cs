@@ -377,7 +377,7 @@ namespace Migrantes.Controllers
 
             if (ViewBag.IdDocumento == 0)
             {
-                TempData["msjDocsDisponibles"] = "La persona no tiene documentos agregados...";
+                TempData["msjDocsDisponibles"] = "La persona seleccionada no tiene documentos, desea agregarlos?";
             }
 
             if (id == null)

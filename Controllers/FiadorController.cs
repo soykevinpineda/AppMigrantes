@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Migrantes.Data;
@@ -17,8 +18,6 @@ namespace Migrantes.Controllers
 {
     public class FiadorController : GenericController
     {
-
-
         private readonly ApplicationDbContext _context;
         private readonly IDocumentos _documentos;
         private readonly IPersonas _persona;
@@ -36,24 +35,34 @@ namespace Migrantes.Controllers
             this._persona = persona;
             this._familiares = agregandofamiliares;
             this._context = context;
-
         }
 
+        #region Área fiador.
 
-
+        //Get: Crear fiador asociado al ID de la persona selecionada.
         [HttpGet]
         public IActionResult CrearFiador(int? id)
         {
 
+            var urlRetornoFiadorCrear = HttpContext.Request.Path + HttpContext.Request.QueryString;
+            HttpContext.Session.SetString("UrlRetorno", urlRetornoFiadorCrear);
+
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
             var Fiador_Persona = this._context.FiadorDb
            .FirstOrDefault(x => x.per_codigo_id == id);
+
+            Sexos();
 
 
             if (Fiador_Persona == null)
             {
 
-                TempData["alertaFiador"] = "La persona no tiene un fiador, desea crear uno?";
-
+                TempData["alertaFiador"] = "La persona seleccionada no tiene un fiador, desea agregarlo?";
             }
 
             ViewBag.FiadorPersona = Fiador_Persona;
@@ -65,13 +74,16 @@ namespace Migrantes.Controllers
 
             ListFiador(Codigo_Persona.per_codigo_id);
 
-            Sexos();
-
-
             var NombrePersona = this._context.PersonasDb
             .Where(x => x.per_codigo_id == id)
             .Select(x => x.per_primer_nom).FirstOrDefault();
             ViewBag.Nombre_Persona = NombrePersona;
+
+            var SegNombrePersona = this._context.PersonasDb
+            .Where(x => x.per_codigo_id == id)
+             .Select(x => x.per_segundo_nom).FirstOrDefault();
+            ViewBag.SegNombrePersona = SegNombrePersona;
+
 
             var ApellidoPersona = this._context.PersonasDb
             .Where(x => x.per_codigo_id == id)
@@ -82,35 +94,288 @@ namespace Migrantes.Controllers
         }
 
 
-
-        //POST: Guardando al fiador asociado a la persona.
+        //Post: Guardando al fiador creado.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> GuardarFiador(FiadorViewModel FiadorGuardado)
+        public async Task<ActionResult> GuardarFiador(FiadorViewModel FiadorCreado)
         {
 
+            var urlRetornoFiadorCrear = HttpContext.Session.GetString("UrlRetorno");
 
-            Sexos();
-
-            if (ModelState.IsValid)
+            try
             {
-                try
+                if (!ModelState.IsValid)
                 {
-                    await this._fiador.GuardarFiador(FiadorGuardado);
+
+                    TempData["msjSinGuardar"] = "No se agrego al fiador, recuerda llenar todos los campos solicitados...";
+                    return LocalRedirect(urlRetornoFiadorCrear);
+
                 }
-                catch (Exception)
+                else
                 {
-                    throw;
+                    TempData["msjGuardadoExitoso"] = "El fiador fue creado exitosamente!";
+                    await this._fiador.GuardarFiador(FiadorCreado);
                 }
-
-
             }
-            return RedirectToAction("Personas", "Personas");
+            catch (Exception)
+            {
+                throw;
+            }
 
+            return RedirectToAction("Personas", "Personas");
 
         }
 
 
+        //Get: Muestra detalles del fiador asociado al ID de la persona.
+        [HttpGet]
+        public IActionResult DetallesFiador(int? id)
+
+        {
+
+            //Obtenemos la ruta de inicio del usuario.
+            var urlRetornoFiadorDetalles = HttpContext.Request.Path + HttpContext.Request.QueryString;
+            HttpContext.Session.SetString("UrlRetorno", urlRetornoFiadorDetalles);
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var ID_Persona = this._context.PersonasDb
+              .FirstOrDefault(x => x.per_codigo_id == id);
+
+            ViewBag.IdPersona = ID_Persona.per_codigo_id;
+
+            var Fiador_Persona = this._context.FiadorDb
+                .FirstOrDefault(x => x.per_codigo_id == id);
+
+            if (Fiador_Persona == null)
+            {
+                TempData["alertaFiador"] = "La persona seleccionada no tiene un fiador, desea agregarlo?";
+            }
+
+            ViewBag.FiadorPersona = Fiador_Persona;
+
+            var PrimerNombrePersona = this._context.PersonasDb
+            .Where(x => x.per_codigo_id == id)
+            .Select(x => x.per_primer_nom).FirstOrDefault();
+            ViewBag.Nombre_Persona = PrimerNombrePersona;
+
+            var SegNombrePersona = this._context.PersonasDb
+            .Where(x => x.per_codigo_id == id)
+            .Select(x => x.per_segundo_nom).FirstOrDefault();
+            ViewBag.SegNombrePersona = SegNombrePersona;
+
+            var ApellidoPersona = this._context.PersonasDb
+            .Where(x => x.per_codigo_id == id)
+            .Select(x => x.per_primer_ape).FirstOrDefault();
+            ViewBag.Apellido_Persona = ApellidoPersona;
+
+            ListFiador(ID_Persona.per_codigo_id);
+
+            return View();
+
+        }
+
+
+
+        //Get: Eliminar fiador.
+        [HttpGet]
+        public async Task<IActionResult> EliminarFiador(int? id)
+        {
+            Sexos();
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var Fiador_Persona = await this._context.FiadorDb
+                .FirstOrDefaultAsync(x => x.per_codigo_id == id);
+
+            if (Fiador_Persona == null)
+            {
+                return NotFound();
+            }
+
+            var ID_Persona = this._context.PersonasDb
+           .FirstOrDefault(x => x.per_codigo_id == id);
+
+            ViewBag.IdPersona = ID_Persona.per_codigo_id;
+
+            var NombrePersona = this._context.PersonasDb
+            .Where(x => x.per_codigo_id == id)
+            .Select(x => x.per_primer_nom).FirstOrDefault();
+            ViewBag.Nombre_Persona = NombrePersona;
+
+            var SegNombrePersona = this._context.PersonasDb
+            .Where(x => x.per_codigo_id == id)
+            .Select(x => x.per_segundo_nom).FirstOrDefault();
+            ViewBag.SegNombrePersona = SegNombrePersona;
+
+            var ApellidoPersona = this._context.PersonasDb
+            .Where(x => x.per_codigo_id == id)
+            .Select(x => x.per_primer_ape).FirstOrDefault();
+            ViewBag.Apellido_Persona = ApellidoPersona;
+
+
+            var objEliminarFiador = new FiadorViewModel()
+
+            {
+
+                per_codigo_id = Fiador_Persona.per_codigo_id,
+                IdFiador = Fiador_Persona.IdFiador,
+                PrimerNombreFiador = Fiador_Persona.PrimerNombreFiador,
+                SegundoNombreFiador = Fiador_Persona.SegundoNombreFiador,
+                PrimerApellidoFiador = Fiador_Persona.PrimerApellidoFiador,
+                SegundoApellidoFiador = Fiador_Persona.SegundoApellidoFiador,
+                PaisNacimientoFiador = Fiador_Persona.PaisNacimientoFiador,
+                EdadFiador = Fiador_Persona.EdadFiador,
+                SexoFiador = Fiador_Persona.SexoFiador,
+                EmailFiador = Fiador_Persona.EmailFiador,
+                TelefonoFiador = Fiador_Persona.TelefonoFiador,
+                TelefonoAlternoFiador = Fiador_Persona.TelefonoAlternoFiador,
+                EntregoRecibo_Agua_o_Luz = Fiador_Persona.EntregoRecibo_Agua_o_Luz,
+                NumCartasPersonales = Fiador_Persona.NumCartasPersonales,
+                NumCartasFamiliares = Fiador_Persona.NumCartasFamiliares
+
+            };
+
+            return View(objEliminarFiador);
+        }
+
+
+        //Post: Eliminar fiador.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EliminarFiadorConfirmado(FiadorViewModel oFiadorEliminado)
+        {
+
+            var ID_Persona = this._context.PersonasDb
+            .FirstOrDefault(x => x.per_codigo_id == oFiadorEliminado.per_codigo_id);
+
+            ViewBag.IdPersona = ID_Persona.per_codigo_id;
+
+            var FiadorDePersona = await this._context.FiadorDb
+               .AsNoTracking().FirstOrDefaultAsync(x => x.IdFiador == oFiadorEliminado.IdFiador);
+
+
+            if (FiadorDePersona == null)
+            {
+                return NotFound();
+            }
+
+            if (oFiadorEliminado == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                await this._fiador.EliminarFiadorConfirmado(oFiadorEliminado);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return RedirectToAction("Personas", "Personas");
+        }
+
+
+        //Get: Editar fiador.
+        [HttpGet]
+        public async Task<IActionResult> EditarFiador(int? id)
+        {
+
+            var ID_Persona = this._context.PersonasDb
+            .FirstOrDefault(x => x.per_codigo_id == id);
+
+            ViewBag.IdPersona = ID_Persona.per_codigo_id;
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Sexos();
+            SexosEditar();
+
+            if (ID_Persona == null)
+            {
+                return NotFound();
+            }
+
+            var Fiador_Persona = await this._context.FiadorDb
+                .AsNoTracking().FirstOrDefaultAsync(x => x.per_codigo_id == id);
+
+            if (Fiador_Persona == null)
+            {
+                return NotFound();
+            }
+
+            var objFiadorEditado = new FiadorViewModel()
+
+            {
+
+                per_codigo_id = Fiador_Persona.per_codigo_id,
+                IdFiador = Fiador_Persona.IdFiador,
+                PrimerNombreFiador = Fiador_Persona.PrimerNombreFiador,
+                SegundoNombreFiador = Fiador_Persona.SegundoNombreFiador,
+                PrimerApellidoFiador = Fiador_Persona.PrimerApellidoFiador,
+                SegundoApellidoFiador = Fiador_Persona.SegundoApellidoFiador,
+                PaisNacimientoFiador = Fiador_Persona.PaisNacimientoFiador,
+                EdadFiador = Fiador_Persona.EdadFiador,
+                SexoFiador = Fiador_Persona.SexoFiador,
+                EmailFiador = Fiador_Persona.EmailFiador,
+                TelefonoFiador = Fiador_Persona.TelefonoFiador,
+                TelefonoAlternoFiador = Fiador_Persona.TelefonoAlternoFiador,
+                EntregoRecibo_Agua_o_Luz = Fiador_Persona.EntregoRecibo_Agua_o_Luz,
+                NumCartasPersonales = Fiador_Persona.NumCartasPersonales,
+                NumCartasFamiliares = Fiador_Persona.NumCartasFamiliares
+
+            };
+
+            return View(objFiadorEditado);
+        }
+
+
+        //Post: Editar fiador.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> GuardarFiadorEditado(FiadorViewModel oFiadorEditado)
+        {
+
+            var ID_Persona = this._context.PersonasDb.AsNoTracking()
+             .FirstOrDefault(x => x.per_codigo_id == oFiadorEditado.per_codigo_id);
+
+            if (ID_Persona == null)
+            {
+                return NotFound();
+            }
+
+            if (oFiadorEditado == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                await this._fiador.GuardarFiadorEditado(oFiadorEditado);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            var urlRetornoFiadorDetalles = HttpContext.Session.GetString("UrlRetorno");
+            return LocalRedirect(urlRetornoFiadorDetalles);
+        }
+
+
+
+        #endregion Region fiador.
 
         #region Método crea una lista del fiador disponible de la persona.
         public void ListFiador(int IdPersona)
@@ -210,7 +475,8 @@ namespace Migrantes.Controllers
             return oSexo;
         }
         #endregion Procedimientos Sexo 
-
-
     }
+
 }
+
+

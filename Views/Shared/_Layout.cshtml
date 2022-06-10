@@ -35,15 +35,15 @@
                         </li>
 
                         <li class="nav-item justify-content-center">
-@*
+                            @*
                             <form asp-action="Index" asp-controller="Personas" method="get" style="font-family:Helvetica">
-                                <div class="container justify-content-around">
-                                    <div class="row">
-                                        <label class="control-label">Mes</label>
-                                        <input type="number" class="form-control" min="1" max="12" name="sMes" value="@ViewData["Mes"]" />
-                                        <input type="submit" value="Consultar" class="btn btn-info" />
-                                    </div>
-                                </div>
+                            <div class="container justify-content-around">
+                            <div class="row">
+                            <label class="control-label">Mes</label>
+                            <input type="number" class="form-control" min="1" max="12" name="sMes" value="@ViewData["Mes"]" />
+                            <input type="submit" value="Consultar" class="btn btn-info" />
+                            </div>
+                            </div>
                             </form>*@
 
                             <form asp-action="Personas" asp-controller="Personas" method="get" id="frmForm" style="font-family:Helvetica">
@@ -93,6 +93,7 @@
         }
     </style>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

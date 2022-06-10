@@ -42,20 +42,23 @@ namespace Migrantes.Controllers
         public IActionResult CrearDatosFamiliares(int? id)
 
         {
+            //Obtenemos el ID de la persona.
+            var PersonDatoFam = this._context.PersonasDb
+                .FirstOrDefault(x => x.per_codigo_id == id);
+            ViewBag.IdPersona = PersonDatoFam.per_codigo_id;
 
-            var PersonaDatoFam = this._context.PersonasDb.FirstOrDefault(x => x.per_codigo_id == id);
-            ViewBag.IdPersona = PersonaDatoFam.per_codigo_id;
-
-            var ValidacionDatosFamiliares = this._context.DatosFamiliaresDb.FirstOrDefault(x => x.per_codigo_id == id);
+            //Obtenemos el ID del dato familiar asociado a la persona.
+            var ValidacionDatosFamiliares = this._context.DatosFamiliaresDb
+                .FirstOrDefault(x => x.per_codigo_id == id);
             ViewBag.IdDatosFam = ValidacionDatosFamiliares;
 
             if (ValidacionDatosFamiliares == null)
 
             {
-                TempData["msjValidacionFamiliar"] = "La persona no tiene datos familiares agregados...";
+                TempData["msjValidacionFamiliar"] = "La persona seleccionada no tiene datos familiares, desea agregarlos?";
             }
 
-            DatosFamiliaresDisponibles(PersonaDatoFam.per_codigo_id);
+            DatosFamiliaresDisponibles(PersonDatoFam.per_codigo_id);
 
 
             return View();
@@ -100,23 +103,25 @@ namespace Migrantes.Controllers
             var urlRetornoDatosFamiliares = HttpContext.Request.Path + HttpContext.Request.QueryString;
             HttpContext.Session.SetString("UrlRetorno", urlRetornoDatosFamiliares);
 
-            var PersonaDatoFam = this._context.PersonasDb.FirstOrDefault(x => x.per_codigo_id == id);
+            var PersonaDatoFam = this._context.PersonasDb
+                .FirstOrDefault(x => x.per_codigo_id == id);
             ViewBag.IdPersona = PersonaDatoFam.per_codigo_id;
 
-            var ValidacionDatosFamiliares = this._context.DatosFamiliaresDb.FirstOrDefault(x => x.per_codigo_id == id);
+            var ValidacionDatosFamiliares = this._context.DatosFamiliaresDb
+                .FirstOrDefault(x => x.per_codigo_id == id);
             ViewBag.IdDatosFam = ValidacionDatosFamiliares;
 
             if (ValidacionDatosFamiliares == null)
 
             {
-                TempData["msjValidacionFamiliar"] = "La persona no tiene datos familiares agregados...";
+                TempData["msjValidacionFamiliar"] = "La persona seleccionada no tiene datos familiares, desea agregarlos?";
             }
 
             DatosFamiliaresDisponibles(PersonaDatoFam.per_codigo_id);
 
-        
+
             return View();
-           
+
         }
 
         //Get: Se editan datos de familiares asociado al ID de la persona
@@ -215,7 +220,8 @@ namespace Migrantes.Controllers
         public async Task<IActionResult> EliminarConfirmadoDatosFamiliares(DatosFamiliaresViewModel DatosFamiliaresEliminados)
         {
 
-            var datosFamiliares = await this._context.DatosFamiliaresDb.AsNoTracking().FirstOrDefaultAsync(x => x.per_codigo_id == DatosFamiliaresEliminados.per_codigo_id);
+            var datosFamiliares = await this._context.DatosFamiliaresDb
+                .AsNoTracking().FirstOrDefaultAsync(x => x.per_codigo_id == DatosFamiliaresEliminados.per_codigo_id);
 
             if (DatosFamiliaresEliminados == null)
             {

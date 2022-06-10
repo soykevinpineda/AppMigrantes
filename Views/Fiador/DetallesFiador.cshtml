@@ -1,0 +1,191 @@
+﻿@using Migrantes.ViewModels
+@model Migrantes.ViewModels.FiadorViewModel
+
+@{
+    ViewData["Title"] = "Formulario para crear fiador";
+    ViewData["TituloFiador"] = "Detalles del fiador";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<DatosFamiliaresViewModel> ListDatosFamiliares = ViewBag.ListDatosFam;
+    List<SelectListItem> oSexos = ViewBag.Sexos;
+    List<FiadorViewModel> FiadorDisponible = ViewBag.ListadoFiador;
+}
+
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="~/css/site.css"/>
+
+<!--Si la persona seleccionada no tiene un fiador creado,
+se muestra una alerta y opción para crearlo.-->
+@if (ViewBag.FiadorPersona == null)
+{
+    <div class="alert alert-warning d-flex alert-dismissible fade show" role="alert" style="font-size:large;font-family:Helvetica">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+        </svg>
+        &nbsp;@TempData["alertaFiador"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="close">
+            <span arie-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <center>
+        <div class="form-group">
+            <a class="btn btn-primary" asp-controller="Fiador" asp-action="CrearFiador" asp-route-id="@ViewBag.IdPersona">Agregar fiador</a>
+            <a class="btn btn-outline-primary" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+        </div>
+    </center>
+
+}
+
+
+<!--Si la persona seleccionada tiene un fiador
+se muestra una tarjeta con información.-->
+@foreach (var item in FiadorDisponible)
+{
+    <div class="row">
+        <div class="col" style="text-align:left">
+            <div class="p-1 shadow-2 rounded-3 mb-2" style="font-family:Helvetica;border-radius: 9px;">
+                <h2 class="text-primary"><strong>@ViewData["TituloFiador"]</strong></h2>
+            </div>
+        </div>
+        <div class="col" style="text-align:right">
+            <a class="btn btn-outline-primary" style="justify-items:right;" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+        </div>
+    </div>
+    <hr>
+    <br />
+
+    <div class="align-content-center" id="TituloPer" data-bs-toggle="tooltip" data-bs-placement="top" title="Persona seleccionada">
+        <center>
+            <img src="~/persona.png" width="50" height="50" />
+            <h3 class="text-center text-dark"><strong>@ViewBag.Nombre_Persona @ViewBag.SegNombrePersona @ViewBag.Apellido_Persona </strong></h3>
+        </center>
+    </div>
+    <br />
+
+    <div class="box">
+        <div class="card">
+            <img src="~/personal-guarantee.png" style="width:90px;height:85px;" class="card-img-top" alt="...">
+            <div class="card-body">
+                <div class="row align-items-left">
+                    <div class="col-5">
+                        <h5 class="card-title"><strong>Nombre</strong></h5>
+                        <p class="card-text">@item.PrimerNombreFiador @item.SegundoNombreFiador @item.PrimerApellidoFiador @item.SegundoApellidoFiador</p>
+                        <br />
+                    </div>
+                    <div class="col">
+                        <h5 class="card-title"><strong>Edad</strong></h5>
+                        <p class="card-text">@item.EdadFiador</p>
+                        <br />
+                    </div>
+                    <div class="col">
+                        <h5 class="card-title"><strong>Género</strong></h5>
+                        @if (item.SexoFiador == 2)
+                        {
+                            <p> <strong class="text-primary">M</strong></p>
+                        }
+                        @if (item.SexoFiador != 2)
+                        {
+                            <strong style="color:hotpink">F</strong>
+                        }
+                        <br />
+                    </div>
+                </div>
+
+                <div class="row align-items-center">
+                    <div class="col-5">
+                        <h5 class="card-title"><strong>Email</strong></h5>
+                        <p class="card-text">@item.EmailFiador </p>
+                        <br />
+                    </div>
+                    <div class="col">
+                        <h5 class="card-title"><strong>Teléfono</strong></h5>
+                        <p class="card-text">@item.TelefonoFiador</p>
+                        <br />
+                    </div>
+                    <div class="col">
+                        <h5 class="card-title"><strong>Teléfono alternativo</strong></h5>
+                        <p class="card-text">@item.TelefonoAlternoFiador</p>
+                        <br />
+                    </div>
+                </div>
+
+                <div class="row align-items-center">
+                    <div class="col-5">
+                        <h5 class="card-title"><strong>Cartas personales</strong></h5>
+                        <p class="card-text">@item.NumCartasPersonales</p>
+                        <br />
+                    </div>
+                    <div class="col">
+                        <h5 class="card-title"><strong>Cartas familiares</strong></h5>
+                        <p class="card-text">@item.NumCartasFamiliares</p>
+                        <br />
+                    </div>
+                    <div class="col">
+                        <h5 class="card-title"><strong>Entrego recibo agua o luz?</strong></h5>
+                        @if (item.EntregoRecibo_Agua_o_Luz == true)
+                        {
+                            <p> <strong class="text-primary">Si entrego recibo</strong></p>
+                        }
+                        @if (item.EntregoRecibo_Agua_o_Luz == false)
+                        {
+                            <p> <strong class="text-primary">No entrego recibo</strong></p>
+                        }
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h5 class="card-title"><strong>Fecha de creación</strong></h5>
+                        <p class="card-text">@item.FechaGrabacionFiador</p>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style>
+            .box {
+                display: flex;
+                justify-content: space-evenly;
+            }
+        </style>
+    </div>
+    <br />
+    <br />
+
+    <center>
+        <div class="form-group">
+            <a class="btn btn-primary" asp-controller="Fiador" asp-action="EditarFiador" asp-route-id="@ViewBag.IdPersona">Editar</a>&nbsp;
+            <a class="btn btn-danger" asp-controller="Fiador" asp-action="EliminarFiador" asp-route-id="@ViewBag.IdPersona">Eliminar</a>
+        </div>
+    </center>
+}
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script src="~/js/generic.js"></script>
+    <script src="~/js/sweetalert.js"></script>
+
+    <script>
+        function Guardar() {
+            var frm = document.getElementById("frm");
+            MostrarModal().then(res => {
+                if (res.value) {
+                    frm.submit();
+                    MostrarSuccess();
+                }
+            })
+        }
+        $(document).ready(function() {
+            $('.toast').toast('show');
+        });
+        $('.toast').toast(option)
+    </script>
+
+
+
+
+    }
