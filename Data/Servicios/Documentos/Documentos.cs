@@ -17,11 +17,12 @@ namespace Migrantes.Data.Servicios.Documentos
         }
 
 
-        public async Task GuardarDocumento(IdentidadPersona DocGuardado, string fileName, string path2, string fileNameB, string path2B)
+        public async Task GuardarDocumento(IdentidadPersona DocGuardado, string fileNameA, string path2, string fileNameB, string path2B)
 
         {
             IdentidadPersona oDocumento = new IdentidadPersona();
 
+            
             oDocumento.ide_codigo_id = DocGuardado.ide_codigo_id;
             oDocumento.ide_id_documento = DocGuardado.ide_id_documento;
             oDocumento.ide_numero = DocGuardado.ide_numero;
@@ -29,7 +30,7 @@ namespace Migrantes.Data.Servicios.Documentos
             oDocumento.ide_fecha_vencimiento = DocGuardado.ide_fecha_vencimiento;
             oDocumento.ide_estado = 1;
             oDocumento.ide_entregado = true;
-            oDocumento.NombreImagenPortada_A = fileName;
+            oDocumento.NombreImagenPortada_A = fileNameA;
             oDocumento.RutaImagenPortada_A = path2;
 
             oDocumento.NombreImagenPortada_B = fileNameB;
@@ -40,11 +41,12 @@ namespace Migrantes.Data.Servicios.Documentos
 
         }
 
-        public async Task GuardarDocumentoEditado(DocumentosViewModel documentoEditado)
+        public async Task GuardarDocumentoEditado(IdentidadPersona documentoEditado)
         {
 
             IdentidadPersona oDocumento = new IdentidadPersona();
 
+            oDocumento.ide_id_persona = documentoEditado.ide_id_persona;
             oDocumento.ide_codigo_id = documentoEditado.ide_codigo_id;
             oDocumento.ide_id_documento = documentoEditado.ide_id_documento;
             oDocumento.ide_numero = documentoEditado.ide_numero;

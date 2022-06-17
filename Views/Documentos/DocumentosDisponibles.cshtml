@@ -1,11 +1,28 @@
 ﻿@using Migrantes.Models.DTO
-@model Migrantes.Models.DTO.DocumentosPersonaDTO
+@model IEnumerable<DocumentosPersonaDTO>
 
 @{
     ViewData["TitleDocumentos"] = "Documentos disponibles";
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<SelectListItem> TipoDocSelect = ViewBag.ListDoc;
     List<DocumentosPersonaDTO> DocumentosPersona = ViewBag.ListadoDocumentos;
+}
+
+<!--Si la persona seleccionada tiene todos sus documentos,
+se muestra una alerta -->
+@if (TempData["msjDocsTotales"] != null)
+{
+    <div class="alert alert-warning d-flex alert-dismissible fade show" role="alert" style="font-size:large;font-family:Helvetica">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+        </svg>
+        &nbsp;@TempData["msjDocsTotales"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="close">
+            <span arie-hidden="true">&times;</span>
+        </button>
+        <div>
+        </div>
+    </div>
 }
 
 <!--Si la persona seleccionada no tiene documentos,
@@ -33,6 +50,7 @@ se muestra una alerta y opción para agregar documentos-->
     </center>
 }
 
+
 <!--Si la persona seleccionada tiene documentos,
 se muestra tabla de los documentos disponibles-->
 @if (@ViewBag.IdDocumento != 0)
@@ -50,37 +68,42 @@ se muestra tabla de los documentos disponibles-->
     </div>
     <hr>
 
+    @foreach (var item in DocumentosPersona)
+    {
+        <div class="align-content-left" id="TituloPer" data-bs-toggle="tooltip" data-bs-placement="top" title="Persona seleccionada">
+            <center>
+                <img src="~/persona.png" width="50" height="50" />
+                <h3 class="text-center text-dark"><strong>@item.per_primer_nom @item.per_segundo_nom @item.per_primer_ape @item.per_segundo_ape</strong></h3>
+            </center>
+        </div>
+        <br />
+        <br />
+    }
 
-    <div class="align-content-center" id="TituloPer" data-bs-toggle="tooltip" data-bs-placement="top" title="Persona seleccionada">
-        <center>
-            <img src="~/persona.png" width="50" height="50" />
-            <h3 class="text-center text-dark"><strong>@ViewBag.NombrePersonaDocumento @ViewBag.SegNombrePersona_Documento @ViewBag.primerApeDocumento </strong></h3>
-        </center>
-    </div>
-    <br />
-    <br />
     <div class="table-responsive text-nowrap">
-        <form asp-action="ExportarPersonasExcel" asp-controller="Documentos" id="FormChecks">
+        <form asp-action="ExportarDocsExcel" asp-controller="Documentos" id="FormChecks">
             <table class="table-light table-striped text-center table-hover table-sm table-responsive-xl pre-scrollable">
                 <thead class="text-center" style="color:white">
                     <tr>
                         <th>
-                            <input type="checkbox" checked name="nombrePropiedades" value="per_primer_ape" />
+                            <input type="checkbox" checked name="nombrePropiedades" value="ide_id_documento" />
                         </th>
                         <th>
-                            <input type="checkbox" checked name="nombrePropiedades" value="per_segundo_ape" />
+                            <input type="checkbox" checked name="nombrePropiedades" value="ide_numero" />
                         </th>
                         <th>
-                            <input type="checkbox" checked name="nombrePropiedades" value="per_primer_nom" />
+                            <input type="checkbox" checked name="nombrePropiedades" value="ide_fecha_emision" />
                         </th>
                         <th>
-                            <input type="checkbox" checked name="nombrePropiedades" value="per_segundo_nom" />
+                            <input type="checkbox" checked name="nombrePropiedades" value="ide_fecha_vencimiento" />
                         </th>
                         <th>
-                            <input type="checkbox" checked name="nombrePropiedades" value="Sexo" />
+                            <input type="checkbox" checked name="nombrePropiedades" value="NombreImagenPortada_A" />
                         </th>
                         <th>
-                            <input type="checkbox" checked name="nombrePropiedades" value="Edad" />
+                            <input type="checkbox" checked name="nombrePropiedades" value="RutaImagenPortada_A" />
+                            <input hidden type="checkbox" checked name="nombrePropiedades" value="NombreImagenPortada_B" />
+                            <input hidden type="checkbox" checked name="nombrePropiedades" value="RutaImagenPortada_B" />
                         </th>
                         <th>
                         </th>
@@ -124,10 +147,8 @@ se muestra tabla de los documentos disponibles-->
 
                 <tbody class="table-light text-center">
 
-
-                    @foreach (var item in DocumentosPersona)
+                    @foreach (var item in Model)
                     {
-
                         <tr class="table">
                             <td>
                                 @Html.DisplayFor(x => item.NombreDocumento)
@@ -143,11 +164,11 @@ se muestra tabla de los documentos disponibles-->
                             </td>
                             <td>
                                 <img style="border:1px solid;border-radius:9px" src="@item.RutaImagenPortada_A" width="200" height="100" />
-                                <span asp-validation-for="FotoDocumento" class="text-danger"></span>
+
                             </td>
                             <td>
                                 <img style="border:1px solid;border-radius:9px" src="@item.RutaImagenPortada_B" width="200" height="100" />
-                                <span asp-validation-for="FotoDocumento_LadoB" class="text-danger"></span>
+
                             </td>
 
                             <td>
@@ -166,9 +187,9 @@ se muestra tabla de los documentos disponibles-->
                                             <a class="btn btn-outline-info" href=@item.RutaImagenPortada_A target="_blank"> Portada </a>
                                             <a class="btn btn-outline-info" href=@item.RutaImagenPortada_B target="_blank"> Contraportada </a>
                                         </ul>
-                                        <a class="btn btn-warning" asp-controller="Documentos" asp-action="EditarDocumento" asp-route-id="@item.ide_id_persona">Editar</a>
-                                        <a class="btn btn-secondary" asp-controller="Documentos" asp-action="DetallesDocumento" asp-route-id="@item.ide_id_persona">Detalles</a>
-                                        <a class="btn btn-danger" asp-controller="Documentos" asp-action="EliminarDocumento" asp-route-id="@item.ide_id_persona">Eliminar</a>
+                                        <a class="btn btn-warning" asp-controller="Documentos" asp-action="EditarDocumento" asp-route-id="@item.ide_id_persona"><i class="material-icons" style="font-size:14px">border_color</i>&nbsp;Editar</a>
+                                        <a class="btn btn-secondary" asp-controller="Documentos" asp-action="DetallesDocumento" asp-route-id="@item.ide_id_persona"><i class="material-icons" style="font-size:14px">description</i>&nbsp;Detalles</a>
+                                        <a class="btn btn-danger" asp-controller="Documentos" asp-action="EliminarDocumento" asp-route-id="@item.ide_id_persona"><i class="material-icons" style="font-size:14px">delete</i>&nbsp;Eliminar</a>
                                     </ul>
                                 </div>
                             </td>
@@ -189,15 +210,33 @@ se muestra tabla de los documentos disponibles-->
                     }
                 </style>
             </table>
+
         </form>
     </div>
     <br />
     <hr>
-    <center>
-        <div class="form-group">
-            <a class="btn btn-primary" asp-controller="Documentos" asp-action="CrearDocumento" asp-route-id="@ViewBag.IdPersona">Crear nuevo documento</a>&nbsp;
-        </div>
-    </center>
+
+    if (ViewBag.ListadoDocumentos.Count <= 2)
+    {
+        <center>
+            <div class="form-group">
+                <a class="btn btn-primary" asp-controller="Documentos" asp-action="CrearDocumento" asp-route-id="@ViewBag.IdPersona">Crear nuevo documento</a>&nbsp;
+                <input type="button" class="btn btn-outline-success btn-md" value="Exportar data a Excel"
+               onclick="DescargarExcel()" />
+            </div>
+        </center>
+    }
+
+    if (ViewBag.ListadoDocumentos.Count == 3)
+    {
+        <center>
+            <div class="form-group">
+                <input type="button" class="btn btn-outline-success btn-md" value="Exportar data a Excel"
+               onclick="DescargarExcel()" />
+            </div>
+        </center>
+    }
+
 }
 
 
@@ -208,4 +247,24 @@ se muestra tabla de los documentos disponibles-->
 
     <script src="~/js/generic.js"></script>
     <script src="~/js/sweetalert.js"></script>
+
+    <script>
+        function DescargarExcel() {
+            var frmReporte = document.getElementById("FormChecks");
+            frmReporte.submit();
+        }
+
+        function Limpiar() {
+            document.getElementById("frmBuscar").value = "";
+            document.getElementById("frmForm").submit();
+        }
+
+        $(document).ready(function() {
+            $('.toast').toast('show');
+        });
+
+        $('.toast').toast(option)
+    </script>
 }
+
+

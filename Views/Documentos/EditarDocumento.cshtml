@@ -3,12 +3,12 @@
 
 @{
     ViewData["Title"] = "Editar documento";
+    ViewData["TitleCargaDocumentos"] = "Carga de archivos";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
     List<SelectListItem> TipoDocSelect = ViewBag.ListDoc;
     List<DocumentosPersonaDTO> DocumentosPersona = ViewBag.ListadoDocumentos;
 }
-
-
 
 <div class="row">
     <div class="col" style="text-align:left">
@@ -22,63 +22,91 @@
 </div>
 <hr>
 
-
-<div class="row justify-content-center" style="font-family:Helvetica">
-    <div style="text-align: center" class="col-md-4 offset-sm-0">
-        <form asp-action="GuardarDocumentoEditado" asp-controller="Documentos" method="post" id="frm">
+<div class="row" style="font-family:Helvetica">
+    <div style="text-align: center" class="col-md offset-sm-0">
+        <form asp-action="GuardarDocumentoEditado" asp-controller="Documentos" method="post" enctype="multipart/form-data" id="frm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="@Model.ide_id_persona" />
-
             <div class="form-group">
                 <input type="hidden" asp-for="ide_codigo_id" class="form-control text-center" />
             </div>
 
-            <div class="form-group">
-                <strong>
-                    <label asp-for="ide_id_documento" class="control-label"></label>
-                </strong>
-                <select asp-for="ide_id_documento" asp-items="@TipoDocSelect" class="form-control text-center" style="border:1px solid;color:black"> </select>
-                <span asp-validation-for="ide_id_documento" class="text-danger"></span>
+            <div class="row justify-content-center">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="ide_id_documento" class="control-label"></label>
+                        </strong>
+                        <select asp-for="ide_id_documento" asp-items="@TipoDocSelect" class="form-control text-center"> </select>
+                        <span asp-validation-for="ide_id_documento" class="text-danger"></span>
+                    </div>
+                    <br />
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="ide_numero" class="control-label"></label>
+                        </strong>
+                        <input type="number" asp-for="ide_numero" class="form-control text-center" name="ide_numero" />
+                        <span asp-validation-for="ide_numero" class="text-danger"></span>
+                    </div>
+                    <br />
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="ide_fecha_emision" class="control-label"></label>
+                        </strong>
+                        <input asp-for="ide_fecha_emision" class="form-control text-center" />
+                        <span asp-validation-for="ide_fecha_emision" class="text-danger"></span>
+                    </div>
+
+                    <br />
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="ide_fecha_vencimiento" class="control-label"></label>
+                        </strong>
+                        <input asp-for="ide_fecha_vencimiento" class="form-control text-center" />
+                        <span asp-validation-for="ide_fecha_vencimiento" class="text-danger"></span>
+                    </div>
+                    <br />
+
+
+                    <div class="p-2 shadow-2 rounded-3 mb-2" style="background-color: hsl(0, 0%, 94%);font-family:Helvetica;border-radius: 9px;">
+                        <h2 class="text-center text-primary"><strong>@ViewData["TitleCargaDocumentos"]</strong></h2>
+                    </div>
+                    <hr />
+
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="FotoDocumento" class="control-label"></label>
+                        </strong>
+                        <img style="border-radius:6px;width:100%" src="@Model.RutaImagenPortada_A" width="200" height="200" id="ImgFoto1" />
+                        <br />
+                        <input asp-for="FotoDocumento" class="form-control mb-1" id="customFile" onchange="SelecImg1()" accept="image/*" />
+                        <span asp-validation-for="FotoDocumento" class="text-danger"></span>
+                    </div>
+
+                    <br />
+                    <div class="form-group">
+                        <strong>
+                            <label asp-for="FotoDocumento_LadoB" class="control-label"></label>
+                        </strong>
+                        <img style="border-radius:6px;width:100%" src="@Model.RutaImagenPortada_B" width="200" height="200" id="ImgFoto2" />
+                        <br />
+                        <input required asp-for="FotoDocumento_LadoB" class="form-control mb-1" id="customFile2" onchange="SelecImg2()" accept="image/*" />
+                        <span asp-validation-for="FotoDocumento_LadoB" class="text-danger"></span>
+                    </div>
+
+                </div>
             </div>
 
             <br />
-
             <div class="form-group">
-                <strong>
-                    <label asp-for="ide_numero" class="control-label"></label>
-                </strong>
-                <input type="number" asp-for="ide_numero" class="form-control text-center" name="ide_numero" style="border:1px solid;color:black" />
-                <span asp-validation-for="ide_numero" class="text-danger"></span>
-            </div>
-
-            <br />
-
-            <div class="form-group">
-                <strong>
-                    <label asp-for="ide_fecha_emision" class="control-label"></label>
-                </strong>
-                <input asp-for="ide_fecha_emision" class="form-control text-center" style="border:1px solid;color:black" />
-                <span asp-validation-for="ide_fecha_emision" class="text-danger"></span>
-            </div>
-
-            <br />
-            <div class="form-group">
-                <strong>
-                    <label asp-for="ide_fecha_vencimiento" class="control-label"></label>
-                </strong>
-                <input asp-for="ide_fecha_vencimiento" class="form-control text-center" style="border:1px solid;color:black" />
-                <span asp-validation-for="ide_fecha_vencimiento" class="text-danger"></span>
-            </div>
-
-            <br />
-            <div class="form-group">
-                <input type="submit" value="Actualizar Documento" class="btn btn-success" />
+                <input type="submit" onclick="return ValidarImagen()" value="Actualizar documento" class="btn btn-success" />
             </div>
         </form>
     </div>
 </div>
 
-<br />
 <br />
 
 @section Scripts {
@@ -87,8 +115,27 @@
     }
     <script src="~/js/generic.js"></script>
     <script src="~/js/sweetalert.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script>
+        function SelecImg1() {
+            var archivo = document.getElementById("customFile").files[0];
+            var reader = new FileReader();
+            reader.onloadend = function() {
+                document.getElementById("ImgFoto1").src = reader.result;
+            }
+            reader.readAsDataURL(archivo);
+        }
+
+        function SelecImg2() {
+            var archivo = document.getElementById("customFile2").files[0];
+            var reader = new FileReader();
+            reader.onloadend = function() {
+                document.getElementById("ImgFoto2").src = reader.result;
+            }
+            reader.readAsDataURL(archivo);
+        }
+
 
         function SuccessDoc() {
             var frm = document.getElementById("frm");
@@ -100,11 +147,31 @@
             })
         }
 
+        function ValidarImagen() {
+
+            var doc1 = document.getElementById("ImgFoto1");
+            var sDoc1 = doc1.outerHTML;
+            var src1 = `<img style="border:none;width:100%" src="~/Add Photos.png" width="250em" height="200em" id="ImgFoto1"`;
+
+            var doc2 = document.getElementById("ImgFoto2");
+            var sDoc2 = doc2.outerHTML;
+            var src2 = `<img style="border:none;width:100%" src="~/Add Photos.png" width="250em" height="200em" id="ImgFoto2"`;
+
+            if (sDoc1 == src1 || sDoc2 == src2) {
+                swal("Error", "Selecciona una imagen por favor...", "error");
+                console.log("Exito");
+            } else {
+                SuccessDoc();
+                console.log("Fracaso");
+            }
+        }
+
+
         $(document).ready(function() {
             $('.toast').toast('show');
         });
 
         $('.toast').toast(option)
-    </script>
 
+    </script>
 }

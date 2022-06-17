@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Migrantes.Models.Entities;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -132,6 +133,11 @@ namespace Migrantes.Models.DTO
         public string segundo_apellido_padre { get; set; }
         public int edad_padre { get; set; }
         public string profesion_padre { get; set; }
+
+        public static implicit operator List<object>(DocumentosPersonaDTO v)
+        {
+            throw new NotImplementedException();
+        }
 
         #endregion Datos de Familiares
 

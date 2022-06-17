@@ -1,5 +1,5 @@
 ﻿@using Migrantes.Models.DTO
-@model Migrantes.ViewModels.DocumentosViewModel
+@model Migrantes.Models.Entities.IdentidadPersona
 @{
     ViewData["Title"] = "Formulario para documentos";
     ViewData["TitleCargaDocumentos"] = "Carga de archivos";
@@ -21,8 +21,6 @@
 </div>
 <hr>
 
-
-
 <div class="row justify-content-center" style="font-family:Helvetica;">
     <div style="text-align: center" class="col-md-4 offset-sm-0">
         <form asp-action="GuardarDoc" asp-controller="Documentos" method="post" enctype="multipart/form-data" id="frm">
@@ -39,8 +37,8 @@
                 <strong>
                     <label asp-for="ide_id_documento" class="control-label"></label>
                 </strong>
-                <select asp-for="ide_id_documento" asp-items="@TipoDocSelect" class="form-control text-center"  > </select>
-
+                <select asp-for="ide_id_documento" asp-items="@TipoDocSelect" class="form-control text-center"> </select>
+                <span asp-validation-for="ide_id_documento" class="text-danger"></span>
             </div>
             <br />
 
@@ -48,7 +46,7 @@
                 <strong>
                     <label asp-for="ide_numero" class="control-label"></label>
                 </strong>
-                <input type="number" asp-for="ide_numero" class="form-control text-center" name="ide_numero"   />
+                <input type="number" asp-for="ide_numero" class="form-control text-center" name="ide_numero" />
                 <span asp-validation-for="ide_numero" class="text-danger"></span>
             </div>
 
@@ -57,7 +55,7 @@
                 <strong>
                     <label asp-for="ide_fecha_emision" class="control-label"></label>
                 </strong>
-                <input asp-for="ide_fecha_emision" class="form-control text-center"   />
+                <input asp-for="ide_fecha_emision" class="form-control text-center" />
                 <span asp-validation-for="ide_fecha_emision" class="text-danger"></span>
             </div>
             <br />
@@ -66,7 +64,7 @@
                 <strong>
                     <label asp-for="ide_fecha_vencimiento" class="control-label"></label>
                 </strong>
-                <input asp-for="ide_fecha_vencimiento" class="form-control text-center"   />
+                <input asp-for="ide_fecha_vencimiento" class="form-control text-center" />
                 <span asp-validation-for="ide_fecha_vencimiento" class="text-danger"></span>
             </div>
             <br />
@@ -81,9 +79,8 @@
                 <strong>
                     <label asp-for="FotoDocumento" class="control-label"></label>
                 </strong>
-                <input required asp-for="FotoDocumento" class="form-control mb-1" id="customFile"
-                       onchange="SelecImg1()" accept="image/*" />
-                <img style="border:none;width:100%" src="~/no-fotos.png" width="200" height="200" id="ImgFoto1" />
+                <img style="border:none;width:100%" src="~/Add-Photos.png" width="250em" height="200em" id="ImgFoto1" />
+                <input required asp-for="FotoDocumento" class="form-control mb-1" id="customFile" onchange="SelecImg1()" accept="image/*" />
                 <span asp-validation-for="FotoDocumento" class="text-danger"></span>
             </div>
             <br />
@@ -92,51 +89,29 @@
                 <strong>
                     <label asp-for="FotoDocumento_LadoB" class="control-label"></label>
                 </strong>
-                <input required asp-for="FotoDocumento_LadoB" class="form-control mb-1" id="customFile2"
-                       onchange="SelecImg2()" accept="image/*" />
-                <img style="border:none;width:100%" src="~/no-fotos.png" width="200" height="200" id="ImgFoto2" />
+                <img style="border:none;width:100%" src="~/Add-Photos.png" width="250em" height="200em" id="ImgFoto2" />
+                <input required asp-for="FotoDocumento_LadoB" class="form-control mb-1" id="customFile2" onchange="SelecImg2()" accept="image/*" />
                 <span asp-validation-for="FotoDocumento_LadoB" class="text-danger"></span>
             </div>
-            <br />
 
+            <br />
             <div class="form-group">
-                <input type="submit" onclick="SuccessDoc()" value="Guardar Documento" class="btn btn-success" />
+                <input type="submit" onclick="return ValidarImagen()" value="Guardar documento" class="btn btn-success" />
             </div>
         </form>
     </div>
 </div>
 
 <br />
-
 <br />
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
     <script src="~/js/generic.js"></script>
     <script src="~/js/sweetalert.js"></script>
-
-    <script>
-        function SelecImg1() {
-            var archivo = document.getElementById("customFile").files[0];
-            var reader = new FileReader();
-            reader.onloadend = function() {
-                document.getElementById("ImgFoto1").src = reader.result;
-            }
-            reader.readAsDataURL(archivo);
-        }
-    </script>
-
-    <script>
-        function SelecImg2() {
-            var archivo = document.getElementById("customFile2").files[0];
-            var reader = new FileReader();
-            reader.onloadend = function() {
-                document.getElementById("ImgFoto2").src = reader.result;
-            }
-            reader.readAsDataURL(archivo);
-        }
-    </script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script>
 
@@ -150,11 +125,50 @@
             })
         }
 
+        function ValidarImagen() {
+
+            var doc1 = document.getElementById("ImgFoto1");
+            var sDoc1 = doc1.outerHTML;
+            var src1 = `<img style="border:none;width:100%" src="~/Add-Photos.png" width="250em" height="200em" id="ImgFoto1"`;
+
+            var doc2 = document.getElementById("ImgFoto2");
+            var sDoc2 = doc2.outerHTML;
+            var src2 = `<img style="border:none;width:100%" src="~/Add-Photos.png" width="250em" height="200em" id="ImgFoto2"`;
+
+            if (sDoc1 == src1 || sDoc2 == src2) {
+                swal("Error", "Selecciona una imagen por favor...", "error");
+                console.log("Exito");
+            } else {
+                SuccessDoc();
+                console.log("Fracaso");
+            }
+
+        }
+
+
         $(document).ready(function() {
             $('.toast').toast('show');
         });
 
         $('.toast').toast(option)
-    </script>
 
+
+        function SelecImg1() {
+            var archivo = document.getElementById("customFile").files[0];
+            var reader = new FileReader();
+            reader.onloadend = function() {
+                document.getElementById("ImgFoto1").src = reader.result;
+            }
+            reader.readAsDataURL(archivo);
+        }
+        function SelecImg2() {
+            var archivo = document.getElementById("customFile2").files[0];
+            var reader = new FileReader();
+            reader.onloadend = function() {
+                document.getElementById("ImgFoto2").src = reader.result;
+            }
+            reader.readAsDataURL(archivo);
+        }
+
+    </script>
 }

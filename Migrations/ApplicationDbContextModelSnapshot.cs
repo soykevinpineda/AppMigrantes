@@ -380,15 +380,19 @@ namespace Migrantes.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PrimerApellidoFiador")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PrimerNombreFiador")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SegundoApellidoFiador")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SegundoNombreFiador")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SexoFiador")

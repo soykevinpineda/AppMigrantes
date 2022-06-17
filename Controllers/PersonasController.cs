@@ -50,6 +50,17 @@ namespace Migrantes.Controllers
         }
 
 
+
+        public static List<PersonaDTO> oPersonasExcel;
+
+
+        public FileResult ExportarDocsExcel(string[] nombrePropiedades)
+        {
+            byte[] buffer = ExportarExcelGeneric(nombrePropiedades, oPersonasExcel);
+            return File(buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        }
+
+
         #region Area personas
 
         public async Task<IActionResult> Index()

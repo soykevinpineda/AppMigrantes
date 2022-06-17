@@ -54,12 +54,12 @@ namespace Migrantes.ViewModels
         public string RutaImagenPortada_B { get; set; }
 
         [Display(Name = ("Portada del documento"))]
-        [Required(ErrorMessage = "Seleccione una foto por favor...")]
+       //[Required(ErrorMessage = "Seleccione una foto por favor...")]
         [NotMapped]
         public IFormFile FotoDocumento { get; set; }
 
         [Display(Name = ("Contraportada del documento"))]
-        [Required(ErrorMessage = "Seleccione una foto por favor...")]
+        //[Required(ErrorMessage = "Seleccione una foto por favor...")]
         [NotMapped]
         public IFormFile FotoDocumento_LadoB { get; set; }
 
