@@ -37,6 +37,7 @@ namespace Migrantes.Controllers
             this._context = context;
         }
 
+
         #region Área fiador.
 
         //Get: Crear fiador asociado al ID de la persona selecionada.
@@ -377,6 +378,7 @@ namespace Migrantes.Controllers
 
         #endregion Region fiador.
 
+
         #region Método crea una lista del fiador disponible de la persona.
         public void ListFiador(int IdPersona)
 
@@ -415,6 +417,7 @@ namespace Migrantes.Controllers
 
         }
         #endregion
+
 
         #region Procedimientos Sexo 
         //Combo Box: Tipo Sexo

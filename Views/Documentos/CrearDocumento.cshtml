@@ -79,7 +79,7 @@
                 <strong>
                     <label asp-for="FotoDocumento" class="control-label"></label>
                 </strong>
-                <img style="border:none;width:100%" src="~/Add-Photos.png" width="250em" height="200em" id="ImgFoto1" />
+                <img style="border-radius:6px;width:100%" src="~/Add-Photos.png" width="300em" height="250em" id="ImgFoto1" />
                 <input required asp-for="FotoDocumento" class="form-control mb-1" id="customFile" onchange="SelecImg1()" accept="image/*" />
                 <span asp-validation-for="FotoDocumento" class="text-danger"></span>
             </div>
@@ -89,14 +89,14 @@
                 <strong>
                     <label asp-for="FotoDocumento_LadoB" class="control-label"></label>
                 </strong>
-                <img style="border:none;width:100%" src="~/Add-Photos.png" width="250em" height="200em" id="ImgFoto2" />
+                <img style="border-radius:6px;width:100%" src="~/Add-Photos.png" width="300em" height="250em" id="ImgFoto2" />
                 <input required asp-for="FotoDocumento_LadoB" class="form-control mb-1" id="customFile2" onchange="SelecImg2()" accept="image/*" />
                 <span asp-validation-for="FotoDocumento_LadoB" class="text-danger"></span>
             </div>
 
             <br />
             <div class="form-group">
-                <input type="submit" onclick="return ValidarImagen()" value="Guardar documento" class="btn btn-success" />
+                <input type="submit" onclick="return ValidarFormulario()" value="Guardar documento" class="btn btn-success" />
             </div>
         </form>
     </div>
@@ -114,7 +114,6 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script>
-
         function SuccessDoc() {
             var frm = document.getElementById("frm");
             MostrarSuccessDoc().then(res => {
@@ -125,33 +124,28 @@
             })
         }
 
-        function ValidarImagen() {
-
-            var doc1 = document.getElementById("ImgFoto1");
-            var sDoc1 = doc1.outerHTML;
-            var src1 = `<img style="border:none;width:100%" src="~/Add-Photos.png" width="250em" height="200em" id="ImgFoto1"`;
-
-            var doc2 = document.getElementById("ImgFoto2");
-            var sDoc2 = doc2.outerHTML;
-            var src2 = `<img style="border:none;width:100%" src="~/Add-Photos.png" width="250em" height="200em" id="ImgFoto2"`;
-
-            if (sDoc1 == src1 || sDoc2 == src2) {
-                swal("Error", "Selecciona una imagen por favor...", "error");
-                console.log("Exito");
-            } else {
-                SuccessDoc();
-                console.log("Fracaso");
-            }
-
-        }
-
-
         $(document).ready(function() {
             $('.toast').toast('show');
         });
 
         $('.toast').toast(option)
+    </script>
 
+    <script>
+        function ValidarFormulario() {
+            if (document.getElementById("customFile").value == "") {
+                swal("Error", "Por favor seleccione una imagen...", "error");
+                return false;
+            }
+            if (document.getElementById("customFile2").value == "") {
+                swal("Error", "Por favor seleccione una imagen...", "error");
+                return false;
+            }
+            else {
+                SuccessDoc();
+            }
+
+        }
 
         function SelecImg1() {
             var archivo = document.getElementById("customFile").files[0];
@@ -169,6 +163,5 @@
             }
             reader.readAsDataURL(archivo);
         }
-
     </script>
 }

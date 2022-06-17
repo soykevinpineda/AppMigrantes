@@ -6,6 +6,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<SelectListItem> TipoDocSelect = ViewBag.ListDoc;
     List<DocumentosPersonaDTO> DocumentosPersona = ViewBag.ListadoDocumentos;
+    List<DocumentosPersonaDTO> NombreDeLaPersona = ViewBag.NombresPersona;
 }
 
 <!--Si la persona seleccionada tiene todos sus documentos,
@@ -68,7 +69,7 @@ se muestra tabla de los documentos disponibles-->
     </div>
     <hr>
 
-    @foreach (var item in DocumentosPersona)
+    @foreach (var item in NombreDeLaPersona)
     {
         <div class="align-content-left" id="TituloPer" data-bs-toggle="tooltip" data-bs-placement="top" title="Persona seleccionada">
             <center>
@@ -79,6 +80,7 @@ se muestra tabla de los documentos disponibles-->
         <br />
         <br />
     }
+
 
     <div class="table-responsive text-nowrap">
         <form asp-action="ExportarDocsExcel" asp-controller="Documentos" id="FormChecks">
@@ -221,7 +223,7 @@ se muestra tabla de los documentos disponibles-->
         <center>
             <div class="form-group">
                 <a class="btn btn-primary" asp-controller="Documentos" asp-action="CrearDocumento" asp-route-id="@ViewBag.IdPersona">Crear nuevo documento</a>&nbsp;
-                <input type="button" class="btn btn-outline-success btn-md" value="Exportar data a Excel"
+                <input type="button" class="btn btn-success btn-md" value="Exportar data a Excel"
                onclick="DescargarExcel()" />
             </div>
         </center>
@@ -231,7 +233,7 @@ se muestra tabla de los documentos disponibles-->
     {
         <center>
             <div class="form-group">
-                <input type="button" class="btn btn-outline-success btn-md" value="Exportar data a Excel"
+                <input type="button" class="btn btn-success btn-md" value="Exportar data a Excel"
                onclick="DescargarExcel()" />
             </div>
         </center>

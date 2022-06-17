@@ -147,26 +147,6 @@
             })
         }
 
-        function ValidarImagen() {
-
-            var doc1 = document.getElementById("ImgFoto1");
-            var sDoc1 = doc1.outerHTML;
-            var src1 = `<img style="border:none;width:100%" src="~/Add Photos.png" width="250em" height="200em" id="ImgFoto1"`;
-
-            var doc2 = document.getElementById("ImgFoto2");
-            var sDoc2 = doc2.outerHTML;
-            var src2 = `<img style="border:none;width:100%" src="~/Add Photos.png" width="250em" height="200em" id="ImgFoto2"`;
-
-            if (sDoc1 == src1 || sDoc2 == src2) {
-                swal("Error", "Selecciona una imagen por favor...", "error");
-                console.log("Exito");
-            } else {
-                SuccessDoc();
-                console.log("Fracaso");
-            }
-        }
-
-
         $(document).ready(function() {
             $('.toast').toast('show');
         });

@@ -29,8 +29,6 @@ namespace Migrantes.Controllers
         public const string RutaImagen1 = @"\DocumentosAdjuntos\DocsLadoA\";
         public const string RutaImagen2 = @"\DocumentosAdjuntos\DocsLadoB\";
 
-
-
         //Aqui se van agregando las Interfaces creadas.
         public DocumentosController(ApplicationDbContext context,
             IWebHostEnvironment IWebHostEnvironment,
@@ -42,6 +40,20 @@ namespace Migrantes.Controllers
             this._familiares = agregandofamiliares;
             this._context = context;
         }
+
+
+        #region Método Exportar Documentos a Excel
+
+        public static List<DocumentosPersonaDTO> oDocumentosExcel;
+
+
+        public FileResult ExportarDocsExcel(string[] nombrePropiedades)
+        {
+            byte[] buffer = ExportarExcelGeneric(nombrePropiedades, oDocumentosExcel);
+            return File(buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        }
+
+        #endregion Método Exportar Documentos a Excel
 
 
         #region Método crea lista de documentos disponibles de la persona
@@ -92,19 +104,6 @@ namespace Migrantes.Controllers
             }
         }
         #endregion
-
-        #region Método Exportar Documentos a Excel
-
-        public static List<DocumentosPersonaDTO> oDocumentosExcel;
-
-
-        public FileResult ExportarDocsExcel(string[] nombrePropiedades)
-        {
-            byte[] buffer = ExportarExcelGeneric(nombrePropiedades, oDocumentosExcel);
-            return File(buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        }
-
-        #endregion Método Exportar Documentos a Excel
 
 
         #region Métodos de Tipo de documentos de la persona
@@ -159,6 +158,33 @@ namespace Migrantes.Controllers
         }
 
         #endregion Métodos de Tipo de documentos de la persona
+
+
+        #region Mètodo crea lista con los nombres de la persona seleccionada.
+        //Crea una lista con nombres de la persona
+        public void PersonaSeleccionada(int IdPersona)
+
+        {
+            List<DocumentosPersonaDTO> ListNombres = new List<DocumentosPersonaDTO>();
+
+            ListNombres = (from p in this._context.PersonasDb
+                           where p.per_codigo_id == IdPersona
+
+                           select new DocumentosPersonaDTO
+
+                           {
+                               per_codigo_id = p.per_codigo_id,
+                               per_primer_nom = p.per_primer_nom,
+                               per_segundo_nom = p.per_segundo_nom,
+                               per_primer_ape = p.per_primer_ape,
+                               per_segundo_ape = p.per_segundo_ape,
+
+                           }).ToList();
+
+            ViewBag.NombresPersona = ListNombres;
+
+        }
+        #endregion Mètodo crea lista con los nombres de la persona seleccionada.
 
 
         #region Area documentos de la persona
@@ -314,7 +340,7 @@ namespace Migrantes.Controllers
 
                 //Obtenemos la ruta y el objeto para borrar LADO A.
                 var ImagenAnteriorA = Path.Combine(path_anteriorA + objDocumento.NombreImagenPortada_A);
-                
+
                 //Inicio de borrado de imagen anterior LADO A.
                 if (System.IO.File.Exists(ImagenAnteriorA))
                 {
@@ -342,7 +368,7 @@ namespace Migrantes.Controllers
 
                 //Obtenemos la ruta y el objeto para borrar LADO B.
                 var ImagenAnteriorB = Path.Combine(path_anteriorB + objDocumento.NombreImagenPortada_B);
-                
+
                 //Inicio de borrado de imagen anterior LADO B.
                 if (System.IO.File.Exists(ImagenAnteriorB))
                 {
@@ -444,12 +470,13 @@ namespace Migrantes.Controllers
                 ide_numero = documento.ide_numero,
                 ide_fecha_emision = documento.ide_fecha_emision,
                 ide_fecha_vencimiento = documento.ide_fecha_vencimiento,
-                ide_estado = 1,
-                ide_entregado = true,
                 NombreImagenPortada_A = documento.NombreImagenPortada_A,
                 RutaImagenPortada_A = documento.RutaImagenPortada_A,
                 NombreImagenPortada_B = documento.NombreImagenPortada_B,
                 RutaImagenPortada_B = documento.RutaImagenPortada_B,
+                ide_estado = 1,
+                ide_entregado = true,
+
             };
 
             return View(Doc);
@@ -485,10 +512,6 @@ namespace Migrantes.Controllers
             return LocalRedirect(urlRetornoDocsDisponibles);
         }
 
-        #endregion Area Documentos
-
-
-
 
         [HttpGet]
         public IActionResult DocumentosDisponibles(int? id)
@@ -511,6 +534,7 @@ namespace Migrantes.Controllers
             //disponibles de la persona recibiendo el ID como parámetro.
             DocumentosDisponiblesPersona(PersonaDoc.per_codigo_id);
 
+            PersonaSeleccionada(PersonaDoc.per_codigo_id);
 
             //Obtenemos el ID del documento asociado a la persona.
             var oDocumento = this._context.IdentidadPersonasDb
@@ -521,6 +545,7 @@ namespace Migrantes.Controllers
             {
                 TempData["msjDocsDisponibles"] = "La persona seleccionada no tiene documentos, desea agregarlos?";
             }
+
 
             List<DocumentosPersonaDTO> Documentos_exportarExcel = new List<DocumentosPersonaDTO>();
 
@@ -560,6 +585,7 @@ namespace Migrantes.Controllers
         }
 
 
-        
+        #endregion Area Documentos
+
     }
 }
