@@ -72,8 +72,6 @@
     </div>
 </div>
 <br />
-<br />
-
 
 <div class="row" style="font-family:Helvetica;">
     <div class="col-8" style="justify-content:flex-start;padding-right:0px;padding-left:15px;">
@@ -89,19 +87,21 @@
     </div>
 
     <div class="col-4" style="justify-items:flex-end;display:inline-grid;padding-right:0px;padding-left:0px;">
-        <a type="button" class="btn btn-primary btn-sm" asp-controller="Personas" asp-action="CrearPersona">Crear nueva persona</a>
+        <a type="button" class="btn btn-primary btn-sm" asp-controller="Personas" asp-action="CrearPersona"><i style="font-size:24px" class="material-icons">&#xe7fe;</i>&nbsp;Crear persona nueva</a>
         <br />
         @if (ViewBag.Validacion == 3 || ViewBag.Validacion == 0)
         {
 
             <input type="button" class="btn btn-outline-success btn-sm" disabled value="Exportar data a Excel"
                onclick="DescargarExcel()" />
-
         }
         else if (ViewBag.Validacion == 2 || ViewBag.Validacion == 1)
         {
-            <input type="button" class="btn btn-outline-success btn-sm" value="Exportar data a Excel"
-               onclick="DescargarExcel()" />
+            <button type="button" class="btn btn-success btn-sm" value="Exportar data a Excel"
+                onclick="DescargarExcel()">
+                <i style="font-size:24px" class="fa">&#xf1c3;</i>&nbsp;Exportar data a Excel
+            </button>
+
         }
     </div>
 </div>
@@ -109,8 +109,7 @@
 <br />
 
 
-
-<div class="card" style="font-family:Roboto;">
+<div class="card" style="font-family:Helvetica;">
     <div class="table-responsive text-nowrap" style="align-content:space-evenly">
         <form asp-action="ExportarPersonasExcel" asp-controller="Personas" id="FormChecks">
             <table class="table-light table-striped text-center table-hover table-sm table-responsive-xl pre-scrollable">
@@ -305,13 +304,13 @@
                             </td>
                             <td>
                                 <div class="dropdown">
-                                    <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
                                         <strong>
                                             Acciones
                                         </strong> <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.per_codigo_id"><i class="material-icons" style="font-size:14px">border_color</i>&nbsp;Editar</a>
+                                        <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.per_codigo_id"><i class="material-icons" style="font-size:14px">border_color</i>&nbsp;Editar</a>
                                         <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.per_codigo_id"><i class="material-icons" style="font-size:14px">description</i>&nbsp;Detalles</a>
                                         <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.per_codigo_id"><i class="material-icons" style="font-size:14px">delete</i>&nbsp;Eliminar</a>
                                     </ul>

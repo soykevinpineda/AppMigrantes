@@ -1,8 +1,12 @@
-﻿@model Migrantes.Models.Entities.Persona
+﻿@using Migrantes.Models.DTO
+@model Migrantes.Models.Entities.Persona
 
 @{
     ViewData["Title"] = "Detalles de la persona";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<SelectListItem> SexosSelect = ViewBag.SexoEditar;
+    List<SelectListItem> EstCivilSelect = ViewBag.EstCivilEditar;
+    List<DocumentosPersonaDTO> DocumentosPersona = ViewBag.ListadoDocumentos;
 }
 
 @*<ul>
@@ -12,10 +16,11 @@
     </ul>*@
 
 <div class="row">
-    <div class="col" style="text-align:left">
+    <div class="row" style="text-align:left;align-items:baseline">
+        <img src="~/persona.png" width="24" height="24" style="display:inline-flex;" /> &nbsp;
         <div class="p-1 shadow-2 rounded-3 mb-2" style="font-family:Helvetica;border-radius: 9px;">
-            <h2 class="text-primary"><strong>@ViewData["Title"]</strong></h2>
-        </div>
+               <h2 class="text-primary"><strong>@ViewData["Title"]</strong></h2>
+        </div>       
     </div>
     <div class="col" style="text-align:right">
         <a class="btn btn-outline-primary" style="justify-items:right;" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
@@ -23,202 +28,166 @@
 </div>
 <hr>
 
+  <!-- Detalles del formulario de la persona -->
+<div class="box">
+    <div style="margin-left:0px;">
+        <div class="container-fluid">
+            <div class="row justify-content-center" style="font-family:Helvetica;">
+                <div style="text-align:center" class="offset-sm-0">
+                    <form style="font-family:Helvetica;" asp-action="Edit" id="frm">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="per_codigo_id" />
 
-<div class="card-group" style="font-family:Helvetica">
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_estado)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_estado)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_codigo_alternativo)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_codigo_alternativo)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_letra_indice)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_letra_indice)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_primer_ape)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_primer_ape)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_segundo_ape)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_segundo_ape)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_apellido_cas)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_apellido_cas)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_primer_nom)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_primer_nom)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_segundo_nom)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_segundo_nom)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_otros_nom)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_otros_nom)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_nombre_usual)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_nombre_usual)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_codpai_nacionalidad)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_codpai_nacionalidad)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_codpai_nacimiento)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_codpai_nacimiento)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_sexo)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_sexo)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_edad)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_edad)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_fecha_nac)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_fecha_nac)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_profesion)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_profesion)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_estado_civil)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_estado_civil)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_email)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_email)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_codmun_nac)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_codmun_nac)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_coddep_nac)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_coddep_nac)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_lugar_nac)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_lugar_nac)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_email_interno)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_email_interno)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_telefono_movil)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_telefono_movil)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_telefono_interno)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_telefono_interno)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_apellidos_nombres)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_apellidos_nombres)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_observaciones)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_observaciones)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_codpai_digita)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_codpai_digita)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_usuario_grabacion)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_usuario_grabacion)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_fecha_grabacion)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_fecha_grabacion)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_usuario_modificacion)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_usuario_modificacion)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_fecha_modificacion)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_fecha_modificacion)
-        </dd>
-    </dl>
+                        <div class="row justify-content-between">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <strong style="color:#424242">
+                                        <label asp-for="per_primer_ape" class="control-label"></label>
+                                    </strong>
+                                    <input readonly asp-for="per_primer_ape" class="form-control text-center" />
+                                    <span asp-validation-for="per_primer_ape" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <strong style="color:#424242">
+                                        <label asp-for="per_primer_nom" class="control-label"></label>
+                                    </strong>
+                                    <input readonly asp-for="per_primer_nom" class="form-control text-center" />
+                                    <span asp-validation-for="per_primer_nom" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <strong style="color:#424242">
+                                        <label asp-for="per_fecha_nac" class="control-label"></label>
+                                    </strong>
+                                    <input readonly asp-for="per_fecha_nac" class="form-control text-center" />
+                                    <span asp-validation-for="per_fecha_nac" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <strong style="color:#424242">
+                                        <label asp-for="per_sexo" class="control-label"></label>
+                                    </strong>
+                                    <select disabled asp-for="per_sexo" asp-items="@SexosSelect" class="form-control text-center"> </select>
+                                    <span asp-validation-for="per_sexo" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <strong style="color:#424242">
+                                        <label asp-for="per_profesion" class="control-label"></label>
+                                    </strong>
+                                    <input readonly asp-for="per_profesion" class="form-control text-center" />
+                                    <span asp-validation-for="per_profesion" class="text-danger"></span>
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <strong style="color:#424242">
+                                        <label asp-for="per_telefono_interno" class="control-label"></label>
+                                    </strong>
+                                    <input readonly asp-for="per_telefono_interno" class="form-control text-center" />
+                                    <span asp-validation-for="per_telefono_interno" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <strong style="color:#424242">
+                                        <label asp-for="per_email_interno" class="control-label"></label>
+                                    </strong>
+                                    <input readonly asp-for="per_email_interno" class="form-control text-center" />
+                                    <span asp-validation-for="per_email_interno" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <strong style="color:#424242">
+                                        <label asp-for="per_usuario_grabacion" class="control-label"></label>
+                                    </strong>
+                                    <input readonly asp-for="per_usuario_grabacion" class="form-control text-center" />
+                                    <span asp-validation-for="per_usuario_grabacion" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <strong style="color:#424242">
+                                        <label asp-for="per_segundo_ape" class="control-label"></label>
+                                    </strong>
+                                    <input readonly asp-for="per_segundo_ape" class="form-control text-center" />
+                                    <span asp-validation-for="per_segundo_ape" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <strong style="color:#424242">
+                                        <label asp-for="per_segundo_nom" class="control-label"></label>
+                                    </strong>
+                                    <input readonly asp-for="per_segundo_nom" class="form-control text-center" />
+                                    <span asp-validation-for="per_segundo_nom" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <strong style="color:#424242">
+                                        <label asp-for="per_edad" class="control-label"></label>
+                                    </strong>
+                                    <input readonly asp-for="per_edad" class="form-control text-center" />
+                                    <span asp-validation-for="per_edad" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <strong style="color:#424242">
+                                        <label asp-for="per_estado_civil" class="control-label"></label>
+                                    </strong>
+                                    <select disabled asp-for="per_estado_civil" asp-items="@EstCivilSelect" class="form-control text-center"> </select>
+                                    <span asp-validation-for="per_estado_civil" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <strong style="color:#424242">
+                                        <label asp-for="per_telefono_movil" class="control-label"></label>
+                                    </strong>
+                                    <input readonly asp-for="per_telefono_movil" class="form-control text-center" />
+                                    <span asp-validation-for="per_telefono_movil" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <strong style="color:#424242">
+                                        <label asp-for="per_email" class="control-label"></label>
+                                    </strong>
+                                    <input readonly asp-for="per_email" class="form-control text-center" />
+                                    <span asp-validation-for="per_email" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <strong style="color:#424242">
+                                        <label asp-for="per_observaciones" class="control-label"></label>
+                                    </strong>
+                                    <input readonly asp-for="per_observaciones" class="form-control text-center" />
+                                    <span asp-validation-for="per_observaciones" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <strong style="color:#424242">
+                                        <label asp-for="per_fecha_grabacion" class="control-label"></label>
+                                    </strong>
+                                    <input readonly asp-for="per_fecha_grabacion" class="form-control text-center" />
+                                    <span asp-validation-for="per_fecha_grabacion" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br />
+                        <div class="form-group">
+                            <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model.per_codigo_id"><i class="material-icons" style="font-size:15px">border_color</i>&nbsp;Editar</a><strong> |</strong>
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.per_codigo_id"><i class="material-icons" style="font-size:15px">delete</i>&nbsp;Eliminar</a>
+                         </div>
+                       
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div>
-    <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model.per_codigo_id">&nbsp;Editar</a><strong> |</strong>
-    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.per_codigo_id">&nbsp;Eliminar</a><strong> |</strong>
-    <hr>
 </div>
 
 <script>

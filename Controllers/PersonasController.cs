@@ -54,7 +54,7 @@ namespace Migrantes.Controllers
         public static List<PersonaDTO> oPersonasExcel;
 
 
-        public FileResult ExportarDocsExcel(string[] nombrePropiedades)
+        public FileResult ExportarPersonasExcel(string[] nombrePropiedades)
         {
             byte[] buffer = ExportarExcelGeneric(nombrePropiedades, oPersonasExcel);
             return File(buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
@@ -88,6 +88,10 @@ namespace Migrantes.Controllers
 
             var PersonaDoc = this._context.PersonasDb.FirstOrDefault(x => x.per_codigo_id == id);
             ViewBag.IdPersona = PersonaDoc.per_codigo_id;
+           
+          
+            ViewBag.EstCivilEditar = EstadoCivilEditar();
+            ViewBag.SexoEditar = SexosEditar();
 
             DocPersona(PersonaDoc.per_codigo_id);
 

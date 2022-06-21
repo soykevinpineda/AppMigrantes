@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "3raaVcKbLRA+rtdYqV551hfu3V9k8M7DUkvFe7GEwF8=",
+  "Hash": "GWasuoMOAHR6ka5FAwbIe3Z/Z/sLABHSeVvW1+tKA7Q=",
   "Source": "Migrantes",
   "BasePath": "_content/Migrantes",
   "Mode": "Default",
@@ -765,6 +765,23 @@
       "OriginalItemSpec": "wwwroot\\DocumentosAdjuntos\\DocsLadoA\\Goku1_17062022-1512353722.jpg"
     },
     {
+      "Identity": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\DocumentosAdjuntos\\DocsLadoA\\Goku1_21062022-1324583697.jpg",
+      "SourceId": "Migrantes",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\",
+      "BasePath": "_content/Migrantes",
+      "RelativePath": "DocumentosAdjuntos/DocsLadoA/Goku1_21062022-1324583697.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\DocumentosAdjuntos\\DocsLadoA\\Goku1_21062022-1324583697.jpg"
+    },
+    {
       "Identity": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\DocumentosAdjuntos\\DocsLadoA\\Goku2_17062022-1506565825.jpg",
       "SourceId": "Migrantes",
       "SourceType": "Discovered",
@@ -848,6 +865,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\DocumentosAdjuntos\\DocsLadoB\\Goku2_17062022-1512353741.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\DocumentosAdjuntos\\DocsLadoB\\Goku2_21062022-1324583717.jpg",
+      "SourceId": "Migrantes",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\",
+      "BasePath": "_content/Migrantes",
+      "RelativePath": "DocumentosAdjuntos/DocsLadoB/Goku2_21062022-1324583717.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\DocumentosAdjuntos\\DocsLadoB\\Goku2_21062022-1324583717.jpg"
     },
     {
       "Identity": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\DocumentosAdjuntos\\DocsLadoB\\Goku3_17062022-1317411126.jpg",
