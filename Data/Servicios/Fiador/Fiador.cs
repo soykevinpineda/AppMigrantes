@@ -23,13 +23,13 @@ namespace Migrantes.Data.Servicios.Fiador
 
             objFiador.per_codigo_id = FiadorCreado.per_codigo_id;
             objFiador.IdFiador = FiadorCreado.IdFiador;
-            objFiador.PrimerNombreFiador = FiadorCreado.PrimerNombreFiador;
-            objFiador.SegundoNombreFiador = FiadorCreado.SegundoNombreFiador;
-            objFiador.PrimerApellidoFiador = FiadorCreado.PrimerApellidoFiador;
-            objFiador.SegundoApellidoFiador = FiadorCreado.SegundoApellidoFiador;
-            objFiador.PaisNacimientoFiador = FiadorCreado.PaisNacimientoFiador;
-            objFiador.EdadFiador = FiadorCreado.EdadFiador;
-            objFiador.SexoFiador = FiadorCreado.SexoFiador;
+            objFiador.PrimerNombreDelFiador = FiadorCreado.PrimerNombreDelFiador;
+            objFiador.SegundoNombreDelFiador = FiadorCreado.SegundoNombreDelFiador;
+            objFiador.ApellidosDelFiador = FiadorCreado.ApellidosDelFiador;
+            objFiador.FechaNacimientoDelFiador = FiadorCreado.FechaNacimientoDelFiador;
+            objFiador.EdadDelFiador = FiadorCreado.EdadDelFiador;
+            objFiador.SexoDelFiador = FiadorCreado.SexoDelFiador;
+            objFiador.PaisNacimientoDelFiador = FiadorCreado.PaisNacimientoDelFiador;
             objFiador.EmailFiador = FiadorCreado.EmailFiador;
             objFiador.TelefonoFiador = FiadorCreado.TelefonoFiador;
             objFiador.TelefonoAlternoFiador = FiadorCreado.TelefonoAlternoFiador;
@@ -49,13 +49,13 @@ namespace Migrantes.Data.Servicios.Fiador
 
             objFiadorEliminado.per_codigo_id = FiadorEliminado.per_codigo_id;
             objFiadorEliminado.IdFiador = FiadorEliminado.IdFiador;
-            objFiadorEliminado.PrimerNombreFiador = FiadorEliminado.PrimerNombreFiador;
-            objFiadorEliminado.SegundoNombreFiador = FiadorEliminado.SegundoNombreFiador;
-            objFiadorEliminado.PrimerApellidoFiador = FiadorEliminado.PrimerApellidoFiador;
-            objFiadorEliminado.SegundoApellidoFiador = FiadorEliminado.SegundoApellidoFiador;
-            objFiadorEliminado.PaisNacimientoFiador = FiadorEliminado.PaisNacimientoFiador;
-            objFiadorEliminado.EdadFiador = FiadorEliminado.EdadFiador;
-            objFiadorEliminado.SexoFiador = FiadorEliminado.SexoFiador;
+            objFiadorEliminado.PrimerNombreDelFiador = FiadorEliminado.PrimerNombreDelFiador;
+            objFiadorEliminado.SegundoNombreDelFiador = FiadorEliminado.SegundoNombreDelFiador;
+            objFiadorEliminado.ApellidosDelFiador = FiadorEliminado.ApellidosDelFiador;
+            objFiadorEliminado.FechaNacimientoDelFiador = FiadorEliminado.FechaNacimientoDelFiador;
+            objFiadorEliminado.EdadDelFiador = FiadorEliminado.EdadDelFiador;
+            objFiadorEliminado.SexoDelFiador = FiadorEliminado.SexoDelFiador;
+            objFiadorEliminado.PaisNacimientoDelFiador = FiadorEliminado.PaisNacimientoDelFiador;
             objFiadorEliminado.EmailFiador = FiadorEliminado.EmailFiador;
             objFiadorEliminado.TelefonoFiador = FiadorEliminado.TelefonoFiador;
             objFiadorEliminado.TelefonoAlternoFiador = FiadorEliminado.TelefonoAlternoFiador;
@@ -74,13 +74,13 @@ namespace Migrantes.Data.Servicios.Fiador
 
             objFiadorEditado.per_codigo_id = oFiadorEditado.per_codigo_id;
             objFiadorEditado.IdFiador = oFiadorEditado.IdFiador;
-            objFiadorEditado.PrimerNombreFiador = oFiadorEditado.PrimerNombreFiador;
-            objFiadorEditado.SegundoNombreFiador = oFiadorEditado.SegundoNombreFiador;
-            objFiadorEditado.PrimerApellidoFiador = oFiadorEditado.PrimerApellidoFiador;
-            objFiadorEditado.SegundoApellidoFiador = oFiadorEditado.SegundoApellidoFiador;
-            objFiadorEditado.PaisNacimientoFiador = oFiadorEditado.PaisNacimientoFiador;
-            objFiadorEditado.EdadFiador = oFiadorEditado.EdadFiador;
-            objFiadorEditado.SexoFiador = oFiadorEditado.SexoFiador;
+            objFiadorEditado.PrimerNombreDelFiador = oFiadorEditado.PrimerNombreDelFiador;
+            objFiadorEditado.SegundoNombreDelFiador = oFiadorEditado.SegundoNombreDelFiador;
+            objFiadorEditado.ApellidosDelFiador = oFiadorEditado.ApellidosDelFiador;
+            objFiadorEditado.FechaNacimientoDelFiador = oFiadorEditado.FechaNacimientoDelFiador;
+            objFiadorEditado.EdadDelFiador = oFiadorEditado.EdadDelFiador;
+            objFiadorEditado.SexoDelFiador = oFiadorEditado.SexoDelFiador;
+            objFiadorEditado.PaisNacimientoDelFiador = oFiadorEditado.PaisNacimientoDelFiador;
             objFiadorEditado.EmailFiador = oFiadorEditado.EmailFiador;
             objFiadorEditado.TelefonoFiador = oFiadorEditado.TelefonoFiador;
             objFiadorEditado.TelefonoAlternoFiador = oFiadorEditado.TelefonoAlternoFiador;

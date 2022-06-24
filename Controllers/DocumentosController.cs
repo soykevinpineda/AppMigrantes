@@ -106,7 +106,7 @@ namespace Migrantes.Controllers
         #endregion
 
 
-        #region Métodos de Tipo de documentos de la persona
+        #region Método de Tipo de documentos de la persona
 
         //Método crea una lista den Tipos de documentos guardados en la DB.
         public void TipoDoc(int id)
@@ -198,9 +198,9 @@ namespace Migrantes.Controllers
         {
             var DocumentoPersona = this._context.PersonasDb
                 .FirstOrDefault(x => x.per_codigo_id == id);
-
             ViewBag.IdPersona = DocumentoPersona.per_codigo_id;
 
+            PersonaSeleccionada(DocumentoPersona.per_codigo_id);
             TipoDoc(DocumentoPersona.per_codigo_id);
 
             return View();
@@ -272,15 +272,16 @@ namespace Migrantes.Controllers
         //GET: Editar documento de la persona
         [HttpGet]
         public async Task<IActionResult> EditarDocumento(int? id)
-        {
-            var documento = await this._context.IdentidadPersonasDb.AsNoTracking()
-                .FirstOrDefaultAsync(x => x.ide_id_persona == id);
 
+        {
             if (id == null)
             {
                 return NotFound();
             }
 
+            var documento = await this._context.IdentidadPersonasDb.AsNoTracking()
+                .FirstOrDefaultAsync(x => x.ide_id_persona == id);
+       
             if (documento == null)
             {
                 return NotFound();
@@ -290,7 +291,6 @@ namespace Migrantes.Controllers
             //a utilizar igualandolo al objeto de la db
             var Doc = new DocumentosViewModel()
             {
-
                 ide_id_persona = documento.ide_id_persona,
                 ide_codigo_id = documento.ide_codigo_id,
                 ide_id_documento = documento.ide_id_documento,
@@ -305,8 +305,10 @@ namespace Migrantes.Controllers
                 RutaImagenPortada_A = documento.RutaImagenPortada_A,
                 NombreImagenPortada_B = documento.NombreImagenPortada_B,
                 RutaImagenPortada_B = documento.RutaImagenPortada_B,
+               
             };
-
+        
+            PersonaSeleccionada(Doc.ide_codigo_id);
             TipoDoc(Doc.ide_id_documento);
 
 
@@ -408,10 +410,11 @@ namespace Migrantes.Controllers
         [HttpGet]
         public async Task<IActionResult> DetallesDocumento(int? id)
         {
-
             var documento = await this._context.IdentidadPersonasDb
                 .FirstOrDefaultAsync(x => x.ide_id_persona == id);
 
+            PersonaSeleccionada(documento.ide_codigo_id);
+            DocumentosDisponiblesPersona(documento.ide_codigo_id);
             TipoDoc(documento.ide_id_documento);
 
             if (id == null)
@@ -434,8 +437,9 @@ namespace Migrantes.Controllers
                 ide_id_documento = documento.ide_id_documento,
                 ide_numero = documento.ide_numero,
                 ide_fecha_emision = documento.ide_fecha_emision,
-                ide_fecha_vencimiento = documento.ide_fecha_vencimiento
-
+                ide_fecha_vencimiento = documento.ide_fecha_vencimiento,
+                RutaImagenPortada_A = documento.RutaImagenPortada_A,
+                RutaImagenPortada_B = documento.RutaImagenPortada_B
             };
 
             return View(doc);
@@ -533,7 +537,7 @@ namespace Migrantes.Controllers
             //Llamamos al método que crea lista de documentos
             //disponibles de la persona recibiendo el ID como parámetro.
             DocumentosDisponiblesPersona(PersonaDoc.per_codigo_id);
-
+            TipoDoc(PersonaDoc.per_codigo_id);
             PersonaSeleccionada(PersonaDoc.per_codigo_id);
 
             //Obtenemos el ID del documento asociado a la persona.

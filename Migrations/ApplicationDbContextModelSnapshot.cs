@@ -221,51 +221,68 @@ namespace Migrantes.Migrations
 
             modelBuilder.Entity("Migrantes.Models.Entities.DatosFamiliares", b =>
                 {
-                    b.Property<int>("id_datos_familiares")
+                    b.Property<int>("Id_DatosFamiliares")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ApellidosDeLaMadre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ApellidosDelPadre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EdadDeLaMadre")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EdadDelPadre")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EstadoDeDatosFamiliares")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FechaGrabacionDeFamiliares")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaNacimientoDeLaMadre")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaNacimientoDelPadre")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PaisNacimientoDeLaMadre")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("PaisNacimientoDelPadre")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<int?>("PersonaLinkper_codigo_id")
                         .HasColumnType("int");
 
-                    b.Property<int>("edad_madre")
-                        .HasColumnType("int");
-
-                    b.Property<int>("edad_padre")
-                        .HasColumnType("int");
-
-                    b.Property<int>("estado_datosfamiliares")
-                        .HasColumnType("int");
-
-                    b.Property<string>("nombres_madre")
+                    b.Property<string>("PrimerNombreDeLaMadre")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("nombres_padre")
+                    b.Property<string>("PrimerNombreDelPadre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProfesionDeLaMadre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProfesionDelPadre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SegundoNombreDeLaMadre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SegundoNombreDelPadre")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("per_codigo_id")
                         .HasColumnType("int");
 
-                    b.Property<string>("primer_apellido_madre")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("primer_apellido_padre")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("profesion_madre")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("profesion_padre")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("segundo_apellido_madre")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("segundo_apellido_padre")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id_datos_familiares");
+                    b.HasKey("Id_DatosFamiliares");
 
                     b.HasIndex("PersonaLinkper_codigo_id");
 
@@ -358,7 +375,11 @@ namespace Migrantes.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("EdadFiador")
+                    b.Property<string>("ApellidosDelFiador")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EdadDelFiador")
                         .HasColumnType("int");
 
                     b.Property<string>("EmailFiador")
@@ -367,7 +388,10 @@ namespace Migrantes.Migrations
                     b.Property<bool>("EntregoRecibo_Agua_o_Luz")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("FechaGrabacionFiador")
+                    b.Property<DateTime>("FechaGrabacionDelFiador")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaNacimientoDelFiador")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("NumCartasFamiliares")
@@ -376,26 +400,18 @@ namespace Migrantes.Migrations
                     b.Property<int>("NumCartasPersonales")
                         .HasColumnType("int");
 
-                    b.Property<string>("PaisNacimientoFiador")
+                    b.Property<string>("PaisNacimientoDelFiador")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PrimerApellidoFiador")
+                    b.Property<string>("PrimerNombreDelFiador")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PrimerNombreFiador")
+                    b.Property<string>("SegundoNombreDelFiador")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SegundoApellidoFiador")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SegundoNombreFiador")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SexoFiador")
+                    b.Property<int>("SexoDelFiador")
                         .HasColumnType("int");
 
                     b.Property<int>("TelefonoAlternoFiador")
@@ -412,7 +428,7 @@ namespace Migrantes.Migrations
                     b.HasIndex("per_codigo_id")
                         .IsUnique();
 
-                    b.ToTable("ModeloFiador", "mig");
+                    b.ToTable("fiador", "mig");
                 });
 
             modelBuilder.Entity("Migrantes.Models.Entities.Persona", b =>
@@ -425,10 +441,6 @@ namespace Migrantes.Migrations
                     b.Property<string>("per_apellido_cas")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("per_apellidos_nombres")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
 
                     b.Property<int>("per_coddep_nac")
                         .HasColumnType("int");
@@ -485,17 +497,9 @@ namespace Migrantes.Migrations
                     b.Property<int>("per_lugar_nac")
                         .HasColumnType("int");
 
-                    b.Property<string>("per_nombre_usual")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
                     b.Property<string>("per_observaciones")
                         .HasMaxLength(4000)
                         .HasColumnType("nvarchar(4000)");
-
-                    b.Property<string>("per_otros_nom")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("per_primer_ape")
                         .HasMaxLength(50)

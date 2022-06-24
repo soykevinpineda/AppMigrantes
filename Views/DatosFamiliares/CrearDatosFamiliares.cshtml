@@ -1,29 +1,31 @@
-﻿@using Migrantes.ViewModels
+﻿@using Migrantes.Models.DTO
+@using Migrantes.ViewModels
 @model Migrantes.ViewModels.DatosFamiliaresViewModel
 
 @{
     ViewData["Title"] = "Formulario para datos de familiares";
+    ViewData["TitleDatosDeLaMadre"] = "Datos de la madre";
+    ViewData["TitleDatosDelPadre"] = "Datos del padre";
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<DatosFamiliaresViewModel> ListDatosFamiliares = ViewBag.ListDatosFam;
+    List<DocumentosPersonaDTO> NombreDeLaPersona = ViewBag.NombresPersona;
 }
 
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="~/css/site.css" />
 
-
-@*Si no tiene datos familiares se muestra un formulario.*@
-
-  <div class="row">
-        <div class="col-8" style="text-align:left">
-            <div class="p-1 shadow-2 rounded-3 mb-2" style="font-family:Helvetica;border-radius:9px;">
-                <h2 class="text-primary"><strong>@ViewData["Title"]</strong></h2>
-            </div>
-        </div>
-        <div class="col" style="text-align:right">
-            <a class="btn btn-outline-primary" style="justify-items:right;" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+<!--Si la persona seleccionada no tiene datos familiares, se muestra un formulario.-->
+<div class="row">
+    <div class="col-8" style="text-align:left">
+        <div class="p-1 shadow-2 rounded-3 mb-2" style="font-family:Helvetica;border-radius:9px;">
+            <h2 class="text-primary"><strong>@ViewData["Title"]</strong></h2>
         </div>
     </div>
-    <hr>
+    <div class="col" style="text-align:right">
+        <a class="btn btn-outline-primary" style="justify-items:right;" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+    </div>
+</div>
+<hr>
 
 <div style="justify-content:center;display:flex;align-items:center;font-family:Helvetica" class="mb-2">
     <div class="toast" data-delay="5000" style="border:thin;color:blue;border-radius: 9px;" role="alert" aria-live="assertive" aria-atomic="true">
@@ -46,121 +48,165 @@
 </div>
 
 
+@foreach (var item in NombreDeLaPersona)
+{
+    <div class="align-content-left" id="TituloPer" data-bs-toggle="tooltip" data-bs-placement="top" title="Persona seleccionada">
+        <center>
+            <img src="~/persona.png" width="50" height="50" />
+            <h3 class="text-center text-dark"><strong>@item.per_primer_nom @item.per_segundo_nom @item.per_primer_ape @item.per_segundo_ape</strong></h3>
+        </center>
+    </div>
+    <br />
+    <br />
+}
+
+
 <div class="row justify-content-center">
     <form style="font-family:Helvetica" class="form-group" asp-controller="DatosFamiliares" asp-action="AgregandoDatosFamiliares" method="post" id="frm">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="per_codigo_id" value="@ViewBag.IdPersona" />
-        @*//Datos madre*@
+
+        <!--Formulario datos de la madre.-->
         <div class="form-group">
             <input type="hidden" asp-for="per_codigo_id" value="@ViewBag.Idpersona" class="form-control" />
         </div>
 
+        <div class="p-2 shadow-2 rounded-3 mb-2" style="background-color: hsl(0, 0%, 94%);font-family:Helvetica;border-radius: 9px;">
+            <h2 class="text-center text-primary"><strong>@ViewData["TitleDatosDeLaMadre"]</strong></h2>
+        </div>
+        <hr />
+        <br />
+
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <strong style="color:hsl(200, 18%, 46%)">
+                    <label class="form-group row justify-content-center mb-0" asp-for="PrimerNombreDeLaMadre"></label>
+                </strong>
+                <input asp-for="PrimerNombreDeLaMadre" class="form-control" />
+                <span asp-validation-for="PrimerNombreDeLaMadre" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <strong style="color:hsl(200, 18%, 46%)">
+                    <label class="form-group row justify-content-center mb-0" asp-for="SegundoNombreDeLaMadre"></label>
+                </strong>
+                <input asp-for="SegundoNombreDeLaMadre" class="form-control" />
+                <span asp-validation-for="SegundoNombreDeLaMadre" class="text-danger"></span>
+            </div>
+        </div>
+
         <div class="row mb-4">
             <div class="col-md-12">
                 <strong style="color:hsl(200, 18%, 46%)">
-                    <label class="form-group row justify-content-center mb-0" asp-for="nombres_madre"></label>
+                    <label class="form-group row justify-content-center mb-0" asp-for="ApellidosDeLaMadre"></label>
                 </strong>
-                <input  asp-for="nombres_madre" class="form-control" />
-                <span asp-validation-for="nombres_madre" class="text-danger"></span>
+                <input asp-for="ApellidosDeLaMadre" class="form-control" />
+                <span asp-validation-for="ApellidosDeLaMadre" class="text-danger"></span>
             </div>
         </div>
 
         <div class="row mb-4">
             <div class="col-md-6">
                 <strong style="color:hsl(200, 18%, 46%)">
-                    <label class="form-group row justify-content-center mb-0" asp-for="primer_apellido_madre"></label>
+                    <label class="form-group row justify-content-center mb-0" asp-for="FechaNacimientoDeLaMadre"></label>
                 </strong>
-                <input  asp-for="primer_apellido_madre" class="form-control" />
-                <span asp-validation-for="primer_apellido_madre" class="text-danger"></span>
+                <input asp-for="FechaNacimientoDeLaMadre" class="form-control" />
+                <span asp-validation-for="FechaNacimientoDeLaMadre" class="text-danger"></span>
             </div>
-
             <div class="col-md-6">
                 <strong style="color:hsl(200, 18%, 46%)">
-                    <label class="form-group row justify-content-center mb-0" asp-for="segundo_apellido_madre"></label>
+                    <label class="form-group row justify-content-center mb-0" asp-for="PaisNacimientoDeLaMadre"></label>
                 </strong>
-                <input  asp-for="segundo_apellido_madre" class="form-control" placeholder="Opcional" />
-                <span asp-validation-for="segundo_apellido_madre" class="text-danger"></span>
+                <input asp-for="PaisNacimientoDeLaMadre" class="form-control" placeholder="Opcional" />
+                <span asp-validation-for="PaisNacimientoDeLaMadre" class="text-danger"></span>
             </div>
         </div>
 
         <div class="row mb-4">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <strong style="color:hsl(200, 18%, 46%)">
-                    <label class="form-group row justify-content-center mb-0" asp-for="edad_madre"></label>
+                    <label class="form-group row justify-content-center mb-0" asp-for="ProfesionDeLaMadre"></label>
                 </strong>
-                <input  asp-for="edad_madre" class="form-control" />
-                <span asp-validation-for="edad_madre" class="text-danger"></span>
-            </div>
-
-            <div class="col-md-6">
-                <strong style="color:hsl(200, 18%, 46%)">
-                    <label class="form-group row justify-content-center mb-0" asp-for="profesion_madre"></label>
-                </strong>
-                <input  asp-for="profesion_madre" class="form-control" placeholder="Opcional" />
-                <span asp-validation-for="profesion_madre" class="text-danger"></span>
+                <input asp-for="ProfesionDeLaMadre" class="form-control" placeholder="Opcional" />
+                <span asp-validation-for="ProfesionDeLaMadre" class="text-danger"></span>
             </div>
         </div>
         <br />
-        <hr>
         <br />
-        @*//Datos padre*@
+
+        <!--Formulario datos del padre.-->
+        <div class="p-2 shadow-2 rounded-3 mb-2" style="background-color: hsl(0, 0%, 94%);font-family:Helvetica;border-radius: 9px;">
+            <h2 class="text-center text-primary"><strong>@ViewData["TitleDatosDelPadre"]</strong></h2>
+        </div>
+        <hr />
+        <br />
+
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <strong style="color:hsl(200, 18%, 46%)">
+                    <label class="form-group row justify-content-center mb-0" asp-for="PrimerNombreDelPadre"></label>
+                </strong>
+                <input asp-for="PrimerNombreDelPadre" class="form-control" />
+                <span asp-validation-for="PrimerNombreDelPadre" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <strong style="color:hsl(200, 18%, 46%)">
+                    <label class="form-group row justify-content-center mb-0" asp-for="SegundoNombreDelPadre"></label>
+                </strong>
+                <input asp-for="SegundoNombreDelPadre" class="form-control" />
+                <span asp-validation-for="SegundoNombreDelPadre" class="text-danger"></span>
+            </div>
+        </div>
+
         <div class="row mb-4">
             <div class="col-md-12">
                 <strong style="color:hsl(200, 18%, 46%)">
-                    <label class="form-group row justify-content-center mb-0" asp-for="nombres_padre"></label>
+                    <label class="form-group row justify-content-center mb-0" asp-for="ApellidosDelPadre"></label>
                 </strong>
-                <input  asp-for="nombres_padre" class="form-control" />
-                <span asp-validation-for="nombres_padre" class="text-danger"></span>
+                <input asp-for="ApellidosDelPadre" class="form-control" />
+                <span asp-validation-for="ApellidosDelPadre" class="text-danger"></span>
             </div>
         </div>
 
         <div class="row mb-4">
             <div class="col-md-6">
                 <strong style="color:hsl(200, 18%, 46%)">
-                    <label class="form-group row justify-content-center mb-0" asp-for="primer_apellido_padre"></label>
+                    <label class="form-group row justify-content-center mb-0" asp-for="FechaNacimientoDelPadre"></label>
                 </strong>
-                <input *  asp-for="primer_apellido_padre" class="form-control" />
-                <span asp-validation-for="primer_apellido_padre" class="text-danger"></span>
+                <input asp-for="FechaNacimientoDelPadre" class="form-control" />
+                <span asp-validation-for="FechaNacimientoDelPadre" class="text-danger"></span>
             </div>
-
             <div class="col-md-6">
                 <strong style="color:hsl(200, 18%, 46%)">
-                    <label class="form-group row justify-content-center mb-0" asp-for="segundo_apellido_padre"></label>
+                    <label class="form-group row justify-content-center mb-0" asp-for="PaisNacimientoDelPadre"></label>
                 </strong>
-                <input  asp-for="segundo_apellido_padre" class="form-control" placeholder="Opcional" />
+                <input asp-for="PaisNacimientoDelPadre" class="form-control" placeholder="Opcional" />
+                <span asp-validation-for="PaisNacimientoDelPadre" class="text-danger"></span>
             </div>
         </div>
 
         <div class="row mb-4">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <strong style="color:hsl(200, 18%, 46%)">
-                    <label class="form-group row justify-content-center mb-0" asp-for="edad_padre"></label>
+                    <label class="form-group row justify-content-center mb-0" asp-for="ProfesionDelPadre"></label>
                 </strong>
-                <input  asp-for="edad_padre" class="form-control" />
-                <span asp-validation-for="edad_padre" class="text-danger"></span>
-            </div>
-
-            <div class="col-md-6">
-                <strong style="color:hsl(200, 18%, 46%)">
-                    <label class="form-group row justify-content-center mb-0" asp-for="profesion_padre"></label>
-                </strong>
-                <input  asp-for="profesion_padre" class="form-control" placeholder="Opcional" />
+                <input asp-for="ProfesionDelPadre" class="form-control" placeholder="Opcional" />
+                <span asp-validation-for="ProfesionDelPadre" class="text-danger"></span>
             </div>
         </div>
+        <br />
 
         <div style="width:100%;padding:0 25% 0 25%" class="form-group">
-            <input type="button" value="Agregar datos familiares" onclick="Guardar()" class="btn btn-success btn-block" />
+            <input type="button" value="Guardar datos familiares" onclick="Guardar()" class="btn btn-success btn-block" />
         </div>
     </form>
 </div>
+
 <caption>
     <strong class="text-success">
         Formulario para agregar datos de familiares.
         <br /><strong class="text-danger">Powered by</strong><strong style="color:black;font-family:Helvetica">--Sourcing-Corp &copy;--</strong>
     </strong>
 </caption>
-
-
 
 @section Scripts {
     @{

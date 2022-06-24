@@ -5,6 +5,7 @@ using Migrantes.Data;
 using Migrantes.Data.Servicios.Documentos;
 using Migrantes.Data.Servicios.Familiares;
 using Migrantes.Data.Servicios.Personas;
+using Migrantes.Models.DTO;
 using Migrantes.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -60,6 +61,7 @@ namespace Migrantes.Controllers
 
             DatosFamiliaresDisponibles(PersonDatoFam.per_codigo_id);
 
+            PersonaSeleccionada(PersonDatoFam.per_codigo_id);
 
             return View();
 
@@ -118,7 +120,6 @@ namespace Migrantes.Controllers
             }
 
             DatosFamiliaresDisponibles(PersonaDatoFam.per_codigo_id);
-
 
             return View();
 
@@ -194,20 +195,24 @@ namespace Migrantes.Controllers
             var datosFamiliaresEliminar = new DatosFamiliaresViewModel()
 
             {
-                id_datos_familiares = eDatosFamiliares.id_datos_familiares,
+                Id_DatosFamiliares = eDatosFamiliares.Id_DatosFamiliares,
                 per_codigo_id = eDatosFamiliares.per_codigo_id,
-                nombres_madre = eDatosFamiliares.nombres_madre,
-                primer_apellido_madre = eDatosFamiliares.primer_apellido_madre,
-                segundo_apellido_madre = eDatosFamiliares.segundo_apellido_madre,
-                edad_madre = eDatosFamiliares.edad_madre,
-                profesion_madre = eDatosFamiliares.profesion_madre,
+                PrimerNombreDeLaMadre = eDatosFamiliares.PrimerNombreDeLaMadre,
+                SegundoNombreDeLaMadre = eDatosFamiliares.SegundoNombreDeLaMadre,
+                ApellidosDeLaMadre = eDatosFamiliares.ApellidosDeLaMadre,            
+                FechaNacimientoDeLaMadre= eDatosFamiliares.FechaNacimientoDeLaMadre,
+                EdadDeLaMadre = eDatosFamiliares.EdadDeLaMadre,
+                PaisNacimientoDeLaMadre = eDatosFamiliares.PaisNacimientoDeLaMadre,
+                ProfesionDeLaMadre = eDatosFamiliares.ProfesionDeLaMadre,
 
-                nombres_padre = eDatosFamiliares.nombres_padre,
-                primer_apellido_padre = eDatosFamiliares.primer_apellido_padre,
-                segundo_apellido_padre = eDatosFamiliares.segundo_apellido_padre,
-                edad_padre = eDatosFamiliares.edad_padre,
-                profesion_padre = eDatosFamiliares.profesion_padre,
-                estado_datosfamiliares = eDatosFamiliares.estado_datosfamiliares
+                PrimerNombreDelPadre = eDatosFamiliares.PrimerNombreDelPadre,
+                SegundoNombreDelPadre = eDatosFamiliares.SegundoNombreDelPadre,
+                ApellidosDelPadre = eDatosFamiliares.ApellidosDelPadre,
+                FechaNacimientoDelPadre = eDatosFamiliares.FechaNacimientoDelPadre,
+                EdadDelPadre = eDatosFamiliares.EdadDelPadre,
+                PaisNacimientoDelPadre = eDatosFamiliares.PaisNacimientoDelPadre,
+                ProfesionDelPadre = eDatosFamiliares.ProfesionDelPadre,
+                EstadoDeDatosFamiliares = 1
             };
 
             return View(datosFamiliaresEliminar);
@@ -270,27 +275,58 @@ namespace Migrantes.Controllers
                                    {
                                        per_primer_ape = persona.per_primer_ape,
                                        per_segundo_ape = persona.per_segundo_ape,
-                                       per_segundo_nom = persona.per_segundo_nom,
                                        per_primer_nom = persona.per_primer_nom,
+                                       per_segundo_nom = persona.per_segundo_nom,                                      
                                        per_codigo_id = oDatosFamiliares.per_codigo_id,
-                                       nombres_madre = oDatosFamiliares.nombres_madre,
-                                       primer_apellido_madre = oDatosFamiliares.primer_apellido_madre,
-                                       segundo_apellido_madre = oDatosFamiliares.segundo_apellido_madre,
-                                       edad_madre = oDatosFamiliares.edad_madre,
-                                       profesion_madre = oDatosFamiliares.profesion_madre,
+                                       Id_DatosFamiliares = oDatosFamiliares.Id_DatosFamiliares,                                      
+                                       PrimerNombreDeLaMadre = oDatosFamiliares.PrimerNombreDeLaMadre,
+                                       SegundoNombreDeLaMadre = oDatosFamiliares.SegundoNombreDeLaMadre,
+                                       ApellidosDeLaMadre = oDatosFamiliares.ApellidosDeLaMadre,
+                                       FechaNacimientoDeLaMadre = oDatosFamiliares.FechaNacimientoDeLaMadre,
+                                       EdadDeLaMadre = oDatosFamiliares.EdadDeLaMadre,
+                                       PaisNacimientoDeLaMadre = oDatosFamiliares.PaisNacimientoDeLaMadre,
+                                       ProfesionDeLaMadre = oDatosFamiliares.ProfesionDeLaMadre,
 
-                                       nombres_padre = oDatosFamiliares.nombres_padre,
-                                       primer_apellido_padre = oDatosFamiliares.primer_apellido_padre,
-                                       segundo_apellido_padre = oDatosFamiliares.segundo_apellido_padre,
-                                       edad_padre = oDatosFamiliares.edad_padre,
-                                       profesion_padre = oDatosFamiliares.profesion_padre,
-
+                                       PrimerNombreDelPadre = oDatosFamiliares.PrimerNombreDelPadre,
+                                       SegundoNombreDelPadre = oDatosFamiliares.SegundoNombreDelPadre,
+                                       ApellidosDelPadre = oDatosFamiliares.ApellidosDelPadre,
+                                       FechaNacimientoDelPadre = oDatosFamiliares.FechaNacimientoDelPadre,
+                                       EdadDelPadre = oDatosFamiliares.EdadDelPadre,
+                                       PaisNacimientoDelPadre = oDatosFamiliares.PaisNacimientoDelPadre,
+                                       ProfesionDelPadre = oDatosFamiliares.ProfesionDelPadre,
+                                      
                                    }).ToList();
 
             ViewBag.ListDatosFam = ListDatosFamiliares;
 
         }
         #endregion
+
+        #region Mètodo crea lista con los nombres de la persona seleccionada.
+        //Crea una lista con nombres de la persona
+        public void PersonaSeleccionada(int IdPersona)
+
+        {
+            List<DocumentosPersonaDTO> ListNombres = new List<DocumentosPersonaDTO>();
+
+            ListNombres = (from p in this._context.PersonasDb
+                           where p.per_codigo_id == IdPersona
+
+                           select new DocumentosPersonaDTO
+
+                           {
+                               per_codigo_id = p.per_codigo_id,
+                               per_primer_nom = p.per_primer_nom,
+                               per_segundo_nom = p.per_segundo_nom,
+                               per_primer_ape = p.per_primer_ape,
+                               per_segundo_ape = p.per_segundo_ape,
+
+                           }).ToList();
+
+            ViewBag.NombresPersona = ListNombres;
+
+        }
+        #endregion Mètodo crea lista con los nombres de la persona seleccionada.
 
     }
 }

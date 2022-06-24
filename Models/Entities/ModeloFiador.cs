@@ -16,48 +16,47 @@ namespace Migrantes.Models.Entities
 
         [Required(ErrorMessage = "Por favor ingrese nombre del fiador.")]
         [Display(Name = ("Primer nombre"))]
-        public string PrimerNombreFiador { get; set; }
+        public string PrimerNombreDelFiador { get; set; }
 
         [Required(ErrorMessage = "Por favor ingrese segundo nombre del fiador.")]
         [Display(Name = ("Segundo nombre"))]
-        public string SegundoNombreFiador { get; set; }
+        public string SegundoNombreDelFiador { get; set; }
 
         [Required(ErrorMessage = "Por favor ingrese primer apellido del fiador.")]
         [Display(Name = ("Primer apellido"))]
-        public string PrimerApellidoFiador { get; set; }
+        public string ApellidosDelFiador { get; set; }
 
-        [Required(ErrorMessage = "Por favor ingrese segundo apellido del fiador.")]
-        [Display(Name = ("Segundo apellido"))]
-        public string SegundoApellidoFiador { get; set; }
-
-
-        [Display(Name = ("País de nacimiento"))]
-        public string PaisNacimientoFiador { get; set; }
-
-        [Display(Name = ("Sexo"))]
-        public int SexoFiador { get; set; }
+    
+        [Display(Name = ("Fecha de nacimiento"))]
+        [DataType(DataType.Date)]
+        public DateTime FechaNacimientoDelFiador { get; set; }
 
         [Display(Name = ("Edad"))]
-        public int EdadFiador { get; set; }
+        public int EdadDelFiador { get; set; }
+
+        [Display(Name = ("Sexo"))]
+        public int SexoDelFiador { get; set; }
+
+        [Display(Name = ("País de nacimiento"))]
+        public string PaisNacimientoDelFiador { get; set; }
 
         [EmailAddress]
         [Display(Name = ("Email"))]
         public string EmailFiador { get; set; }
 
-
-
-        [Phone]
         [Display(Name = ("Teléfono movil"))]
         public int TelefonoFiador { get; set; }
 
-        [Phone]
+        
         [Display(Name = ("Teléfono movil alternativo"))]
         public int TelefonoAlternoFiador { get; set; }
+
 
         [Required]
         [Range(0, 3)]
         [Display(Name = ("Nro. Cartas de recomendación personal"))]
         public int NumCartasPersonales { get; set; }
+
 
         [Required]
         [Range(0, 3)]
@@ -71,7 +70,7 @@ namespace Migrantes.Models.Entities
 
         [Display(Name = ("Fecha de grabación"))]
         [DataType(DataType.DateTime)]
-        public DateTime FechaGrabacionFiador { get; set; } = DateTime.Now;
+        public DateTime FechaGrabacionDelFiador { get; set; } = DateTime.Now;
 
 
         public virtual Persona Persona { get; set; }

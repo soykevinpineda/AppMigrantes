@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Migrantes.Migrations
 {
-    public partial class MigrationNo1 : Migration
+    public partial class UpdateModels : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -71,21 +71,16 @@ namespace Migrantes.Migrations
                 {
                     per_codigo_id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    per_estado = table.Column<int>(type: "int", nullable: false),
-                    per_codigo_alternativo = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    per_letra_indice = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    per_primer_nom = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    per_segundo_nom = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     per_primer_ape = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     per_segundo_ape = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     per_apellido_cas = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    per_primer_nom = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    per_segundo_nom = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    per_otros_nom = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    per_nombre_usual = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
-                    per_codpai_nacionalidad = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: true),
-                    per_codpai_nacimiento = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: true),
-                    per_sexo = table.Column<int>(type: "int", nullable: false),
-                    per_edad = table.Column<int>(type: "int", nullable: false),
                     per_fecha_nac = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    per_edad = table.Column<int>(type: "int", nullable: false),
+                    per_sexo = table.Column<int>(type: "int", nullable: false),
+                    per_codpai_nacimiento = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: true),
+                    per_codpai_nacionalidad = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: true),
                     per_profesion = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     per_estado_civil = table.Column<int>(type: "int", nullable: false),
                     per_email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
@@ -95,8 +90,10 @@ namespace Migrantes.Migrations
                     per_email_interno = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     per_telefono_movil = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     per_telefono_interno = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    per_apellidos_nombres = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     per_observaciones = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true),
+                    per_estado = table.Column<int>(type: "int", nullable: false),
+                    per_codigo_alternativo = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    per_letra_indice = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     per_codpai_digita = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: true),
                     per_usuario_grabacion = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     per_fecha_grabacion = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -261,6 +258,79 @@ namespace Migrantes.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "datos_familiares",
+                schema: "mig",
+                columns: table => new
+                {
+                    Id_DatosFamiliares = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    per_codigo_id = table.Column<int>(type: "int", nullable: false),
+                    PrimerNombreDeLaMadre = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SegundoNombreDeLaMadre = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ApellidosDeLaMadre = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FechaNacimientoDeLaMadre = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EdadDeLaMadre = table.Column<int>(type: "int", nullable: false),
+                    PaisNacimientoDeLaMadre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    ProfesionDeLaMadre = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PrimerNombreDelPadre = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SegundoNombreDelPadre = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ApellidosDelPadre = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FechaNacimientoDelPadre = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EdadDelPadre = table.Column<int>(type: "int", nullable: false),
+                    PaisNacimientoDelPadre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    ProfesionDelPadre = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FechaGrabacionDeFamiliares = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EstadoDeDatosFamiliares = table.Column<int>(type: "int", nullable: false),
+                    PersonaLinkper_codigo_id = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_datos_familiares", x => x.Id_DatosFamiliares);
+                    table.ForeignKey(
+                        name: "FK_datos_familiares_per_persona_PersonaLinkper_codigo_id",
+                        column: x => x.PersonaLinkper_codigo_id,
+                        principalSchema: "mig",
+                        principalTable: "per_persona",
+                        principalColumn: "per_codigo_id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "fiador",
+                schema: "mig",
+                columns: table => new
+                {
+                    IdFiador = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    per_codigo_id = table.Column<int>(type: "int", nullable: false),
+                    PrimerNombreDelFiador = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SegundoNombreDelFiador = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ApellidosDelFiador = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FechaNacimientoDelFiador = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EdadDelFiador = table.Column<int>(type: "int", nullable: false),
+                    SexoDelFiador = table.Column<int>(type: "int", nullable: false),
+                    PaisNacimientoDelFiador = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmailFiador = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TelefonoFiador = table.Column<int>(type: "int", nullable: false),
+                    TelefonoAlternoFiador = table.Column<int>(type: "int", nullable: false),
+                    NumCartasPersonales = table.Column<int>(type: "int", nullable: false),
+                    NumCartasFamiliares = table.Column<int>(type: "int", nullable: false),
+                    EntregoRecibo_Agua_o_Luz = table.Column<bool>(type: "bit", nullable: false),
+                    FechaGrabacionDelFiador = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_fiador", x => x.IdFiador);
+                    table.ForeignKey(
+                        name: "FK_fiador_per_persona_per_codigo_id",
+                        column: x => x.per_codigo_id,
+                        principalSchema: "mig",
+                        principalTable: "per_persona",
+                        principalColumn: "per_codigo_id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ide_identidad",
                 schema: "mig",
                 columns: table => new
@@ -276,8 +346,10 @@ namespace Migrantes.Migrations
                     ide_entregado = table.Column<bool>(type: "bit", nullable: false),
                     PersonaLinkper_codigo_id = table.Column<int>(type: "int", nullable: true),
                     TipoDocumentoLinktid_id_documento = table.Column<int>(type: "int", nullable: true),
-                    NombreImagen = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
-                    RutaImagen = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true)
+                    NombreImagenPortada_A = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
+                    RutaImagenPortada_A = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    NombreImagenPortada_B = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
+                    RutaImagenPortada_B = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -338,6 +410,19 @@ namespace Migrantes.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_datos_familiares_PersonaLinkper_codigo_id",
+                schema: "mig",
+                table: "datos_familiares",
+                column: "PersonaLinkper_codigo_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_fiador_per_codigo_id",
+                schema: "mig",
+                table: "fiador",
+                column: "per_codigo_id",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ide_identidad_PersonaLinkper_codigo_id",
                 schema: "mig",
                 table: "ide_identidad",
@@ -368,7 +453,15 @@ namespace Migrantes.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "datos_familiares",
+                schema: "mig");
+
+            migrationBuilder.DropTable(
                 name: "estado_civil",
+                schema: "mig");
+
+            migrationBuilder.DropTable(
+                name: "fiador",
                 schema: "mig");
 
             migrationBuilder.DropTable(

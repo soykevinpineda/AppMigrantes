@@ -9,73 +9,68 @@ namespace Migrantes.Models.Entities
         [Key]
         public int per_codigo_id { get; set; }
 
-        [Display(Name = ("Estado"))]
-        public int per_estado { get; set; }
-
-        [Display(Name = ("Código alternativo EVO"))]
-        [MaxLength(50)]
-        public string per_codigo_alternativo { get; set; }
-
-        [Display(Name = ("Letra índice"))]
-        [MaxLength(50)]
-        public string per_letra_indice { get; set; }
-
-        [Display(Name = ("Primer apellido"))]
-        [MaxLength(50)]
-        public string per_primer_ape { get; set; }
-
-        [Display(Name = ("Segundo apellido"))]
-        [MaxLength(50)]
-        public string per_segundo_ape { get; set; }
-
-        [Display(Name = ("Apellido de casada"))]
-        [MaxLength(50)]
-        public string per_apellido_cas { get; set; }
 
         [Display(Name = ("Primer nombre"))]
         [MaxLength(50)]
         public string per_primer_nom { get; set; }
 
+
         [Display(Name = ("Segundo nombre"))]
         [MaxLength(50)]
         public string per_segundo_nom { get; set; }
 
-        [Display(Name = ("Otros nombres"))]
+        
+        [Display(Name = ("Primer apellido"))]
         [MaxLength(50)]
-        public string per_otros_nom { get; set; }
+        public string per_primer_ape { get; set; }
 
-        [Display(Name = ("Nombre usual"))]
-        [MaxLength(250)]
-        public string per_nombre_usual { get; set; }
 
-        [Display(Name = ("Nacionalidad"))]
-        [MaxLength(2)]
-        public string per_codpai_nacionalidad { get; set; }
+        [Display(Name = ("Segundo apellido"))]
+        [MaxLength(50)]
+        public string per_segundo_ape { get; set; }
 
-        [Display(Name = ("País de nacimiento"))]
-        [MaxLength(2)]
-        public string per_codpai_nacimiento { get; set; }
 
-        [Display(Name = ("Sexo"))]
-        public int per_sexo { get; set; }
+        [Display(Name = ("Apellido de casada"))]
+        [MaxLength(50)]
+        public string per_apellido_cas { get; set; }
 
-        [Display(Name = ("Edad"))]
-        public int per_edad { get; set; }
 
         [Display(Name = ("Fecha nacimiento"))]
         [DataType(DataType.Date)]
         public DateTime per_fecha_nac { get; set; }
 
+
+        [Display(Name = ("Edad"))]
+        public int per_edad { get; set; }
+
+
+        [Display(Name = ("Sexo"))]
+        public int per_sexo { get; set; }
+
+
+        [Display(Name = ("País de nacimiento"))]
+        [MaxLength(2)]
+        public string per_codpai_nacimiento { get; set; }
+
+
+        [Display(Name = ("Nacionalidad"))]
+        [MaxLength(2)]
+        public string per_codpai_nacionalidad { get; set; }
+
+
         [Display(Name = ("Profesión"))]
         [MaxLength(100)]
         public string per_profesion { get; set; }
 
+
         [Display(Name = ("Estado civil"))]
         public int per_estado_civil { get; set; }
+
 
         [Display(Name = ("Email"))]
         [MaxLength(100)]
         public string per_email { get; set; }
+
 
         [Display(Name = ("Código municipio"))]
         public int per_codmun_nac { get; set; }
@@ -98,13 +93,22 @@ namespace Migrantes.Models.Entities
         [MaxLength(20)]
         public string per_telefono_interno { get; set; }
 
-        [Display(Name = ("Apellidos-nombres"))]
-        [MaxLength(250)]
-        public string per_apellidos_nombres { get; set; }
-
         [Display(Name = ("Observaciones"))]
         [MaxLength(4000)]
         public string per_observaciones { get; set; }
+
+
+        [Display(Name = ("Estado"))]
+        public int per_estado { get; set; }
+
+        [Display(Name = ("Código alternativo EVO"))]
+        [MaxLength(50)]
+        public string per_codigo_alternativo { get; set; }
+
+        [Display(Name = ("Letra índice"))]
+        [MaxLength(50)]
+        public string per_letra_indice { get; set; }
+
 
         [Display(Name = ("Código país"))]
         [MaxLength(2)]
@@ -127,7 +131,6 @@ namespace Migrantes.Models.Entities
         public DateTime per_fecha_modificacion { get; set; }
 
         public virtual ICollection<IdentidadPersona> IdentidadPersonaLink { get; set; }
-
 
         public virtual ModeloFiador ModeloFiador { get; set; }
     }

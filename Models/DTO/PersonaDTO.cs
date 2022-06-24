@@ -96,8 +96,8 @@ namespace Migrantes.Models.DTO
         [Required(ErrorMessage = "Número de teléfono es campo requerido")]
         public string per_telefono_movil { get; set; }
 
-        [DisplayName("Número de teléfono alterno")]
-        [Display(Name = ("Número de teléfono alterno"))]
+        [DisplayName("Teléfono alterno")]
+        [Display(Name = ("Teléfono alterno"))]
         [MaxLength(20)]
         public string per_telefono_interno { get; set; }
 

@@ -8,7 +8,7 @@ namespace Migrantes.Data.Configuraciones
     {
         public void Configure(EntityTypeBuilder<ModeloFiador> builder)
         {
-            builder.ToTable("ModeloFiador", "mig");
+            builder.ToTable("fiador", "mig");
         }
     }
 

@@ -8,6 +8,7 @@
 
     List<SelectListItem> TipoDocSelect = ViewBag.ListDoc;
     List<DocumentosPersonaDTO> DocumentosPersona = ViewBag.ListadoDocumentos;
+    List<DocumentosPersonaDTO> NombreDeLaPersona = ViewBag.NombresPersona;
 }
 
 <div class="row">
@@ -21,6 +22,18 @@
     </div>
 </div>
 <hr>
+
+@foreach (var item in NombreDeLaPersona)
+{
+    <div class="align-content-left" id="TituloPer" data-bs-toggle="tooltip" data-bs-placement="top" title="Persona seleccionada">
+        <center>
+            <img src="~/persona.png" width="50" height="50" />
+            <h3 class="text-center text-dark"><strong>@item.per_primer_nom @item.per_segundo_nom @item.per_primer_ape @item.per_segundo_ape</strong></h3>
+        </center>
+    </div>
+    <br />
+    <br />
+}
 
 <div class="row" style="font-family:Helvetica">
     <div style="text-align: center" class="col-md offset-sm-0">

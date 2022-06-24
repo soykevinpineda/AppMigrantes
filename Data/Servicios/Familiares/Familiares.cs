@@ -15,24 +15,29 @@ namespace Migrantes.Data.Servicios.Familiares
             this._context = context;
         }
 
-        public async Task AgregandoDatosFamiliares(DatosFamiliaresViewModel oDatosFamiliares)
+        public async Task AgregandoDatosFamiliares(DatosFamiliaresViewModel oDatosFamiliaresCreados)
         {
 
             DatosFamiliares ObjFamiliares = new DatosFamiliares();
 
-            ObjFamiliares.per_codigo_id = oDatosFamiliares.per_codigo_id;   
-            ObjFamiliares.nombres_madre = oDatosFamiliares.nombres_madre;
-            ObjFamiliares.primer_apellido_madre = oDatosFamiliares.primer_apellido_madre;
-            ObjFamiliares.segundo_apellido_madre = oDatosFamiliares.segundo_apellido_madre;
-            ObjFamiliares.edad_madre = oDatosFamiliares.edad_madre;
-            ObjFamiliares. profesion_madre = oDatosFamiliares.profesion_madre;
+            ObjFamiliares.Id_DatosFamiliares = oDatosFamiliaresCreados.Id_DatosFamiliares;
+            ObjFamiliares.per_codigo_id = oDatosFamiliaresCreados.per_codigo_id;
+            ObjFamiliares.PrimerNombreDeLaMadre = oDatosFamiliaresCreados.PrimerNombreDeLaMadre;
+            ObjFamiliares.SegundoNombreDeLaMadre = oDatosFamiliaresCreados.SegundoNombreDeLaMadre;
+            ObjFamiliares.ApellidosDeLaMadre = oDatosFamiliaresCreados.ApellidosDeLaMadre;
+            ObjFamiliares.FechaNacimientoDeLaMadre = oDatosFamiliaresCreados.FechaNacimientoDeLaMadre;
+            ObjFamiliares.EdadDeLaMadre = oDatosFamiliaresCreados.EdadDeLaMadre;
+            ObjFamiliares.PaisNacimientoDeLaMadre = oDatosFamiliaresCreados.PaisNacimientoDeLaMadre;
+            ObjFamiliares.ProfesionDeLaMadre = oDatosFamiliaresCreados.ProfesionDeLaMadre;
 
-            ObjFamiliares.nombres_padre = oDatosFamiliares.nombres_padre;
-            ObjFamiliares.primer_apellido_padre = oDatosFamiliares.primer_apellido_padre;
-            ObjFamiliares.segundo_apellido_padre = oDatosFamiliares.segundo_apellido_padre;
-            ObjFamiliares.edad_padre = oDatosFamiliares.edad_padre;
-            ObjFamiliares.profesion_padre = oDatosFamiliares.profesion_padre;
-            ObjFamiliares.estado_datosfamiliares = 1;
+            ObjFamiliares.PrimerNombreDelPadre = oDatosFamiliaresCreados.PrimerNombreDelPadre;
+            ObjFamiliares.SegundoNombreDelPadre = oDatosFamiliaresCreados.SegundoNombreDelPadre;
+            ObjFamiliares.ApellidosDelPadre = oDatosFamiliaresCreados.ApellidosDelPadre;
+            ObjFamiliares.FechaNacimientoDelPadre = oDatosFamiliaresCreados.FechaNacimientoDelPadre;
+            ObjFamiliares.EdadDelPadre = oDatosFamiliaresCreados.EdadDelPadre;
+            ObjFamiliares.PaisNacimientoDelPadre = oDatosFamiliaresCreados.PaisNacimientoDelPadre;
+            ObjFamiliares.ProfesionDelPadre = oDatosFamiliaresCreados.ProfesionDelPadre;
+            ObjFamiliares.EstadoDeDatosFamiliares = 1;
 
             this._context.DatosFamiliaresDb.Add(ObjFamiliares);
             await this._context.SaveChangesAsync();
@@ -44,20 +49,24 @@ namespace Migrantes.Data.Servicios.Familiares
 
             DatosFamiliares oDatosFamiliares = new DatosFamiliares();
 
-            oDatosFamiliares.id_datos_familiares = DatosFamiliaresEditados.id_datos_familiares;
+            oDatosFamiliares.Id_DatosFamiliares = DatosFamiliaresEditados.Id_DatosFamiliares;
             oDatosFamiliares.per_codigo_id = DatosFamiliaresEditados.per_codigo_id;
-            oDatosFamiliares.nombres_madre = DatosFamiliaresEditados.nombres_madre;
-            oDatosFamiliares.primer_apellido_madre = DatosFamiliaresEditados.primer_apellido_madre;
-            oDatosFamiliares.segundo_apellido_madre = DatosFamiliaresEditados.segundo_apellido_madre;
-            oDatosFamiliares.edad_madre = DatosFamiliaresEditados.edad_madre;
-            oDatosFamiliares.profesion_madre = DatosFamiliaresEditados.profesion_madre;
+            oDatosFamiliares.PrimerNombreDeLaMadre = DatosFamiliaresEditados.PrimerNombreDeLaMadre;
+            oDatosFamiliares.SegundoNombreDeLaMadre = DatosFamiliaresEditados.SegundoNombreDeLaMadre;
+            oDatosFamiliares.ApellidosDeLaMadre = DatosFamiliaresEditados.ApellidosDeLaMadre;
+            oDatosFamiliares.FechaNacimientoDeLaMadre = DatosFamiliaresEditados.FechaNacimientoDeLaMadre;
+            oDatosFamiliares.EdadDeLaMadre = DatosFamiliaresEditados.EdadDeLaMadre;
+            oDatosFamiliares.PaisNacimientoDeLaMadre = DatosFamiliaresEditados.PaisNacimientoDeLaMadre;
+            oDatosFamiliares.ProfesionDeLaMadre = DatosFamiliaresEditados.ProfesionDeLaMadre;
 
-            oDatosFamiliares.nombres_padre = DatosFamiliaresEditados.nombres_padre;
-            oDatosFamiliares.primer_apellido_padre = DatosFamiliaresEditados.primer_apellido_padre;
-            oDatosFamiliares.segundo_apellido_padre = DatosFamiliaresEditados.segundo_apellido_padre;
-            oDatosFamiliares.edad_padre = DatosFamiliaresEditados.edad_padre;
-            oDatosFamiliares.profesion_padre = DatosFamiliaresEditados.profesion_padre;
-            oDatosFamiliares.estado_datosfamiliares = 1;
+            oDatosFamiliares.PrimerNombreDelPadre = DatosFamiliaresEditados.PrimerNombreDelPadre;
+            oDatosFamiliares.SegundoNombreDelPadre = DatosFamiliaresEditados.SegundoNombreDelPadre;
+            oDatosFamiliares.ApellidosDelPadre = DatosFamiliaresEditados.ApellidosDelPadre;
+            oDatosFamiliares.FechaNacimientoDelPadre = DatosFamiliaresEditados.FechaNacimientoDelPadre;
+            oDatosFamiliares.EdadDelPadre = DatosFamiliaresEditados.EdadDelPadre;
+            oDatosFamiliares.PaisNacimientoDelPadre = DatosFamiliaresEditados.PaisNacimientoDelPadre;
+            oDatosFamiliares.ProfesionDelPadre = DatosFamiliaresEditados.ProfesionDelPadre;
+            oDatosFamiliares.EstadoDeDatosFamiliares = 1;
 
             this._context.DatosFamiliaresDb.Update(oDatosFamiliares);
             await this._context.SaveChangesAsync();
@@ -70,20 +79,24 @@ namespace Migrantes.Data.Servicios.Familiares
 
             DatosFamiliares ObjFamiliares = new DatosFamiliares();
 
-            ObjFamiliares.id_datos_familiares = DatosFamiliaresEliminados.id_datos_familiares;
+            ObjFamiliares.Id_DatosFamiliares = DatosFamiliaresEliminados.Id_DatosFamiliares;
             ObjFamiliares.per_codigo_id = DatosFamiliaresEliminados.per_codigo_id;
-            ObjFamiliares.nombres_madre = DatosFamiliaresEliminados.nombres_madre;
-            ObjFamiliares.primer_apellido_madre = DatosFamiliaresEliminados.primer_apellido_madre;
-            ObjFamiliares.segundo_apellido_madre = DatosFamiliaresEliminados.segundo_apellido_madre;
-            ObjFamiliares.edad_madre = DatosFamiliaresEliminados.edad_madre;
-            ObjFamiliares.profesion_madre = DatosFamiliaresEliminados.profesion_madre;
+            ObjFamiliares.PrimerNombreDeLaMadre = DatosFamiliaresEliminados.PrimerNombreDeLaMadre;
+            ObjFamiliares.SegundoNombreDeLaMadre = DatosFamiliaresEliminados.SegundoNombreDeLaMadre;
+            ObjFamiliares.ApellidosDeLaMadre = DatosFamiliaresEliminados.ApellidosDeLaMadre;
+            ObjFamiliares.FechaNacimientoDeLaMadre = DatosFamiliaresEliminados.FechaNacimientoDeLaMadre;
+            ObjFamiliares.EdadDeLaMadre = DatosFamiliaresEliminados.EdadDeLaMadre;
+            ObjFamiliares.PaisNacimientoDeLaMadre = DatosFamiliaresEliminados.PaisNacimientoDeLaMadre;
+            ObjFamiliares.ProfesionDeLaMadre = DatosFamiliaresEliminados.ProfesionDeLaMadre;
 
-            ObjFamiliares.nombres_padre = DatosFamiliaresEliminados.nombres_padre;
-            ObjFamiliares.primer_apellido_padre = DatosFamiliaresEliminados.primer_apellido_padre;
-            ObjFamiliares.segundo_apellido_padre = DatosFamiliaresEliminados.segundo_apellido_padre;
-            ObjFamiliares.edad_padre = DatosFamiliaresEliminados.edad_padre;
-            ObjFamiliares.profesion_padre = DatosFamiliaresEliminados.profesion_padre;
-            ObjFamiliares.estado_datosfamiliares = 1;
+            ObjFamiliares.PrimerNombreDelPadre = DatosFamiliaresEliminados.PrimerNombreDelPadre;
+            ObjFamiliares.SegundoNombreDelPadre = DatosFamiliaresEliminados.SegundoNombreDelPadre;
+            ObjFamiliares.ApellidosDelPadre = DatosFamiliaresEliminados.ApellidosDelPadre;
+            ObjFamiliares.FechaNacimientoDelPadre = DatosFamiliaresEliminados.FechaNacimientoDelPadre;
+            ObjFamiliares.EdadDelPadre = DatosFamiliaresEliminados.EdadDelPadre;
+            ObjFamiliares.PaisNacimientoDelPadre = DatosFamiliaresEliminados.PaisNacimientoDelPadre;
+            ObjFamiliares.ProfesionDelPadre = DatosFamiliaresEliminados.ProfesionDelPadre;
+            ObjFamiliares.EstadoDeDatosFamiliares = 1;
 
             this._context.DatosFamiliaresDb.Remove(ObjFamiliares);
             await this._context.SaveChangesAsync();

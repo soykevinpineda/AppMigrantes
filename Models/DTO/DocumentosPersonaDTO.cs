@@ -119,7 +119,7 @@ namespace Migrantes.Models.DTO
         #region Datos de Familiares
 
         [Key]
-        public int id_datos_familiares { get; set; }
+        public int Id_DatosFamiliares { get; set; }
 
         public string nombres_madre { get; set; }
         public string primer_apellido_madre { get; set; }

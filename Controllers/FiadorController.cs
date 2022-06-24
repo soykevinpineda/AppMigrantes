@@ -45,10 +45,6 @@ namespace Migrantes.Controllers
         public IActionResult CrearFiador(int? id)
         {
 
-            var urlRetornoFiadorCrear = HttpContext.Request.Path + HttpContext.Request.QueryString;
-            HttpContext.Session.SetString("UrlRetorno", urlRetornoFiadorCrear);
-
-
             if (id == null)
             {
                 return NotFound();
@@ -56,9 +52,6 @@ namespace Migrantes.Controllers
 
             var Fiador_Persona = this._context.FiadorDb
            .FirstOrDefault(x => x.per_codigo_id == id);
-
-            Sexos();
-
 
             if (Fiador_Persona == null)
             {
@@ -74,22 +67,8 @@ namespace Migrantes.Controllers
             ViewBag.IdPersona = Codigo_Persona.per_codigo_id;
 
             ListFiador(Codigo_Persona.per_codigo_id);
-
-            var NombrePersona = this._context.PersonasDb
-            .Where(x => x.per_codigo_id == id)
-            .Select(x => x.per_primer_nom).FirstOrDefault();
-            ViewBag.Nombre_Persona = NombrePersona;
-
-            var SegNombrePersona = this._context.PersonasDb
-            .Where(x => x.per_codigo_id == id)
-             .Select(x => x.per_segundo_nom).FirstOrDefault();
-            ViewBag.SegNombrePersona = SegNombrePersona;
-
-
-            var ApellidoPersona = this._context.PersonasDb
-            .Where(x => x.per_codigo_id == id)
-            .Select(x => x.per_primer_ape).FirstOrDefault();
-            ViewBag.Apellido_Persona = ApellidoPersona;
+            PersonaSeleccionada(Codigo_Persona.per_codigo_id);
+            Sexos();
 
             return View();
         }
@@ -101,15 +80,13 @@ namespace Migrantes.Controllers
         public async Task<ActionResult> GuardarFiador(FiadorViewModel FiadorCreado)
         {
 
-            var urlRetornoFiadorCrear = HttpContext.Session.GetString("UrlRetorno");
-
             try
             {
                 if (!ModelState.IsValid)
                 {
 
                     TempData["msjSinGuardar"] = "No se agrego al fiador, recuerda llenar todos los campos solicitados...";
-                    return LocalRedirect(urlRetornoFiadorCrear);
+                    return View(FiadorCreado);
 
                 }
                 else
@@ -123,7 +100,8 @@ namespace Migrantes.Controllers
                 throw;
             }
 
-            return RedirectToAction("Personas", "Personas");
+            var urlRetornoFiadorDetalles = HttpContext.Session.GetString("UrlRetorno");
+            return LocalRedirect(urlRetornoFiadorDetalles);
 
         }
 
@@ -151,28 +129,14 @@ namespace Migrantes.Controllers
             var Fiador_Persona = this._context.FiadorDb
                 .FirstOrDefault(x => x.per_codigo_id == id);
 
+            ViewBag.FiadorPersona = Fiador_Persona;
+
             if (Fiador_Persona == null)
             {
                 TempData["alertaFiador"] = "La persona seleccionada no tiene un fiador, desea agregarlo?";
             }
 
-            ViewBag.FiadorPersona = Fiador_Persona;
-
-            var PrimerNombrePersona = this._context.PersonasDb
-            .Where(x => x.per_codigo_id == id)
-            .Select(x => x.per_primer_nom).FirstOrDefault();
-            ViewBag.Nombre_Persona = PrimerNombrePersona;
-
-            var SegNombrePersona = this._context.PersonasDb
-            .Where(x => x.per_codigo_id == id)
-            .Select(x => x.per_segundo_nom).FirstOrDefault();
-            ViewBag.SegNombrePersona = SegNombrePersona;
-
-            var ApellidoPersona = this._context.PersonasDb
-            .Where(x => x.per_codigo_id == id)
-            .Select(x => x.per_primer_ape).FirstOrDefault();
-            ViewBag.Apellido_Persona = ApellidoPersona;
-
+            PersonaSeleccionada(ID_Persona.per_codigo_id);
             ListFiador(ID_Persona.per_codigo_id);
 
             return View();
@@ -205,41 +169,25 @@ namespace Migrantes.Controllers
 
             ViewBag.IdPersona = ID_Persona.per_codigo_id;
 
-            var NombrePersona = this._context.PersonasDb
-            .Where(x => x.per_codigo_id == id)
-            .Select(x => x.per_primer_nom).FirstOrDefault();
-            ViewBag.Nombre_Persona = NombrePersona;
-
-            var SegNombrePersona = this._context.PersonasDb
-            .Where(x => x.per_codigo_id == id)
-            .Select(x => x.per_segundo_nom).FirstOrDefault();
-            ViewBag.SegNombrePersona = SegNombrePersona;
-
-            var ApellidoPersona = this._context.PersonasDb
-            .Where(x => x.per_codigo_id == id)
-            .Select(x => x.per_primer_ape).FirstOrDefault();
-            ViewBag.Apellido_Persona = ApellidoPersona;
-
-
             var objEliminarFiador = new FiadorViewModel()
 
             {
-
                 per_codigo_id = Fiador_Persona.per_codigo_id,
                 IdFiador = Fiador_Persona.IdFiador,
-                PrimerNombreFiador = Fiador_Persona.PrimerNombreFiador,
-                SegundoNombreFiador = Fiador_Persona.SegundoNombreFiador,
-                PrimerApellidoFiador = Fiador_Persona.PrimerApellidoFiador,
-                SegundoApellidoFiador = Fiador_Persona.SegundoApellidoFiador,
-                PaisNacimientoFiador = Fiador_Persona.PaisNacimientoFiador,
-                EdadFiador = Fiador_Persona.EdadFiador,
-                SexoFiador = Fiador_Persona.SexoFiador,
+                PrimerNombreDelFiador = Fiador_Persona.PrimerNombreDelFiador,
+                SegundoNombreDelFiador = Fiador_Persona.SegundoNombreDelFiador,
+                ApellidosDelFiador = Fiador_Persona.ApellidosDelFiador,
+                FechaNacimientoDelFiador = Fiador_Persona.FechaNacimientoDelFiador,
+                EdadDelFiador = Fiador_Persona.EdadDelFiador,
+                SexoDelFiador = Fiador_Persona.SexoDelFiador,
+                PaisNacimientoDelFiador = Fiador_Persona.PaisNacimientoDelFiador,
                 EmailFiador = Fiador_Persona.EmailFiador,
                 TelefonoFiador = Fiador_Persona.TelefonoFiador,
                 TelefonoAlternoFiador = Fiador_Persona.TelefonoAlternoFiador,
-                EntregoRecibo_Agua_o_Luz = Fiador_Persona.EntregoRecibo_Agua_o_Luz,
                 NumCartasPersonales = Fiador_Persona.NumCartasPersonales,
-                NumCartasFamiliares = Fiador_Persona.NumCartasFamiliares
+                NumCartasFamiliares = Fiador_Persona.NumCartasFamiliares,
+                EntregoRecibo_Agua_o_Luz = Fiador_Persona.EntregoRecibo_Agua_o_Luz,
+                FechaGrabacionDelFiador = Fiador_Persona.FechaGrabacionDelFiador,
 
             };
 
@@ -322,19 +270,20 @@ namespace Migrantes.Controllers
 
                 per_codigo_id = Fiador_Persona.per_codigo_id,
                 IdFiador = Fiador_Persona.IdFiador,
-                PrimerNombreFiador = Fiador_Persona.PrimerNombreFiador,
-                SegundoNombreFiador = Fiador_Persona.SegundoNombreFiador,
-                PrimerApellidoFiador = Fiador_Persona.PrimerApellidoFiador,
-                SegundoApellidoFiador = Fiador_Persona.SegundoApellidoFiador,
-                PaisNacimientoFiador = Fiador_Persona.PaisNacimientoFiador,
-                EdadFiador = Fiador_Persona.EdadFiador,
-                SexoFiador = Fiador_Persona.SexoFiador,
+                PrimerNombreDelFiador = Fiador_Persona.PrimerNombreDelFiador,
+                SegundoNombreDelFiador = Fiador_Persona.SegundoNombreDelFiador,
+                ApellidosDelFiador = Fiador_Persona.ApellidosDelFiador,
+                FechaNacimientoDelFiador = Fiador_Persona.FechaNacimientoDelFiador,
+                EdadDelFiador = Fiador_Persona.EdadDelFiador,
+                SexoDelFiador = Fiador_Persona.SexoDelFiador,
+                PaisNacimientoDelFiador = Fiador_Persona.PaisNacimientoDelFiador,
                 EmailFiador = Fiador_Persona.EmailFiador,
                 TelefonoFiador = Fiador_Persona.TelefonoFiador,
                 TelefonoAlternoFiador = Fiador_Persona.TelefonoAlternoFiador,
-                EntregoRecibo_Agua_o_Luz = Fiador_Persona.EntregoRecibo_Agua_o_Luz,
                 NumCartasPersonales = Fiador_Persona.NumCartasPersonales,
-                NumCartasFamiliares = Fiador_Persona.NumCartasFamiliares
+                NumCartasFamiliares = Fiador_Persona.NumCartasFamiliares,
+                EntregoRecibo_Agua_o_Luz = Fiador_Persona.EntregoRecibo_Agua_o_Luz,
+                FechaGrabacionDelFiador = Fiador_Persona.FechaGrabacionDelFiador,
 
             };
 
@@ -396,20 +345,20 @@ namespace Migrantes.Controllers
                           {
                               per_codigo_id = persona.per_codigo_id,
                               IdFiador = fiador.IdFiador,
-                              PrimerNombreFiador = fiador.PrimerNombreFiador,
-                              SegundoNombreFiador = fiador.SegundoNombreFiador,
-                              PrimerApellidoFiador = fiador.PrimerApellidoFiador,
-                              SegundoApellidoFiador = fiador.SegundoApellidoFiador,
-                              EdadFiador = fiador.EdadFiador,
-                              SexoFiador = fiador.SexoFiador,
-                              PaisNacimientoFiador = fiador.PaisNacimientoFiador,
+                              PrimerNombreDelFiador = fiador.PrimerNombreDelFiador,
+                              SegundoNombreDelFiador = fiador.SegundoNombreDelFiador,
+                              ApellidosDelFiador = fiador.ApellidosDelFiador,
+                              FechaNacimientoDelFiador = fiador.FechaNacimientoDelFiador,
+                              EdadDelFiador = fiador.EdadDelFiador,
+                              SexoDelFiador = fiador.SexoDelFiador,
+                              PaisNacimientoDelFiador = fiador.PaisNacimientoDelFiador,
                               EmailFiador = fiador.EmailFiador,
                               TelefonoFiador = fiador.TelefonoFiador,
                               TelefonoAlternoFiador = fiador.TelefonoAlternoFiador,
                               NumCartasPersonales = fiador.NumCartasPersonales,
                               NumCartasFamiliares = fiador.NumCartasFamiliares,
                               EntregoRecibo_Agua_o_Luz = fiador.EntregoRecibo_Agua_o_Luz,
-                              FechaGrabacionFiador = fiador.FechaGrabacionFiador,
+                              FechaGrabacionDelFiador = fiador.FechaGrabacionDelFiador,
 
                           }).ToList();
 
@@ -478,6 +427,34 @@ namespace Migrantes.Controllers
             return oSexo;
         }
         #endregion Procedimientos Sexo 
+
+
+        #region Mètodo crea lista con los nombres de la persona seleccionada.
+        //Crea una lista con nombres de la persona
+        public void PersonaSeleccionada(int IdPersona)
+
+        {
+            List<DocumentosPersonaDTO> ListNombres = new List<DocumentosPersonaDTO>();
+
+            ListNombres = (from p in this._context.PersonasDb
+                           where p.per_codigo_id == IdPersona
+
+                           select new DocumentosPersonaDTO
+
+                           {
+                               per_codigo_id = p.per_codigo_id,
+                               per_primer_nom = p.per_primer_nom,
+                               per_segundo_nom = p.per_segundo_nom,
+                               per_primer_ape = p.per_primer_ape,
+                               per_segundo_ape = p.per_segundo_ape,
+
+                           }).ToList();
+
+            ViewBag.NombresPersona = ListNombres;
+
+        }
+        #endregion Mètodo crea lista con los nombres de la persona seleccionada.
+
     }
 
 }

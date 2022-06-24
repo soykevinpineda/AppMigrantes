@@ -1,4 +1,5 @@
-﻿@using Migrantes.ViewModels
+﻿@using Migrantes.Models.DTO
+@using Migrantes.ViewModels
 @model Migrantes.ViewModels.FiadorViewModel
 
 @{
@@ -8,11 +9,12 @@
     List<DatosFamiliaresViewModel> ListDatosFamiliares = ViewBag.ListDatosFam;
     List<SelectListItem> oSexos = ViewBag.Sexos;
     List<FiadorViewModel> FiadorDisponible = ViewBag.ListadoFiador;
+    List<DocumentosPersonaDTO> NombreDeLaPersona = ViewBag.NombresPersona;
 }
 
 
-<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
-<link rel="stylesheet" href="~/css/site.css"/>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" />
 
 <!--Si la persona seleccionada no tiene un fiador creado,
 se muestra una alerta y opción para crearlo.-->
@@ -55,13 +57,17 @@ se muestra una tarjeta con información.-->
     <hr>
     <br />
 
-    <div class="align-content-center" id="TituloPer" data-bs-toggle="tooltip" data-bs-placement="top" title="Persona seleccionada">
-        <center>
-            <img src="~/persona.png" width="50" height="50" />
-            <h3 class="text-center text-dark"><strong>@ViewBag.Nombre_Persona @ViewBag.SegNombrePersona @ViewBag.Apellido_Persona </strong></h3>
-        </center>
-    </div>
-    <br />
+    @foreach (var NombrePersona in NombreDeLaPersona)
+    {
+        <div class="align-content-left" id="TituloPer" data-bs-toggle="tooltip" data-bs-placement="top" title="Persona seleccionada">
+            <center>
+                <img src="~/persona.png" width="50" height="50" />
+                <h3 class="text-center text-dark"><strong>@NombrePersona.per_primer_nom @NombrePersona.per_segundo_nom @NombrePersona.per_primer_ape @NombrePersona.per_segundo_ape</strong></h3>
+            </center>
+        </div>
+        <br />
+        <br />
+    }
 
     <div class="box">
         <div class="card">
@@ -70,21 +76,21 @@ se muestra una tarjeta con información.-->
                 <div class="row align-items-left">
                     <div class="col-5">
                         <h5 class="card-title"><strong>Nombre</strong></h5>
-                        <p class="card-text">@item.PrimerNombreFiador @item.SegundoNombreFiador @item.PrimerApellidoFiador @item.SegundoApellidoFiador</p>
+                        <p class="card-text">@item.PrimerNombreDelFiador @item.SegundoNombreDelFiador @item.ApellidosDelFiador</p>
                         <br />
                     </div>
                     <div class="col">
                         <h5 class="card-title"><strong>Edad</strong></h5>
-                        <p class="card-text">@item.EdadFiador</p>
+                        <p class="card-text">@item.EdadDelFiador</p>
                         <br />
                     </div>
                     <div class="col">
                         <h5 class="card-title"><strong>Género</strong></h5>
-                        @if (item.SexoFiador == 2)
+                        @if (item.SexoDelFiador == 2)
                         {
                             <p> <strong class="text-primary">M</strong></p>
                         }
-                        @if (item.SexoFiador != 2)
+                        @if (item.SexoDelFiador != 2)
                         {
                             <strong style="color:hotpink">F</strong>
                         }
@@ -136,7 +142,7 @@ se muestra una tarjeta con información.-->
                 <div class="row align-items-center">
                     <div class="col">
                         <h5 class="card-title"><strong>Fecha de creación</strong></h5>
-                        <p class="card-text">@item.FechaGrabacionFiador</p>
+                        <p class="card-text">@item.FechaGrabacionDelFiador</p>
                         <br />
                     </div>
                 </div>
@@ -154,8 +160,8 @@ se muestra una tarjeta con información.-->
 
     <center>
         <div class="form-group">
-            <a class="btn btn-primary" asp-controller="Fiador" asp-action="EditarFiador" asp-route-id="@ViewBag.IdPersona">Editar</a>&nbsp;
-            <a class="btn btn-danger" asp-controller="Fiador" asp-action="EliminarFiador" asp-route-id="@ViewBag.IdPersona">Eliminar</a>
+            <a class="btn btn-success" asp-controller="Fiador" asp-action="EditarFiador" asp-route-id="@ViewBag.IdPersona"><i class="material-icons" style="font-size:15px">border_color</i>&nbsp;Editar</a>&nbsp;
+            <a class="btn btn-danger" asp-controller="Fiador" asp-action="EliminarFiador" asp-route-id="@ViewBag.IdPersona"><i class="material-icons" style="font-size:15px">delete</i>&nbsp;Eliminar</a>
         </div>
     </center>
 }
