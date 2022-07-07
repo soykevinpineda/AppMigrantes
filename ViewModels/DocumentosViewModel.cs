@@ -19,6 +19,8 @@ namespace Migrantes.ViewModels
         [ForeignKey("TipoDocumento")]
         public int ide_id_documento { get; set; }
 
+        [MaxLength(100)]
+        public string tid_descripcion { get; set; }
 
         [Display(Name = ("Número de DPI, Pasaporte o Seguro Social"))]
         [Required(ErrorMessage = "Número del documento es requerido")]

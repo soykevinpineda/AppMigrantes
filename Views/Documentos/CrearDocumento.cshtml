@@ -1,6 +1,7 @@
 ﻿@using Migrantes.Models.DTO
 @model Migrantes.Models.Entities.IdentidadPersona
 @{
+   
     ViewData["Title"] = "Formulario para documentos";
     ViewData["TitleCargaDocumentos"] = "Carga de archivos";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -50,7 +51,7 @@
                 <strong>
                     <label asp-for="ide_id_documento" class="control-label"></label>
                 </strong>
-                <select asp-for="ide_id_documento" asp-items="@TipoDocSelect" class="form-control text-center"> </select>
+                <select id="tipodoc" asp-for="ide_id_documento" asp-items="@TipoDocSelect" class="form-control text-center"> </select>
                 <span asp-validation-for="ide_id_documento" class="text-danger"></span>
             </div>
             <br />
@@ -111,6 +112,7 @@
             <div class="form-group">
                 <input type="submit" onclick="return ValidarFormulario()" value="Guardar documento" class="btn btn-success" />
             </div>
+
         </form>
     </div>
 </div>
@@ -127,16 +129,6 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script>
-        function SuccessDoc() {
-            var frm = document.getElementById("frm");
-            MostrarSuccessDoc().then(res => {
-                if (res.value) {
-                    frm.submit();
-                    MostrarSuccessDoc();
-                }
-            })
-        }
-
         $(document).ready(function() {
             $('.toast').toast('show');
         });
@@ -145,17 +137,6 @@
     </script>
 
     <script>
-        function ValidarFormulario() {
-            if (document.getElementById("customFile").value == "") {
-                swal("Error", "Por favor seleccione una imagen...", "error");
-                return false;
-            }
-            else {
-                SuccessDoc();
-            }
-
-        }
-
         function SelecImg1() {
             var archivo = document.getElementById("customFile").files[0];
             var reader = new FileReader();
@@ -171,6 +152,19 @@
                 document.getElementById("ImgFoto2").src = reader.result;
             }
             reader.readAsDataURL(archivo);
+        }
+    </script>
+    <script>
+        function ValidarFormulario() {
+            if (document.getElementById("customFile").value == "") {
+                swal("Error", "Por favor elegir un archivo", "error");
+                return false;
+            }
+            if (document.getElementById("customFile2").value == "") {
+                swal("Error", "Por favor elegir un archivo", "error");
+                return false;
+            }
+            return true;
         }
     </script>
 }

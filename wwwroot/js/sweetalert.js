@@ -43,7 +43,7 @@ function MostrarSuccess() {
         icon: 'success',
         title: 'El formulario se guardó correctamente',
         showConfirmButton: false,
-        timer: 6000,
+        timer: 7000,
         
     })
 }

@@ -64,7 +64,7 @@ namespace Migrantes.Data.Servicios.Documentos
 
         }
 
-        public async Task EliminarDocumento(DocumentosViewModel documentoEliminado)
+        public async Task EliminarDocumentoConfirmado(DocumentosViewModel documentoEliminado)
 
         {
 

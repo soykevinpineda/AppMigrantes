@@ -5,10 +5,21 @@
     ViewData["Title"] = "Editar documento";
     ViewData["TitleCargaDocumentos"] = "Carga de archivos";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
     List<SelectListItem> TipoDocSelect = ViewBag.ListDoc;
     List<DocumentosPersonaDTO> DocumentosPersona = ViewBag.ListadoDocumentos;
     List<DocumentosPersonaDTO> NombreDeLaPersona = ViewBag.NombresPersona;
+}
+
+@if (TempData["msjCompletarCampos"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" style="font-size:large;font-family:Helvetica">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+        </svg> &nbsp;@TempData["msjSinGuardar"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="close">
+            <span arie-hidden="true">&times;</span>
+        </button>
+    </div>
 }
 
 <div class="row">
@@ -37,7 +48,7 @@
 
 <div class="row" style="font-family:Helvetica">
     <div style="text-align: center" class="col-md offset-sm-0">
-        <form asp-action="GuardarDocumentoEditado" asp-controller="Documentos" method="post" enctype="multipart/form-data" id="frm">
+        <form asp-action="EditarDocumento" asp-controller="Documentos" method="post" enctype="multipart/form-data" id="frm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="@Model.ide_id_persona" />
             <div class="form-group">
@@ -105,7 +116,7 @@
                         </strong>
                         <img style="border-radius:6px;width:100%" src="@Model.RutaImagenPortada_B" width="200" height="200" id="ImgFoto2" />
                         <br />
-                        <input required asp-for="FotoDocumento_LadoB" class="form-control mb-1" id="customFile2" onchange="SelecImg2()" accept="image/*" />
+                        <input asp-for="FotoDocumento_LadoB" class="form-control mb-1" id="customFile2" onchange="SelecImg2()" accept="image/*" />
                         <span asp-validation-for="FotoDocumento_LadoB" class="text-danger"></span>
                     </div>
 
@@ -114,7 +125,7 @@
 
             <br />
             <div class="form-group">
-                <input type="submit" onclick="return ValidarImagen()" value="Actualizar documento" class="btn btn-success" />
+                <input type="submit" onclick="SuccessDoc()" value="Actualizar documento" class="btn btn-success" />
             </div>
         </form>
     </div>
@@ -165,6 +176,5 @@
         });
 
         $('.toast').toast(option)
-
     </script>
 }

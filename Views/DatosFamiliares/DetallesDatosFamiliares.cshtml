@@ -1,124 +1,163 @@
-﻿@using Migrantes.ViewModels
+﻿@using Migrantes.Models.DTO
+@using Migrantes.ViewModels
 @model Migrantes.ViewModels.DatosFamiliaresViewModel
 
 @{
     ViewData["TitleDatosFamiliares"] = "Datos de familiares";
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<DatosFamiliaresViewModel> ListDatosFamiliares = ViewBag.ListDatosFam;
+    List<PersonaDTO> NombreDeLaPersona = ViewBag.NombresPersona;
 }
 
-
-
-@*Si no tiene datos familiares se muestra mensaje
-y opcion para agregar datos*@
-
-@if (ViewBag.IdDatosFam == null)
+<!--Si la persona seleccionada no posee datos familiares, se muestra una alerta y opción para agregarlos -->
+@foreach (var item in NombreDeLaPersona)
 {
-    <div class="alert alert-warning d-flex alert-dismissible fade show" role="alert" style="font-size:large;font-family:Helvetica">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
-            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-        </svg>
-        &nbsp;@TempData["msjValidacionFamiliar"]
-        <button type="button" class="close" data-dismiss="alert" aria-label="close">
-            <span arie-hidden="true">&times;</span>
-        </button>
-    </div>
-
-    <center>
-        <div class="form-group">
-            <a class="btn btn-primary" asp-controller="DatosFamiliares" asp-action="CrearDatosFamiliares" asp-route-id="@ViewBag.IdPersona">Agregar datos de familiares</a>
-            <a class="btn btn-outline-primary" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
-        </div>
-    </center>
-}
-
-
-@*Si tiene datos familiares mostrar tarjetas de los padres.*@
-
-else
-{
-    @foreach (var item in ListDatosFamiliares)
+    @if (TempData["alertaDatosFamiliares1"] != null && TempData["alertaDatosFamiliares2"] != null)
     {
-
-        <div class="row">
-
-            <div class="col" style="text-align:left">
-                <div class="p-1 shadow-2 rounded-3 mb-2" style="font-family:Helvetica;border-radius: 9px;">
-                    <h2 class="text-primary"><strong>@ViewData["TitleDatosFamiliares"]</strong></h2>
+        <div style="justify-content:center;display:flex;align-items:center" class="mb-2">
+            <div class="toast" data-delay="90000000" style="border:thin;color:blue;border-radius: 9px;" role="alert" aria-live="assertive" aria-atomic="true">
+                <div style="background:#ffc107" class="toast-header">
+                    <img src="~/img/scblancopeque-200x91.png" style="width:10%;height:10%" class="rounded mr-2" alt="..." />
+                    <strong class="mr-auto text-white">Notificación SC</strong>
+                    <small class="text-white">justo ahora</small>
                 </div>
-            </div>
-            <div class="col" style="text-align:right">
-                <a class="btn btn-outline-primary" style="justify-items:right;" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
-            </div>
-        </div>
-        <hr>
-
-        <div class="align-content-center" id="TituloPer" data-bs-toggle="tooltip" data-bs-placement="top" title="Persona seleccionada">
-            <center>
-                <img src="~/persona.png" width="50" height="50" />
-                <h3 class="text-center text-dark"><strong>@item.per_primer_nom @item.per_primer_ape @item.per_segundo_ape </strong></h3>
-            </center>
-        </div>
-
-        <br />
-        <br />
-        <div class="box">
-            <div class="card" style="width:230px;">
-                <img src="~/Mujer.png" style="width:auto;height:auto;" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title"><strong>Nombre de la madre</strong></h5>
-                    <p class="card-text">@item.PrimerNombreDeLaMadre @item.SegundoNombreDeLaMadre @item.ApellidosDeLaMadre</p>
-
-                    <h5 class="card-title"><strong>Fecha de nacimiento</strong></h5>
-                    <p class="card-text">@item.FechaNacimientoDeLaMadre</p>
-
-                    <h5 class="card-title"><strong>Edad</strong></h5>
-                    <p class="card-text">@item.EdadDeLaMadre</p>
-
-                    <h5 class="card-title"><strong>País de nacimiento</strong></h5>
-                    <p class="card-text">@item.PaisNacimientoDeLaMadre</p>
-
-                    <h5 class="card-title"><strong>Profesión</strong></h5>
-                    <p class="card-text">@item.ProfesionDeLaMadre</p>
-
+                <div class="toast-body">
+                    <h4 class="text-primary text-center">
+                        <strong style="font-family:Helvetica, sans-serif;font-size:1.5rem;"> @TempData["alertaDatosFamiliares1"] </strong>
+                        <a class="text-center text-dark"><strong>@item.per_primer_nom @item.per_primer_ape @item.per_segundo_ape </strong></a>
+                        <strong style="font-family:Helvetica, sans-serif;font-size:1.5rem;"> @TempData["alertaDatosFamiliares2"] </strong>
+                    </h4>
                 </div>
-            </div>
-
-            <div class="card" style="width:230px;">
-                <img src="~/Hombre.png" style="width:auto;height:auto;" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title"><strong>Nombre del padre</strong></h5>
-                    <p class="card-text">@item.PrimerNombreDelPadre @item.SegundoNombreDelPadre @item.ApellidosDelPadre</p>
-
-                    <h5 class="card-title"><strong>Fecha de nacimiento</strong></h5>
-                    <p class="card-text">@item.FechaNacimientoDelPadre</p>
-
-                    <h5 class="card-title"><strong>Edad</strong></h5>
-                    <p class="card-text">@item.EdadDelPadre</p>
-
-                    <h5 class="card-title"><strong>País de nacimiento</strong></h5>
-                    <p class="card-text">@item.PaisNacimientoDelPadre</p>
-
-                    <h5 class="card-title"><strong>Profesión</strong></h5>
-                    <p class="card-text">@item.ProfesionDelPadre</p>
-                </div>
-
-                <style>
-                    .box {
-                        display: flex;
-                        justify-content: space-evenly;
-                    }
-                </style>
             </div>
         </div>
         <br />
         <br />
-
         <center>
             <div class="form-group">
-                <a class="btn btn-success" asp-controller="DatosFamiliares" asp-action="EditarDatosFamiliares" asp-route-id="@ViewBag.IdPersona"><i class="material-icons" style="font-size:15px">border_color</i>&nbsp;Editar</a>&nbsp;
-                <a class="btn btn-danger" asp-controller="DatosFamiliares" asp-action="EliminarDatosFamiliares" asp-route-id="@ViewBag.IdPersona"><i class="material-icons" style="font-size:15px">delete</i>&nbsp;Eliminar</a>
+                <a class="btn btn-primary" asp-controller="DatosFamiliares" asp-action="CrearDatosFamiliares" asp-route-id="@ViewBag.IdPersona">Agregar datos de familiares</a>
+                <a class="btn btn-outline-primary" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
             </div>
         </center>
     }
+
+}
+<!--Si la persona seleccionada posee datos familiares, se muestran las tarjetas -->
+@foreach (var item in ListDatosFamiliares)
+{
+
+    <div class="row">
+
+        <div class="col" style="text-align:left">
+            <div class="p-1 shadow-2 rounded-3 mb-2" style="font-family:Helvetica;border-radius: 9px;">
+                <h2 class="text-primary"><strong>@ViewData["TitleDatosFamiliares"]</strong></h2>
+            </div>
+        </div>
+        <div class="col" style="text-align:right">
+            <a class="btn btn-outline-primary" style="justify-items:right;" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+        </div>
+    </div>
+    <hr>
+
+    <div class="align-content-center" id="TituloPer" data-bs-toggle="tooltip" data-bs-placement="top" title="Persona seleccionada">
+        <center>
+            <img src="~/persona.png" width="50" height="50" />
+            <h3 class="text-center text-dark"><strong>@item.per_primer_nom @item.per_primer_ape @item.per_segundo_ape </strong></h3>
+        </center>
+    </div>
+    <br />
+    <br />
+
+    <div class="box">
+        <div class="card" style="width:275px;box-shadow: 5px 10px 15px #888888;">
+            <img src="~/Mujer.png" style="width:auto;height:auto;" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title"><strong>Madre</strong></h5>
+                <p class="card-text">@item.PrimerNombreDeLaMadre @item.SegundoNombreDeLaMadre @item.ApellidosDeLaMadre</p>
+
+                <h5 class="card-title"><strong>Fecha de nacimiento</strong></h5>
+                <p class="card-text">@item.FechaNacimientoDeLaMadre</p>
+
+                <h5 class="card-title"><strong>Edad</strong></h5>
+                <p class="card-text">@item.EdadDeLaMadre</p>
+
+                <h5 class="card-title"><strong>País</strong></h5>
+                <p class="card-text">@item.PaisNacimientoDeLaMadre</p>
+
+                <h5 class="card-title"><strong>Profesión</strong></h5>
+                <p class="card-text">@item.ProfesionDeLaMadre</p>
+
+            </div>
+        </div>
+
+        <div class="card" style="width:275px;box-shadow: 5px 10px 15px #888888;">
+            <img src="~/Hombre.png" style="width:auto;height:auto;" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title"><strong>Padre</strong></h5>
+                <p class="card-text">@item.PrimerNombreDelPadre @item.SegundoNombreDelPadre @item.ApellidosDelPadre</p>
+
+                <h5 class="card-title"><strong>Fecha de nacimiento</strong></h5>
+                <p class="card-text">@item.FechaNacimientoDelPadre</p>
+
+                <h5 class="card-title"><strong>Edad</strong></h5>
+                <p class="card-text">@item.EdadDelPadre</p>
+
+                <h5 class="card-title"><strong>País</strong></h5>
+                <p class="card-text">@item.PaisNacimientoDelPadre</p>
+
+                <h5 class="card-title"><strong>Profesión</strong></h5>
+                <p class="card-text">@item.ProfesionDelPadre</p>
+            </div>
+            <style>
+                .box {
+                    display: flex;
+                    justify-content: space-evenly;
+                }
+            </style>
+        </div>
+    </div>
+    <br />
+    <br />
+    <center>
+        <form asp-action="ExportarDatosFamiliaresExcel" asp-controller="DatosFamiliares" id="FormChecks">
+            <div class="form-group">
+                 <a class="btn btn-primary" asp-controller="DatosFamiliares" asp-action="EditarDatosFamiliares" asp-route-id="@ViewBag.IdPersona"><i class="fa-solid fa-user-pen"></i>&nbsp;Editar</a>
+                <a class="btn btn-danger" asp-controller="DatosFamiliares" asp-action="EliminarDatosFamiliares" asp-route-id="@ViewBag.IdPersona"><i class="fa-solid fa-trash-can"></i>&nbsp;Eliminar</a>
+                <button type="button" class="btn btn-success btn-sm" value="Exportar data a Excel"
+                    onclick="DescargarExcel()">
+                    <i style="font-size:24px" class="fa">&#xf1c3;</i>&nbsp;Exportar data a Excel
+                </button>
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="PrimerNombreDeLaMadre" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="SegundoNombreDeLaMadre" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="ApellidosDeLaMadre" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="FechaNacimientoDeLaMadre" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="EdadDeLaMadre" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="PaisNacimientoDeLaMadre" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="ProfesionDeLaMadre" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="PrimerNombreDelPadre" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="SegundoNombreDelPadre" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="ApellidosDelPadre"/>
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="FechaNacimientoDelPadre" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="EdadDelPadre" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="PaisNacimientoDelPadre" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="ProfesionDelPadre" />
+            </div>
+        </form>
+    </center>
+
+}
+
+@section Scripts {
+
+    <script>
+        function DescargarExcel() {
+            var frmReporte = document.getElementById("FormChecks");
+            frmReporte.submit();
+        }
+
+        $(document).ready(function() {
+            $('.toast').toast('show');
+        });
+
+        $('.toast').toast(option)
+    </script>
 }

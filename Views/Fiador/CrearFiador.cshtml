@@ -4,9 +4,7 @@
 
 @{
     ViewData["Title"] = "Formulario para crear fiador";
-    ViewData["TituloFiador"] = "Detalles del fiador";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    List<DatosFamiliaresViewModel> ListDatosFamiliares = ViewBag.ListDatosFam;
     List<SelectListItem> oSexos = ViewBag.Sexos;
     List<FiadorViewModel> FiadorDisponible = ViewBag.ListadoFiador;
     List<DocumentosPersonaDTO> NombreDeLaPersona = ViewBag.NombresPersona;
@@ -73,7 +71,7 @@ se muestra un formulario para crearlo.-->
             </center>
         </div>
         <br />
-        <br />
+
     }
 
 
@@ -90,14 +88,14 @@ se muestra un formulario para crearlo.-->
                     <strong style="color:hsl(200, 18%, 46%)">
                         <label class="form-group row justify-content-center mb-0" asp-for="PrimerNombreDelFiador"></label>
                     </strong>
-                    <input asp-for="PrimerNombreDelFiador" class="form-control priNom" id="PriNom" />
+                    <input type="text" asp-for="PrimerNombreDelFiador" class="form-control" />
                     <span asp-validation-for="PrimerNombreDelFiador" class="text-danger"></span>
                 </div>
                 <div class="col-sm-4">
                     <strong style="color:hsl(200, 18%, 46%)">
                         <label class="form-group row justify-content-center mb-0" asp-for="SegundoNombreDelFiador"></label>
                     </strong>
-                    <input asp-for="SegundoNombreDelFiador" class="form-control" />
+                    <input type="text" asp-for="SegundoNombreDelFiador" class="form-control" />
                     <span asp-validation-for="SegundoNombreDelFiador" class="text-danger"></span>
                 </div>
             </div>
@@ -108,7 +106,7 @@ se muestra un formulario para crearlo.-->
                     <strong style="color:hsl(200, 18%, 46%)">
                         <label class="form-group row justify-content-center mb-0" asp-for="ApellidosDelFiador"></label>
                     </strong>
-                    <input asp-for="ApellidosDelFiador" class="form-control" />
+                    <input type="text" asp-for="ApellidosDelFiador" class="form-control" />
                     <span asp-validation-for="ApellidosDelFiador" class="text-danger"></span>
                 </div>
                
@@ -120,14 +118,14 @@ se muestra un formulario para crearlo.-->
                     <strong style="color:hsl(200, 18%, 46%)">
                         <label class="form-group row justify-content-center mb-0" asp-for="FechaNacimientoDelFiador"></label>
                     </strong>
-                    <input asp-for="FechaNacimientoDelFiador" class="form-control" />
+                    <input type="date" asp-for="FechaNacimientoDelFiador" class="form-control" />
                     <span asp-validation-for="FechaNacimientoDelFiador" class="text-danger"></span>
                 </div>
                 <div class="col-sm-4">
                     <strong style="color:hsl(200, 18%, 46%)">
                         <label class="form-group row justify-content-center mb-0" asp-for="PaisNacimientoDelFiador"></label>
                     </strong>
-                    <input type="number" asp-for="PaisNacimientoDelFiador" class="form-control" />
+                    <input type="text" asp-for="PaisNacimientoDelFiador" class="form-control" />
                     <span asp-validation-for="PaisNacimientoDelFiador" class="text-danger"></span>
                 </div>              
             </div>
@@ -138,7 +136,7 @@ se muestra un formulario para crearlo.-->
                     <strong style="color:hsl(200, 18%, 46%)">
                         <label class="form-group row justify-content-center mb-0" asp-for="SexoDelFiador"></label>
                     </strong>
-                    <select class="form-control" asp-for="SexoDelFiador" name="SexoFiador" asp-items="@oSexos">
+                    <select class="form-control" asp-for="SexoDelFiador" name="SexoDelFiador" asp-items="@oSexos">
                     </select>
                     <span asp-validation-for="SexoDelFiador" class="text-danger"></span>
                 </div>
@@ -146,7 +144,7 @@ se muestra un formulario para crearlo.-->
                     <strong style="color:hsl(200, 18%, 46%)">
                         <label class="form-group row justify-content-center mb-0" asp-for="EmailFiador"></label>
                     </strong>
-                    <input type="number" asp-for="EmailFiador" class="form-control" />
+                    <input type="email" asp-for="EmailFiador" class="form-control" />
                     <span asp-validation-for="EmailFiador" class="text-danger"></span>
                 </div>                
             </div>
@@ -197,7 +195,7 @@ se muestra un formulario para crearlo.-->
 
             <br />
             <div style="width:100%;padding:0 25% 0 25%" class="form-group">
-                <input type="button" onclick="Guardar()" value="Guardar fiador" class="btn btn-success btn-block" />
+                <input type="submit" value="Guardar fiador" class="btn btn-success btn-block" />
             </div>      
         </form>
     </div>
@@ -221,21 +219,5 @@ se muestra un formulario para crearlo.-->
     <script src="~/js/sweetalert.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-    <script>
-        function Guardar() {
-            var frm = document.getElementById("frm");
-            var prN = document.getElementsByClassName("priNom");
-            console.log(prN);
-            MostrarModal().then(res => {
-                if (res.value) {
-                    frm.submit();
-                    MostrarSuccess();
-                }
-            })
-        }
-        $(document).ready(function() {
-            $('.toast').toast('show');
-        });
-        $('.toast').toast(option)
-    </script>
+
     }

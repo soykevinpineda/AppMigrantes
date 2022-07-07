@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -67,11 +68,12 @@ namespace Migrantes.Models.Entities
         [Display(Name = ("Entrego recibo de agua o luz?"))]
         public bool EntregoRecibo_Agua_o_Luz { get; set; }
 
+        [NotMapped]
+        public bool NoEntregoRecibo_Agua_o_Luz { get; set; } = false;
 
         [Display(Name = ("Fecha de grabación"))]
         [DataType(DataType.DateTime)]
         public DateTime FechaGrabacionDelFiador { get; set; } = DateTime.Now;
-
 
         public virtual Persona Persona { get; set; }
 

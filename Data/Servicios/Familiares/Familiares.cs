@@ -1,5 +1,6 @@
 ﻿using Migrantes.Models.Entities;
 using Migrantes.ViewModels;
+using System;
 using System.Threading.Tasks;
 
 namespace Migrantes.Data.Servicios.Familiares
@@ -17,6 +18,8 @@ namespace Migrantes.Data.Servicios.Familiares
 
         public async Task AgregandoDatosFamiliares(DatosFamiliaresViewModel oDatosFamiliaresCreados)
         {
+            var edadMadre= DateTime.Now.Year - oDatosFamiliaresCreados.FechaNacimientoDeLaMadre.Year;
+            var edadPadre = DateTime.Now.Year - oDatosFamiliaresCreados.FechaNacimientoDelPadre.Year;
 
             DatosFamiliares ObjFamiliares = new DatosFamiliares();
 
@@ -26,7 +29,7 @@ namespace Migrantes.Data.Servicios.Familiares
             ObjFamiliares.SegundoNombreDeLaMadre = oDatosFamiliaresCreados.SegundoNombreDeLaMadre;
             ObjFamiliares.ApellidosDeLaMadre = oDatosFamiliaresCreados.ApellidosDeLaMadre;
             ObjFamiliares.FechaNacimientoDeLaMadre = oDatosFamiliaresCreados.FechaNacimientoDeLaMadre;
-            ObjFamiliares.EdadDeLaMadre = oDatosFamiliaresCreados.EdadDeLaMadre;
+            ObjFamiliares.EdadDeLaMadre = edadMadre;
             ObjFamiliares.PaisNacimientoDeLaMadre = oDatosFamiliaresCreados.PaisNacimientoDeLaMadre;
             ObjFamiliares.ProfesionDeLaMadre = oDatosFamiliaresCreados.ProfesionDeLaMadre;
 
@@ -34,7 +37,7 @@ namespace Migrantes.Data.Servicios.Familiares
             ObjFamiliares.SegundoNombreDelPadre = oDatosFamiliaresCreados.SegundoNombreDelPadre;
             ObjFamiliares.ApellidosDelPadre = oDatosFamiliaresCreados.ApellidosDelPadre;
             ObjFamiliares.FechaNacimientoDelPadre = oDatosFamiliaresCreados.FechaNacimientoDelPadre;
-            ObjFamiliares.EdadDelPadre = oDatosFamiliaresCreados.EdadDelPadre;
+            ObjFamiliares.EdadDelPadre = edadPadre;
             ObjFamiliares.PaisNacimientoDelPadre = oDatosFamiliaresCreados.PaisNacimientoDelPadre;
             ObjFamiliares.ProfesionDelPadre = oDatosFamiliaresCreados.ProfesionDelPadre;
             ObjFamiliares.EstadoDeDatosFamiliares = 1;
@@ -46,6 +49,8 @@ namespace Migrantes.Data.Servicios.Familiares
 
         public async Task ActualizarFamiliaresEditados(DatosFamiliaresViewModel DatosFamiliaresEditados)
         {
+            var edadMadre = DateTime.Now.Year - DatosFamiliaresEditados.FechaNacimientoDeLaMadre.Year;
+            var edadPadre = DateTime.Now.Year - DatosFamiliaresEditados.FechaNacimientoDelPadre.Year;
 
             DatosFamiliares oDatosFamiliares = new DatosFamiliares();
 
@@ -55,7 +60,7 @@ namespace Migrantes.Data.Servicios.Familiares
             oDatosFamiliares.SegundoNombreDeLaMadre = DatosFamiliaresEditados.SegundoNombreDeLaMadre;
             oDatosFamiliares.ApellidosDeLaMadre = DatosFamiliaresEditados.ApellidosDeLaMadre;
             oDatosFamiliares.FechaNacimientoDeLaMadre = DatosFamiliaresEditados.FechaNacimientoDeLaMadre;
-            oDatosFamiliares.EdadDeLaMadre = DatosFamiliaresEditados.EdadDeLaMadre;
+            oDatosFamiliares.EdadDeLaMadre = edadMadre;
             oDatosFamiliares.PaisNacimientoDeLaMadre = DatosFamiliaresEditados.PaisNacimientoDeLaMadre;
             oDatosFamiliares.ProfesionDeLaMadre = DatosFamiliaresEditados.ProfesionDeLaMadre;
 
@@ -63,7 +68,7 @@ namespace Migrantes.Data.Servicios.Familiares
             oDatosFamiliares.SegundoNombreDelPadre = DatosFamiliaresEditados.SegundoNombreDelPadre;
             oDatosFamiliares.ApellidosDelPadre = DatosFamiliaresEditados.ApellidosDelPadre;
             oDatosFamiliares.FechaNacimientoDelPadre = DatosFamiliaresEditados.FechaNacimientoDelPadre;
-            oDatosFamiliares.EdadDelPadre = DatosFamiliaresEditados.EdadDelPadre;
+            oDatosFamiliares.EdadDelPadre = edadPadre;
             oDatosFamiliares.PaisNacimientoDelPadre = DatosFamiliaresEditados.PaisNacimientoDelPadre;
             oDatosFamiliares.ProfesionDelPadre = DatosFamiliaresEditados.ProfesionDelPadre;
             oDatosFamiliares.EstadoDeDatosFamiliares = 1;

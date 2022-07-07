@@ -3,11 +3,9 @@
 
 @{
     ViewData["Title"] = "Editar persona";
-    ViewData["TituloDocumento"] = "Listado de Documentos";
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<SelectListItem> SexosSelect = ViewBag.SexoEditar;
     List<SelectListItem> EstCivilSelect = ViewBag.EstCivilEditar;
-    List<DocumentosPersonaDTO> DocumentosPersona = ViewBag.ListadoDocumentos;
 }
 
 <!-- Sidenav -->
@@ -25,8 +23,6 @@
         Contacto &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp; &nbsp;&nbsp;<img style="width:40px;height:40px" src="~/contactos (1).png" />
     </a>
 </div>
-
-
 
 <!-- Formulario para editar a la persona -->
 <div class="box" style="margin-left:52px;">
@@ -46,7 +42,7 @@
                     <input type="hidden" asp-for="per_codigo_id" />
 
                     <div class="row mb-2">
-                        <div class="col-md-6">
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <strong style="color:#424242">
                                     <label asp-for="per_primer_nom" class="control-label"></label>
@@ -55,7 +51,7 @@
                                 <span asp-validation-for="per_primer_nom" class="text-danger"></span>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <strong style="color:#424242">
                                     <label asp-for="per_segundo_nom" class="control-label"></label>
@@ -67,7 +63,7 @@
                     </div>
 
                     <div class="row mb-2">
-                        <div class="col-md-6">
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <strong style="color:#424242">
                                     <label asp-for="per_primer_ape" class="control-label"></label>
@@ -76,7 +72,7 @@
                                 <span asp-validation-for="per_primer_ape" class="text-danger"></span>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <strong style="color:#424242">
                                     <label asp-for="per_segundo_ape" class="control-label"></label>
@@ -85,10 +81,11 @@
                                 <span asp-validation-for="per_segundo_ape" class="text-danger"></span>
                             </div>
                         </div>
+
                     </div>
 
                     <div class="row mb-2">
-                        <div class="col-md-12">
+                        <div class="col-sm-12">
                             <div class="form-group">
                                 <strong style="color:#424242">
                                     <label asp-for="per_apellido_cas" class="control-label"></label>
@@ -100,16 +97,16 @@
                     </div>
 
                     <div class="row mb-2">
-                        <div class="col-md-6">
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <strong style="color:#424242">
-                                    <label asp-for="per_codpai_nacionalidad" class="control-label"></label>
+                                    <label asp-for="per_fecha_nac" class="control-label"></label>
                                 </strong>
-                                <input asp-for="per_codpai_nacionalidad" class="form-control text-center" />
-                                <span asp-validation-for="per_codpai_nacionalidad" class="text-danger"></span>
+                                <input asp-for="per_fecha_nac" class="form-control text-center" />
+                                <span asp-validation-for="per_fecha_nac" class="text-danger"></span>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <strong style="color:#424242">
                                     <label asp-for="per_codpai_nacimiento" class="control-label"></label>
@@ -121,28 +118,7 @@
                     </div>
 
                     <div class="row mb-2">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <strong style="color:#424242">
-                                    <label asp-for="per_fecha_nac" class="control-label"></label>
-                                </strong>
-                                <input asp-for="per_fecha_nac" class="form-control text-center" />
-                                <span asp-validation-for="per_fecha_nac" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <strong style="color:#424242">
-                                    <label asp-for="per_edad" class="control-label"></label>
-                                </strong>
-                                <input readonly asp-for="per_edad" class="form-control text-center" />
-                                <span asp-validation-for="per_edad" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mb-2">
-                        <div class="col-md-6">
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <strong style="color:#424242">
                                     <label asp-for="per_sexo" class="control-label"></label>
@@ -151,7 +127,7 @@
                                 <span asp-validation-for="per_sexo" class="text-danger"></span>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <strong style="color:#424242">
                                     <label asp-for="per_estado_civil" class="control-label"></label>
@@ -163,7 +139,16 @@
                     </div>
 
                     <div class="row mb-2">
-                        <div class="col-md-6">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong style="color:#424242">
+                                    <label asp-for="per_codpai_nacionalidad" class="control-label"></label>
+                                </strong>
+                                <input asp-for="per_codpai_nacionalidad" class="form-control text-center" />
+                                <span asp-validation-for="per_codpai_nacionalidad" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <strong style="color:#424242">
                                     <label asp-for="per_profesion" class="control-label"></label>
@@ -172,28 +157,10 @@
                                 <span asp-validation-for="per_profesion" class="text-danger"></span>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <strong style="color:#424242">
-                                    <label asp-for="per_email" class="control-label"></label>
-                                </strong>
-                                <input asp-for="per_email" class="form-control text-center" />
-                                <span asp-validation-for="per_email" class="text-danger"></span>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="row mb-2">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <strong style="color:#424242">
-                                    <label asp-for="per_email_interno" class="control-label"></label>
-                                </strong>
-                                <input asp-for="per_email_interno" class="form-control text-center" />
-                                <span asp-validation-for="per_email_interno" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <strong style="color:#424242">
                                     <label asp-for="per_telefono_movil" class="control-label"></label>
@@ -201,12 +168,8 @@
                                 <input asp-for="per_telefono_movil" class="form-control text-center" />
                                 <span asp-validation-for="per_telefono_movil" class="text-danger"></span>
                             </div>
-
                         </div>
-                    </div>
-
-                    <div class="row mb-2">
-                        <div class="col-md-6">
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <strong style="color:#424242">
                                     <label asp-for="per_telefono_interno" class="control-label"></label>
@@ -215,7 +178,31 @@
                                 <span asp-validation-for="per_telefono_interno" class="text-danger"></span>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong style="color:#424242">
+                                    <label asp-for="per_email" class="control-label"></label>
+                                </strong>
+                                <input asp-for="per_email" class="form-control text-center" />
+                                <span asp-validation-for="per_email" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong style="color:#424242">
+                                    <label asp-for="per_email_interno" class="control-label"></label>
+                                </strong>
+                                <input asp-for="per_email_interno" class="form-control text-center" />
+                                <span asp-validation-for="per_email_interno" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-sm-12">
                             <div class="form-group">
                                 <strong style="color:#424242">
                                     <label asp-for="per_observaciones" class="control-label"></label>
@@ -223,38 +210,33 @@
                                 <input asp-for="per_observaciones" class="form-control text-center" />
                                 <span asp-validation-for="per_observaciones" class="text-danger"></span>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="row mb-2">
-                        <div class="col-md-6">
                             <div class="form-group">
                                 <strong style="color:#424242">
                                     <label asp-for="per_usuario_grabacion" class="control-label"></label>
                                 </strong>
-                                <input readonly asp-for="per_usuario_grabacion" class="form-control text-center" />
+                                <input asp-for="per_usuario_grabacion" class="form-control text-center" />
                                 <span asp-validation-for="per_usuario_grabacion" class="text-danger"></span>
                             </div>
-                        </div>
-                        <div class="col-md-6">
+
+
                             <div class="form-group">
                                 <strong style="color:#424242">
                                     <label asp-for="per_fecha_grabacion" class="control-label"></label>
                                 </strong>
-                                <input readonly asp-for="per_fecha_grabacion" class="form-control text-center" />
+                                <input asp-for="per_fecha_grabacion" class="form-control text-center" />
                                 <span asp-validation-for="per_fecha_grabacion" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
-
-                    <br />
-                    <div class="form-group">
-                        <input type="button" onclick="Editar()" value="Actualizar información" class="btn btn-success" />
-                        <br />
-                        <br />
-                        <a class="btn btn-outline-primary" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
-                    </div>
                 </form>
+                <br />
+                <div class="form-group">
+                    <input type="button" onclick="Editar()" value="Actualizar información" class="btn btn-success" />
+                    <br />
+                    <br />
+                    <a class="btn btn-outline-primary" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+                </div>
             </div>
         </div>
     </div>

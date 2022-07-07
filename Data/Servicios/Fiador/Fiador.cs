@@ -1,5 +1,6 @@
 ﻿using Migrantes.Models.Entities;
 using Migrantes.ViewModels;
+using System;
 using System.Threading.Tasks;
 
 namespace Migrantes.Data.Servicios.Fiador
@@ -15,9 +16,9 @@ namespace Migrantes.Data.Servicios.Fiador
             this._context = context;
         }
 
-
         public async Task GuardarFiador(FiadorViewModel FiadorCreado)
         {
+            var edadFiador = DateTime.Now.Year - FiadorCreado.FechaNacimientoDelFiador.Year;
 
             ModeloFiador objFiador = new ModeloFiador();
 
@@ -27,7 +28,7 @@ namespace Migrantes.Data.Servicios.Fiador
             objFiador.SegundoNombreDelFiador = FiadorCreado.SegundoNombreDelFiador;
             objFiador.ApellidosDelFiador = FiadorCreado.ApellidosDelFiador;
             objFiador.FechaNacimientoDelFiador = FiadorCreado.FechaNacimientoDelFiador;
-            objFiador.EdadDelFiador = FiadorCreado.EdadDelFiador;
+            objFiador.EdadDelFiador = edadFiador;
             objFiador.SexoDelFiador = FiadorCreado.SexoDelFiador;
             objFiador.PaisNacimientoDelFiador = FiadorCreado.PaisNacimientoDelFiador;
             objFiador.EmailFiador = FiadorCreado.EmailFiador;
@@ -39,6 +40,33 @@ namespace Migrantes.Data.Servicios.Fiador
 
             this._context.FiadorDb.Add(objFiador);
             await this._context.SaveChangesAsync();
+        }
+
+        public async Task GuardarFiadorEditado(FiadorViewModel oFiadorEditado)
+        {
+            var edadFiador = DateTime.Now.Year - oFiadorEditado.FechaNacimientoDelFiador.Year;
+
+            ModeloFiador objFiadorEditado = new ModeloFiador();
+
+            objFiadorEditado.per_codigo_id = oFiadorEditado.per_codigo_id;
+            objFiadorEditado.IdFiador = oFiadorEditado.IdFiador;
+            objFiadorEditado.PrimerNombreDelFiador = oFiadorEditado.PrimerNombreDelFiador;
+            objFiadorEditado.SegundoNombreDelFiador = oFiadorEditado.SegundoNombreDelFiador;
+            objFiadorEditado.ApellidosDelFiador = oFiadorEditado.ApellidosDelFiador;
+            objFiadorEditado.FechaNacimientoDelFiador = oFiadorEditado.FechaNacimientoDelFiador;
+            objFiadorEditado.EdadDelFiador = edadFiador;
+            objFiadorEditado.SexoDelFiador = oFiadorEditado.SexoDelFiador;
+            objFiadorEditado.PaisNacimientoDelFiador = oFiadorEditado.PaisNacimientoDelFiador;
+            objFiadorEditado.EmailFiador = oFiadorEditado.EmailFiador;
+            objFiadorEditado.TelefonoFiador = oFiadorEditado.TelefonoFiador;
+            objFiadorEditado.TelefonoAlternoFiador = oFiadorEditado.TelefonoAlternoFiador;
+            objFiadorEditado.EntregoRecibo_Agua_o_Luz = oFiadorEditado.EntregoRecibo_Agua_o_Luz;
+            objFiadorEditado.NumCartasPersonales = oFiadorEditado.NumCartasPersonales;
+            objFiadorEditado.NumCartasFamiliares = oFiadorEditado.NumCartasFamiliares;
+
+            this._context.FiadorDb.Update(objFiadorEditado);
+            await this._context.SaveChangesAsync();
+
         }
 
 
@@ -65,32 +93,6 @@ namespace Migrantes.Data.Servicios.Fiador
 
             this._context.FiadorDb.Remove(objFiadorEliminado);
             await this._context.SaveChangesAsync();
-        }
-
-        public async Task GuardarFiadorEditado(FiadorViewModel oFiadorEditado)
-        {
-
-            ModeloFiador objFiadorEditado = new ModeloFiador();
-
-            objFiadorEditado.per_codigo_id = oFiadorEditado.per_codigo_id;
-            objFiadorEditado.IdFiador = oFiadorEditado.IdFiador;
-            objFiadorEditado.PrimerNombreDelFiador = oFiadorEditado.PrimerNombreDelFiador;
-            objFiadorEditado.SegundoNombreDelFiador = oFiadorEditado.SegundoNombreDelFiador;
-            objFiadorEditado.ApellidosDelFiador = oFiadorEditado.ApellidosDelFiador;
-            objFiadorEditado.FechaNacimientoDelFiador = oFiadorEditado.FechaNacimientoDelFiador;
-            objFiadorEditado.EdadDelFiador = oFiadorEditado.EdadDelFiador;
-            objFiadorEditado.SexoDelFiador = oFiadorEditado.SexoDelFiador;
-            objFiadorEditado.PaisNacimientoDelFiador = oFiadorEditado.PaisNacimientoDelFiador;
-            objFiadorEditado.EmailFiador = oFiadorEditado.EmailFiador;
-            objFiadorEditado.TelefonoFiador = oFiadorEditado.TelefonoFiador;
-            objFiadorEditado.TelefonoAlternoFiador = oFiadorEditado.TelefonoAlternoFiador;
-            objFiadorEditado.EntregoRecibo_Agua_o_Luz = oFiadorEditado.EntregoRecibo_Agua_o_Luz;
-            objFiadorEditado.NumCartasPersonales = oFiadorEditado.NumCartasPersonales;
-            objFiadorEditado.NumCartasFamiliares = oFiadorEditado.NumCartasFamiliares;
-
-            this._context.FiadorDb.Update(objFiadorEditado);
-            await this._context.SaveChangesAsync();
-
         }
 
     }

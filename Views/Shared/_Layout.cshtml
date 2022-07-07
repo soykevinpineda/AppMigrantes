@@ -7,12 +7,9 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" type="text/css" href="~/css/sideNav.css" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="~/fontawesome/css/all.css" />
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-   
 </head>
-
 
 <body class="idbody">
     <header>
@@ -54,7 +51,7 @@
                                         <div class="col-auto">
                                             <input placeholder=" Busca por nombres o apellidos..." class="search" style="border:0.5px hidden;width:300px" type="text" name="oBuscador" value="@ViewData["Buscador"]" id="frmBuscar" />
                                         </div>
-                                        &nbsp;
+
                                         <div class="row">
                                             <input type="submit" value="Buscar" class="btn btn-secondary" />
                                             &nbsp;<input type="submit" value="Limpiar" class="btn btn-secondary" onclick="Limpiar()" />
@@ -96,12 +93,11 @@
         }
     </style>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-  
+
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>

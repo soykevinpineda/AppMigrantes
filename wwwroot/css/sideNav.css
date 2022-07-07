@@ -1,4 +1,4 @@
-﻿/* Style the links inside the sidenav */
+/* Style the links inside the sidenav */
 #mySidenav a {
     margin-top: 35px;
     position: fixed; /* Position them relative to the browser window */
@@ -6,7 +6,7 @@
     transition: 0.3s; /* Add transition on hover */
     padding: 19px; /* 15px padding */
     height: auto; /* altura */
-    width: 210px; /* Set a specific width */
+    width: 205px; /* Set a specific width */
     text-decoration: inherit; /* Remove underline */
     font-size: 17px; /* Increase font size */
     font-family: Helvetica; /* font style  */
@@ -46,8 +46,9 @@
 .box {
     display: flex;
     justify-content: space-evenly;
-    flex-wrap: wrap;
+    /* flex-wrap: nowrap; */
     box-sizing: border-box;
+    /* flex-direction: revert; */
 }
 
 

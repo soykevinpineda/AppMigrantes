@@ -1,8 +1,10 @@
 ﻿@model Migrantes.Models.Entities.Persona
 
 @{
-    ViewData["Title"] = "Eliminar una persona";
+    ViewData["Title"] = "Eliminar persona";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<SelectListItem> SexosSelect = ViewBag.SexoEditar;
+    List<SelectListItem> EstCivilSelect = ViewBag.EstCivilEditar;
 }
 @*<ul>
     <li>
@@ -10,217 +12,73 @@
     </li>
 </ul>*@
 
-<div class="row">
-    <div class="col" style="text-align:left">
-        <div class="p-1 shadow-2 rounded-3 mb-2" style="font-family:Helvetica;border-radius: 9px;">
-            <h2 class="text-primary"><strong>@ViewData["Title"]</strong></h2>
-        </div>
-    </div>
-    <div class="col" style="text-align:right">
-        <a class="btn btn-outline-primary" style="justify-items:right;" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
-    </div>
-</div>
-<hr>
+<div class="box">
+    <div style="margin-left:0px;">
+        <div class="container-fluid">
+            <div class="row justify-content-center" style="align-items:baseline;">
+                <img src="~/persona.png" width="24" height="24" /> &nbsp;
+                <div class="p-1 shadow-2 rounded-3 mb-2" style="font-family:Helvetica;border-radius:9px;">
+                    <h2 class="text-primary"><strong>@ViewData["Title"]</strong></h2>
+                </div>
+            </div>
+            <hr>
+            <br />
+            <div class="row justify-content-center" style="font-family:Helvetica;">
+                <div style="text-align:center" class="offset-sm-0">
+                    <input type="hidden" asp-for="per_codigo_id" />
 
-<div style="justify-content:center;display:flex;align-items:center" class="mb-2">
-    <div class="toast" data-delay="5000" style="border:thin;color:blue;border-radius: 9px;" role="alert" aria-live="assertive" aria-atomic="true">
-        <div style="background:#007bff" class="toast-header">
-            <img src="~/img/scblancopeque-200x91.png" style="width:10%;height:10%" class="rounded mr-2" alt="..." />
-            <strong class="mr-auto text-white">Notificación SC</strong>
-            <small class="text-white">justo ahora</small>
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="toast-body">
-            <h4 class="text-danger text-center">
-                <strong>
-                    Recuerda verificar bien antes de eliminar.
-                </strong>
-            </h4>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <strong style="color:#424242">
+                                    <label asp-for="per_primer_nom" class="control-label"></label>
+                                </strong>
+                                <input readonly asp-for="per_primer_nom" class="form-control text-center" />
+                                <span asp-validation-for="per_primer_nom" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <strong style="color:#424242">
+                                    <label asp-for="per_segundo_nom" class="control-label"></label>
+                                </strong>
+                                <input readonly asp-for="per_segundo_nom" class="form-control text-center" />
+                                <span asp-validation-for="per_segundo_nom" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <strong style="color:#424242">
+                                    <label asp-for="per_primer_ape" class="control-label"></label>
+                                </strong>
+                                <input readonly asp-for="per_primer_ape" class="form-control text-center" />
+                                <span asp-validation-for="per_primer_ape" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <strong style="color:#424242">
+                                    <label asp-for="per_segundo_ape" class="control-label"></label>
+                                </strong>
+                                <input readonly asp-for="per_segundo_ape" class="form-control text-center" />
+                                <span asp-validation-for="per_segundo_ape" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <form asp-action="Delete" id="frm">
+                            <input type="hidden" asp-for="per_codigo_id" />
+                            <input type="button" value="Eliminar" class="btn btn-danger" onclick="Eliminar()" />
+                        </form>
+                        <br />
+                        <a class="btn btn-outline-primary" style="justify-items:right;" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>
-<div style="font-family:Helvetica">
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_estado)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_estado)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_codigo_alternativo)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_codigo_alternativo)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_letra_indice)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_letra_indice)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_primer_ape)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_primer_ape)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_segundo_ape)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_segundo_ape)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_apellido_cas)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_apellido_cas)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_primer_nom)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_primer_nom)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_segundo_nom)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_segundo_nom)
-        </dd>
-       
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_codpai_nacionalidad)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_codpai_nacionalidad)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_codpai_nacimiento)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_codpai_nacimiento)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_sexo)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_sexo)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_edad)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_edad)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_fecha_nac)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_fecha_nac)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_profesion)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_profesion)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_estado_civil)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_estado_civil)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_email)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_email)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_codmun_nac)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_codmun_nac)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_coddep_nac)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_coddep_nac)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_lugar_nac)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_lugar_nac)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_email_interno)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_email_interno)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_telefono_movil)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_telefono_movil)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_telefono_interno)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_telefono_interno)
-        </dd>
-       
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_observaciones)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_observaciones)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_codpai_digita)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_codpai_digita)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_usuario_grabacion)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_usuario_grabacion)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_fecha_grabacion)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_fecha_grabacion)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_usuario_modificacion)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_usuario_modificacion)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.per_fecha_modificacion)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.per_fecha_modificacion)
-        </dd>
-    </dl>
-    <form asp-action="Delete" id="frm">
-        <input type="hidden" asp-for="per_codigo_id" />
-        <input type="button" value="Eliminar" class="btn btn-danger" onclick="Eliminar()" /><strong> |</strong>
-        <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model.per_codigo_id">Editar</a><strong> |</strong>
-    </form>
-    <br />
-</div>
+
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

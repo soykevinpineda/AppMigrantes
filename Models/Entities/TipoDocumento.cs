@@ -16,9 +16,6 @@ namespace Migrantes.Models.Entities
 
         public virtual ICollection<IdentidadPersona> IdentidadPersonaLink { get; set; }
 
-
-
-
         public static implicit operator TipoDocumento(string v)
         {
             throw new NotImplementedException();

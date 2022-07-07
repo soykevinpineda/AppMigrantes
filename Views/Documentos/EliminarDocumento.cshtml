@@ -22,7 +22,7 @@
 <div class="row justify-content-center" style="font-family:Helvetica;">
     <div style="text-align: center" class="col-md-4 offset-sm-0">
 
-        <form asp-action="EliminarDocumento" asp-controller="Documentos" method="post" id="frm">
+        <form asp-action="EliminarDocumentoConfirmado" asp-controller="Documentos" method="post" id="frm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="@Model.ide_id_persona" />
 
@@ -35,7 +35,7 @@
                 <strong>
                     <label asp-for="ide_id_documento" class="control-label"></label>
                 </strong>
-                <select asp-for="ide_id_documento" asp-items="@TipoDocSelect" class="form-control text-center"  disabled> </select>
+                <select asp-for="ide_id_documento" asp-items="@TipoDocSelect" class="form-control text-center" disabled> </select>
             </div>
             <br />
 
@@ -43,14 +43,14 @@
                 <strong>
                     <label asp-for="ide_numero" class="control-label"></label>
                 </strong>
-                <input type="number" asp-for="ide_numero" class="form-control text-center" name="ide_numero"  disabled />
+                <input type="number" asp-for="ide_numero" class="form-control text-center" name="ide_numero" disabled />
             </div>
             <br />
             <div class="form-group">
                 <strong>
                     <label asp-for="ide_fecha_emision" class="control-label"></label>
                 </strong>
-                <input asp-for="ide_fecha_emision" class="form-control text-center"  disabled />
+                <input asp-for="ide_fecha_emision" class="form-control text-center" disabled />
             </div>
 
             <br />
@@ -58,12 +58,32 @@
                 <strong>
                     <label asp-for="ide_fecha_vencimiento" class="control-label"></label>
                 </strong>
-                <input asp-for="ide_fecha_vencimiento" class="form-control text-center"  disabled />
+                <input asp-for="ide_fecha_vencimiento" class="form-control text-center" disabled />
+            </div>
+            <div class="form-group">
+                <strong>
+                    <label asp-for="FotoDocumento" class="control-label"></label>
+                </strong>
+                <img style="border-radius:6px;width:100%" src="@Model.RutaImagenPortada_A" width="200" height="200" id="ImgFoto1" />
+                <br />
             </div>
 
             <br />
-            <form asp-action="EliminarDocumento" asp-controller="Personas" method="post" id="frm">
-                <input type="submit" asp-for="ide_id_persona" class="btn btn-danger" type="button" onclick="Eliminar()" class="btn btn-danger" value="Eliminar" />
+            <div class="form-group">
+                <strong>
+                    <label asp-for="FotoDocumento_LadoB" class="control-label"></label>
+                </strong>
+                <img style="border-radius:6px;width:100%" src="@Model.RutaImagenPortada_B" width="200" height="200" id="ImgFoto2" />
+                <br />
+            </div>
+            <br />
+            <form asp-action="EliminarDocumentoConfirmado" asp-controller="Documentos" method="post" id="frm" type="submit">
+                @* <input type="submit" asp-for="ide_id_persona" class="btn btn-danger" type="button" onclick="Eliminar()" class="btn btn-danger" value="Eliminar"/>*@
+                <button asp-for="ide_id_persona" type="button" class="btn btn-danger" value="Eliminar"
+                        onclick="Eliminar()">
+                    <i class="fa-solid fa-trash-can"></i>&nbsp;Eliminar
+                </button>
+
             </form>
             <br />
         </form>

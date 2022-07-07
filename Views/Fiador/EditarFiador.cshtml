@@ -12,10 +12,7 @@
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="~/css/site.css" />
 
-<!--Si la persona seleccionada no tiene un fiador creado,
-se muestra un formulario para crearlo.-->
-
-<div class="container-fluid">
+<div class="container">
     <div class="row">
         <div class="col" style="text-align:left">
             <div class="p-1 shadow-2 rounded-3 mb-2" style="font-family:Helvetica;border-radius:9px;">
@@ -58,78 +55,82 @@ se muestra un formulario para crearlo.-->
                 <input type="hidden" asp-for="IdFiador" class="form-control text-center" />
             </div>
 
-            <div class="row mb-4">
-                <div class="col-md-6">
+             <div class="row mb-2 justify-content-center">
+                <div class="col-sm-4">
                     <strong style="color:hsl(200, 18%, 46%)">
                         <label class="form-group row justify-content-center mb-0" asp-for="PrimerNombreDelFiador"></label>
                     </strong>
-                    <input asp-for="PrimerNombreDelFiador" class="form-control" />
+                    <input type="text" asp-for="PrimerNombreDelFiador" class="form-control" />
                     <span asp-validation-for="PrimerNombreDelFiador" class="text-danger"></span>
                 </div>
-                <div class="col-md-6">
+                <div class="col-sm-4">
                     <strong style="color:hsl(200, 18%, 46%)">
                         <label class="form-group row justify-content-center mb-0" asp-for="SegundoNombreDelFiador"></label>
                     </strong>
-                    <input asp-for="SegundoNombreDelFiador" class="form-control" />
+                    <input type="text" asp-for="SegundoNombreDelFiador" class="form-control" />
                     <span asp-validation-for="SegundoNombreDelFiador" class="text-danger"></span>
                 </div>
             </div>
+             <br/>
 
-            <div class="row mb-4">
-                <div class="col-md-6">
+            <div class="row mb-2 justify-content-center">
+                <div class="col-sm-8">
                     <strong style="color:hsl(200, 18%, 46%)">
                         <label class="form-group row justify-content-center mb-0" asp-for="ApellidosDelFiador"></label>
                     </strong>
-                    <input asp-for="ApellidosDelFiador" class="form-control" />
+                    <input type="text" asp-for="ApellidosDelFiador" class="form-control" />
                     <span asp-validation-for="ApellidosDelFiador" class="text-danger"></span>
                 </div>
-                <div class="col-md-6">
+               
+            </div>
+             <br/>
+
+            <div class="row mb-2 justify-content-center">
+                 <div class="col-sm-4">
                     <strong style="color:hsl(200, 18%, 46%)">
                         <label class="form-group row justify-content-center mb-0" asp-for="FechaNacimientoDelFiador"></label>
                     </strong>
-                    <input asp-for="FechaNacimientoDelFiador" class="form-control" />
+                    <input type="date" asp-for="FechaNacimientoDelFiador" class="form-control" />
                     <span asp-validation-for="FechaNacimientoDelFiador" class="text-danger"></span>
                 </div>
-            </div>
-
-            <div class="row mb-4">
-                <div class="col-md-6">
+                <div class="col-sm-4">
                     <strong style="color:hsl(200, 18%, 46%)">
                         <label class="form-group row justify-content-center mb-0" asp-for="PaisNacimientoDelFiador"></label>
                     </strong>
-                    <input type="number" asp-for="PaisNacimientoDelFiador" class="form-control" />
+                    <input type="text" asp-for="PaisNacimientoDelFiador" class="form-control" />
                     <span asp-validation-for="PaisNacimientoDelFiador" class="text-danger"></span>
-                </div>
+                </div>              
+            </div>
 
-                <div class="col-md-6">
+             <br/>
+            <div class="row mb-2 justify-content-center">
+                 <div class="col-sm-4">
                     <strong style="color:hsl(200, 18%, 46%)">
                         <label class="form-group row justify-content-center mb-0" asp-for="SexoDelFiador"></label>
                     </strong>
-                    <select class="form-control" asp-for="SexoDelFiador" name="SexoFiador" asp-items="@oSexos">
+                    <select class="form-control" asp-for="SexoDelFiador" name="SexoDelFiador" asp-items="@oSexos">
                     </select>
                     <span asp-validation-for="SexoDelFiador" class="text-danger"></span>
                 </div>
-            </div>
-
-            <div class="row mb-4">
-                <div class="col-md-6">
+                <div class="col-sm-4">
                     <strong style="color:hsl(200, 18%, 46%)">
                         <label class="form-group row justify-content-center mb-0" asp-for="EmailFiador"></label>
                     </strong>
                     <input type="email" asp-for="EmailFiador" class="form-control" />
                     <span asp-validation-for="EmailFiador" class="text-danger"></span>
-                </div>
+                </div>                
             </div>
+             <br/>
 
-            <div class="row mb-4">
-                <div class="col-md-6">
+            <div class="row mb-2 justify-content-center">
+                <div class="col-sm-4">
                     <strong style="color:hsl(200, 18%, 46%)">
                         <label class="form-group row justify-content-center mb-0" asp-for="TelefonoFiador"></label>
                     </strong>
                     <input type="number" asp-for="TelefonoFiador" class="form-control" />
                     <span asp-validation-for="TelefonoFiador" class="text-danger"></span>
                 </div>
-                <div class="col-md-6">
+                <div class="col-sm-4">
                     <strong style="color:hsl(200, 18%, 46%)">
                         <label class="form-group row justify-content-center mb-0" asp-for="TelefonoAlternoFiador"></label>
                     </strong>
@@ -137,23 +138,24 @@ se muestra un formulario para crearlo.-->
                     <span asp-validation-for="TelefonoAlternoFiador" class="text-danger"></span>
                 </div>
             </div>
+             <br/>
 
-            <div class="row mb-4">
-                <div class="col-md-3">
+            <div class="row mb-2 justify-content-center">
+                <div class="col-sm-2">
                     <strong style="color:hsl(200, 18%, 46%)">
                         <label class="form-group row justify-content-center mb-0" asp-for="NumCartasPersonales"></label>
                     </strong>
                     <input type="number" asp-for="NumCartasPersonales" class="form-control" />
                     <span asp-validation-for="NumCartasPersonales" class="text-danger"></span>
                 </div>
-                <div class="col-md-3">
+                <div class="col-sm-2">
                     <strong style="color:hsl(200, 18%, 46%)">
                         <label class="form-group row justify-content-center mb-0" asp-for="NumCartasFamiliares"></label>
                     </strong>
                     <input type="number" asp-for="NumCartasFamiliares" class="form-control" />
                     <span asp-validation-for="NumCartasFamiliares" class="text-danger"></span>
                 </div>
-                <div class="col-md-6">
+                <div class="col-sm-4">
                     <strong style="color:hsl(200, 18%, 46%)">
                         <label class="form-group row justify-content-center mb-2" asp-for="EntregoRecibo_Agua_o_Luz"></label>
                     </strong>
