@@ -35,7 +35,8 @@ namespace Migrantes.Models.Entities
         [Display(Name = ("Edad"))]
         public int EdadDelFiador { get; set; }
 
-        [Display(Name = ("Sexo"))]
+        [Display(Name = ("Género"))]
+        [Required(ErrorMessage = "Elige un género")]
         public int SexoDelFiador { get; set; }
 
         [Display(Name = ("País de nacimiento"))]

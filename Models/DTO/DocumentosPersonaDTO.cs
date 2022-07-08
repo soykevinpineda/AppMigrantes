@@ -90,25 +90,25 @@ namespace Migrantes.Models.DTO
         public IFormFile FotoDocumento_LadoB { get; set; }
 
 
-        [Display(Name = ("Tipo de Documento"))]
-        [Required(ErrorMessage = "Seleccione un tipo de documento por favor...")]
+        [Display(Name = ("Tipo de ocumento"))]
+        [Required(ErrorMessage = "Elige un tipo de documento")]
         [ForeignKey("TipoDocumento")]
         public int ide_id_documento { get; set; }
 
 
         [Display(Name = ("Número de DPI,Pasaporte o Seguro Social"))]
-        [Required(ErrorMessage = "Número del documento es requerido")]
+        [Required(ErrorMessage = "Introduce el número del documento")]
         public int ide_numero { get; set; }
 
 
         [Display(Name = ("Fecha emisión del DPI,Pasaporte o Seguro Social"))]
-        [Required(ErrorMessage = "Fecha de emision es requerida")]
+        [Required(ErrorMessage = "Elige la fecha de emision del documento")]
         [DataType(DataType.Date)]
         public DateTime ide_fecha_emision { get; set; }
 
 
         [Display(Name = ("Fecha vencimiento del DPI,Pasaporte o Seguro Social"))]
-        [Required(ErrorMessage = "Fecha de vencimiento es requerida")]
+        [Required(ErrorMessage = "Elige la fecha de vencimiento del documento")]
         [DataType(DataType.Date)]
         public DateTime ide_fecha_vencimiento { get; set; }
 

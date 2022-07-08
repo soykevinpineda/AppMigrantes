@@ -103,7 +103,7 @@ namespace Migrantes.Controllers
                         identidad.FotoDocumento_LadoB.CopyTo(fileStream);
                     }
 
-                    TempData["alertaDocumentoGuardado"] = "¡Documento guardado exitosamente!";
+                    TempData["alertaDocGuardadoOK"] = "¡Documento guardado exitosamente!";
                     await this._documentos.GuardarDocumento(identidad, fileNameA, path2, fileNameB, path2B);
                 }
 
@@ -129,7 +129,7 @@ namespace Migrantes.Controllers
                 return NotFound();
             }
 
-            var documento = await this._context.IdentidadPersonasDb.AsNoTracking()
+            var documento = await this._context.IdentidadPersonasDb
                 .FirstOrDefaultAsync(x => x.ide_id_persona == id);
 
             if (documento == null)
@@ -176,91 +176,89 @@ namespace Migrantes.Controllers
 
             var files = HttpContext.Request.Form.Files;
 
-            if (ModelState.IsValid)
+
+            try
             {
-                try
+                //Si se carga una nueva Imagen por el usuario.
+                if (files.Count > 0)
                 {
-                    //Si se carga una nueva Imagen por el usuario.
-                    if (files.Count > 0)
+                    //Guardando Imagen del Documento: Lado A.
+                    string wwwRothPath = this._IWebHostEnvironment.WebRootPath;
+                    string fileNameA = Path.GetFileNameWithoutExtension(DocumentoEditado.FotoDocumento.FileName);
+                    string extension = Path.GetExtension(DocumentoEditado.FotoDocumento.FileName);
+                    DocumentoEditado.NombreImagenPortada_A = fileNameA = fileNameA + DateTime.Now.ToString("_ddMMyyyy-HHmmssffff") + extension;
+                    string path2 = Path.Combine(RutaImagen1 + fileNameA);
+                    string path = Path.Combine(wwwRothPath + "/DocumentosAdjuntos/DocsLadoA/", fileNameA);
+                    string path_anteriorA = Path.Combine(wwwRothPath + "/DocumentosAdjuntos/DocsLadoA/");
+
+
+                    //Obtenemos la ruta y el objeto para borrar LADO A.
+                    var ImagenAnteriorA = Path.Combine(path_anteriorA + objDocumento.NombreImagenPortada_A);
+
+                    //Inicio de borrado de imagen anterior LADO A.
+                    if (System.IO.File.Exists(ImagenAnteriorA))
                     {
-                        //Guardando Imagen del Documento: Lado A.
-                        string wwwRothPath = this._IWebHostEnvironment.WebRootPath;
-                        string fileNameA = Path.GetFileNameWithoutExtension(DocumentoEditado.FotoDocumento.FileName);
-                        string extension = Path.GetExtension(DocumentoEditado.FotoDocumento.FileName);
-                        DocumentoEditado.NombreImagenPortada_A = fileNameA = fileNameA + DateTime.Now.ToString("_ddMMyyyy-HHmmssffff") + extension;
-                        string path2 = Path.Combine(RutaImagen1 + fileNameA);
-                        string path = Path.Combine(wwwRothPath + "/DocumentosAdjuntos/DocsLadoA/", fileNameA);
-                        string path_anteriorA = Path.Combine(wwwRothPath + "/DocumentosAdjuntos/DocsLadoA/");
+                        System.IO.File.Delete(ImagenAnteriorA);
+                    }
+                    //Fin borrar imagen anterior.
 
 
-                        //Obtenemos la ruta y el objeto para borrar LADO A.
-                        var ImagenAnteriorA = Path.Combine(path_anteriorA + objDocumento.NombreImagenPortada_A);
-
-                        //Inicio de borrado de imagen anterior LADO A.
-                        if (System.IO.File.Exists(ImagenAnteriorA))
-                        {
-                            System.IO.File.Delete(ImagenAnteriorA);
-                        }
-                        //Fin borrar imagen anterior.
-
-
-                        //Se crea la nueva imagen LADO A.
-                        using (var fileStream = new FileStream(path, FileMode.Create))
-                        {
-                            DocumentoEditado.FotoDocumento.CopyTo(fileStream);
-                        }
-
-
-                        //Guardando Imagen del Documento: Lado B.
-                        string wwwRothPathB = this._IWebHostEnvironment.WebRootPath;
-                        string fileNameB = Path.GetFileNameWithoutExtension(DocumentoEditado.FotoDocumento_LadoB.FileName);
-                        string extensionB = Path.GetExtension(DocumentoEditado.FotoDocumento_LadoB.FileName);
-                        DocumentoEditado.NombreImagenPortada_B = fileNameB = fileNameB + DateTime.Now.ToString("_ddMMyyyy-HHmmssffff") + extension;
-                        string pathB = Path.Combine(wwwRothPathB + "/DocumentosAdjuntos/DocsLadoB/", fileNameB);
-                        string path2B = Path.Combine(RutaImagen2 + fileNameB);
-                        string path_anteriorB = Path.Combine(wwwRothPath + "/DocumentosAdjuntos/DocsLadoB/");
-
-
-                        //Obtenemos la ruta y el objeto para borrar LADO B.
-                        var ImagenAnteriorB = Path.Combine(path_anteriorB + objDocumento.NombreImagenPortada_B);
-
-                        //Inicio de borrado de imagen anterior LADO B.
-                        if (System.IO.File.Exists(ImagenAnteriorB))
-                        {
-                            System.IO.File.Delete(ImagenAnteriorB);
-                        }
-                        //Fin borrar imagen anterior.
-
-
-                        //Se crea la nueva imagen LADO B.
-                        using (var fileStream = new FileStream(pathB, FileMode.Create))
-                        {
-
-                            DocumentoEditado.FotoDocumento_LadoB.CopyTo(fileStream);
-                        }
-
-                        DocumentoEditado.RutaImagenPortada_A = RutaImagen1 + fileNameA;
-                        DocumentoEditado.RutaImagenPortada_B = RutaImagen2 + fileNameB;
+                    //Se crea la nueva imagen LADO A.
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        DocumentoEditado.FotoDocumento.CopyTo(fileStream);
                     }
 
-                    //Si no cargo nuevas fotos se asignan las fotografias antiguas.
-                    else
+
+                    //Guardando Imagen del Documento: Lado B.
+                    string wwwRothPathB = this._IWebHostEnvironment.WebRootPath;
+                    string fileNameB = Path.GetFileNameWithoutExtension(DocumentoEditado.FotoDocumento_LadoB.FileName);
+                    string extensionB = Path.GetExtension(DocumentoEditado.FotoDocumento_LadoB.FileName);
+                    DocumentoEditado.NombreImagenPortada_B = fileNameB = fileNameB + DateTime.Now.ToString("_ddMMyyyy-HHmmssffff") + extension;
+                    string pathB = Path.Combine(wwwRothPathB + "/DocumentosAdjuntos/DocsLadoB/", fileNameB);
+                    string path2B = Path.Combine(RutaImagen2 + fileNameB);
+                    string path_anteriorB = Path.Combine(wwwRothPath + "/DocumentosAdjuntos/DocsLadoB/");
+
+
+                    //Obtenemos la ruta y el objeto para borrar LADO B.
+                    var ImagenAnteriorB = Path.Combine(path_anteriorB + objDocumento.NombreImagenPortada_B);
+
+                    //Inicio de borrado de imagen anterior LADO B.
+                    if (System.IO.File.Exists(ImagenAnteriorB))
+                    {
+                        System.IO.File.Delete(ImagenAnteriorB);
+                    }
+                    //Fin borrar imagen anterior.
+
+
+                    //Se crea la nueva imagen LADO B.
+                    using (var fileStream = new FileStream(pathB, FileMode.Create))
                     {
 
-                        DocumentoEditado.RutaImagenPortada_A = objDocumento.RutaImagenPortada_A;
-                        DocumentoEditado.RutaImagenPortada_B = objDocumento.RutaImagenPortada_B;
-
+                        DocumentoEditado.FotoDocumento_LadoB.CopyTo(fileStream);
                     }
 
-                    await this._documentos.GuardarDocumentoEditado(DocumentoEditado);
-
+                    DocumentoEditado.RutaImagenPortada_A = RutaImagen1 + fileNameA;
+                    DocumentoEditado.RutaImagenPortada_B = RutaImagen2 + fileNameB;
                 }
-                catch (Exception)
+
+                //Si no cargo nuevas fotos se asignan las fotografias antiguas.
+                else
                 {
 
-                    throw;
+                    DocumentoEditado.RutaImagenPortada_A = objDocumento.RutaImagenPortada_A;
+                    DocumentoEditado.RutaImagenPortada_B = objDocumento.RutaImagenPortada_B;
+
                 }
 
+                await this._documentos.GuardarDocumentoEditado(DocumentoEditado);
+                TempData["alertaDocsEditadoOK"] = "¡Documento editado exitosamente!";
+
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
 
             var urlRetornoDocsDisponibles = HttpContext.Session.GetString("UrlRetorno");
@@ -305,6 +303,7 @@ namespace Migrantes.Controllers
 
             return View(doc);
         }
+
 
         //GET: Eliminar documento de la persona
         [HttpGet]
@@ -420,7 +419,7 @@ namespace Migrantes.Controllers
             }
 
             //Obtenemos el ID de la persona asociada al documento.
-            var PersonaDoc = this._context.PersonasDb
+            var PersonaDoc = this._context.PersonasDb.AsNoTracking()
                     .FirstOrDefault(x => x.per_codigo_id == id);
             ViewBag.IdPersona = PersonaDoc.per_codigo_id;
 
@@ -436,7 +435,7 @@ namespace Migrantes.Controllers
             PersonaSeleccionada(PersonaDoc.per_codigo_id);
 
             //Obtenemos el ID del documento asociado a la persona.
-            var oDocumento = this._context.IdentidadPersonasDb
+            var oDocumento = this._context.IdentidadPersonasDb.AsNoTracking()
                 .Count(x => x.ide_codigo_id == id);
             ViewBag.IdDocumentoDisponible = oDocumento;
 
@@ -545,7 +544,7 @@ namespace Migrantes.Controllers
 
             if (ViewBag.ListadoDocumentos.Count == 3)
             {
-                TempData["msjDocsTotales"] = "¡La persona seleccionada posee todos sus documentos!";
+                TempData["msjDocsTotales"] = "¡La persona seleccionada ya posee todos sus documentos!";
             }
         }
         #endregion

@@ -23,18 +23,18 @@ namespace Migrantes.Models.Entities
 
 
         [Display(Name = ("Número de DPI, Pasaporte o Seguro Social"))]
-        [Required(ErrorMessage = "Número del documento es requerido")]
+        [Required(ErrorMessage = "Introduce el número del documento")]
         public int ide_numero { get; set; }
 
 
         [Display(Name = ("Fecha emisión del DPI, Pasaporte o Seguro Social"))]
-        [Required(ErrorMessage = "Fecha de emision es requerida")]
+        [Required(ErrorMessage = "Elige la fecha de emisión del documento")]
         [DataType(DataType.Date)]
         public DateTime ide_fecha_emision { get; set; }
 
 
         [Display(Name = ("Fecha vencimiento del DPI, Pasaporte o Seguro Social"))]
-        [Required(ErrorMessage = "Fecha de vencimiento es requerida")]
+        [Required(ErrorMessage = "Elige la fecha de vencimiento del documento")]
         [DataType(DataType.Date)]
         public DateTime ide_fecha_vencimiento { get; set; }
 
@@ -70,12 +70,12 @@ namespace Migrantes.Models.Entities
         public string RutaImagenPortada_B { get; set; }
 
         [Display(Name = ("Portada del documento"))]
-        [Required(ErrorMessage = "Seleccione una foto por favor...")]
+        [Required(ErrorMessage = "Elige una portada del documento")]
         [NotMapped]
         public IFormFile FotoDocumento { get; set; }
 
         [Display(Name = ("Contraportada del documento"))]
-        [Required(ErrorMessage = "Seleccione una foto por favor...")]
+        [Required(ErrorMessage = "Elige una contraportada del documento")]
         [NotMapped]
         public IFormFile FotoDocumento_LadoB { get; set; }
 

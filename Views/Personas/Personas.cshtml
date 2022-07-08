@@ -63,7 +63,7 @@ else
                     @if (ViewBag.Validacion == 1)
                     {
                         <div class="toast-body">
-                            <h4 class="text-primary text-center">
+                            <h4 class="text-primary text-center" style="font-size:1.5rem">
                                 Se encontró un total de
                                 <strong class="text-success">@ViewBag.TotalPersonas</strong>
                                 personas en la base de datos.
@@ -73,7 +73,7 @@ else
                     else if (ViewBag.Validacion == 2)
                     {
                         <div class="toast-body">
-                            <h4 class="text-primary text-center">
+                            <h4 class="text-primary text-center" style="font-size:1.5rem">
                                 El resultado de la búsqueda son:
                                 <strong class="text-success">@ViewBag.TotalPersonas</strong>
                                 persona(s) registrada(s).
@@ -92,18 +92,20 @@ else
                     }
                 </div>
             </div>
-
-
+            <br />
+            <br />
             <!--Sección: Titulo y botones para agregar persona,exportar data excel.-->
             <div class="row" style="font-family:Helvetica;">
                 <div class="col-8" style="justify-content:flex-start;padding-right:0px;padding-left:15px;">
                     <div class="pb-3 shadow-2" style="font-family:Helvetica;border-radius:9px;">
-                        <h1 class="text-primary" style="text-align:left;">
-                            <strong>@ViewData["Title"]</strong><br />
-                        </h1>
+
+                        <h2 class="text-2xl font-extrabold leading-none text-black sm:text-3xl md:text-5xl">
+                            @ViewData["Title"]
+                        </h2>
+
                         <h7 class="text-success">
                             Lista de potenciales migrantes.
-                            <br /><strong class="text-danger">Powered by </strong> <strong style="color:black">Sourcing-Corp&copy;</strong>
+                            <br /><p class="text-xl text-gray-600 md:pr-16">Powered by Sourcing-Corp &copy;</p>
                         </h7>
                     </div>
                 </div>
@@ -130,364 +132,325 @@ else
                 </div>
             </div>
 
-             <br />
-             <br />
+            <br />
+            <br />
             <!--Muestra tabla de personas en la base de datos.-->
-            <div class="card" style="font-family:Helvetica;">
-                <div class="table-responsive text-nowrap" style="align-content:space-evenly">
-                    <form asp-action="ExportarPersonasExcel" asp-controller="Personas" id="FormChecks">
-                        <table class="table-light table-striped text-center table-hover table-sm table-responsive-xl pre-scrollable">
-                            <thead class="text-center" style="color:white;">
-                                <tr>
-                                    <th>
-                                        <input hidden type="checkbox" checked name="nombrePropiedades" value="per_primer_ape" />
-                                    </th>
-                                    <th>
-                                        <input hidden type="checkbox" checked name="nombrePropiedades" value="per_segundo_ape" />
-                                    </th>
-                                    <th>
-                                        <input hidden type="checkbox" checked name="nombrePropiedades" value="per_primer_nom" />
-                                    </th>
-                                    <th>
-                                        <input hidden type="checkbox" checked name="nombrePropiedades" value="per_segundo_nom" />
-                                        <input hidden type="checkbox" checked name="nombrePropiedades" value="per_apellido_cas" />
-                                        <input hidden type="checkbox" checked name="nombrePropiedades" value="per_fecha_nac" />
-                                        <input hidden type="checkbox" checked name="nombrePropiedades" value="per_profesion" />
-                                    </th>
-                                    <th>
-                                        <input hidden type="checkbox" checked name="nombrePropiedades" value="Sexo" />
-                                    </th>
-                                    <th>
-                                        <input hidden type="checkbox" checked name="nombrePropiedades" value="Edad" />
-                                    </th>
-                                    <th>
-                                        <input hidden type="checkbox" checked name="nombrePropiedades" value="EstadoCivil" />
-                                    </th>
-                                    <th>
-                                        <input hidden type="checkbox" checked name="nombrePropiedades" value="per_telefono_movil" />
-                                        <input hidden type="checkbox" checked name="nombrePropiedades" value="per_telefono_interno" />
-                                        <input hidden type="checkbox" checked name="nombrePropiedades" value="per_email" />
-                                        <input hidden type="checkbox" checked name="nombrePropiedades" value="per_email_interno" />
-                                        <input hidden type="checkbox" checked name="nombrePropiedades" value="per_observaciones" />
-                                        <input hidden type="checkbox" checked name="nombrePropiedades" value="per_usuario_grabacion" />
-                                        <input hidden type="checkbox" checked name="nombrePropiedades" value="per_fecha_grabacion" />
-                                        <input hidden type="checkbox" checked name="nombrePropiedades" value="per_usuario_modificacion" />
-                                        <input hidden type="checkbox" checked name="nombrePropiedades" value="per_fecha_modificacion" />
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        <strong>
-                                            Primer nombre
-                                        </strong>
-                                    </th>
-                                    <th>
-                                        <strong>
-                                            Segundo nombre
-                                        </strong>
-                                    </th>
-
-                                    <th>
-                                        <strong>
-                                            Apellidos
-                                        </strong>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                        <strong>
-                                            @Html.DisplayNameFor(model => model.Sexo)
-                                        </strong>
-                                    </th>
-                                    <th>
-                                        <strong>
-                                            @Html.DisplayNameFor(model => model.Edad)
-                                        </strong>
-                                    </th>
-                                    <th>
-                                        <strong>
-                                            @Html.DisplayNameFor(model => model.EstadoCivil)
-                                        </strong>
-                                    </th>
-                                    <th>
-                                        <strong>
-                                            Teléfono
-                                        </strong>
-                                    </th>
-                                    <th>
-                                        <strong>
-                                            @Html.DisplayNameFor(model => model.per_email)
-                                        </strong>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <th>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody class="table-light text-center">
-                                @foreach (var item in Model)
-                                {
-                                    <tr class="table-">
-                                        <td>
-                                            @Html.DisplayFor(x => item.per_primer_nom)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(x => item.per_segundo_nom)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(x => item.per_primer_ape)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(x => item.per_segundo_ape)
-                                        </td>
+            <div class="relative z-10 h-auto p-8 py-10 overflow-hidden bg-white border-b-2 border-gray-300 rounded-lg shadow-2xl px-7">
+                <div class="card" style="font-family:Helvetica;">
+                    <div class="table-responsive text-nowrap" style="align-content:space-evenly">
+                        <form asp-action="ExportarPersonasExcel" asp-controller="Personas" id="FormChecks">
+                            <table class="table-light table-striped text-center table-hover table-sm table-responsive-xl pre-scrollable">
+                                <thead class="text-center" style="color:white;">
+                                    <tr>
+                                        <th>
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_primer_ape" />
+                                        </th>
+                                        <th>
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_segundo_ape" />
+                                        </th>
+                                        <th>
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_primer_nom" />
+                                        </th>
+                                        <th>
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_segundo_nom" />
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_apellido_cas" />
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_fecha_nac" />
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_profesion" />
+                                        </th>
+                                        <th>
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="Sexo" />
+                                        </th>
+                                        <th>
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="Edad" />
+                                        </th>
+                                        <th>
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="EstadoCivil" />
+                                        </th>
+                                        <th>
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_telefono_movil" />
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_telefono_interno" />
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_email" />
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_email_interno" />
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_observaciones" />
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_usuario_grabacion" />
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_fecha_grabacion" />
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_usuario_modificacion" />
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_fecha_modificacion" />
+                                        </th>
                                         <th>
                                         </th>
-                                        <td>
-                                            @if (item.Sexo.Contains("M"))
-                                            {
-                                                <strong class="text-primary">@Html.DisplayFor(x => item.Sexo)</strong>
-                                            }
-                                            else
-                                            {
-                                                <strong style="color:hotpink">
-                                                    @Html.DisplayFor(x => item.Sexo)
-                                                </strong>
-                                            }
-                                        </td>
-                                        <td>
-                                            @if (item.per_edad > 18)
-                                            {
-                                                <strong class="text-success">
-                                                    @Html.DisplayFor(x => item.Edad)
-                                                </strong>
-                                            }
-                                            else
-                                            {
-                                                <strong class="text-danger">
-                                                    @Html.DisplayFor(x => item.Edad)
-                                                </strong>
-                                            }
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(x => item.EstadoCivil)
-
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(x => item.per_telefono_movil)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(x => item.per_email)
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                                                    <strong>
-                                                        Acciones
-                                                    </strong> <span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.per_codigo_id"><i class="fa-solid fa-user-pen"></i>&nbsp;Editar</a>
-                                                    <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.per_codigo_id"><i class="fa-solid fa-file-lines"></i>&nbsp;Detalles</a>
-                                                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.per_codigo_id"><i class="fa-solid fa-trash-can"></i>&nbsp;Eliminar</a>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                        <td>
-                                        </td>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
                                     </tr>
+                                    <tr>
+                                        <th>
+                                            <strong>
+                                                Primer nombre
+                                            </strong>
+                                        </th>
+                                        <th>
+                                            <strong>
+                                                Segundo nombre
+                                            </strong>
+                                        </th>
+
+                                        <th>
+                                            <strong>
+                                                Apellidos
+                                            </strong>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                            <strong>
+                                                @Html.DisplayNameFor(model => model.Sexo)
+                                            </strong>
+                                        </th>
+                                        <th>
+                                            <strong>
+                                                @Html.DisplayNameFor(model => model.Edad)
+                                            </strong>
+                                        </th>
+                                        <th>
+                                            <strong>
+                                                @Html.DisplayNameFor(model => model.EstadoCivil)
+                                            </strong>
+                                        </th>
+                                        <th>
+                                            <strong>
+                                                Teléfono
+                                            </strong>
+                                        </th>
+                                        <th>
+                                            <strong>
+                                                @Html.DisplayNameFor(model => model.per_email)
+                                            </strong>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-light text-center">
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr class="table-">
+                                            <td>
+                                                @Html.DisplayFor(x => item.per_primer_nom)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(x => item.per_segundo_nom)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(x => item.per_primer_ape)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(x => item.per_segundo_ape)
+                                            </td>
+                                            <th>
+                                            </th>
+                                            <td>
+                                                @if (item.Sexo.Contains("M"))
+                                                {
+                                                    <strong class="text-primary">@Html.DisplayFor(x => item.Sexo)</strong>
+                                                }
+                                                else
+                                                {
+                                                    <strong style="color:hotpink">
+                                                        @Html.DisplayFor(x => item.Sexo)
+                                                    </strong>
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (item.per_edad > 18)
+                                                {
+                                                    <strong class="text-success">
+                                                        @Html.DisplayFor(x => item.Edad)
+                                                    </strong>
+                                                }
+                                                else
+                                                {
+                                                    <strong class="text-danger">
+                                                        @Html.DisplayFor(x => item.Edad)
+                                                    </strong>
+                                                }
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(x => item.EstadoCivil)
+
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(x => item.per_telefono_movil)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(x => item.per_email)
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                                        <strong>
+                                                            Acciones
+                                                        </strong> <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.per_codigo_id"><i class="fa-solid fa-user-pen"></i>&nbsp;Editar</a>
+                                                        <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.per_codigo_id"><i class="fa-solid fa-file-lines"></i>&nbsp;Detalles</a>
+                                                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.per_codigo_id"><i class="fa-solid fa-trash-can"></i>&nbsp;Eliminar</a>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                            <style type="text/css">
+
+                                .table-responsive {
+                                    height: auto;
+                                    font-family: "Helvetica", sans-serif;
+                                    box-shadow: initial;
+                                    border-radius: 5px;
                                 }
-                            </tbody>
-                        </table>
 
-                        <style type="text/css">
+                                thead tr th {
+                                    position: sticky;
+                                    top: 0;
+                                    z-index: 10;
+                                    background-color: #007bff;
+                                    font-family: "Helvetica", sans-serif;
+                                }
 
-                            .table-responsive {
-                                height: auto;
-                                font-family: "Helvetica", sans-serif;
-                                box-shadow: initial;
-                                border-radius: 5px;
-                            }
-
-                            thead tr th {
-                                position: sticky;
-                                top: 0;
-                                z-index: 10;
-                                background-color: #007bff;
-                                font-family: "Helvetica", sans-serif;
-                            }
-
-                            .search {
-                                border: 3px dotted #999;
-                                border-radius: 4px;
-                                height: 36px;
-                                -webkit-appearance: none;
-                            }
-                        </style>
-                    </form>
+                                .search {
+                                    border: 3px dotted #999;
+                                    border-radius: 4px;
+                                    height: 36px;
+                                    -webkit-appearance: none;
+                                }
+                            </style>
+                        </form>
+                    </div>
                 </div>
             </div>
-
-
         </div>
     </div>
-
     <br />
     <br />
 }
 
-
-<!-- AlpineJS Library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.0/alpine.js"></script>
-
+    <!-- AlpineJS Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.0/alpine.js"></script>
 
 @section Scripts{
     <script>

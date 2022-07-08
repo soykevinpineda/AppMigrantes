@@ -106,7 +106,7 @@
                         <img style="border-radius:6px;width:100%" src="@Model.RutaImagenPortada_A" width="200" height="200" id="ImgFoto1" />
                         <br />
                         <input asp-for="FotoDocumento" class="form-control mb-1" id="customFile" onchange="SelecImg1()" accept="image/*" />
-                        <span asp-validation-for="FotoDocumento" class="text-danger"></span>
+
                     </div>
 
                     <br />
@@ -117,7 +117,7 @@
                         <img style="border-radius:6px;width:100%" src="@Model.RutaImagenPortada_B" width="200" height="200" id="ImgFoto2" />
                         <br />
                         <input asp-for="FotoDocumento_LadoB" class="form-control mb-1" id="customFile2" onchange="SelecImg2()" accept="image/*" />
-                        <span asp-validation-for="FotoDocumento_LadoB" class="text-danger"></span>
+
                     </div>
 
                 </div>
@@ -125,7 +125,7 @@
 
             <br />
             <div class="form-group">
-                <input type="submit" onclick="SuccessDoc()" value="Actualizar documento" class="btn btn-success" />
+                <input type="submit" onclick="return ValidarFormulario()" value="Actualizar documento" class="btn btn-success" />
             </div>
         </form>
     </div>
@@ -161,20 +161,23 @@
         }
 
 
-        function SuccessDoc() {
-            var frm = document.getElementById("frm");
-            MostrarSuccessDoc().then(res => {
-                if (res.value) {
-                    frm.submit();
-                    MostrarSuccessDoc();
-                }
-            })
-        }
-
         $(document).ready(function() {
             $('.toast').toast('show');
         });
 
         $('.toast').toast(option)
+    </script>
+    <script>
+        function ValidarFormulario() {
+            if (document.getElementById("customFile").value == "") {
+                swal("Error", "Elige una portada del documento", "error");
+                return false;
+            }
+            if (document.getElementById("customFile2").value == "") {
+                swal("Error", "Elige una contraportada del documento", "error");
+                return false;
+            }
+            return true;
+        }
     </script>
 }

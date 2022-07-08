@@ -13,7 +13,6 @@
 se muestra una alerta y opción para agregar documentos-->
 @if (@ViewBag.IdDocumentoDisponible == 0)
 {
-
     <div style="justify-content:center;display:flex;align-items:center" class="mb-2">
         <div class="toast" data-delay="90000000" style="border:thin;color:blue;border-radius: 9px;" role="alert" aria-live="assertive" aria-atomic="true">
             <div style="background:#ffc107" class="toast-header">
@@ -31,8 +30,6 @@ se muestra una alerta y opción para agregar documentos-->
                     </h4>
                 </div>
             }
-
-
         </div>
     </div>
     <br />
@@ -45,9 +42,8 @@ se muestra una alerta y opción para agregar documentos-->
     </center>
 }
 
-
 <!--Alerta de documento guardado exitosamente-->
-@if (TempData["alertaDocumentoGuardado"] != null)
+@if (TempData["alertaDocGuardadoOK"] != null)
 {
     <div style="justify-content:center;display:flex;align-items:center" class="mb-2">
         <div class="toast" data-delay="6000" style="border:thin;color:blue;border-radius: 9px;" role="alert" aria-live="assertive" aria-atomic="true">
@@ -61,15 +57,36 @@ se muestra una alerta y opción para agregar documentos-->
             </div>
             <div class="toast-body">
                 <h4 class="text-primary text-center">
-                    <strong style="font-family:Helvetica, sans-serif;font-size:1.5rem;"> @TempData["alertaDocumentoGuardado"] </strong>
+                    <strong style="font-family:Helvetica, sans-serif;font-size:1.5rem;"> @TempData["alertaDocGuardadoOK"] </strong>
                 </h4>
             </div>
         </div>
     </div>
 }
 
+<!--Alerta: documento editado exitosamente-->
+@if (TempData["alertaDocsEditadoOK"] != null)
+{
+    <div style="justify-content:center;display:flex;align-items:center" class="mb-2">
+        <div class="toast" data-delay="6000" style="border:thin;color:blue;border-radius: 9px;" role="alert" aria-live="assertive" aria-atomic="true">
+            <div style="background:#28a745" class="toast-header">
+                <img src="~/img/scblancopeque-200x91.png" style="width:10%;height:10%" class="rounded mr-2" alt="..." />
+                <strong class="mr-auto text-white">Notificación SC</strong>
+                <small class="text-white">justo ahora</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                <h4 class="text-primary text-center">
+                    <strong style="font-family:Helvetica, sans-serif;font-size:1.5rem;"> @TempData["alertaDocsEditadoOK"] </strong>
+                </h4>
+            </div>
+        </div>
+    </div>
+}
 
-<!--Si la persona seleccionada tiene todos sus documentos,se muestra una alerta -->
+<!--Si la persona seleccionada ya tiene todos sus documentos,se muestra una alerta -->
 @if (TempData["msjDocsTotales"] != null)
 {
     <div style="justify-content:center;display:flex;align-items:center" class="mb-2">
@@ -91,12 +108,10 @@ se muestra una alerta y opción para agregar documentos-->
     </div>
 }
 
-
 <!--Si la persona seleccionada tiene documentos,
 se muestra tabla de los documentos disponibles-->
 @if (@ViewBag.IdDocumentoDisponible != 0)
 {
-
     <div class="row">
         <div class="col" style="text-align:left">
             <div class="p-1 shadow-2 rounded-3 mb-2" style="font-family:Helvetica;border-radius: 9px;">
@@ -108,7 +123,6 @@ se muestra tabla de los documentos disponibles-->
         </div>
     </div>
     <hr>
-
     @foreach (var item in NombreDeLaPersona)
     {
         <div class="align-content-left" id="TituloPer" data-bs-toggle="tooltip" data-bs-placement="top" title="Persona seleccionada">
@@ -121,144 +135,139 @@ se muestra tabla de los documentos disponibles-->
     <br />
     <br />
 
+    <div class="card" style="font-family:Helvetica;box-shadow: 5px 10px 15px #888888;border-radius:5px">
+        <div class="table-responsive text-nowrap">
+            <form asp-action="ExportarDocsExcel" asp-controller="Documentos" id="FormChecks">
+                <table class="table-light table-striped text-center table-hover table-sm table-responsive-xl pre-scrollable">
+                    <thead class="text-center" style="color:white">
+                        <tr>
+                            <th>
+                                <input hidden type="checkbox" checked name="nombrePropiedades" value="ide_id_documento" />
+                            </th>
+                            <th>
+                                <input hidden type="checkbox" checked name="nombrePropiedades" value="ide_numero" />
+                            </th>
+                            <th>
+                                <input hidden type="checkbox" checked name="nombrePropiedades" value="ide_fecha_emision" />
+                            </th>
+                            <th>
+                                <input hidden type="checkbox" checked name="nombrePropiedades" value="ide_fecha_vencimiento" />
+                            </th>
+                            <th>
+                                <input hidden type="checkbox" checked name="nombrePropiedades" value="NombreImagenPortada_A" />
+                                <input hidden type="checkbox" checked name="nombrePropiedades" value="RutaImagenPortada_A" />
+                                <input hidden type="checkbox" checked name="nombrePropiedades" value="NombreImagenPortada_B" />
+                                <input hidden type="checkbox" checked name="nombrePropiedades" value="RutaImagenPortada_B" />
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                        <tr>
+                            <th>
+                                <strong>
+                                    Tipo de documento
+                                </strong>
+                            </th>
+                            <th>
+                                <strong>
+                                    Número del documento
+                                </strong>
+                            </th>
+                            <th>
+                                <strong>
+                                    Fecha emisión
+                                </strong>
+                            </th>
+                            <th>
+                                <strong>
+                                    Fecha vencimiento
+                                </strong>
+                            </th>
+                            <th>
+                                <strong>
+                                    Portada
+                                </strong>
+                            </th>
+                            <th>
+                                <strong>
+                                    Contraportada
+                                </strong>
+                            </th>
+                            <th>
+                            </th>
+                        </tr>
+                    </thead>
 
+                    <tbody class="table-light text-center">
 
+                        @foreach (var item in Model)
+                        {
+                            <tr class="table">
+                                <td>
+                                    @Html.DisplayFor(x => item.NombreDocumento)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(x => item.ide_numero)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(x => item.ide_fecha_emision)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(x => item.ide_fecha_vencimiento)
+                                </td>
+                                <td>
+                                    <img style="border:1px solid;border-radius:6px" src="@item.RutaImagenPortada_A" width="153" height="75" />
 
-    <div class="table-responsive text-nowrap">
-        <form asp-action="ExportarDocsExcel" asp-controller="Documentos" id="FormChecks">
-            <table class="table-light table-striped text-center table-hover table-sm table-responsive-xl pre-scrollable">
-                <thead class="text-center" style="color:white">
-                    <tr>
-                        <th>
-                            <input type="checkbox" checked name="nombrePropiedades" value="ide_id_documento" />
-                        </th>
-                        <th>
-                            <input type="checkbox" checked name="nombrePropiedades" value="ide_numero" />
-                        </th>
-                        <th>
-                            <input type="checkbox" checked name="nombrePropiedades" value="ide_fecha_emision" />
-                        </th>
-                        <th>
-                            <input type="checkbox" checked name="nombrePropiedades" value="ide_fecha_vencimiento" />
-                        </th>
-                        <th>
-                            <input type="checkbox" checked name="nombrePropiedades" value="NombreImagenPortada_A" />
-                        </th>
-                        <th>
-                            <input type="checkbox" checked name="nombrePropiedades" value="RutaImagenPortada_A" />
-                            <input hidden type="checkbox" checked name="nombrePropiedades" value="NombreImagenPortada_B" />
-                            <input hidden type="checkbox" checked name="nombrePropiedades" value="RutaImagenPortada_B" />
-                        </th>
-                        <th>
-                        </th>
-                    </tr>
+                                </td>
+                                <td>
+                                    <img style="border:1px solid;border-radius:6px" src="@item.RutaImagenPortada_B" width="153" height="75" />
 
-                    <tr>
-                        <th>
-                            <strong>
-                                Tipo de documento
-                            </strong>
-                        </th>
-                        <th>
-                            <strong>
-                                Número del documento
-                            </strong>
-                        </th>
-                        <th>
-                            <strong>
-                                Fecha emisión
-                            </strong>
-                        </th>
-                        <th>
-                            <strong>
-                                Fecha vencimiento
-                            </strong>
-                        </th>
-                        <th>
-                            <strong>
-                                Portada
-                            </strong>
-                        </th>
-                        <th>
-                            <strong>
-                                Contraportada
-                            </strong>
-                        </th>
-                        <th>
-                        </th>
-                    </tr>
-                </thead>
-
-                <tbody class="table-light text-center">
-
-                    @foreach (var item in Model)
-                    {
-                        <tr class="table">
-                            <td>
-                                @Html.DisplayFor(x => item.NombreDocumento)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(x => item.ide_numero)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(x => item.ide_fecha_emision)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(x => item.ide_fecha_vencimiento)
-                            </td>
-                            <td>
-                                <img style="border:1px solid;border-radius:9px" src="@item.RutaImagenPortada_A" width="200" height="100" />
-
-                            </td>
-                            <td>
-                                <img style="border:1px solid;border-radius:9px" src="@item.RutaImagenPortada_B" width="200" height="100" />
-
-                            </td>
-
-                            <td>
-                                <div class="dropdown">
-                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                                        <strong>
-                                            Acciones
-                                        </strong> <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">
-                                            Ver
-                                            <span class="caret"></span>
+                                </td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                            <strong>
+                                                Acciones
+                                            </strong> <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <a class="btn btn-outline-info" href=@item.RutaImagenPortada_A target="_blank"> Portada </a>
-                                            <a class="btn btn-outline-info" href=@item.RutaImagenPortada_B target="_blank"> Contraportada </a>
+                                            <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">
+                                                Ver
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <a class="btn btn-outline-info" href=@item.RutaImagenPortada_A target="_blank"> Portada </a>
+                                                <a class="btn btn-outline-info" href=@item.RutaImagenPortada_B target="_blank"> Contraportada </a>
+                                            </ul>
+                                            <a class="btn btn-success" asp-controller="Documentos" asp-action="EditarDocumento" asp-route-id="@item.ide_id_persona"><i class="fa-solid fa-user-pen"></i>&nbsp;Editar</a>
+                                            <a class="btn btn-secondary" asp-controller="Documentos" asp-action="DetallesDocumento" asp-route-id="@item.ide_id_persona"><i class="fa-solid fa-file-lines"></i>&nbsp;Detalles</a>
+                                            <a class="btn btn-danger" asp-controller="Documentos" asp-action="EliminarDocumento" asp-route-id="@item.ide_id_persona"><i class="fa-solid fa-trash-can"></i>&nbsp;Eliminar</a>
                                         </ul>
-                                        <a class="btn btn-success" asp-controller="Documentos" asp-action="EditarDocumento" asp-route-id="@item.ide_id_persona"><i class="fa-solid fa-user-pen"></i>&nbsp;Editar</a>
-                                        <a class="btn btn-secondary" asp-controller="Documentos" asp-action="DetallesDocumento" asp-route-id="@item.ide_id_persona"><i class="fa-solid fa-file-lines"></i>&nbsp;Detalles</a>
-                                        <a class="btn btn-danger" asp-controller="Documentos" asp-action="EliminarDocumento" asp-route-id="@item.ide_id_persona"><i class="fa-solid fa-trash-can"></i>&nbsp;Eliminar</a>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-                <style type="text/css">
-                    thead tr th {
-                        position: sticky;
-                        top: 0;
-                        z-index: 10;
-                        background-color: #007bff;
-                        font-family: Helvetica;
-                    }
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <style type="text/css">
+                        thead tr th {
+                            position: relative;
+                            top: 0;
+                            z-index: 10;
+                            background-color: #007bff;
+                            font-family: Helvetica;
+                        }
 
-                    .table-responsive {
-                        height: auto;
-                    }
-                </style>
-            </table>
-        </form>
+                        .table-responsive {
+                            height: auto;
+                        }
+                    </style>
+                </table>
+            </form>
+        </div>
     </div>
     <br />
-    <hr>
-
+    <br />
     if (ViewBag.ListadoDocumentos.Count <= 2)
     {
         <center>
@@ -271,7 +280,6 @@ se muestra tabla de los documentos disponibles-->
             </div>
         </center>
     }
-
     if (ViewBag.ListadoDocumentos.Count == 3)
     {
         <center>
@@ -285,8 +293,6 @@ se muestra tabla de los documentos disponibles-->
     }
 }
 
-
-
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
@@ -294,6 +300,8 @@ se muestra tabla de los documentos disponibles-->
 
     <script src="~/js/generic.js"></script>
     <script src="~/js/sweetalert.js"></script>
+    <!-- AlpineJS Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.0/alpine.js"></script>
 
     <script>
         function DescargarExcel() {

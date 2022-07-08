@@ -196,7 +196,7 @@
         <br />
 
         <div style="width:100%;padding:0 25% 0 25%" class="form-group">
-            <input type="button" value="Guardar datos familiares" onclick="Guardar()" class="btn btn-success btn-block" />
+            <input type="submit" value="Guardar datos familiares" class="btn btn-success btn-block" />
         </div>
     </form>
 </div>
@@ -217,15 +217,6 @@
     <script src="~/js/sweetalert.js"></script>
 
     <script>
-        function Guardar() {
-            var frm = document.getElementById("frm");
-            MostrarModal().then(res => {
-                if (res.value) {
-                    frm.submit();
-                    MostrarSuccess();
-                }
-            })
-        }
         $(document).ready(function() {
             $('.toast').toast('show');
         });

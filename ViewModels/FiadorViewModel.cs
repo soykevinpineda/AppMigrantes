@@ -43,10 +43,11 @@ namespace Migrantes.ViewModels
         public string PaisNacimientoDelFiador { get; set; }
 
         [EmailAddress]
-        [Display(Name = ("Email"))]
+        [Display(Name = ("E-mail"))]
+        [DataType(DataType.EmailAddress)]
         public string EmailFiador { get; set; }
 
-        [Required(ErrorMessage = "Introduce un numero teléfonico")]
+        [Required(ErrorMessage = "Introduce un número teléfonico")]
         [Display(Name = ("Teléfono movil"))]
         public int TelefonoFiador { get; set; }
 
@@ -55,7 +56,7 @@ namespace Migrantes.ViewModels
         public int TelefonoAlternoFiador { get; set; }
 
         [Required(ErrorMessage = "Introduce la cantidad de cartas personales")]
-        [Range(0, 3)]
+        [Range(0, 3,ErrorMessage = "Debe ser un número entre 0 y 3")]
         [Display(Name = ("Nro. Cartas de recomendación personal"))]
         public int NumCartasPersonales { get; set; }
 

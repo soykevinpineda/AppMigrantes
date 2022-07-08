@@ -67,8 +67,8 @@ namespace Migrantes.Models.DTO
         [Display(Name = ("Estado civil *"))]
         public int per_estado_civil { get; set; }
 
-        [DisplayName("Email")]
-        [Display(Name = ("Email"))]
+        [DisplayName("E-mail")]
+        [Display(Name = ("E-mail"))]
         [MaxLength(100)]
         [DataType(DataType.EmailAddress, ErrorMessage = "Introduce una dirección de correo electrónico")]
         public string per_email { get; set; }

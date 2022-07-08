@@ -46,10 +46,6 @@ namespace Migrantes.ViewModels
 
 
 
-
-
-
-
         [Display(Name = ("Primer nombre"))]
         public string PrimerNombreDelPadre { get; set; }
 
