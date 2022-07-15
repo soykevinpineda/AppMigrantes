@@ -50,22 +50,7 @@ namespace Migrantes.Data.Servicios.Personas
                 {
                     oPersonaDb.per_segundo_nom = oPersona.per_segundo_nom;
                 }
-                if (oPersona.per_otros_nom == null)
-                {
-                    oPersonaDb.per_otros_nom = "N/A";
-                }
-                else
-                {
-                    oPersonaDb.per_otros_nom = oPersona.per_otros_nom;
-                }
-                if (oPersona.per_nombre_usual == null)
-                {
-                    oPersonaDb.per_nombre_usual = "N/A";
-                }
-                else
-                {
-                    oPersonaDb.per_nombre_usual = oPersona.per_nombre_usual;
-                }
+              
                 oPersonaDb.per_sexo = oPersona.per_sexo;
                 oPersonaDb.per_fecha_nac = oPersona.per_fecha_nac;
                 var edad = DateTime.Now.Year - oPersona.per_fecha_nac.Year;
@@ -97,7 +82,7 @@ namespace Migrantes.Data.Servicios.Personas
                 {
                     oPersonaDb.per_telefono_interno = oPersona.per_telefono_interno;
                 }
-                oPersonaDb.per_apellidos_nombres = "N/A";
+               
                 if (oPersona.per_observaciones == null)
                 {
                     oPersonaDb.per_observaciones = "N/A";

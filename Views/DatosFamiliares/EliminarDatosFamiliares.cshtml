@@ -7,88 +7,80 @@
     List<DatosFamiliaresViewModel> ListDatosFamiliares = ViewBag.ListDatosFam;
 }
 
-<center>
-    <div class="p-2 shadow-2 rounded-3 mb-2" style="background-color: hsl(0, 0%, 94%);font-family:Helvetica;border-radius: 9px;width:fit-content;">
-        <h2 class="text-center text-primary"><strong>@ViewData["TitleEliminarDatosFamiliares"]</strong></h2>
+<div class="row">
+    <div class="col" style="text-align:left">
+        <div class="p-1 shadow-2 rounded-3 mb-2" style="font-family:Helvetica;border-radius: 9px;">
+            <h2 class="text-primary"><strong>@ViewData["TitleEliminarDatosFamiliares"]</strong></h2>
+        </div>
     </div>
-    <hr />
-</center>
-
-
-<a class="btn btn-outline-primary" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+    <div class="col" style="text-align:right">
+        <a class="btn btn-outline-primary" style="justify-items:right;" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+    </div>
+</div>
+<hr>
 <br />
-<br />
-
 
 <form asp-action="EliminarConfirmadoDatosFamiliares" asp-controller="DatosFamiliares" method="post" id="frm">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="@Model.per_codigo_id" />
     <div class="form-group">
         <input type="hidden" asp-for="per_codigo_id" class="form-control text-center" />
-        <input type="hidden" asp-for="id_datos_familiares" class="form-control text-center" />
+        <input type="hidden" asp-for="DatosFamiliaresID" class="form-control text-center" />
     </div>
     <div class="box">
-        <div class="card" style="width:230px;">
+        <div class="card" style="width:275px;box-shadow: 5px 10px 15px #888888;">
             <img src="~/Mujer.png" style="width:auto;height:auto;" class="card-img-top" alt="...">
             <div class="card-body">
 
-                <h5 class="card-title">Madre</h5>
-                <input disabled asp-for="nombres_madre" class="form-control text-center" style="border:1px solid;color:black" />
-                <span asp-validation-for="nombres_madre" class="text-danger"></span>
+                <h5 class="card-title">Primer nombre</h5>
+                <input disabled asp-for="PrimerNombreFamiliar" class="form-control text-center" />
+                <span asp-validation-for="PrimerNombreFamiliar" class="text-danger"></span>
                 <br />
-                <h5 class="card-title">Primer apellido</h5>
-                <input disabled asp-for="primer_apellido_madre" class="form-control text-center" style="border:1px solid;color:black" />
-                <span asp-validation-for="primer_apellido_madre" class="text-danger"></span>
+
+                <h5 class="card-title">Segundo nombre</h5>
+                <input disabled asp-for="SegundoNombreFamiliar" class="form-control text-center" />
+                <span asp-validation-for="SegundoNombreFamiliar" class="text-danger"></span>
                 <br />
-                <h5 class="card-title">Segundo apellido</h5>
-                <input disabled asp-for="segundo_apellido_madre" class="form-control text-center" style="border:1px solid;color:black" />
-                <span asp-validation-for="segundo_apellido_madre" class="text-danger"></span>
+
+                <h5 class="card-title">Apellidos</h5>
+                <input disabled asp-for="ApellidosFamiliar" class="form-control text-center" />
+                <span asp-validation-for="ApellidosFamiliar" class="text-danger"></span>
+                <br />
+
+                <h5 class="card-title">Fecha de nacimiento</h5>
+                <input asp-for="FechaNacimientoDelFamiliar" class="form-control text-center" />
+                <span asp-validation-for="FechaNacimientoDelFamiliar" class="text-danger"></span>
+                <br />
+
+                <h5 class="card-title">Pais de nacimiento</h5>
+                <input asp-for="PaisNacimientoDelFamiliar" class="form-control text-center" />
+                <span asp-validation-for="PaisNacimientoDelFamiliar" class="text-danger"></span>
                 <br />
 
                 <h5 class="card-title">Profesión</h5>
-                <input disabled asp-for="profesion_madre" class="form-control text-center" style="border:1px solid;color:black" />
-                <span asp-validation-for="profesion_madre" class="text-danger"></span>
+                <input asp-for="ProfesionDelFamiliar" class="form-control text-center" />
+                <span asp-validation-for="ProfesionDelFamiliar" class="text-danger"></span>
                 <br />
-                <h5 class="card-title">Edad</h5>
-                <input disabled type="number" asp-for="edad_madre" class="form-control text-center" style="border:1px solid;color:black" />
-                <span asp-validation-for="edad_madre" class="text-danger"></span>
+
+                <h5 class="card-title"> Teléfono </h5>
+                <input asp-for="TelefonoDelFamiliar" class="form-control text-center" />
+                <span asp-validation-for="TelefonoDelFamiliar" class="text-danger"></span>
+                <br />
+
+                <h5 class="card-title">E-mail</h5>
+                <input asp-for="EmaiDelFamiliar" class="form-control text-center" />
+                <span asp-validation-for="EmaiDelFamiliar" class="text-danger"></span>
+                <br />
+
             </div>
         </div>
-
-        <div class="card" style="width:230px;">
-            <img src="~/Hombre.png" style="width:auto;height:auto;" class="card-img-top" alt="...">
-            <div class="card-body">
-
-                <h5 class="card-title">Padre</h5>
-                <input disabled asp-for="nombres_padre" class="form-control text-center" style="border:1px solid;color:black" />
-                <span asp-validation-for="nombres_padre" class="text-danger"></span>
-                <br />
-                <h5 class="card-title">Primer apellido</h5>
-                <input disabled asp-for="primer_apellido_padre" class="form-control text-center" style="border:1px solid;color:black" />
-                <span asp-validation-for="primer_apellido_padre" class="text-danger"></span>
-                <br />
-                <h5 class="card-title">Segundo apellido</h5>
-                <input disabled asp-for="segundo_apellido_padre" class="form-control text-center" style="border:1px solid;color:black" />
-                <span asp-validation-for="segundo_apellido_padre" class="text-danger"></span>
-                <br />
-                <h5 class="card-title">Profesión</h5>
-                <input disabled asp-for="profesion_padre" class="form-control text-center" style="border:1px solid;color:black" />
-                <span asp-validation-for="profesion_padre" class="text-danger"></span>
-                <br />
-                <h5 class="card-title">Edad</h5>
-                <input disabled type="number" asp-for="edad_padre" class="form-control text-center" style="border:1px solid;color:black" />
-                <span asp-validation-for="edad_padre" class="text-danger"></span>
-            </div>
-
-            <style>
-                .box {
-                    display: flex;
-                    justify-content: space-evenly;
-                }
-            </style>
-        </div>
+        <style>
+            .box {
+                display: flex;
+                justify-content: space-evenly;
+            }
+        </style>
     </div>
-
     <br />
     <center>
         <div class="form-group">
@@ -99,29 +91,28 @@
     </center>
 </form>
 
-
 @section Scripts {
     @{
-    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-<script src="~/js/generic.js"></script>
-<script src="~/js/sweetalert.js"></script>
+    <script src="~/js/generic.js"></script>
+    <script src="~/js/sweetalert.js"></script>
 
-<script>
-    function Eliminar() {
-        var frm = document.getElementById("frm");
-        MostrarModalDelete().then(res => {
-            if (res.value) {
-                frm.submit();
-                MostrarSuccessEliminar();
-            }
-        })
-    }
+    <script>
+        function Eliminar() {
+            var frm = document.getElementById("frm");
+            MostrarModalDelete().then(res => {
+                if (res.value) {
+                    frm.submit();
+                    MostrarSuccessEliminar();
+                }
+            })
+        }
 
-    $(document).ready(function () {
-        $('.toast').toast('show');
-    });
+        $(document).ready(function() {
+            $('.toast').toast('show');
+        });
 
-    $('.toast').toast(option)
-</script>
+        $('.toast').toast(option)
+    </script>
 }

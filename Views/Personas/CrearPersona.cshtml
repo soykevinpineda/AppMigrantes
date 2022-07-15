@@ -1,4 +1,6 @@
-﻿@model Migrantes.Models.DTO.PersonaDTO
+﻿
+
+@model Migrantes.Models.DTO.PersonaDTO
 
 @{
     ViewData["Title"] = "Formulario para crear una persona";
@@ -6,10 +8,9 @@
     List<SelectListItem> oSexos = ViewBag.Sexos;
     List<SelectListItem> oEstados = ViewBag.EstadoCivil;
 }
-<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-<link rel="stylesheet" href="~/css/site.css" />
 
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Asset" media="all">
 
 @*
     <ul>
@@ -18,202 +19,135 @@
     </li>
     </ul>*@
 
-<center>
-    <div class="p-2 shadow-2 rounded-3 mb-2" style="background-color: hsl(0, 0%, 94%);font-family:Helvetica;border-radius:9px;width:fit-content;">
-        <h2 class="text-center text-primary"><strong>@ViewData["Title"]</strong></h2>
-    </div>
-</center>
-<hr>
 
-<div style="justify-content:center;display:flex;align-items:center;font-family:Helvetica" class="mb-2">
-    <div class="toast" data-delay="5000" style="border:thin;color:blue;border-radius: 9px;" role="alert" aria-live="assertive" aria-atomic="true">
-        <div style="background:#007bff" class="toast-header">
-            <img src="~/img/scblancopeque-200x91.png" style="width:10%;height:10%" class="rounded mr-2" alt="..." />
-            <strong class="mr-auto text-white">Notificación SC</strong>
-            <small class="text-white">justo ahora</small>
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="toast-body">
-            <h4 class="text-primary text-center">
-                Recuerda que los campos en
-                <strong style="color:grey">*</strong>
-                son requeridos.
-            </h4>
-        </div>
-    </div>
-</div>
+<!-- Formulario crear persona -->
+<form class="form-group" asp-controller="Personas" asp-action="GuardarPersona" method="post" id="frm">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <section class="w-full px-8 py-16 bg-gray-100 xl:px-8">
 
-<div class="row justify-content-center">
-    <form style="font-family:Helvetica" class="form-group" asp-controller="Personas" asp-action="GuardarPersona" method="post" id="frm">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="max-w-5xl mx-auto">
+            <div class="flex flex-col items-center md:flex-row">
+                <div class="w-full space-y-5 md:w-3/5 md:pr-2">
+                    <p class="font-medium text-blue-500 uppercase">Formulario para agregar a una persona</p>
+                    <h2 class="text-2xl font-extrabold leading-none text-black sm:text-3xl md:text-5xl">
+                        Migrantes APP.
+                    </h2>
+                    <p class="text-xl text-gray-600 md:pr-16">Powered by Sourcing-Corp &copy;</p>
+                    <br />
 
-        <div class="row mb-4">
-            <div class="col-md-6">
-                <strong style="color:hsl(0, 0%, 50%)">
-                    <label class="form-group text-left row justify-content-center mb-0" asp-for="per_primer_ape"></label>
-                </strong>
-                <input * style="border:1px solid;color:black" asp-for="per_primer_ape" class="form-control" />
-                <span asp-validation-for="per_primer_ape" class="text-danger"></span>
-            </div>
+                    <span asp-validation-for="per_primer_nom" class="text-danger"></span>
+                    <br />
+                    <span asp-validation-for="per_segundo_nom" class="text-danger"></span>
+                    <br />
+                    <span asp-validation-for="per_primer_ape" class="text-danger"></span>
+                    <br />
+                    <span asp-validation-for="per_segundo_ape" class="text-danger"></span>
+                    <br />
+                    <span asp-validation-for="per_fecha_nac" class="text-danger"></span>
+                    <br />
+                    <span asp-validation-for="per_sexo" class="text-danger"></span>
+                    <br />
+                    <span asp-validation-for="per_estado_civil" class="text-danger"></span>
+                    <br />
+                    <span asp-validation-for="per_telefono_movil" class="text-danger"></span><br />
+                    <span asp-validation-for="per_telefono_interno" class="text-danger"></span>   <br />
 
-            <div class="col-md-6">
-                <strong style="color:hsl(0, 0%, 50%)">
-                    <label class="form-group row justify-content-center mb-0" asp-for="per_segundo_ape"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_segundo_ape" class="form-control" placeholder="Opcional" />
-                <span asp-validation-for="per_segundo_ape" class="text-danger"></span>
-            </div>
-        </div>
+                    <span asp-validation-for="per_email" class="text-danger"></span>
+                    <br />
+                    <span asp-validation-for="per_email_interno" class="text-danger"></span>
+                </div>
 
-        <div class="row mb-4">
-            <div class="col-md-12">
-                <strong style="color:hsl(0, 0%, 50%)">
-                    <label class="form-group row justify-content-center mb-0" asp-for="per_apellido_cas"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_apellido_cas" class="form-control" placeholder="Opcional" />
-                <span asp-validation-for="per_apellido_cas" class="text-danger"></span>
-            </div>
-        </div>
+                <div class="w-full mt-16 md:mt-0 md:w-4/5">
+                    <!-- Notificación SC -->
+                    <div style="justify-content:center;display:flex;align-items:center;font-family:Helvetica" class="mb-2">
+                        <div class="toast" data-delay="4000" style="border:thin;color:blue;border-radius: 9px;" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div style="background:#007bff" class="toast-header">
+                                <img src="~/img/scblancopeque-200x91.png" style="width:10%;height:10%" class="rounded mr-2" alt="..." />
+                                <strong class="mr-auto text-white">Notificación SC</strong>
+                                <small class="text-white">justo ahora</small>
+                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="toast-body">
+                                <h4 class="text-primary text-center" style="font-size:1.5rem">
+                                    Recuerda que los campos en
+                                    <strong style="color:grey">*</strong>
+                                    son requeridos.
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
 
-        <div class="row mb-4">
-            <div class="col-md-6">
-                <strong style="color:hsl(0, 0%, 50%)">
-                    <label class="form-group row justify-content-center mb-0" asp-for="per_primer_nom"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_primer_nom" class="form-control" />
-                <span asp-validation-for="per_primer_nom" class="text-danger"></span>
-            </div>
+                    <div class="relative z-10 h-auto p-8 py-10 overflow-hidden bg-white border-b-2 border-gray-300 rounded-lg shadow-2xl px-7">
+                        <div class="row">
 
-            <div class="col-md-6">
-                <strong style="color:hsl(0, 0%, 50%)">
-                    <label class="form-group row justify-content-center mb-0" asp-for="per_segundo_nom"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_segundo_nom" class="form-control" placeholder="Opcional" />
-                <span asp-validation-for="per_segundo_nom" class="text-danger"></span>
-            </div>
-        </div>
+                            <div class="col-6">
+                                <label>* Primer nombre</label>
+                                <input type="text" asp-for="per_primer_nom" class="block w-full px-4 py-2 mb-4 border border-2 border-transparent border-gray-200 rounded-lg focus:ring focus:ring-blue-500 focus:outline-none" placeholder="Obligatorio">
 
-        <div class="row mb-4">
-            <div class="col-md-6">
-                <strong style="color:hsl(0, 0%, 50%)">
-                    <label class="form-group row justify-content-center mb-0" asp-for="per_otros_nom"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_otros_nom" class="form-control" placeholder="Opcional" />
-                <span asp-validation-for="per_otros_nom" class="text-danger"></span>
-            </div>
+                                <label>* Primer apellido</label>
+                                <input asp-for="per_primer_ape" type="text" class="block w-full px-4 py-2 mb-4 border border-2 border-transparent border-gray-200 rounded-lg focus:ring focus:ring-blue-500 focus:outline-none" placeholder="Obligatorio">
 
-            <div class="col-md-6">
-                <strong style="color:hsl(0, 0%, 50%)">
-                    <label class="form-group row justify-content-center mb-0" asp-for="per_nombre_usual"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_nombre_usual" class="form-control" placeholder="Opcional" />
-                <span asp-validation-for="per_nombre_usual" class="text-danger"></span>
-            </div>
-        </div>
+                                <label>* Género</label>
+                                <select asp-for="per_sexo" asp-for="per_sexo" name="per_sexo" asp-items="@oSexos" class="block w-full px-4 py-2 mb-4 border border-2 border-transparent border-gray-200 rounded-lg focus:ring focus:ring-blue-500 focus:outline-none">   </select>
 
-        <div class="row mb-4">
-            <div class="col-md-6">
-                <strong style="color:hsl(0, 0%, 50%)">
-                    <label class="form-group row justify-content-center mb-0" asp-for="per_sexo"></label>
-                </strong>
-                <select style="border:1px solid;color:black" class="form-control" asp-for="per_sexo" name="per_sexo" asp-items="@oSexos">
-                </select>
-                <span asp-validation-for="per_sexo" class="text-danger"></span>
-            </div>
+                                <label>* Fecha de nacimiento </label>
+                                <input asp-for="per_fecha_nac" type="date" class="block w-full px-4 py-2 mb-4 border border-2 border-transparent border-gray-200 rounded-lg focus:ring focus:ring-blue-500 focus:outline-none">
 
-            <div class="col-md-6">
-                <strong style="color:hsl(0, 0%, 50%)">
-                    <label class="form-group row justify-content-center mb-0" asp-for="per_estado_civil"></label>
-                </strong>
-                <select style="border:1px solid;color:black" class="form-control" asp-for="per_estado_civil" name="per_estado_civil" asp-items="@oEstados">
-                </select>
-                <span asp-validation-for="per_estado_civil" class="text-danger"></span>
-            </div>
-        </div>
+                                <label>* Teléfono</label>
+                                <input asp-for="per_telefono_movil" type="number" class="block w-full px-4 py-2 mb-4 border border-2 border-transparent border-gray-200 rounded-lg focus:ring focus:ring-blue-500 focus:outline-none" placeholder="Obligatorio">
 
-        <div class="row mb-4">
-            <div class="col-md-6">
-                <strong style="color:hsl(0, 0%, 50%)">
-                    <label class="form-group row justify-content-center mb-0" asp-for="per_fecha_nac"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_fecha_nac" class="form-control" />
-                <span asp-validation-for="per_fecha_nac" class="text-danger"></span>
-            </div>
+                                <label>Teléfono alternativo </label>
+                                <input asp-for="per_telefono_interno" type="number" class="block w-full px-4 py-2 mb-4 border border-2 border-transparent border-gray-200 rounded-lg focus:ring focus:ring-blue-500 focus:outline-none" placeholder="Opcional">
 
-            <div class="col-md-6">
-                <strong style="color:hsl(0, 0%, 50%)">
-                    <label class="form-group row justify-content-center mb-0" asp-for="per_profesion"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_profesion" class="form-control" />
-                <span asp-validation-for="per_profesion" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-6">
+                                <label>* Segundo nombre</label>
+                                <input asp-for="per_segundo_nom" type="text" class="block w-full px-4 py-2 mb-4 border border-2 border-transparent border-gray-200 rounded-lg focus:ring focus:ring-blue-500 focus:outline-none" placeholder="Obligatorio">
+
+                                <label>* Segundo apellido</label>
+                                <input asp-for="per_segundo_ape" type="text" class="block w-full px-4 py-2 mb-4 border border-2 border-transparent border-gray-200 rounded-lg focus:ring focus:ring-blue-500 focus:outline-none" placeholder="Obligatorio">
+
+                                <label>* Estado civil </label>
+                                <select asp-for="per_estado_civil" name="per_estado_civil" asp-items="@oEstados" class="block w-full px-4 py-2 mb-4 border border-2 border-transparent border-gray-200 rounded-lg focus:ring focus:ring-blue-500 focus:outline-none">  </select>
+
+                                <label>  Profesión  </label>
+                                <input asp-for="per_profesion" type="text" class="block w-full px-4 py-2 mb-4 border border-2 border-transparent border-gray-200 rounded-lg focus:ring focus:ring-blue-500 focus:outline-none" placeholder="Opcional">
+
+                                <label> Email </label>
+                                <input asp-for="per_email" type="email" class="block w-full px-4 py-2 mb-4 border border-2 border-transparent border-gray-200 rounded-lg focus:ring focus:ring-blue-500 focus:outline-none" placeholder="example@correo.com">
+
+                                <label>  Email alternativo </label>
+                                <input asp-for="per_email_interno" type="email" class="block w-full px-4 py-2 mb-4 border border-2 border-transparent border-gray-200 rounded-lg focus:ring focus:ring-blue-500 focus:outline-none" placeholder="Opcional">
+
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="relative mb-3">
+                                <label asp-for="per_observaciones" class="text-sm ">Observaciónes</label>
+                                <input type="text" asp-for="per_observaciones" class="w-full px-4 py-2 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-16 text-base outline-none text-gray-700 transition-colors duration-200 ease-in-out" placeholder="Opcional">
+                            </div>
+                        </div>
+                        <div class="block">
+                            <button name="Guardar persona" value="Guardar persona" class="w-full px-3 py-4 font-medium text-white bg-blue-600 rounded-lg">Crear persona nueva</button>
+
+                        </div>
+                        <p class="w-full mt-4 text-sm text-center text-gray-500">Desea regresar al menu principal? <a asp-controller="Personas" asp-action="Personas" class="text-blue-500 underline">Listado de personas</a></p>
+                        <br />
+                    </div>
+                </div>
             </div>
         </div>
+    </section>
+</form>
 
-        <div class="row mb-4">
-            <div class="col-md-6">
-                <strong style="color:hsl(0, 0%, 50%)">
-                    <label class="form-group row justify-content-center mb-0" asp-for="per_email"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_email" class="form-control" placeholder="Opcional" />
-                <span asp-validation-for="per_email" class="text-danger"></span>
-            </div>
 
-            <div class="col-md-6">
-                <strong style="color:hsl(0, 0%, 50%)">
-                    <label class="form-group row justify-content-center mb-0" asp-for="per_email_interno"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_email_interno" class="form-control" placeholder="Opcional" />
-                <span asp-validation-for="per_email_interno" class="text-danger"></span>
-            </div>
-        </div>
+<!-- AlpineJS Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.0/alpine.js"></script>
 
-        <div class="row mb-4">
-            <div class="col-md-6">
-                <strong style="color:hsl(0, 0%, 50%)">
-                    <label class="form-group row justify-content-center mb-0" asp-for="per_telefono_movil"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_telefono_movil" class="form-control" />
-                <span asp-validation-for="per_telefono_movil" class="text-danger"></span>
-            </div>
-
-            <div class="col-md-6">
-                <strong style="color:hsl(0, 0%, 50%)">
-                    <label class="form-group row justify-content-center mb-0" asp-for="per_telefono_interno"></label>
-                </strong>
-                <input style="border:1px solid;color:black" asp-for="per_telefono_interno" class="form-control" placeholder="Opcional" />
-                <span asp-validation-for="per_telefono_interno" class="text-danger"></span>
-            </div>
-        </div>
-
-        <div class="row mb-4">
-            <div class="col-md-12">
-                <strong style="color:hsl(0, 0%, 50%)">
-                    <label class="form-group row justify-content-center mb-0" asp-for="per_observaciones"></label>
-                </strong>
-                <input type="text" asp-for="per_observaciones" class="form-control" style="width: 100%; height: 100px; border: 1px solid; color: black" placeholder="Opcional" />
-                <span asp-validation-for="per_observaciones" class="text-danger"></span>
-            </div>
-        </div>
-
-        <div style="width:100%;padding:0 25% 0 25%" class="form-group">
-            <input type="button" value="Crear persona" onclick="Guardar()" class="btn btn-success btn-block" />
-        </div>
-
-        <div style="width:100%;padding:0 25% 0 25%">
-            <a class="btn btn-primary btn-block" asp-controller="Personas" asp-action="Personas">Lista de personas</a>
-        </div>
-    </form>
-</div>
-
-<br />
-<caption>
-    <strong class="text-success">
-        Formulario de ingreso.
-        <br /><strong class="text-danger">Powered by </strong><strong style="color:black;font-family:Helvetica">--Sourcing-Corp &copy;--</strong>
-    </strong>
-</caption>
 
 @section Scripts {
     @{
@@ -234,10 +168,13 @@
             })
         }
 
+
         $(document).ready(function() {
             $('.toast').toast('show');
         });
 
         $('.toast').toast(option)
     </script>
+
+
 }

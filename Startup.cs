@@ -77,7 +77,7 @@ namespace Migrantes
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Personas}/{action=Personas}/{id?}");
+                    pattern: "{controller=Personas}/{action=CrearPersona}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

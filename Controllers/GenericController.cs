@@ -19,17 +19,7 @@ namespace Migrantes.Controllers
     public class GenericController : Controller
     {
        
-        public static List<PersonaDTO> oPersonasExcel;
-
-
-        public FileResult ExportarPersonasExcel(string[] nombrePropiedades)
-        {
-            byte[] buffer = ExportarExcelGeneric(nombrePropiedades, oPersonasExcel);
-            return File(buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        }
-
-
-
+      
         public string Error = "Ha ocurrido un evento inesperado, fuera de control de esta aplicación";
 
 

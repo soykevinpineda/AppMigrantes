@@ -4,332 +4,475 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css">
 
-<div style="justify-content:center;display:flex;align-items:center;font-family:Helvetica;font-size:36px" class="mb-2">
-    <div class="toast" data-delay="5000" style="border:thin;color:blue;border-radius: 9px;" role="alert" aria-live="assertive" aria-atomic="true">
-        <div style="background:#007bff" class="toast-header">
-            <img src="~/img/scblancopeque-200x91.png" style="width:10%;height:10%" class="rounded mr-2" alt="..." />
-            <strong class="mr-auto text-white">Notificación SC</strong>
-            <small class="text-white">justo ahora</small>
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+
+<!--Alerta: Sin datos en la base de datos y opcion para agregar un registro.-->
+@if (Model.Count() == 0)
+{
+    <!-- Section 1 -->
+    <section class="px-2 py-32 bg-white md:px-0">
+        <div class="container items-center max-w-6xl px-8 mx-auto xl:px-5">
+            <div class="flex flex-wrap items-center sm:-mx-3">
+                <div class="w-full md:w-1/2 md:px-3">
+                    <div class="w-full pb-6 space-y-6 sm:max-w-md lg:max-w-lg md:space-y-4 lg:space-y-8 xl:space-y-9 sm:pr-5 lg:pr-0 md:pb-0">
+                        <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-4xl lg:text-5xl xl:text-6xl">
+                            <span class="block xl:inline">No se encontraron personas en la base de datos.</span>
+                            <span class="block text-indigo-600 xl:inline">Deseas registrar a una persona?</span>
+                        </h1>
+                        <p class="mx-auto text-base text-gray-500 sm:max-w-md lg:text-xl md:max-w-3xl">Migrantes APP.<br />Powered by Sourcing-Corp &copy;</p>
+                        <div class="relative flex flex-col sm:flex-row sm:space-x-4">
+                            <a asp-controller="Personas" asp-action="CrearPersona" class="flex items-center w-full px-6 py-3 mb-3 text-lg text-white bg-indigo-600 rounded-md sm:mb-0 hover:bg-indigo-700 sm:w-auto">
+                                Crear persona nueva
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2">
+                    <div class="w-full h-auto overflow-hidden rounded-md shadow-xl sm:rounded-xl">
+                        <img src="~/composition-19.svg">
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        @if (ViewBag.Validacion == 1)
-        {
-            <div class="toast-body">
-                <h4 class="text-primary text-center">
-                    Se encontró un total de
-                    <strong class="text-success">@ViewBag.TotalPersonas</strong>
-                    personas en la base de datos.
-                </h4>
-            </div>
-        }
-        else if (ViewBag.Validacion == 2)
-        {
-            <div class="toast-body">
-                <h4 class="text-primary text-center">
+}
 
-                    El resultado de la búsqueda son:
-                    <strong class="text-success">@ViewBag.TotalPersonas</strong>
-                    persona(s) registrada(s).
+<!--Si hay datos en la DB, muestra tabla de personas-->
+@if (Model.Count() > 0)
+{
+    <div class="relative w-full bg-white">
+        <div class="absolute w-full h-32 bg-gradient-to-b from-gray-200 to-white"></div>
+        <div class="relative w-full px-5 py-10 mx-auto sm:py-12 md:py-16 md:px-10 max-w-7xl">
 
-                </h4>
-            </div>
-        }
-        else if (ViewBag.Validacion == 3)
-        {
-            <div class="toast-body">
-                <h4 class="text-danger text-center">
-                    <strong>
-                        No se encontraron coincidencias con estos parámetros de búsqueda.
-                    </strong>
-                </h4>
-            </div>
-        }
-    </div>
-</div>
-<br />
-<br />
+            <!--Alerta: persona guardada exitosamente.-->
+            @if (TempData["AlertaPersona"] != null)
+            {
+                <div style="justify-content:center;display:flex;align-items:center" class="mb-2">
+                    <div class="toast" data-delay="4000" style="border:thin;color:blue;border-radius: 9px;" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div style="background:#28a745" class="toast-header">
+                            <img src="~/img/scblancopeque-200x91.png" style="width:10%;height:10%" class="rounded mr-2" alt="..." />
+                            <strong class="mr-auto text-white">Notificación SC</strong>
+                            <small class="text-white">justo ahora</small>
+                            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="toast-body">
+                            <h4 class="text-primary text-center" style="font-family:Helvetica;font-size:1.5rem;">
+                                @TempData["AlertaPersona"]
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            }
 
+            <!--Alerta: TotalPersonas en la base de datos.-->
+            <div style="justify-content:center;display:flex;align-items:center;font-family:Helvetica;font-size:36px" class="mb-2">
+                <div class="toast" data-delay="5000" style="border:thin;color:blue;border-radius: 9px;" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div style="background:#007bff" class="toast-header">
+                        <img src="~/img/scblancopeque-200x91.png" style="width:10%;height:10%" class="rounded mr-2" alt="..." />
+                        <strong class="mr-auto text-white">Notificación SC</strong>
+                        <small class="text-white">justo ahora</small>
+                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
 
-<div class="row" style="font-family:Helvetica;">
-    <div class="col-8" style="justify-content:flex-start;padding-right:0px;padding-left:15px;">
-        <div class="pb-3 shadow-2" style="font-family:Helvetica;border-radius:9px;">
-            <h1 class="text-primary" style="text-align:left;">
-                <strong>@ViewData["Title"]</strong><br />
-            </h1>
-            <h7 class="text-success">
-                Lista de potenciales migrantes.
-                <br /><strong class="text-danger">Powered by </strong> <strong style="color:black">Sourcing-Corp&copy;</strong>
-            </h7>
-        </div>
-    </div>
-
-    <div class="col-4" style="justify-items:flex-end;display:inline-grid;padding-right:0px;padding-left:0px;">
-        <a type="button" class="btn btn-primary btn-sm" asp-controller="Personas" asp-action="CrearPersona">Crear nueva persona</a>
-        <br />
-        @if (ViewBag.Validacion == 3 || ViewBag.Validacion == 0)
-        {
-            <input type="button" class="btn btn-outline-success btn-sm" disabled value="Exportar data a Excel"
-               onclick="DescargarExcel()" />
-        }
-        else if (ViewBag.Validacion == 2 || ViewBag.Validacion == 1)
-        {
-            <input type="button" class="btn btn-outline-success btn-sm" value="Exportar data a Excel"
-               onclick="DescargarExcel()" />
-        }
-    </div>
-</div>
-<hr />
-<br />
-
-
-
-<div class="card" style="font-family:Helvetica;">
-    <div class="table-responsive text-nowrap" style="align-content:space-evenly">
-        <form asp-action="ExportarPersonasExcel" asp-controller="Personas" id="FormChecks">
-            <table class="table-light table-striped text-center table-hover table-sm table-responsive-xl pre-scrollable">
-                <thead class="text-center" style="color:white;">
-                    <tr>
-                        <th>
-                            <input type="checkbox" checked name="nombrePropiedades" value="per_primer_ape" />
-                        </th>
-                        <th>
-                            <input type="checkbox" checked name="nombrePropiedades" value="per_segundo_ape" />
-                        </th>
-                        <th>
-                            <input type="checkbox" checked name="nombrePropiedades" value="per_primer_nom" />
-                        </th>
-                        <th>
-                            <input type="checkbox" checked name="nombrePropiedades" value="per_segundo_nom" />
-                        </th>
-                        <th>
-                            <input type="checkbox" checked name="nombrePropiedades" value="Sexo" />
-                        </th>
-                        <th>
-                            <input type="checkbox" checked name="nombrePropiedades" value="Edad" />
-                        </th>
-                        <th>
-                            <input type="checkbox" checked name="nombrePropiedades" value="EstadoCivil" />
-                        </th>
-                        <th>
-                            <input type="checkbox" checked name="nombrePropiedades" value="per_telefono_movil" />
-                        </th>
-                        <th>
-                        </th>
-                        <th>
-                        </th>
-                        <th>
-                        </th>
-                        <th>
-                        </th>
-                        <th>
-                        </th>
-                        <th>
-                        </th>
-                        <th>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <strong>
-                                Primer apellido
-                            </strong>
-                        </th>
-                        <th>
-                            <strong>
-                                @Html.DisplayNameFor(model => model.per_segundo_ape)
-                            </strong>
-                        </th>
-                        <th>
-                            <strong>
-                                Primer nombre
-                            </strong>
-                        </th>
-                        <th>
-                            <strong>
-                                @Html.DisplayNameFor(model => model.per_segundo_nom)
-                            </strong>
-                        </th>
-                        <th>
-                            <strong>
-                                @Html.DisplayNameFor(model => model.Sexo)
-                            </strong>
-                        </th>
-                        <th>
-                            <strong>
-                                @Html.DisplayNameFor(model => model.Edad)
-                            </strong>
-                        </th>
-                        <th>
-                            <strong>
-                                @Html.DisplayNameFor(model => model.EstadoCivil)
-                            </strong>
-                        </th>
-                        <th>
-                            <strong>
-                                Número de teléfono
-                            </strong>
-                        </th>
-                        <th>
-                        </th>
-                        <th>
-                        </th>
-                        <th>
-                        </th>
-                        <th>
-                        </th>
-                        <th>
-                        </th>
-                        <th>
-                        </th>
-                        <th>
-                        </th>
-                    </tr>
-                </thead>
-
-                <tbody class="table-light text-center">
-                    @foreach (var item in Model)
+                    @if (ViewBag.Validacion == 1)
                     {
-                        <tr class="table-">
-                            <td>
-                                @Html.DisplayFor(x => item.per_primer_ape)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(x => item.per_segundo_ape)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(x => item.per_primer_nom)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(x => item.per_segundo_nom)
-                            </td>
-                            <td>
-                                @if (item.Sexo.Contains("M"))
-                                {
-                                    <strong class="text-primary">@Html.DisplayFor(x => item.Sexo)</strong>
-                                }
-                                else
-                                {
-                                    <strong style="color:hotpink">
-                                        @Html.DisplayFor(x => item.Sexo)
-                                    </strong>
-                                }
-                            </td>
-                            <td>
-                                @if (item.per_edad > 18)
-                                {
-                                    <strong class="text-success">
-                                        @Html.DisplayFor(x => item.Edad)
-                                    </strong>
-                                }
-                                else
-                                {
-                                    <strong class="text-danger">
-                                        @Html.DisplayFor(x => item.Edad)
-                                    </strong>
-                                }
-                            </td>
-                            <td>
-                                @Html.DisplayFor(x => item.EstadoCivil)
-
-                            </td>
-                            <td>
-                                @Html.DisplayFor(x => item.per_telefono_movil)
-
-                            </td>
-                            @*
-                        <td>
-                        @if (item.per_usuario_modificacion.Contains("N/A"))
-                        {
-                        <p class="text-danger">
-                        <strong>No se ha modificado</strong>
-                        </p>
-                        }
-                        else
-                        {
-                        <strong class="text-success">
-                        @Html.DisplayFor(x => item.per_usuario_modificacion)
-                        </strong>
-                        }
-                        </td>
-                        <td>
-                        @if (item.per_usuario_modificacion.Contains("N/A"))
-                        {
-                        <p class="text-danger">
-                        <strong>No hay fecha</strong>
-                        </p>
-                        }
-                        else
-                        {
-                        <strong class="text-success">
-                        @Html.DisplayFor(x => item.per_fecha_modificacion)
-                        </strong>
-                        }
-                        </td>*@
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                                <div class="dropdown">
-                                    <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">
-                                        <strong>
-                                            Acciones
-                                        </strong> <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.per_codigo_id"><i class="material-icons" style="font-size:14px">border_color</i>&nbsp;Editar</a>
-                                        <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.per_codigo_id"><i class="material-icons" style="font-size:14px">description</i>&nbsp;Detalles</a>
-                                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.per_codigo_id"><i class="material-icons" style="font-size:14px">delete</i>&nbsp;Eliminar</a>
-                                    </ul>
-                                </div>
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
+                        <div class="toast-body">
+                            <h4 class="text-primary text-center" style="font-size:1.5rem">
+                                Se encontró un total de
+                                <strong class="text-success">@ViewBag.TotalPersonas</strong>
+                                personas en la base de datos.
+                            </h4>
+                        </div>
                     }
-                </tbody>
-            </table>
+                    else if (ViewBag.Validacion == 2)
+                    {
+                        <div class="toast-body">
+                            <h4 class="text-primary text-center" style="font-size:1.5rem">
+                                El resultado de la búsqueda son:
+                                <strong class="text-success">@ViewBag.TotalPersonas</strong>
+                                persona(s) registrada(s).
+                            </h4>
+                        </div>
+                    }
+                    else if (ViewBag.Validacion == 3)
+                    {
+                        <div class="toast-body">
+                            <h4 class="text-danger text-center">
+                                <strong>
+                                    No se encontraron coincidencias con estos parámetros de búsqueda.
+                                </strong>
+                            </h4>
+                        </div>
+                    }
+                </div>
+            </div>
+            <br />
+            <br />
 
-            <style type="text/css">
+            <!--Sección: Titulo y botones para agregar persona,exportar data excel.-->
+            <div class="row" style="font-family:Helvetica;">
+                <div class="col-8" style="justify-content:flex-start;padding-right:0px;padding-left:15px;">
+                    <div class="pb-3 shadow-2" style="font-family:Helvetica;border-radius:9px;">
 
-                .table-responsive {
-                    height: auto;
-                    font-family: "Helvetica", sans-serif;
-                    box-shadow: initial;
-                }
+                        <h2 class="text-2xl font-extrabold leading-none text-black sm:text-3xl md:text-5xl">
+                            @ViewData["Title"]
+                        </h2>
 
-                thead tr th {
-                    position: sticky;
-                    top: 0;
-                    z-index: 10;
-                    background-color: #007bff;
-                    font-family: "Helvetica", sans-serif;
-                }
+                        <h7 class="text-success">
+                            Lista de potenciales migrantes.
+                            <br /><p class="text-xl text-gray-600 md:pr-16">Powered by Sourcing-Corp &copy;</p>
+                        </h7>
+                    </div>
+                </div>
 
-                .search {
-                    border: 3px dotted #999;
-                    border-radius: 4px;
-                    height: 36px;
-                    -webkit-appearance: none;
-                }
-            </style>
-        </form>
+                <div class="col-4" style="justify-items:flex-end;display:inline-grid;padding-right:0px;padding-left:0px;">
+                    <a type="button" class="btn btn-primary btn-sm" asp-controller="Personas" asp-action="CrearPersona"><i class="fa-solid fa-user-plus" style="font-size:18px"></i>&nbsp;Crear persona nueva</a>
+                    <br />
+                    @if (ViewBag.Validacion == 3 || ViewBag.Validacion == 0)
+                    {
+
+                        <button type="button" class="btn btn-success btn-sm" disabled value="Exportar data a Excel"
+                        onclick="DescargarExcel()">
+                            <i style="font-size:24px" class="fa">&#xf1c3;</i>&nbsp;Exportar data a Excel
+                        </button>
+                    }
+                    else if (ViewBag.Validacion == 2 || ViewBag.Validacion == 1)
+                    {
+                        <button type="button" class="btn btn-success btn-sm" value="Exportar data a Excel"
+                        onclick="DescargarExcel()">
+                            <i style="font-size:24px" class="fa">&#xf1c3;</i>&nbsp;Exportar data a Excel
+                        </button>
+
+                    }
+                </div>
+            </div>
+
+            <br />
+            <br />
+            <!--Muestra tabla de personas en la base de datos.-->
+            <div class="relative z-10 h-auto p-8 py-10 overflow-hidden bg-white border-b-2 border-gray-300 rounded-lg shadow-2xl px-7">
+                <div class="card" style="font-family:Helvetica;">
+                    <div class="table-responsive text-nowrap" style="align-content:space-evenly">
+                        <form asp-action="ExportarPersonasExcel" asp-controller="Personas" id="FormChecks">
+                            <table class="table-light table-striped text-center table-hover table-sm table-responsive-xl pre-scrollable">
+                                <thead class="text-center" style="color:white;">
+                                    <tr>
+                                        <th>
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_primer_ape" />
+                                        </th>
+                                        <th>
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_segundo_ape" />
+                                        </th>
+                                        <th>
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_primer_nom" />
+                                        </th>
+                                        <th>
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_segundo_nom" />
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_apellido_cas" />
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_fecha_nac" />
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_profesion" />
+                                        </th>
+                                        <th>
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="Sexo" />
+                                        </th>
+                                        <th>
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="Edad" />
+                                        </th>
+                                        <th>
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="EstadoCivil" />
+                                        </th>
+                                        <th>
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_telefono_movil" />
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_telefono_interno" />
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_email" />
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_email_interno" />
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_observaciones" />
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_usuario_grabacion" />
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_fecha_grabacion" />
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_usuario_modificacion" />
+                                            <input hidden type="checkbox" checked name="nombrePropiedades" value="per_fecha_modificacion" />
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <strong>
+                                                Primer nombre
+                                            </strong>
+                                        </th>
+                                        <th>
+                                            <strong>
+                                                Segundo nombre
+                                            </strong>
+                                        </th>
+
+                                        <th>
+                                            <strong>
+                                                Apellidos
+                                            </strong>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                            <strong>
+                                                @Html.DisplayNameFor(model => model.Sexo)
+                                            </strong>
+                                        </th>
+                                        <th>
+                                            <strong>
+                                                @Html.DisplayNameFor(model => model.Edad)
+                                            </strong>
+                                        </th>
+                                        <th>
+                                            <strong>
+                                                @Html.DisplayNameFor(model => model.EstadoCivil)
+                                            </strong>
+                                        </th>
+                                        <th>
+                                            <strong>
+                                                Teléfono
+                                            </strong>
+                                        </th>
+                                        <th>
+                                            <strong>
+                                                @Html.DisplayNameFor(model => model.per_email)
+                                            </strong>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                        <th>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-light text-center">
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr class="table-">
+                                            <td>
+                                                @Html.DisplayFor(x => item.per_primer_nom)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(x => item.per_segundo_nom)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(x => item.per_primer_ape)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(x => item.per_segundo_ape)
+                                            </td>
+                                            <th>
+                                            </th>
+                                            <td>
+                                                @if (item.Sexo.Contains("M"))
+                                                {
+                                                    <strong class="text-primary">@Html.DisplayFor(x => item.Sexo)</strong>
+                                                }
+                                                else
+                                                {
+                                                    <strong style="color:hotpink">
+                                                        @Html.DisplayFor(x => item.Sexo)
+                                                    </strong>
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (item.per_edad > 18)
+                                                {
+                                                    <strong class="text-success">
+                                                        @Html.DisplayFor(x => item.Edad)
+                                                    </strong>
+                                                }
+                                                else
+                                                {
+                                                    <strong class="text-danger">
+                                                        @Html.DisplayFor(x => item.Edad)
+                                                    </strong>
+                                                }
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(x => item.EstadoCivil)
+
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(x => item.per_telefono_movil)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(x => item.per_email)
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                                        <strong>
+                                                            Acciones
+                                                        </strong> <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.per_codigo_id"><i class="fa-solid fa-user-pen"></i>&nbsp;Editar</a>
+                                                        <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.per_codigo_id"><i class="fa-solid fa-file-lines"></i>&nbsp;Detalles</a>
+                                                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.per_codigo_id"><i class="fa-solid fa-trash-can"></i>&nbsp;Eliminar</a>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                            <style type="text/css">
+
+                                .table-responsive {
+                                    height: auto;
+                                    font-family: "Helvetica", sans-serif;
+                                    box-shadow: initial;
+                                    border-radius: 5px;
+                                }
+
+                                thead tr th {
+                                    position: sticky;
+                                    top: 0;
+                                    z-index: 10;
+                                    background-color: #007bff;
+                                    font-family: "Helvetica", sans-serif;
+                                }
+
+                                .search {
+                                    border: 3px dotted #999;
+                                    border-radius: 4px;
+                                    height: 36px;
+                                    -webkit-appearance: none;
+                                }
+                            </style>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+    <br />
+    <br />
+}
 
-<br />
-<br />
-
+<!-- AlpineJS Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.0/alpine.js"></script>
 
 @section Scripts{
     <script>
@@ -349,4 +492,4 @@
 
         $('.toast').toast(option)
     </script>
-}
+    }

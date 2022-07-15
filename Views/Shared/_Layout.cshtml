@@ -3,15 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Migrantes</title>
+    <title>Migrantes APP</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" type="text/css" href="~/css/sideNav.css" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="~/fontawesome/css/all.css" />
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 </head>
-
 
 <body class="idbody">
     <header>
@@ -33,26 +31,39 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Personas" asp-action="Personas">Lista de candidatos</a>
                         </li>
-
                         <li class="nav-item justify-content-center">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Personas" asp-action="CrearPersona">Nueva persona</a>
+                            @*
+                            <form asp-action="Index" asp-controller="Personas" method="get" style="font-family:Helvetica">
+                            <div class="container justify-content-around">
+                            <div class="row">
+                            <label class="control-label">Mes</label>
+                            <input type="number" class="form-control" min="1" max="12" name="sMes" value="@ViewData["Mes"]" />
+                            <input type="submit" value="Consultar" class="btn btn-info" />
+                            </div>
+                            </div>
+                            </form>*@
+                        </li>
+                        <li class="nav-item" style="padding-left:1px;padding-right:1px">
                             <form asp-action="Personas" asp-controller="Personas" method="get" id="frmForm" style="font-family:Helvetica">
-                                <div class="container justify-content-around">
+                                <div class="container" style="display:inline-block">
                                     <div class="row">
                                         <div class="col-auto">
-                                            <input placeholder=" Busca por nombres o apellidos..." class="search" style="border:1px solid;color:black;width:300px" type="text" name="oBuscador" value="@ViewData["Buscador"]" id="frmBuscar" />
+                                            <input placeholder=" Busca por nombres o apellidos..." class="search" style="border:0.5px hidden;width:300px" type="text" name="oBuscador" value="@ViewData["Buscador"]" id="frmBuscar" />
                                         </div>
-                                        &nbsp;
+
                                         <div class="row">
                                             <input type="submit" value="Buscar" class="btn btn-secondary" />
-                                            <input type="submit" value="Limpiar" class="btn btn-danger" onclick="Limpiar()" />
+                                            &nbsp;<input type="submit" value="Limpiar" class="btn btn-secondary" onclick="Limpiar()" />
                                         </div>
                                     </div>
                                 </div>
                             </form>
                         </li>
+
                     </ul>
                 </div>
-                @*<partial name="_LoginPartial" />*@
+                @* <partial name="_LoginPartial" />*@
             </div>
         </nav>
     </header>
@@ -84,7 +95,9 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>

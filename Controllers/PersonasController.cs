@@ -14,6 +14,7 @@ using Migrantes.Models.Entities;
 using Migrantes.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -39,7 +40,7 @@ namespace Migrantes.Controllers
             IWebHostEnvironment IWebHostEnvironment, IMapper imapper,
             IDocumentos documentos, IPersonas persona, IFamiliares agregandofamiliares)
         {
-            
+
             this._IWebHostEnvironment = IWebHostEnvironment;
             this._imapper = imapper;
             this._documentos = documentos;
@@ -48,15 +49,16 @@ namespace Migrantes.Controllers
             this._context = context;
         }
 
-        //public static List<PersonaDTO> oPersonasExcel;
 
+        #region Método Exportar data Excel
+        public static List<PersonaDTO> oPersonasExcel;
 
-        //public FileResult ExportarPersonasExcel(string[] nombrePropiedades)
-        //{
-        //    byte[] buffer = ExportarExcelGeneric(nombrePropiedades, oPersonasExcel);
-        //    return File(buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        //}
-
+        public FileResult ExportarPersonasExcel(string[] nombrePropiedades)
+        {
+            byte[] buffer = ExportarExcelGeneric(nombrePropiedades, oPersonasExcel);
+            return File(buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        }
+        #endregion Método Exportar data Excel
 
 
         #region Area personas
@@ -67,7 +69,10 @@ namespace Migrantes.Controllers
             var urlRetorno1 = HttpContext.Request.Path + HttpContext.Request.QueryString;
             HttpContext.Session.SetString("UrlRetorno1", urlRetorno1);
 
+
             return View(await _context.PersonasDb.ToListAsync());
+
+     
         }
 
 
@@ -83,6 +88,10 @@ namespace Migrantes.Controllers
 
             var PersonaDoc = this._context.PersonasDb.FirstOrDefault(x => x.per_codigo_id == id);
             ViewBag.IdPersona = PersonaDoc.per_codigo_id;
+           
+          
+            ViewBag.EstCivilEditar = EstadoCivilEditar();
+            ViewBag.SexoEditar = SexosEditar();
 
             DocPersona(PersonaDoc.per_codigo_id);
 
@@ -105,7 +114,6 @@ namespace Migrantes.Controllers
         public ActionResult CrearPersona()
         {
 
-
             Sexos();
             EstadoCivil();
 
@@ -113,26 +121,26 @@ namespace Migrantes.Controllers
         }
 
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("per_codigo_id,per_estado,per_codigo_alternativo," +
-            "per_letra_indice,per_primer_ape,per_segundo_ape,per_apellido_cas,per_primer_nom,per_segundo_nom," +
-            "per_otros_nom,per_nombre_usual,per_codpai_nacionalidad,per_codpai_nacimiento,per_sexo,per_edad," +
-            "per_fecha_nac,per_profesion,per_estado_civil,per_email,per_codmun_nac,per_coddep_nac,per_lugar_nac," +
-            "per_email_interno,per_telefono_movil,per_telefono_interno,per_apellidos_nombres,per_observaciones," +
-            "per_codpai_digita,per_usuario_grabacion,per_fecha_grabacion,per_usuario_modificacion," +
-            "per_fecha_modificacion")] Persona persona)
-        {
-            if (ModelState.IsValid)
-            {
-                this._context.Add(persona);
-                await this._context.SaveChangesAsync();
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("per_codigo_id,per_estado,per_codigo_alternativo," +
+        //    "per_letra_indice,per_primer_ape,per_segundo_ape,per_apellido_cas,per_primer_nom,per_segundo_nom," +
+        //    "per_otros_nom,per_nombre_usual,per_codpai_nacionalidad,per_codpai_nacimiento,per_sexo,per_edad," +
+        //    "per_fecha_nac,per_profesion,per_estado_civil,per_email,per_codmun_nac,per_coddep_nac,per_lugar_nac," +
+        //    "per_email_interno,per_telefono_movil,per_telefono_interno,per_apellidos_nombres,per_observaciones," +
+        //    "per_codpai_digita,per_usuario_grabacion,per_fecha_grabacion,per_usuario_modificacion," +
+        //    "per_fecha_modificacion")] Persona persona)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        this._context.Add(persona);
+        //        await this._context.SaveChangesAsync();
 
-                return RedirectToAction(nameof(Index));
-            }
+        //        return RedirectToAction(nameof(Index));
+        //    }
 
-            return View(persona);
-        }
+        //    return View(persona);
+        //}
 
 
         //POST CREAR PERSONA
@@ -145,11 +153,14 @@ namespace Migrantes.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return RedirectToAction("CrearPersona", "Personas");
+
+                    return RedirectToAction("CrearPersona");
                 }
                 else
                 {
+
                     await this._persona.GuardarPersona(oPersona);
+                    TempData["AlertaPersona"] = "¡Persona guardada exitosamente!";
                 }
             }
             catch (Exception)
@@ -170,37 +181,31 @@ namespace Migrantes.Controllers
         //GET Edit 
         public async Task<IActionResult> Edit(int? id)
         {
-            ViewBag.EstCivilEditar = EstadoCivilEditar();
-            ViewBag.SexoEditar = SexosEditar();
-
-            var documento = this._context.PersonasDb.FirstOrDefault(x => x.per_codigo_id == id);
-            ViewBag.IdPersona = documento.per_codigo_id;
-
-            //Obtenemos el ID del documento asociado a la persona.
-
-            var oDocumento = this._context.IdentidadPersonasDb.FirstOrDefault(x => x.ide_codigo_id == id);
-            ViewBag.IdDocumento = oDocumento;
-
-
-            DocPersona(documento.per_codigo_id);
 
             if (id == null)
             {
                 return NotFound();
             }
 
+            ViewBag.EstCivilEditar = EstadoCivilEditar();
+            ViewBag.SexoEditar = SexosEditar();
+
+            var documentoPersona = this._context.PersonasDb.FirstOrDefault(x => x.per_codigo_id == id);
+            ViewBag.IdPersona = documentoPersona.per_codigo_id;
+
+            ////Obtenemos el ID del documento asociado a la persona.
+
+            //var oDocumento = this._context.IdentidadPersonasDb.FirstOrDefault(x => x.ide_codigo_id == id);
+            //ViewBag.IdDocumento = oDocumento;
+
+            DocPersona(documentoPersona.per_codigo_id);
+
+
             var persona = await this._context.PersonasDb.FindAsync(id);
 
             if (persona == null)
             {
                 return NotFound();
-            }
-
-
-            if (oDocumento == null)
-            {
-                TempData["msj"] = "La persona no tiene documentos agregados...";
-                return View(persona);
             }
 
             return View(persona);
@@ -260,18 +265,16 @@ namespace Migrantes.Controllers
         //GET Delete
         public async Task<IActionResult> Delete(int? id)
         {
-            var persona = await this._context.PersonasDb.FirstOrDefaultAsync(m => m.per_codigo_id == id);
+            var persona = await this._context.PersonasDb
+                .FirstOrDefaultAsync(m => m.per_codigo_id == id);
 
-            if (id == null)
+            if (id == null || persona == null)
             {
                 return NotFound();
             }
 
-
-            if (persona == null)
-            {
-                return NotFound();
-            }
+            ViewBag.EstCivilEditar = EstadoCivilEditar();
+            ViewBag.SexoEditar = SexosEditar();
 
             return View(persona);
         }
@@ -280,6 +283,7 @@ namespace Migrantes.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
+
         {
             var persona = await this._context.PersonasDb.FindAsync(id);
             this._context.PersonasDb.Remove(persona);
@@ -424,9 +428,7 @@ namespace Migrantes.Controllers
                               on identidad.ide_id_documento equals TipoDoc.tid_id_documento
                               where persona.per_codigo_id == idPersona
 
-
                               select new DocumentosPersonaDTO
-
                               {
                                   RutaImagenPortada_A = identidad.RutaImagenPortada_A,
                                   NombreImagenPortada_A = identidad.NombreImagenPortada_A,
@@ -472,9 +474,7 @@ namespace Migrantes.Controllers
                                  per_segundo_ape = p.per_segundo_ape,
                                  per_apellido_cas = p.per_apellido_cas,
                                  per_primer_nom = p.per_primer_nom,
-                                 per_segundo_nom = p.per_segundo_nom,
-                                 per_otros_nom = p.per_otros_nom,
-                                 per_nombre_usual = p.per_nombre_usual,
+                                 per_segundo_nom = p.per_segundo_nom,                                
                                  Sexo = s.nomenclatura_sexo,
                                  per_fecha_nac = p.per_fecha_nac,
                                  per_profesion = p.per_profesion,
@@ -484,12 +484,11 @@ namespace Migrantes.Controllers
                                  per_telefono_movil = p.per_telefono_movil,
                                  per_telefono_interno = p.per_telefono_interno,
                                  per_observaciones = p.per_observaciones,
-                                 per_codpai_nacionalidad = p.per_codpai_nacionalidad,
-                                 per_codpai_nacimiento = p.per_codpai_nacimiento,
+                                
                                  Edad = Convert.ToString(p.per_edad),
                                  per_fecha_grabacion = p.per_fecha_grabacion,
                                  per_usuario_grabacion = p.per_usuario_grabacion,
-                                 per_letra_indice = p.per_letra_indice,
+                                
                                  per_usuario_modificacion = p.per_usuario_modificacion,
                                  per_fecha_modificacion = p.per_fecha_modificacion,
                                  per_edad = p.per_edad
@@ -521,10 +520,8 @@ namespace Migrantes.Controllers
                                  per_segundo_ape = p.per_segundo_ape,
                                  per_apellido_cas = p.per_apellido_cas,
                                  per_primer_nom = p.per_primer_nom,
-                                 per_segundo_nom = p.per_segundo_nom,
-                                 per_otros_nom = p.per_otros_nom,
-                                 per_nombre_usual = p.per_nombre_usual,
-                                 Sexo = s.nomenclatura_sexo,
+                                 per_segundo_nom = p.per_segundo_nom,                               
+                                 Sexo = s.nombre_sexo,
                                  per_fecha_nac = p.per_fecha_nac,
                                  per_profesion = p.per_profesion,
                                  EstadoCivil = e.estado_civil,
@@ -533,8 +530,7 @@ namespace Migrantes.Controllers
                                  per_telefono_movil = p.per_telefono_movil,
                                  per_telefono_interno = p.per_telefono_interno,
                                  per_observaciones = p.per_observaciones,
-                                 per_codpai_nacionalidad = p.per_codpai_nacionalidad,
-                                 per_codpai_nacimiento = p.per_codpai_nacimiento,
+                                
                                  Edad = Convert.ToString(p.per_edad),
                                  per_fecha_grabacion = p.per_fecha_grabacion,
                                  per_usuario_grabacion = p.per_usuario_grabacion,

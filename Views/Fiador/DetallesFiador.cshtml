@@ -1,0 +1,227 @@
+﻿@using Migrantes.Models.DTO
+@using Migrantes.ViewModels
+@*@model IEnumerable<FiadorViewModel>*@
+@model Migrantes.ViewModels.FiadorViewModel
+
+@{
+    ViewData["Title"] = "Formulario para crear fiador";
+    ViewData["TituloFiador"] = "Detalles del fiador";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<SelectListItem> oSexos = ViewBag.Sexos;
+    List<FiadorViewModel> FiadorDisponible = ViewBag.ListadoFiador;
+    List<DocumentosPersonaDTO> NombreDeLaPersona = ViewBag.NombresPersona;
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css">
+
+
+<!--Si la persona seleccionada no tiene un fiador creado,
+se muestra una alerta y opción para crearlo.-->
+@if (TempData["msjSinFiador1"] != null)
+{
+    <div style="justify-content:center;display:flex;align-items:center" class="mb-2">
+        <div class="toast" data-delay="90000000" style="border:thin;color:blue;border-radius: 9px;" role="alert" aria-live="assertive" aria-atomic="true">
+            <div style="background:#ffc107" class="toast-header">
+                <img src="~/img/scblancopeque-200x91.png" style="width:10%;height:10%" class="rounded mr-2" alt="..." />
+                <strong class="mr-auto text-white">Notificación SC</strong>
+                <small class="text-white">justo ahora</small>
+            </div>
+            @foreach (var item in NombreDeLaPersona)
+            {
+                <div class="toast-body">
+                    <h4 class="text-primary text-center">
+                        <strong style="font-family:Helvetica;font-size:1.5rem;"> @TempData["msjSinFiador1"] </strong>
+                        <a class="text-center text-dark" style="font-family:Helvetica;font-size:1.5rem;"><strong>@item.per_primer_nom @item.per_segundo_nom @item.per_primer_ape @item.per_segundo_ape</strong></a>
+                        <strong style="font-family:Helvetica;font-size:1.5rem;"> @TempData["msjSinFiador2"] </strong>
+                    </h4>
+                </div>
+            }
+        </div>
+    </div>
+    <br />
+    <br />
+
+    <center>
+        <div class="form-group">
+            <a class="btn btn-primary" asp-controller="Fiador" asp-action="CrearFiador" asp-route-id="@ViewBag.IdPersona">Agregar fiador</a>
+            <a class="btn btn-outline-primary" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+        </div>
+    </center>
+
+}
+
+
+ <!--Si la persona seleccionada tiene un fiador
+se muestra una tarjeta con información.-->
+@foreach (var item in FiadorDisponible)
+{
+
+    @foreach (var NombrePersona in NombreDeLaPersona)
+    {
+        <div class="align-content-left" id="TituloPer" data-bs-toggle="tooltip" data-bs-placement="top" title="Persona seleccionada">
+            <center>
+                <img src="~/persona.png" width="50" height="50" />
+                <h3 class="text-center text-dark" style="font-size:25px"><strong>@NombrePersona.per_primer_nom @NombrePersona.per_segundo_nom @NombrePersona.per_primer_ape @NombrePersona.per_segundo_ape</strong></h3>
+            </center>
+        </div>
+        <br />
+        <br />
+    }
+
+    <!-- Section 1 -->
+    <section class="relative w-full bg-white">
+        <div class="absolute w-full h-32 bg-gradient-to-b from-gray-100 to-white"></div>
+        <div class="relative w-full px-5 py-10 mx-auto sm:py-12 md:py-16 md:px-10 max-w-7xl">
+
+            <h1 class="mb-1 text-4xl font-extrabold leading-none text-gray-900 lg:text-4xl xl:text-4xl sm:mb-3"><a href="#_">@ViewData["TituloFiador"]</a></h1>
+            @*<p class="text-lg font-medium text-gray-500 sm:text-2xl">Designs and layouts to help you with your app.</p>*@
+            <div class="flex justify-center h-full grid-cols-12 gap-10 pb-10 mt-8 sm:mt-16">
+
+                <div class="relative flex flex-col items-start justify-end h-full col-span-12 overflow-hidden rounded-xl group md:col-span-6 xl:col-span-4">
+                    <a href="#_" class="block w-full transition duration-300 ease-in-out transform bg-center bg-cover h-96 hover:scale-110" style="background-image:url('https://cdn.devdojo.com/images/may2021/orange.jpg')">
+                    </a>
+                    <div class="relative z-20 w-full h-auto py-8  bg-blue-400 border-t-0 border-yellow-200 px-7">
+                        <a href="#_" class="inline-block text-xs font-semibold absolute top-0 -mt-3.5 rounded-full px-4 py-2 uppercase text-blue-500 bg-white">Nombre</a>
+                        <h2 class="mb-5 text-5xl font-bold text-white"><a href="#_">@item.PrimerNombreDelFiador @item.SegundoNombreDelFiador @item.ApellidosDelFiador</a></h2>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+
+                                <h5 class="card-title text-white"><strong>Edad</strong></h5>
+                                @if (item.EdadDelFiador > 18)
+                                {
+                                    <strong class="text-primary text-white">
+                                        @Html.DisplayFor(x => item.EdadDelFiador)
+                                    </strong>
+                                }
+                                else
+                                {
+                                    <strong class="text-primary text-white">
+                                        @Html.DisplayFor(x => item.EdadDelFiador)
+                                    </strong>
+                                    <br />
+                                }
+                                <br />
+                                <h5 class="card-title text-white"><strong>Género</strong></h5>
+                                @if (item.SexoDelFiador.Contains('M'))
+                                {
+                                    
+                                    <p> <strong class="text-primary">M</strong></p>
+                                }
+                                else
+                                {
+                                    <strong style="color:hotpink">F</strong>
+                                    <br />
+                                }
+
+                                <br />
+                                <h5 class="card-title text-white"><strong>Fecha de nacimiento</strong></h5>
+                                <p class="card-text">@item.FechaNacimientoDelFiador</p>
+                                <br />
+
+
+                                <h5 class="card-title text-white"><strong>País de nacimiento</strong></h5>
+                                <p class="card-text">@item.PaisNacimientoDelFiador</p>
+                                <br />
+                                <h5 class="card-title text-white"><strong>Email</strong></h5>
+                                <p class="card-text">@item.EmailFiador </p>
+                                <br />
+                            </div>
+
+                            <div class="col-sm-6">
+                                <h5 class="card-title text-white"><strong>Teléfono</strong></h5>
+                                <p class="card-text">@item.TelefonoFiador</p>
+                                <br />
+                                <h5 class="card-title text-white"><strong>Teléfono alternativo</strong></h5>
+                                <p class="card-text">@item.TelefonoAlternoFiador</p>
+                                <br />
+
+                                <h5 class="card-title text-white"><strong>Cartas personales</strong></h5>
+                                <p class="card-text">@item.NumCartasPersonales</p>
+                                <br />
+
+                                <h5 class="card-title text-white"><strong>Cartas familiares</strong></h5>
+                                <p class="card-text">@item.NumCartasFamiliares</p>
+
+                                <br />
+                                <h5 class="card-title text-white"><strong>Entrego recibo agua o luz?</strong></h5>
+                                @if (item.EntregoRecibo_Agua_o_Luz == true)
+                                {
+                                    <p> <strong class="text-success">Si entrego recibo</strong></p>
+                                }
+                                @if (item.EntregoRecibo_Agua_o_Luz == false)
+                                {
+                                    <p> <strong class="text-danger">No entrego recibo</strong></p>
+                                }
+                                <br />
+                                <h5 class="card-title text-white"><strong>Fecha de creación</strong></h5>
+                                <p class="card-text">@item.FechaGrabacionDelFiador</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <center>
+        <form asp-action="ExportarFiadorExcel" asp-controller="Fiador" id="FormChecks">
+            <div class="form-group">
+                <a class="btn btn-primary" asp-controller="Fiador" asp-action="EditarFiador" asp-route-id="@ViewBag.IdPersona"><i class="fa-solid fa-user-pen"></i>&nbsp;Editar</a>
+                <a class="btn btn-danger" asp-controller="Fiador" asp-action="EliminarFiador" asp-route-id="@ViewBag.IdPersona"><i class="fa-solid fa-trash-can"></i>&nbsp;Eliminar</a>
+                <button type="button" class="btn btn-success btn-sm" value="Exportar data a Excel"
+                    onclick="DescargarExcel()">
+                    <i style="font-size:24px" class="fa">&#xf1c3;</i>&nbsp;Exportar data a Excel
+                </button>
+                <a class="btn btn-outline-primary" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="PrimerNombreDelFiador" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="SegundoNombreDelFiador" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="ApellidosDelFiador" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="FechaNacimientoDelFiador" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="EdadDelFiador" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="SexoDelFiador" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="TelefonoFiador" />
+               @* <input type="checkbox" hidden checked name="nombrePropiedades" value="TelefonoAlternoFiador" />*@
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="PaisNacimientoDelFiador" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="EmailFiador" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="NumCartasPersonales" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="NumCartasFamiliares" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="EntregoRecibo_Agua_o_Luz" />
+
+            </div>
+        </form>
+    </center>
+}      
+
+
+<!-- AlpineJS Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.0/alpine.js"></script>
+
+@section Scripts {
+
+    <script src="~/js/generic.js"></script>
+    <script src="~/js/sweetalert.js"></script>
+
+    <script>
+        function Guardar() {
+            var frm = document.getElementById("frm");
+            MostrarModal().then(res => {
+                if (res.value) {
+                    frm.submit();
+                    MostrarSuccess();
+                }
+            })
+        }
+
+        function DescargarExcel() {
+            var frmReporte = document.getElementById("FormChecks");
+            frmReporte.submit();
+        }
+
+        $(document).ready(function() {
+            $('.toast').toast('show');
+        });
+        $('.toast').toast(option)
+    </script>
+
+    }

@@ -1,31 +1,49 @@
 ﻿@using Migrantes.Models.DTO
-@model Migrantes.ViewModels.DocumentosViewModel
+@model Migrantes.Models.DTO.DocumentosPersonaDTO
 @{
-    ViewData["Title"] = "Formulario para registro de documentos";
+   
+    ViewData["Title"] = "Formulario para documentos";
     ViewData["TitleCargaDocumentos"] = "Carga de archivos";
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<SelectListItem> TipoDocSelect = ViewBag.ListDoc;
     List<DocumentosPersonaDTO> DocumentosPersona = ViewBag.ListadoDocumentos;
+    List<DocumentosPersonaDTO> NombreDeLaPersona = ViewBag.NombresPersona;
 }
 
-<center>
-    <div class="p-2 shadow-2 rounded-3 mb-2" style="background-color: hsl(0, 0%, 94%);font-family:Helvetica;border-radius: 9px;width:fit-content;">
-        <h2 class="text-center text-primary"><strong>@ViewData["Title"]</strong></h2>
-    </div>
-    <hr />
-</center>
 
+<div class="row">
+    <div class="col" style="text-align:left">
+        <div class="p-1 shadow-2 rounded-3 mb-2" style="font-family:Helvetica;border-radius: 9px;">
+            <h2 class="text-primary"><strong>@ViewData["Title"]</strong></h2>
+        </div>
+    </div>
+    <div class="col" style="text-align:right">
+        <a class="btn btn-outline-primary" style="justify-items:right;" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+    </div>
+</div>
+<hr>
+
+@foreach (var item in NombreDeLaPersona)
+{
+    <div class="align-content-left" id="TituloPer" data-bs-toggle="tooltip" data-bs-placement="top" title="Persona seleccionada">
+        <center>
+            <img src="~/persona.png" width="50" height="50" />
+            <h3 class="text-center text-dark"><strong>@item.per_primer_nom @item.per_segundo_nom @item.per_primer_ape @item.per_segundo_ape</strong></h3>
+        </center>
+    </div>
+
+}
 
 
 <div class="row justify-content-center" style="font-family:Helvetica;">
     <div style="text-align: center" class="col-md-4 offset-sm-0">
         <form asp-action="GuardarDoc" asp-controller="Documentos" method="post" enctype="multipart/form-data" id="frm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ide_codigo_id" value="@ViewBag.IdPersona" />
+            <input type="hidden" asp-for="ide_codigo_id" value="@ViewBag.PersonaID" />
 
-            @* //Presentamos en la vista el ID de la persona seleccionada*@
+            @* //ID de la persona seleccionada*@
             <div class="form-group">
-                <input type="hidden" asp-for="ide_id_persona" class="form-control" value="@ViewBag.Idpersona" />
+                <input type="hidden" asp-for="ide_id_persona" class="form-control" value="@ViewBag.PersonaID" />
             </div>
             <br />
 
@@ -33,8 +51,8 @@
                 <strong>
                     <label asp-for="ide_id_documento" class="control-label"></label>
                 </strong>
-                <select asp-for="ide_id_documento" asp-items="@TipoDocSelect" class="form-control text-center" style="border:1px solid;color:black"> </select>
-
+                <select  asp-for="ide_id_documento" asp-items="@TipoDocSelect" class="form-control text-center"> </select>
+                <span asp-validation-for="ide_id_documento" class="text-danger"></span>
             </div>
             <br />
 
@@ -42,7 +60,7 @@
                 <strong>
                     <label asp-for="ide_numero" class="control-label"></label>
                 </strong>
-                <input type="number" asp-for="ide_numero" class="form-control text-center" name="ide_numero" style="border:1px solid;color:black" />
+                <input type="number" asp-for="ide_numero" class="form-control text-center" name="ide_numero" />
                 <span asp-validation-for="ide_numero" class="text-danger"></span>
             </div>
 
@@ -51,7 +69,7 @@
                 <strong>
                     <label asp-for="ide_fecha_emision" class="control-label"></label>
                 </strong>
-                <input asp-for="ide_fecha_emision" class="form-control text-center" style="border:1px solid;color:black" />
+                <input asp-for="ide_fecha_emision" class="form-control text-center" />
                 <span asp-validation-for="ide_fecha_emision" class="text-danger"></span>
             </div>
             <br />
@@ -60,7 +78,7 @@
                 <strong>
                     <label asp-for="ide_fecha_vencimiento" class="control-label"></label>
                 </strong>
-                <input asp-for="ide_fecha_vencimiento" class="form-control text-center" style="border:1px solid;color:black" />
+                <input asp-for="ide_fecha_vencimiento" class="form-control text-center" />
                 <span asp-validation-for="ide_fecha_vencimiento" class="text-danger"></span>
             </div>
             <br />
@@ -75,85 +93,78 @@
                 <strong>
                     <label asp-for="FotoDocumento" class="control-label"></label>
                 </strong>
-                <input required asp-for="FotoDocumento" class="form-control mb-1" id="customFile"
-                       onchange="SelecImg1()" accept="image/*" />
-                <img style="border:none;width:100%" src="~/no-fotos.png" width="200" height="200" id="ImgFoto1" />
+                <img style="border-radius:6px;width:100%" src="~/Add-Photos.png" width="300em" height="250em" id="ImgFoto1" />
+                <input required asp-for="FotoDocumento" class="form-control mb-1" id="customFile" onchange="SelecImg1()" accept="image/*" />
                 <span asp-validation-for="FotoDocumento" class="text-danger"></span>
             </div>
             <br />
-
 
             <div class="form-group">
                 <strong>
                     <label asp-for="FotoDocumento_LadoB" class="control-label"></label>
                 </strong>
-                <input required asp-for="FotoDocumento_LadoB" class="form-control mb-1" id="customFile2"
-                       onchange="SelecImg2()" accept="image/*" />
-                <img style="border:none;width:100%" src="~/no-fotos.png" width="200" height="200" id="ImgFoto2" />
+                <img style="border-radius:6px;width:100%" src="~/Add-Photos.png" width="300em" height="250em" id="ImgFoto2" />
+                <input required asp-for="FotoDocumento_LadoB" class="form-control mb-1" id="customFile2" onchange="SelecImg2()" accept="image/*" />
                 <span asp-validation-for="FotoDocumento_LadoB" class="text-danger"></span>
             </div>
+
             <br />
-
             <div class="form-group">
-                <input type="submit" onclick="SuccessDoc()" value="Guardar Documento" class="btn btn-success" />
+                <input type="submit" onclick="return ValidarFormulario()" value="Guardar documento" class="btn btn-success" />
             </div>
 
-            <div class="form-group">
-                <a class="btn btn-outline-primary asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
-            </div>
         </form>
     </div>
 </div>
 
 <br />
-
 <br />
 @section Scripts {
     @{
-    await Html.RenderPartialAsync("_ValidationScriptsPartial");
-}
-<script src="~/js/generic.js"></script>
-<script src="~/js/sweetalert.js"></script>
-
-<script>
-    function SelecImg1() {
-    var archivo = document.getElementById("customFile").files[0];
-    var reader = new FileReader();
-    reader.onloadend = function () {
-    document.getElementById("ImgFoto1").src = reader.result;
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-     reader.readAsDataURL(archivo);
-    }
-</script>
 
-<script>
-    function SelecImg2() {
-    var archivo = document.getElementById("customFile2").files[0];
-    var reader = new FileReader();
-    reader.onloadend = function () {
-    document.getElementById("ImgFoto2").src = reader.result;
-    }
-     reader.readAsDataURL(archivo);
-    }
-</script>
+    <script src="~/js/generic.js"></script>
+    <script src="~/js/sweetalert.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-<script>
+    <script>
+        $(document).ready(function() {
+            $('.toast').toast('show');
+        });
 
-    function SuccessDoc() {
-        var frm = document.getElementById("frm");
-        MostrarSuccessDoc().then(res => {
-            if (res.value) {
-                frm.submit();
-                MostrarSuccessDoc();
+        $('.toast').toast(option)
+    </script>
+
+    <script>
+        function SelecImg1() {
+            var archivo = document.getElementById("customFile").files[0];
+            var reader = new FileReader();
+            reader.onloadend = function() {
+                document.getElementById("ImgFoto1").src = reader.result;
             }
-        })
-    }
-
-    $(document).ready(function () {
-        $('.toast').toast('show');
-    });
-
-    $('.toast').toast(option)
-</script>
-
+            reader.readAsDataURL(archivo);
+        }
+        function SelecImg2() {
+            var archivo = document.getElementById("customFile2").files[0];
+            var reader = new FileReader();
+            reader.onloadend = function() {
+                document.getElementById("ImgFoto2").src = reader.result;
+            }
+            reader.readAsDataURL(archivo);
+        }
+    </script>
+    <script>
+        function ValidarFormulario() {
+            if (document.getElementById("customFile").value == "") {
+                swal("Error", "Elige una portada del documento", "error");
+                return false;
+            }
+            if (document.getElementById("customFile2").value == "") {
+                swal("Error", "Elige una contraportada del documento", "error");
+                return false;
+            }
+            return true;
+        }
+    </script>
 }

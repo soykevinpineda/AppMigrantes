@@ -3,11 +3,9 @@
 
 @{
     ViewData["Title"] = "Editar persona";
-    ViewData["TituloDocumento"] = "Listado de Documentos";
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<SelectListItem> SexosSelect = ViewBag.SexoEditar;
     List<SelectListItem> EstCivilSelect = ViewBag.EstCivilEditar;
-    List<DocumentosPersonaDTO> DocumentosPersona = ViewBag.ListadoDocumentos;
 }
 
 <!-- Sidenav -->
@@ -15,10 +13,10 @@
     <a class="d-inline-block" asp-controller="Documentos" asp-action="DocumentosDisponibles" asp-route-id="@ViewBag.IdPersona" id="about">
         Documentos  &nbsp;&nbsp; &nbsp;&nbsp;<img style="width:40px;height:40px" src="~/id-card (2).png" />
     </a>
-    <a class="d-inline-block" asp-controller="DatosFamiliares" asp-action="DetallesDatosFamiliares" asp-route-id="@ViewBag.IdPersona" id="blog">
+    <a class="d-inline-block" asp-controller="DatosFamiliares" asp-action="FamiliaresDisponibles" asp-route-id="@ViewBag.IdPersona" id="blog">
         Familiares &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;<img style="width:40px;height:40px" src="~/family (2).png" />
     </a>
-    <a class="d-inline-block" asp-controller="Fiador" asp-action="CrearFiador" asp-route-id="@ViewBag.IdPersona" id="projects">
+    <a class="d-inline-block" asp-controller="Fiador" asp-action="DetallesFiador" asp-route-id="@ViewBag.IdPersona" id="projects">
         Fiador &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img style="width:40px;height:40px" src="~/usuario (1).png" />
     </a>
     <a class="d-inline-block" asp-controller="Documentos" asp-action="DocumentosDisponibles" asp-route-id="@ViewBag.IdPersona" id="contact">
@@ -26,263 +24,218 @@
     </a>
 </div>
 
+<!-- Formulario para editar a la persona -->
+<div class="box" style="margin-left:52px;">
+    <div class="container-fluid">
+        <div class="row justify-content-center" style="align-items:baseline;">
+            <img src="~/persona.png" width="24" height="24" /> &nbsp;
+            <div class="p-1 shadow-2 rounded-3 mb-2" style="font-family:Helvetica;border-radius: 9px;">
+                <h2 class="text-primary"><strong>@ViewData["Title"]</strong></h2>
+            </div>
+        </div>
+        <hr>
+        <br />
+        <div class="row justify-content-center" style="font-family:Helvetica;">
+            <div style="text-align:center" class="offset-sm-0">
+                <form style="font-family:Helvetica;" asp-action="Edit" id="frm">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="per_codigo_id" />
 
-<div class="box">
-    <div style="margin-left:0px;">
-        <!-- content -->
-        <div class="container-fluid">
-            <center>
-                <div class="p-2 shadow-2 rounded-3 mb-2" style="background-color: hsl(0, 0%, 94%);font-family:Helvetica;border-radius: 9px;width:fit-content;">
-                    <h2 class="text-center text-primary"><strong>@ViewData["Title"]</strong></h2>
-                </div>
-                <hr>
-            </center>
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong style="color:#424242">
+                                    <label asp-for="per_primer_nom" class="control-label"></label>
+                                </strong>
+                                <input asp-for="per_primer_nom" class="form-control text-center" />
+                                <span asp-validation-for="per_primer_nom" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong style="color:#424242">
+                                    <label asp-for="per_segundo_nom" class="control-label"></label>
+                                </strong>
+                                <input asp-for="per_segundo_nom" class="form-control text-center" />
+                                <span asp-validation-for="per_segundo_nom" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
 
-            <br />
-            <div class="row justify-content-center" style="font-family:Helvetica;">
-                <div style="text-align:center" class="offset-sm-0">
-                    <form style="font-family:Helvetica;" asp-action="Edit" id="frm">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <input type="hidden" asp-for="per_codigo_id" />
-
-                        <div class="form-group">
-                            <strong>
-                                <label asp-for="per_estado" class="control-label"> </label>
-                            </strong>
-                            <input style="border:1px solid;color:black;" asp-for="per_estado" class="form-control text-center" />
-                            <span asp-validation-for="per_estado" class="text-danger"></span>
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong style="color:#424242">
+                                    <label asp-for="per_primer_ape" class="control-label"></label>
+                                </strong>
+                                <input asp-for="per_primer_ape" class="form-control text-center" />
+                                <span asp-validation-for="per_primer_ape" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong style="color:#424242">
+                                    <label asp-for="per_segundo_ape" class="control-label"></label>
+                                </strong>
+                                <input asp-for="per_segundo_ape" class="form-control text-center" />
+                                <span asp-validation-for="per_segundo_ape" class="text-danger"></span>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <strong>
-                                <label asp-for="per_codigo_alternativo" class="control-label"></label>
-                            </strong>
-                            <input style="border:1px solid;color:black;" asp-for="per_codigo_alternativo" class="form-control text-center" />
-                            <span asp-validation-for="per_codigo_alternativo" class="text-danger"></span>
-                        </div>
+                    </div>
 
-                        <div class="form-group">
-                            <strong>
-                                <label asp-for="per_letra_indice" class="control-label"></label>
-                            </strong>
-                            <input style="border:1px solid;color:black;" asp-for="per_letra_indice" class="form-control text-center" />
-                            <span asp-validation-for="per_letra_indice" class="text-danger"></span>
+                    <div class="row mb-2">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <strong style="color:#424242">
+                                    <label asp-for="per_apellido_cas" class="control-label"></label>
+                                </strong>
+                                <input asp-for="per_apellido_cas" class="form-control text-center" />
+                                <span asp-validation-for="per_apellido_cas" class="text-danger"></span>
+                            </div>
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <strong>
-                                <label asp-for="per_primer_ape" class="control-label"></label>
-                            </strong>
-                            <input style="border:1px solid;color:black;" asp-for="per_primer_ape" class="form-control text-center" />
-                            <span asp-validation-for="per_primer_ape" class="text-danger"></span>
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong style="color:#424242">
+                                    <label asp-for="per_fecha_nac" class="control-label"></label>
+                                </strong>
+                                <input asp-for="per_fecha_nac" class="form-control text-center" />
+                                <span asp-validation-for="per_fecha_nac" class="text-danger"></span>
+                            </div>
                         </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong style="color:#424242">
+                                    <label asp-for="per_codpai_nacimiento" class="control-label"></label>
+                                </strong>
+                                <input asp-for="per_codpai_nacimiento" class="form-control text-center" />
+                                <span asp-validation-for="per_codpai_nacimiento" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
 
-                        <div class="form-group">
-                            <strong>
-                                <label asp-for="per_segundo_ape" class="control-label"></label>
-                            </strong>
-                            <input style="border:1px solid;color:black;" asp-for="per_segundo_ape" class="form-control text-center" />
-                            <span asp-validation-for="per_segundo_ape" class="text-danger"></span>
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong style="color:#424242">
+                                    <label asp-for="per_sexo" class="control-label"></label>
+                                </strong>
+                                <select asp-for="per_sexo" asp-items="@SexosSelect" class="form-control text-center"> </select>
+                                <span asp-validation-for="per_sexo" class="text-danger"></span>
+                            </div>
                         </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong style="color:#424242">
+                                    <label asp-for="per_estado_civil" class="control-label"></label>
+                                </strong>
+                                <select asp-for="per_estado_civil" asp-items="@EstCivilSelect" class="form-control text-center"> </select>
+                                <span asp-validation-for="per_estado_civil" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
 
-                        <div class="form-group">
-                            <strong>
-                                <label asp-for="per_apellido_cas" class="control-label"></label>
-                            </strong>
-                            <input style="border:1px solid;color:black;" asp-for="per_apellido_cas" class="form-control text-center" />
-                            <span asp-validation-for="per_apellido_cas" class="text-danger"></span>
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong style="color:#424242">
+                                    <label asp-for="per_codpai_nacionalidad" class="control-label"></label>
+                                </strong>
+                                <input asp-for="per_codpai_nacionalidad" class="form-control text-center" />
+                                <span asp-validation-for="per_codpai_nacionalidad" class="text-danger"></span>
+                            </div>
                         </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong style="color:#424242">
+                                    <label asp-for="per_profesion" class="control-label"></label>
+                                </strong>
+                                <input asp-for="per_profesion" class="form-control text-center" />
+                                <span asp-validation-for="per_profesion" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
 
-                        <div class="form-group">
-                            <strong>
-                                <label asp-for="per_primer_nom" class="control-label"></label>
-                            </strong>
-                            <input style="border:1px solid;color:black;" asp-for="per_primer_nom" class="form-control text-center" />
-                            <span asp-validation-for="per_primer_nom" class="text-danger"></span>
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong style="color:#424242">
+                                    <label asp-for="per_telefono_movil" class="control-label"></label>
+                                </strong>
+                                <input asp-for="per_telefono_movil" class="form-control text-center" />
+                                <span asp-validation-for="per_telefono_movil" class="text-danger"></span>
+                            </div>
                         </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong style="color:#424242">
+                                    <label asp-for="per_telefono_interno" class="control-label"></label>
+                                </strong>
+                                <input asp-for="per_telefono_interno" class="form-control text-center" />
+                                <span asp-validation-for="per_telefono_interno" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
 
-                        <div class="form-group">
-                            <strong>
-                                <label asp-for="per_segundo_nom" class="control-label"></label>
-                            </strong>
-                            <input style="border:1px solid;color:black;" asp-for="per_segundo_nom" class="form-control text-center" />
-                            <span asp-validation-for="per_segundo_nom" class="text-danger"></span>
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong style="color:#424242">
+                                    <label asp-for="per_email" class="control-label"></label>
+                                </strong>
+                                <input asp-for="per_email" class="form-control text-center" />
+                                <span asp-validation-for="per_email" class="text-danger"></span>
+                            </div>
                         </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong style="color:#424242">
+                                    <label asp-for="per_email_interno" class="control-label"></label>
+                                </strong>
+                                <input asp-for="per_email_interno" class="form-control text-center" />
+                                <span asp-validation-for="per_email_interno" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
 
-                        <div class="form-group">
-                            <strong>
-                                <label asp-for="per_otros_nom" class="control-label"></label>
-                            </strong>
-                            <input style="border:1px solid;color:black;" asp-for="per_otros_nom" class="form-control text-center" />
-                            <span asp-validation-for="per_otros_nom" class="text-danger"></span>
-                        </div>
+                    <div class="row mb-4">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <strong style="color:#424242">
+                                    <label asp-for="per_observaciones" class="control-label"></label>
+                                </strong>
+                                <input asp-for="per_observaciones" class="form-control text-center" />
+                                <span asp-validation-for="per_observaciones" class="text-danger"></span>
+                            </div>
 
-                        <div class="form-group">
-                            <strong>
-                                <label asp-for="per_nombre_usual" class="control-label"></label>
-                            </strong>
-                            <input style="border:1px solid;color:black;" asp-for="per_nombre_usual" class="form-control text-center" />
-                            <span asp-validation-for="per_nombre_usual" class="text-danger"></span>
-                        </div>
+                            <div class="form-group">
+                                <strong style="color:#424242">
+                                    <label asp-for="per_usuario_grabacion" class="control-label"></label>
+                                </strong>
+                                <input asp-for="per_usuario_grabacion" class="form-control text-center" />
+                                <span asp-validation-for="per_usuario_grabacion" class="text-danger"></span>
+                            </div>
 
-                        <div class="form-group">
-                            <strong>
-                                <label asp-for="per_codpai_nacionalidad" class="control-label"></label>
-                            </strong>
-                            <input style="border:1px solid;color:black;" asp-for="per_codpai_nacionalidad" class="form-control text-center" />
-                            <span asp-validation-for="per_codpai_nacionalidad" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <strong>
-                                <label asp-for="per_codpai_nacimiento" class="control-label"></label>
-                            </strong>
-                            <input style="border:1px solid;color:black;" asp-for="per_codpai_nacimiento" class="form-control text-center" />
-                            <span asp-validation-for="per_codpai_nacimiento" class="text-danger"></span>
-                        </div>
 
-                        <div class="form-group">
-                            <strong>
-                                <label asp-for="per_sexo" class="control-label"></label>
-                            </strong>
-                            <select asp-for="per_sexo" asp-items="@SexosSelect" class="form-control text-center" style="border:1px solid;color:black;"> </select>
-                            <span asp-validation-for="per_sexo" class="text-danger"></span>
+                            <div class="form-group">
+                                <strong style="color:#424242">
+                                    <label asp-for="per_fecha_grabacion" class="control-label"></label>
+                                </strong>
+                                <input asp-for="per_fecha_grabacion" class="form-control text-center" />
+                                <span asp-validation-for="per_fecha_grabacion" class="text-danger"></span>
+                            </div>
                         </div>
-
-                        <div class="form-group">
-                            <strong>
-                                <label asp-for="per_edad" class="control-label"></label>
-                            </strong>
-                            <input style="border:1px solid;color:black;" readonly asp-for="per_edad" class="form-control text-center" />
-                            <span asp-validation-for="per_edad" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <strong>
-                                <label asp-for="per_fecha_nac" class="control-label"></label>
-                            </strong>
-                            <input style="border:1px solid;color:black;" asp-for="per_fecha_nac" class="form-control text-center" />
-                            <span asp-validation-for="per_fecha_nac" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <strong>
-                                <label asp-for="per_profesion" class="control-label"></label>
-                            </strong>
-                            <input style="border:1px solid;color:black;" asp-for="per_profesion" class="form-control text-center" />
-                            <span asp-validation-for="per_profesion" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <strong>
-                                <label asp-for="per_estado_civil" class="control-label"></label>
-                            </strong>
-                            <select asp-for="per_estado_civil" asp-items="@EstCivilSelect" class="form-control text-center" style="border:1px solid;color:black;"> </select>
-                            <span asp-validation-for="per_estado_civil" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <strong>
-                                <label asp-for="per_email" class="control-label"></label>
-                            </strong>
-                            <input style="border:1px solid;color:black;" asp-for="per_email" class="form-control text-center" />
-                            <span asp-validation-for="per_email" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <strong>
-                                <label asp-for="per_codmun_nac" class="control-label"></label>
-                            </strong>
-                            <input style="border:1px solid;color:black;" asp-for="per_codmun_nac" class="form-control text-center" />
-                            <span asp-validation-for="per_codmun_nac" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <strong>
-                                <label asp-for="per_coddep_nac" class="control-label"></label>
-                            </strong>
-                            <input style="border:1px solid;color:black;" asp-for="per_coddep_nac" class="form-control text-center" />
-                            <span asp-validation-for="per_coddep_nac" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <strong>
-                                <label asp-for="per_lugar_nac" class="control-label"></label>
-                            </strong>
-                            <input style="border:1px solid;color:black;" asp-for="per_lugar_nac" class="form-control text-center" />
-                            <span asp-validation-for="per_lugar_nac" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <strong>
-                                <label asp-for="per_email_interno" class="control-label"></label>
-                            </strong>
-                            <input style="border:1px solid;color:black;" asp-for="per_email_interno" class="form-control text-center" />
-                            <span asp-validation-for="per_email_interno" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <strong>
-                                <label asp-for="per_telefono_movil" class="control-label"></label>
-                            </strong>
-                            <input style="border:1px solid;color:black;" asp-for="per_telefono_movil" class="form-control text-center" />
-                            <span asp-validation-for="per_telefono_movil" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <strong>
-                                <label asp-for="per_telefono_interno" class="control-label"></label>
-                            </strong>
-                            <input style="border:1px solid;color:black;" asp-for="per_telefono_interno" class="form-control text-center" />
-                            <span asp-validation-for="per_telefono_interno" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <strong>
-                                <label asp-for="per_apellidos_nombres" class="control-label"></label>
-                            </strong>
-                            <input style="border:1px solid;color:black;" asp-for="per_apellidos_nombres" class="form-control text-center" />
-                            <span asp-validation-for="per_apellidos_nombres" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <strong>
-                                <label asp-for="per_observaciones" class="control-label"></label>
-                            </strong>
-                            <input style="border:1px solid;color:black;" asp-for="per_observaciones" class="form-control text-center" />
-                            <span asp-validation-for="per_observaciones" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <strong>
-                                <label asp-for="per_codpai_digita" class="control-label"></label>
-                            </strong>
-                            <input style="border:1px solid;color:black;" asp-for="per_codpai_digita" class="form-control text-center" />
-                            <span asp-validation-for="per_codpai_digita" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <strong>
-                                <label asp-for="per_usuario_grabacion" class="control-label"></label>
-                            </strong>
-                            <input style="border:1px solid;color:black;" readonly asp-for="per_usuario_grabacion" class="form-control text-center" />
-                            <span asp-validation-for="per_usuario_grabacion" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <strong>
-                                <label asp-for="per_fecha_grabacion" class="control-label"></label>
-                            </strong>
-                            <input style="border:1px solid;color:black;" readonly asp-for="per_fecha_grabacion" class="form-control text-center" />
-                            <span asp-validation-for="per_fecha_grabacion" class="text-danger"></span>
-                        </div>
-                        <br />
-                        <div class="form-group">
-                            <input type="button" onclick="Editar()" value="Actualizar información" class="btn btn-success" />
-                            <br />
-                            <br />
-                            <a class="btn btn-outline-primary" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
-                        </div>
-                    </form>
+                    </div>
+                </form>
+                <br />
+                <div class="form-group">
+                    <input type="button" onclick="Editar()" value="Actualizar información" class="btn btn-success" />
+                    <br />
+                    <br />
+                    <a class="btn btn-outline-primary" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
                 </div>
             </div>
         </div>
@@ -290,56 +243,29 @@
 </div>
 
 
-@*
-    //si Tempdata contiene un mensaje se muestra
-    de lo contrario no muestra msj
-
-    @if (ViewBag.IdDocumento == null)
-    {
-    <div class="container">
-    @if (TempData["msj"] != null)
-    {
-    <div class="alert alert-warning d-flex alert-dismissible fade show" role="alert">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
-    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-    </svg>
-    @TempData["msj"]
-    <button type="button" class="close" data-dismiss="alert" aria-label="close">
-    <span arie-hidden="true">&times;</span>
-    </button>
-    </div>
-    }
-    </div>
-    <center>
-    <a class="btn btn-info" asp-route-id="@ViewBag.IdPersona" asp-action="CreateDPI">Agregar documento</a>
-    </center>
-    }*@
-
-
 @section Scripts {
     @{
-    await Html.RenderPartialAsync("_ValidationScriptsPartial");
-}
-
-<script src="~/js/generic.js"></script>
-<script src="~/js/sweetalert.js"></script>
-
-
-<script>
-    function Editar() {
-        var frm = document.getElementById("frm");
-        MostrarModalEdit().then(res => {
-            if (res.value) {
-                frm.submit();
-                MostrarSuccessEdit();
-            }
-        })
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 
-    $(document).ready(function () {
-        $('.toast').toast('show');
-    });
+    <script src="~/js/generic.js"></script>
+    <script src="~/js/sweetalert.js"></script>
 
-    $('.toast').toast(option)
-</script>
+    <script>
+        function Editar() {
+            var frm = document.getElementById("frm");
+            MostrarModalEdit().then(res => {
+                if (res.value) {
+                    frm.submit();
+                    MostrarSuccessEdit();
+                }
+            })
+        }
+
+        $(document).ready(function() {
+            $('.toast').toast('show');
+        });
+
+        $('.toast').toast(option)
+    </script>
 }

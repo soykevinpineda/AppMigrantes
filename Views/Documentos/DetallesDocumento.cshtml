@@ -1,22 +1,39 @@
 ﻿@using Migrantes.Models.DTO
 @model Migrantes.ViewModels.DocumentosViewModel
+
 @{
-    ViewData["Title"] = "Detalles del Documento Guardado";
+    ViewData["Title"] = "Detalles del documento guardado";
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<SelectListItem> TipoDocSelect = ViewBag.ListDoc;
     List<DocumentosPersonaDTO> DocumentosPersona = ViewBag.ListadoDocumentos;
+    List<DocumentosPersonaDTO> NombreDeLaPersona = ViewBag.NombresPersona;
 }
 
-<center>
-    <div class="p-2 shadow-2 rounded-3 mb-2" style="background-color: hsl(0, 0%, 94%);font-family:Helvetica;border-radius: 9px;width:fit-content;">
-        <h2 class="text-center text-primary"><strong>@ViewData["Title"]</strong></h2>
+<div class="row">
+    <div class="col" style="text-align:left">
+        <div class="p-1 shadow-2 rounded-3 mb-2" style="font-family:Helvetica;border-radius: 9px;">
+            <h2 class="text-primary"><strong>@ViewData["Title"]</strong></h2>
+        </div>
     </div>
-    <hr />
-</center>
+    <div class="col" style="text-align:right">
+        <a class="btn btn-outline-primary" style="justify-items:right;" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+    </div>
+</div>
+<hr>
 
+@foreach (var item in NombreDeLaPersona)
+{
+    <div class="align-content-left" id="TituloPer" data-bs-toggle="tooltip" data-bs-placement="top" title="Persona seleccionada">
+        <center>
+            <img src="~/persona.png" width="50" height="50" />
+            <h3 class="text-center text-dark"><strong>@item.per_primer_nom @item.per_segundo_nom @item.per_primer_ape @item.per_segundo_ape</strong></h3>
+        </center>
+    </div>
+    <br />
+    <br />
+}
 
-
-<div class="row justify-content-center">
+<div class="row justify-content-center" style="font-family:Helvetica;">
     <div style="text-align: center" class="col-md-4 offset-sm-0">
         <form asp-action="DetallesDocumento" asp-controller="Documentos" method="post" id="frm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -30,43 +47,53 @@
                 <strong>
                     <label asp-for="ide_id_documento" class="control-label"></label>
                 </strong>
-                <select asp-for="ide_id_documento" asp-items="@TipoDocSelect" class="form-control text-center" style="border:1px solid;color:black" disabled> </select>
+                <select asp-for="ide_id_documento" asp-items="@TipoDocSelect" class="form-control text-center" disabled> </select>
                 <span asp-validation-for="ide_id_documento" class="text-danger"></span>
             </div>
-
             <br />
 
             <div class="form-group">
                 <strong>
                     <label asp-for="ide_numero" class="control-label"></label>
                 </strong>
-                <input type="number" asp-for="ide_numero" class="form-control text-center" name="ide_numero" style="border:1px solid;color:black" disabled />
+                <input type="number" asp-for="ide_numero" class="form-control text-center" name="ide_numero" disabled />
             </div>
-
             <br />
 
             <div class="form-group">
                 <strong>
                     <label asp-for="ide_fecha_emision" class="control-label"></label>
                 </strong>
-                <input asp-for="ide_fecha_emision" class="form-control text-center" style="border:1px solid;color:black" disabled />
+                <input asp-for="ide_fecha_emision" class="form-control text-center" disabled />
             </div>
-
             <br />
 
             <div class="form-group">
                 <strong>
                     <label asp-for="ide_fecha_vencimiento" class="control-label"></label>
                 </strong>
-                <input asp-for="ide_fecha_vencimiento" class="form-control text-center" style="border:1px solid;color:black" disabled />
+                <input asp-for="ide_fecha_vencimiento" class="form-control text-center" disabled />
             </div>
             <br />
+
             <div class="form-group">
-                <a class="btn btn-outline-primary" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+                <strong>
+                    <label asp-for="FotoDocumento" class="control-label"></label>
+                </strong>
+                <img style="border-radius:6px;width:100%" src="@Model.RutaImagenPortada_A" width="200" height="200" id="ImgFoto1" />
+                <br />
+            </div>
+
+            <br />
+            <div class="form-group">
+                <strong>
+                    <label asp-for="FotoDocumento_LadoB" class="control-label"></label>
+                </strong>
+                <img style="border-radius:6px;width:100%" src="@Model.RutaImagenPortada_B" width="200" height="200" id="ImgFoto2" />
+                <br />
             </div>
         </form>
     </div>
 </div>
 
-<br />
 <br />
