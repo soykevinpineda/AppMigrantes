@@ -42,30 +42,37 @@ namespace Migrantes.Controllers
         }
 
 
+        public async Task ObtenerPersona(int? id)
+        {
+
+            var GetPerson = await this._context.PersonasDb
+                .FirstOrDefaultAsync(x => x.per_codigo_id == id);
+
+            ViewBag.PersonaID = GetPerson.per_codigo_id;
+        }
+
+
+
         #region Area documentos de la persona
 
 
         //GET: Creamos documento de la persona
         [HttpGet]
-        public IActionResult CrearDocumento(int? id)
-
-
+        public async Task<IActionResult> CrearDocumento(int? id)
         {
-            var DocumentoPersona = this._context.PersonasDb
-                .FirstOrDefault(x => x.per_codigo_id == id);
-            ViewBag.IdPersona = DocumentoPersona.per_codigo_id;
+        
+            await ObtenerPersona(id);
+            PersonaSeleccionada(id);
+            TipoDoc(id);
 
-            PersonaSeleccionada(DocumentoPersona.per_codigo_id);
-            TipoDoc(DocumentoPersona.per_codigo_id);
-
-            return View();
+            return await Task.Run(() => View());
         }
 
 
         //POST: Guardamos el documento asociado al id de la persona
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> GuardarDoc(IdentidadPersona identidad)
+        public async Task<ActionResult> GuardarDoc(DocumentosPersonaDTO identidad)
         {
             var files = HttpContext.Request.Form.Files;
 
@@ -310,23 +317,23 @@ namespace Migrantes.Controllers
         public async Task<IActionResult> EliminarDocumento(int? id)
         {
 
+            var documento = await this._context.IdentidadPersonasDb.AsNoTracking()
+            .FirstOrDefaultAsync(x => x.ide_id_persona == id);
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            var documento = await this._context.IdentidadPersonasDb.AsNoTracking()
-                .FirstOrDefaultAsync(x => x.ide_id_persona == id);
+            if (documento == null)
+            {
+                var urlRetornoDocsDisponibles = HttpContext.Session.GetString("UrlRetorno");
+                return LocalRedirect(urlRetornoDocsDisponibles);
+            }
 
             TipoDoc(documento.ide_id_persona);
 
-            if (documento == null)
-            {
-                return NotFound();
-            }
-
             var Doc = new DocumentosViewModel()
-
             {
                 ide_codigo_id = documento.ide_codigo_id,
                 ide_id_persona = documento.ide_id_persona,
@@ -521,7 +528,6 @@ namespace Migrantes.Controllers
                                   tid_descripcion = TipoDoc.tid_descripcion,
                                   per_segundo_nom = persona.per_segundo_nom,
                                   ide_codigo_id = identidad.ide_codigo_id,
-
                                   RutaImagenPortada_A = identidad.RutaImagenPortada_A,
                                   NombreImagenPortada_A = identidad.NombreImagenPortada_A,
                                   RutaImagenPortada_B = identidad.RutaImagenPortada_B,
@@ -553,7 +559,7 @@ namespace Migrantes.Controllers
         #region Método lista tipo de documentos de la persona
 
         //Método crea una lista den Tipos de documentos guardados en la DB.
-        public void TipoDoc(int id)
+        public void TipoDoc(int? id)
         {
             //Guardamos en una variable
             //para seleccionar de la DB el tipo de documento.
@@ -606,7 +612,7 @@ namespace Migrantes.Controllers
 
         #region Mètodo crea lista con los nombres de la persona seleccionada.
         //Crea una lista con nombres de la persona
-        public void PersonaSeleccionada(int IdPersona)
+        public void PersonaSeleccionada(int? IdPersona)
 
         {
             List<DocumentosPersonaDTO> ListNombres = new List<DocumentosPersonaDTO>();

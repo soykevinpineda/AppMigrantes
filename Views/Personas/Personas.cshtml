@@ -7,46 +7,67 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css">
 
 
-<!--Alerta: persona guardada exitosamente.-->
-@if (TempData["AlertaPersona"] != null)
-{
-    <div style="justify-content:center;display:flex;align-items:center" class="mb-2">
-        <div class="toast" data-delay="4000" style="border:thin;color:blue;border-radius: 9px;" role="alert" aria-live="assertive" aria-atomic="true">
-            <div style="background:#28a745" class="toast-header">
-                <img src="~/img/scblancopeque-200x91.png" style="width:10%;height:10%" class="rounded mr-2" alt="..." />
-                <strong class="mr-auto text-white">Notificación SC</strong>
-                <small class="text-white">justo ahora</small>
-                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="toast-body">
-                <h4 class="text-primary text-center" style="font-family:Helvetica;font-size:1.5rem;">
-                    @TempData["AlertaPersona"]
-                </h4>
-            </div>
-        </div>
-    </div>
-}
-
 <!--Alerta: Sin datos en la base de datos y opcion para agregar un registro.-->
 @if (Model.Count() == 0)
 {
-    <h4 class="text-primary text-center">
-        No se encontraron personas en la base de datos.
-    </h4>
-    <center>
-        <a type="button" class="btn btn-primary btn-md" asp-controller="Personas" asp-action="CrearPersona"><i class="fa-solid fa-user-plus" style="font-size:18px"></i>&nbsp;Crear persona nueva</a>
-    </center>
+    <!-- Section 1 -->
+    <section class="px-2 py-32 bg-white md:px-0">
+        <div class="container items-center max-w-6xl px-8 mx-auto xl:px-5">
+            <div class="flex flex-wrap items-center sm:-mx-3">
+                <div class="w-full md:w-1/2 md:px-3">
+                    <div class="w-full pb-6 space-y-6 sm:max-w-md lg:max-w-lg md:space-y-4 lg:space-y-8 xl:space-y-9 sm:pr-5 lg:pr-0 md:pb-0">
+                        <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-4xl lg:text-5xl xl:text-6xl">
+                            <span class="block xl:inline">No se encontraron personas en la base de datos.</span>
+                            <span class="block text-indigo-600 xl:inline">Deseas registrar a una persona?</span>
+                        </h1>
+                        <p class="mx-auto text-base text-gray-500 sm:max-w-md lg:text-xl md:max-w-3xl">Migrantes APP.<br />Powered by Sourcing-Corp &copy;</p>
+                        <div class="relative flex flex-col sm:flex-row sm:space-x-4">
+                            <a asp-controller="Personas" asp-action="CrearPersona" class="flex items-center w-full px-6 py-3 mb-3 text-lg text-white bg-indigo-600 rounded-md sm:mb-0 hover:bg-indigo-700 sm:w-auto">
+                                Crear persona nueva
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2">
+                    <div class="w-full h-auto overflow-hidden rounded-md shadow-xl sm:rounded-xl">
+                        <img src="~/composition-19.svg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 }
 
-
-
-else
+<!--Si hay datos en la DB, muestra tabla de personas-->
+@if (Model.Count() > 0)
 {
     <div class="relative w-full bg-white">
         <div class="absolute w-full h-32 bg-gradient-to-b from-gray-200 to-white"></div>
         <div class="relative w-full px-5 py-10 mx-auto sm:py-12 md:py-16 md:px-10 max-w-7xl">
+
+            <!--Alerta: persona guardada exitosamente.-->
+            @if (TempData["AlertaPersona"] != null)
+            {
+                <div style="justify-content:center;display:flex;align-items:center" class="mb-2">
+                    <div class="toast" data-delay="4000" style="border:thin;color:blue;border-radius: 9px;" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div style="background:#28a745" class="toast-header">
+                            <img src="~/img/scblancopeque-200x91.png" style="width:10%;height:10%" class="rounded mr-2" alt="..." />
+                            <strong class="mr-auto text-white">Notificación SC</strong>
+                            <small class="text-white">justo ahora</small>
+                            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="toast-body">
+                            <h4 class="text-primary text-center" style="font-family:Helvetica;font-size:1.5rem;">
+                                @TempData["AlertaPersona"]
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            }
 
             <!--Alerta: TotalPersonas en la base de datos.-->
             <div style="justify-content:center;display:flex;align-items:center;font-family:Helvetica;font-size:36px" class="mb-2">
@@ -94,6 +115,7 @@ else
             </div>
             <br />
             <br />
+
             <!--Sección: Titulo y botones para agregar persona,exportar data excel.-->
             <div class="row" style="font-family:Helvetica;">
                 <div class="col-8" style="justify-content:flex-start;padding-right:0px;padding-left:15px;">
@@ -449,8 +471,8 @@ else
     <br />
 }
 
-    <!-- AlpineJS Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.0/alpine.js"></script>
+<!-- AlpineJS Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.0/alpine.js"></script>
 
 @section Scripts{
     <script>

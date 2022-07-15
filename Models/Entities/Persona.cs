@@ -132,6 +132,8 @@ namespace Migrantes.Models.Entities
 
         public virtual ICollection<IdentidadPersona> IdentidadPersonaLink { get; set; }
 
+        public virtual ICollection<DatosFamiliares> DatosFamiliaresLink { get; set; }
+
         public virtual ModeloFiador ModeloFiador { get; set; }
     }
 }

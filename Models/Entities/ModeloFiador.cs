@@ -8,9 +8,9 @@ namespace Migrantes.Models.Entities
 {
     public class ModeloFiador
     {
-        [ValidateNever]
+        
         [Key]
-        public int IdFiador { get; set; }
+        public int FiadorID { get; set; }
 
         [ForeignKey("Persona")]
         public int per_codigo_id { get; set; }
@@ -37,21 +37,26 @@ namespace Migrantes.Models.Entities
 
         [Display(Name = ("Género"))]
         [Required(ErrorMessage = "Elige un género")]
-        public int SexoDelFiador { get; set; }
+        public string SexoDelFiador { get; set; }
 
         [Display(Name = ("País de nacimiento"))]
         public string PaisNacimientoDelFiador { get; set; }
 
         [EmailAddress]
         [Display(Name = ("Email"))]
+        [DataType(DataType.EmailAddress)]
         public string EmailFiador { get; set; }
 
-        [Display(Name = ("Teléfono movil"))]
-        public int TelefonoFiador { get; set; }
+        [Display(Name = ("Teléfono"))]
+        [DataType(DataType.PhoneNumber)]
+        [MaxLength(25)]
+        public string TelefonoFiador { get; set; }
 
         
-        [Display(Name = ("Teléfono movil alternativo"))]
-        public int TelefonoAlternoFiador { get; set; }
+        [Display(Name = ("Teléfono alternativo"))]
+        [DataType(DataType.PhoneNumber)]
+        [MaxLength(25)]
+        public string TelefonoAlternoFiador { get; set; }
 
 
         [Required]

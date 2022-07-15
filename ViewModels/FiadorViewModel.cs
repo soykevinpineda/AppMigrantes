@@ -8,9 +8,8 @@ namespace Migrantes.ViewModels
 {
     public class FiadorViewModel
     {
-        [ValidateNever]
         [Key]
-        public int IdFiador { get; set; }
+        public int FiadorID { get; set; }
 
         [ForeignKey("Persona")]
         public int per_codigo_id { get; set; }
@@ -37,7 +36,8 @@ namespace Migrantes.ViewModels
 
         [Required(ErrorMessage = "Elige un género")]
         [Display(Name = ("Género"))]
-        public int SexoDelFiador { get; set; }
+        public string SexoDelFiador { get; set; }
+
 
         [Display(Name = ("País de nacimiento"))]
         public string PaisNacimientoDelFiador { get; set; }
@@ -49,11 +49,11 @@ namespace Migrantes.ViewModels
 
         [Required(ErrorMessage = "Introduce un número teléfonico")]
         [Display(Name = ("Teléfono movil"))]
-        public int TelefonoFiador { get; set; }
+        public string TelefonoFiador { get; set; }
 
 
         [Display(Name = ("Teléfono movil alternativo"))]
-        public int TelefonoAlternoFiador { get; set; }
+        public string TelefonoAlternoFiador { get; set; }
 
         [Required(ErrorMessage = "Introduce la cantidad de cartas personales")]
         [Range(0, 3,ErrorMessage = "Debe ser un número entre 0 y 3")]

@@ -50,15 +50,15 @@ namespace Migrantes.Controllers
         }
 
 
-
+        #region Método Exportar data Excel
         public static List<PersonaDTO> oPersonasExcel;
-
 
         public FileResult ExportarPersonasExcel(string[] nombrePropiedades)
         {
             byte[] buffer = ExportarExcelGeneric(nombrePropiedades, oPersonasExcel);
             return File(buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         }
+        #endregion Método Exportar data Excel
 
 
         #region Area personas
@@ -428,9 +428,7 @@ namespace Migrantes.Controllers
                               on identidad.ide_id_documento equals TipoDoc.tid_id_documento
                               where persona.per_codigo_id == idPersona
 
-
                               select new DocumentosPersonaDTO
-
                               {
                                   RutaImagenPortada_A = identidad.RutaImagenPortada_A,
                                   NombreImagenPortada_A = identidad.NombreImagenPortada_A,

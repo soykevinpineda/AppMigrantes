@@ -1,12 +1,12 @@
 ﻿@using Migrantes.Models.DTO
 @using Migrantes.ViewModels
+@*@model IEnumerable<FiadorViewModel>*@
 @model Migrantes.ViewModels.FiadorViewModel
 
 @{
     ViewData["Title"] = "Formulario para crear fiador";
     ViewData["TituloFiador"] = "Detalles del fiador";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    List<DatosFamiliaresViewModel> ListDatosFamiliares = ViewBag.ListDatosFam;
     List<SelectListItem> oSexos = ViewBag.Sexos;
     List<FiadorViewModel> FiadorDisponible = ViewBag.ListadoFiador;
     List<DocumentosPersonaDTO> NombreDeLaPersona = ViewBag.NombresPersona;
@@ -103,7 +103,7 @@ se muestra una tarjeta con información.-->
                                 }
                                 <br />
                                 <h5 class="card-title text-white"><strong>Género</strong></h5>
-                                @if (item.SexoDelFiador==1)
+                                @if (item.SexoDelFiador.Contains('M'))
                                 {
                                     
                                     <p> <strong class="text-primary">M</strong></p>
@@ -126,8 +126,6 @@ se muestra una tarjeta con información.-->
                                 <h5 class="card-title text-white"><strong>Email</strong></h5>
                                 <p class="card-text">@item.EmailFiador </p>
                                 <br />
-
-
                             </div>
 
                             <div class="col-sm-6">
@@ -155,7 +153,6 @@ se muestra una tarjeta con información.-->
                                 {
                                     <p> <strong class="text-danger">No entrego recibo</strong></p>
                                 }
-
                                 <br />
                                 <h5 class="card-title text-white"><strong>Fecha de creación</strong></h5>
                                 <p class="card-text">@item.FechaGrabacionDelFiador</p>
@@ -184,7 +181,7 @@ se muestra una tarjeta con información.-->
                 <input type="checkbox" hidden checked name="nombrePropiedades" value="EdadDelFiador" />
                 <input type="checkbox" hidden checked name="nombrePropiedades" value="SexoDelFiador" />
                 <input type="checkbox" hidden checked name="nombrePropiedades" value="TelefonoFiador" />
-                <input type="checkbox" hidden checked name="nombrePropiedades" value="TelefonoAlternoFiador" />
+               @* <input type="checkbox" hidden checked name="nombrePropiedades" value="TelefonoAlternoFiador" />*@
                 <input type="checkbox" hidden checked name="nombrePropiedades" value="PaisNacimientoDelFiador" />
                 <input type="checkbox" hidden checked name="nombrePropiedades" value="EmailFiador" />
                 <input type="checkbox" hidden checked name="nombrePropiedades" value="NumCartasPersonales" />

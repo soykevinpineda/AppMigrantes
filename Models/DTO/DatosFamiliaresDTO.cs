@@ -1,17 +1,10 @@
-﻿
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using Migrantes.Models.Entities;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-
-
-
-namespace Migrantes.ViewModels
+namespace Migrantes.Models.DTO
 {
-    public class DatosFamiliaresViewModel
+    public class DatosFamiliaresDTO
     {
 
         [Key]
@@ -20,10 +13,14 @@ namespace Migrantes.ViewModels
         [ForeignKey("Persona")]
         public int per_codigo_id { get; set; }
 
+
         [Display(Name = ("Parientes"))]
-        [Required(ErrorMessage = "Elige a un familiar")]
+        [Required(ErrorMessage = "Seleccione un pariente")]
         [ForeignKey("Parientes")]
         public int ParienteID { get; set; }
+
+
+        public string NombreDelPariente { get; set; }
 
 
         [Display(Name = ("Primer nombre"))]
@@ -72,20 +69,7 @@ namespace Migrantes.ViewModels
         [DataType(DataType.EmailAddress)]
         public string EmaiDelFamiliar { get; set; }
 
-        [Display(Name = ("Fecha de grabación"))]
-        [DataType(DataType.DateTime)]
-        public DateTime FechaGrabacionDelFamiliar { get; set; } = DateTime.Now;
-
-        
-        [Display(Name = ("Parientes"))]
-        [Required(ErrorMessage = "Elige a un familiar")]
-        [MaxLength(100)]
-        public string DescripcionPariente { get; set; }
-
-
         public int EstadoDatosFamiliares { get; set; }
-
-        #region Modelo Personas
 
         [Display(Name = ("Primer nombre"))]
         [MaxLength(50)]
@@ -94,8 +78,6 @@ namespace Migrantes.ViewModels
         [Display(Name = ("Segundo nombre"))]
         [MaxLength(50)]
         public string per_segundo_nom { get; set; }
-
-
 
         [Display(Name = ("Primer apellido"))]
         [MaxLength(50)]
@@ -106,6 +88,6 @@ namespace Migrantes.ViewModels
         public string per_segundo_ape { get; set; }
 
 
-        #endregion Modelo Personas
+
     }
 }

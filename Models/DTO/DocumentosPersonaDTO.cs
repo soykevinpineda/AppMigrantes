@@ -116,32 +116,10 @@ namespace Migrantes.Models.DTO
         #endregion TipoDocumento
 
 
-        #region Datos de Familiares
-
-        [Key]
-        public int Id_DatosFamiliares { get; set; }
-
-        public string nombres_madre { get; set; }
-        public string primer_apellido_madre { get; set; }
-        public string segundo_apellido_madre { get; set; }
-        public int edad_madre { get; set; }
-        public string profesion_madre { get; set; }
-
-
-        public string nombres_padre { get; set; }
-        public string primer_apellido_padre { get; set; }
-        public string segundo_apellido_padre { get; set; }
-        public int edad_padre { get; set; }
-        public string profesion_padre { get; set; }
-
         public static implicit operator List<object>(DocumentosPersonaDTO v)
         {
             throw new NotImplementedException();
         }
-
-        #endregion Datos de Familiares
-
-
 
     }
 }

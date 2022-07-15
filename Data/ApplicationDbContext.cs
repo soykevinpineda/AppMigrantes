@@ -30,7 +30,9 @@ namespace Migrantes.Data
         public virtual DbSet<TipoEstado> TipoEstadosDb { get; set; }
         public virtual DbSet<Sexo> SexosDb { get; set; }
         public virtual DbSet<EstadoCivil> EstadoCivilDb { get; set; }
-     
+
+        public virtual DbSet<Parientes>ParientesDb { get; set; }
+
 
 
         #region ConnectionString

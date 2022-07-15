@@ -1,5 +1,5 @@
 ﻿@using Migrantes.Models.DTO
-@model Migrantes.Models.Entities.IdentidadPersona
+@model Migrantes.Models.DTO.DocumentosPersonaDTO
 @{
    
     ViewData["Title"] = "Formulario para documentos";
@@ -39,11 +39,11 @@
     <div style="text-align: center" class="col-md-4 offset-sm-0">
         <form asp-action="GuardarDoc" asp-controller="Documentos" method="post" enctype="multipart/form-data" id="frm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ide_codigo_id" value="@ViewBag.IdPersona" />
+            <input type="hidden" asp-for="ide_codigo_id" value="@ViewBag.PersonaID" />
 
-            @* //Presentamos en la vista el ID de la persona seleccionada*@
+            @* //ID de la persona seleccionada*@
             <div class="form-group">
-                <input type="hidden" asp-for="ide_id_persona" class="form-control" value="@ViewBag.Idpersona" />
+                <input type="hidden" asp-for="ide_id_persona" class="form-control" value="@ViewBag.PersonaID" />
             </div>
             <br />
 
@@ -51,7 +51,7 @@
                 <strong>
                     <label asp-for="ide_id_documento" class="control-label"></label>
                 </strong>
-                <select id="tipodoc" asp-for="ide_id_documento" asp-items="@TipoDocSelect" class="form-control text-center"> </select>
+                <select  asp-for="ide_id_documento" asp-items="@TipoDocSelect" class="form-control text-center"> </select>
                 <span asp-validation-for="ide_id_documento" class="text-danger"></span>
             </div>
             <br />

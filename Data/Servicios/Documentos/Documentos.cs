@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Migrantes.Models.DTO;
 using Migrantes.Models.Entities;
 using Migrantes.ViewModels;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace Migrantes.Data.Servicios.Documentos
         }
 
 
-        public async Task GuardarDocumento(IdentidadPersona DocGuardado, string fileNameA, string path2, string fileNameB, string path2B)
+        public async Task GuardarDocumento(DocumentosPersonaDTO DocGuardado, string fileNameA, string path2, string fileNameB, string path2B)
 
         {
             IdentidadPersona oDocumento = new IdentidadPersona();

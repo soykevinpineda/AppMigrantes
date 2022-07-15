@@ -9,38 +9,8 @@
     List<PersonaDTO> NombreDeLaPersona = ViewBag.NombresPersona;
 }
 
-<!--Si la persona seleccionada no posee datos familiares, se muestra una alerta y opción para agregarlos -->
-@foreach (var item in NombreDeLaPersona)
-{
-    @if (TempData["alertaDatosFamiliares1"] != null && TempData["alertaDatosFamiliares2"] != null)
-    {
-        <div style="justify-content:center;display:flex;align-items:center" class="mb-2">
-            <div class="toast" data-delay="90000000" style="border:thin;color:blue;border-radius: 9px;" role="alert" aria-live="assertive" aria-atomic="true">
-                <div style="background:#ffc107" class="toast-header">
-                    <img src="~/img/scblancopeque-200x91.png" style="width:10%;height:10%" class="rounded mr-2" alt="..." />
-                    <strong class="mr-auto text-white">Notificación SC</strong>
-                    <small class="text-white">justo ahora</small>
-                </div>
-                <div class="toast-body">
-                    <h4 class="text-primary text-center">
-                        <strong style="font-family:Helvetica, sans-serif;font-size:1.5rem;"> @TempData["alertaDatosFamiliares1"] </strong>
-                        <a class="text-center text-dark"><strong>@item.per_primer_nom @item.per_primer_ape @item.per_segundo_ape </strong></a>
-                        <strong style="font-family:Helvetica, sans-serif;font-size:1.5rem;"> @TempData["alertaDatosFamiliares2"] </strong>
-                    </h4>
-                </div>
-            </div>
-        </div>
-        <br />
-        <br />
-        <center>
-            <div class="form-group">
-                <a class="btn btn-primary" asp-controller="DatosFamiliares" asp-action="CrearDatosFamiliares" asp-route-id="@ViewBag.IdPersona">Agregar datos de familiares</a>
-                <a class="btn btn-outline-primary" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
-            </div>
-        </center>
-    }
 
-}
+
 <!--Si la persona seleccionada posee datos familiares, se muestran las tarjetas -->
 @foreach (var item in ListDatosFamiliares)
 {
@@ -71,75 +41,58 @@
         <div class="card" style="width:275px;box-shadow: 5px 10px 15px #888888;">
             <img src="~/Mujer.png" style="width:auto;height:auto;" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title"><strong>Madre</strong></h5>
-                <p class="card-text">@item.PrimerNombreDeLaMadre @item.SegundoNombreDeLaMadre @item.ApellidosDeLaMadre</p>
+
+                <h5 class="card-title"><strong>Nombre del Pariente</strong></h5>
+                <p class="card-text">@item.PrimerNombreFamiliar @item.SegundoNombreFamiliar @item.ApellidosFamiliar</p>
 
                 <h5 class="card-title"><strong>Fecha de nacimiento</strong></h5>
-                <p class="card-text">@item.FechaNacimientoDeLaMadre</p>
+                <p class="card-text">@item.FechaNacimientoDelFamiliar</p>
 
                 <h5 class="card-title"><strong>Edad</strong></h5>
-                <p class="card-text">@item.EdadDeLaMadre</p>
+                <p class="card-text">@item.EdadDelFamiliar</p>
 
                 <h5 class="card-title"><strong>País</strong></h5>
-                <p class="card-text">@item.PaisNacimientoDeLaMadre</p>
+                <p class="card-text">@item.PaisNacimientoDelFamiliar</p>
 
                 <h5 class="card-title"><strong>Profesión</strong></h5>
-                <p class="card-text">@item.ProfesionDeLaMadre</p>
+                <p class="card-text">@item.ProfesionDelFamiliar</p>
+
+                <h5 class="card-title"><strong>Teléfono</strong></h5>
+                <p class="card-text">@item.TelefonoDelFamiliar</p>
+
+                <h5 class="card-title"><strong>E-mail</strong></h5>
+                <p class="card-text">@item.EmaiDelFamiliar</p>
 
             </div>
         </div>
-
-        <div class="card" style="width:275px;box-shadow: 5px 10px 15px #888888;">
-            <img src="~/Hombre.png" style="width:auto;height:auto;" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title"><strong>Padre</strong></h5>
-                <p class="card-text">@item.PrimerNombreDelPadre @item.SegundoNombreDelPadre @item.ApellidosDelPadre</p>
-
-                <h5 class="card-title"><strong>Fecha de nacimiento</strong></h5>
-                <p class="card-text">@item.FechaNacimientoDelPadre</p>
-
-                <h5 class="card-title"><strong>Edad</strong></h5>
-                <p class="card-text">@item.EdadDelPadre</p>
-
-                <h5 class="card-title"><strong>País</strong></h5>
-                <p class="card-text">@item.PaisNacimientoDelPadre</p>
-
-                <h5 class="card-title"><strong>Profesión</strong></h5>
-                <p class="card-text">@item.ProfesionDelPadre</p>
-            </div>
-            <style>
-                .box {
-                    display: flex;
-                    justify-content: space-evenly;
-                }
-            </style>
-        </div>
+        <style>
+            .box {
+                display: flex;
+                justify-content: space-evenly;
+            }
+        </style>
     </div>
     <br />
     <br />
     <center>
         <form asp-action="ExportarDatosFamiliaresExcel" asp-controller="DatosFamiliares" id="FormChecks">
             <div class="form-group">
-                 <a class="btn btn-primary" asp-controller="DatosFamiliares" asp-action="EditarDatosFamiliares" asp-route-id="@ViewBag.IdPersona"><i class="fa-solid fa-user-pen"></i>&nbsp;Editar</a>
-                <a class="btn btn-danger" asp-controller="DatosFamiliares" asp-action="EliminarDatosFamiliares" asp-route-id="@ViewBag.IdPersona"><i class="fa-solid fa-trash-can"></i>&nbsp;Eliminar</a>
+                <a class="btn btn-primary" asp-controller="DatosFamiliares" asp-action="EditarDatosFamiliares" asp-route-id="@ViewBag.PersonaID"><i class="fa-solid fa-user-pen"></i>&nbsp;Editar</a>
+                <a class="btn btn-danger" asp-controller="DatosFamiliares" asp-action="EliminarDatosFamiliares" asp-route-id="@ViewBag.PersonaID"><i class="fa-solid fa-trash-can"></i>&nbsp;Eliminar</a>
                 <button type="button" class="btn btn-success btn-sm" value="Exportar data a Excel"
                     onclick="DescargarExcel()">
                     <i style="font-size:24px" class="fa">&#xf1c3;</i>&nbsp;Exportar data a Excel
                 </button>
-                <input type="checkbox" hidden checked name="nombrePropiedades" value="PrimerNombreDeLaMadre" />
-                <input type="checkbox" hidden checked name="nombrePropiedades" value="SegundoNombreDeLaMadre" />
-                <input type="checkbox" hidden checked name="nombrePropiedades" value="ApellidosDeLaMadre" />
-                <input type="checkbox" hidden checked name="nombrePropiedades" value="FechaNacimientoDeLaMadre" />
-                <input type="checkbox" hidden checked name="nombrePropiedades" value="EdadDeLaMadre" />
-                <input type="checkbox" hidden checked name="nombrePropiedades" value="PaisNacimientoDeLaMadre" />
-                <input type="checkbox" hidden checked name="nombrePropiedades" value="ProfesionDeLaMadre" />
-                <input type="checkbox" hidden checked name="nombrePropiedades" value="PrimerNombreDelPadre" />
-                <input type="checkbox" hidden checked name="nombrePropiedades" value="SegundoNombreDelPadre" />
-                <input type="checkbox" hidden checked name="nombrePropiedades" value="ApellidosDelPadre"/>
-                <input type="checkbox" hidden checked name="nombrePropiedades" value="FechaNacimientoDelPadre" />
-                <input type="checkbox" hidden checked name="nombrePropiedades" value="EdadDelPadre" />
-                <input type="checkbox" hidden checked name="nombrePropiedades" value="PaisNacimientoDelPadre" />
-                <input type="checkbox" hidden checked name="nombrePropiedades" value="ProfesionDelPadre" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="PrimerNombreFamiliar" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="SegundoNombreFamiliar" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="ApellidosFamiliar" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="FechaNacimientoDelFamiliar" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="EdadDelFamiliar" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="PaisNacimientoDelFamiliar" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="ProfesionDelFamiliar" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="TelefonoDelFamiliar" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="EmaiDelFamiliar" />
+                <input type="checkbox" hidden checked name="nombrePropiedades" value="FechaGrabacionDelFamiliar" />   
             </div>
         </form>
     </center>

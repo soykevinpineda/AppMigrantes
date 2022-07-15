@@ -177,18 +177,20 @@ namespace Migrantes.Controllers
             Fiador_exportarExcel = (from p in this._context.PersonasDb
                                     join f in this._context.FiadorDb
                                     on p.per_codigo_id equals f.per_codigo_id
+                                    join s in this._context.SexosDb
+                                    on p.per_codigo_id equals s.id_sexo
                                     where p.per_codigo_id == id
 
                                     select new FiadorViewModel
                                     {
                                         per_codigo_id = f.per_codigo_id,
-                                        IdFiador = f.IdFiador,
+                                        FiadorID = f.FiadorID,
                                         PrimerNombreDelFiador = f.PrimerNombreDelFiador,
                                         SegundoNombreDelFiador = f.SegundoNombreDelFiador,
                                         ApellidosDelFiador = f.ApellidosDelFiador,
                                         FechaNacimientoDelFiador = f.FechaNacimientoDelFiador,
                                         EdadDelFiador = f.EdadDelFiador,
-                                        SexoDelFiador = f.SexoDelFiador,
+                                        SexoDelFiador = s.nomenclatura_sexo,
                                         PaisNacimientoDelFiador = f.PaisNacimientoDelFiador,
                                         EmailFiador = f.EmailFiador,
                                         TelefonoFiador = f.TelefonoFiador,
@@ -240,7 +242,7 @@ namespace Migrantes.Controllers
 
             {
                 per_codigo_id = Fiador_Persona.per_codigo_id,
-                IdFiador = Fiador_Persona.IdFiador,
+                FiadorID = Fiador_Persona.FiadorID,
                 PrimerNombreDelFiador = Fiador_Persona.PrimerNombreDelFiador,
                 SegundoNombreDelFiador = Fiador_Persona.SegundoNombreDelFiador,
                 ApellidosDelFiador = Fiador_Persona.ApellidosDelFiador,
@@ -260,9 +262,6 @@ namespace Migrantes.Controllers
 
             return View(objFiadorEditado);
         }
-
-
-
 
         //Get: Eliminar fiador.
         [HttpGet]
@@ -297,7 +296,7 @@ namespace Migrantes.Controllers
 
             {
                 per_codigo_id = FiadorDeLaPersona.per_codigo_id,
-                IdFiador = FiadorDeLaPersona.IdFiador,
+                FiadorID = FiadorDeLaPersona.FiadorID,
                 PrimerNombreDelFiador = FiadorDeLaPersona.PrimerNombreDelFiador,
                 SegundoNombreDelFiador = FiadorDeLaPersona.SegundoNombreDelFiador,
                 ApellidosDelFiador = FiadorDeLaPersona.ApellidosDelFiador,
@@ -331,7 +330,7 @@ namespace Migrantes.Controllers
             ViewBag.IdPersona = IdPersona.per_codigo_id;
 
             var FiadorDePersona = await this._context.FiadorDb.AsNoTracking()
-               .AsNoTracking().FirstOrDefaultAsync(x => x.IdFiador == oFiadorEliminado.IdFiador);
+               .AsNoTracking().FirstOrDefaultAsync(x => x.FiadorID == oFiadorEliminado.FiadorID);
 
             if (FiadorDePersona == null || oFiadorEliminado == null)
             {
@@ -363,19 +362,20 @@ namespace Migrantes.Controllers
             ListFiador = (from persona in this._context.PersonasDb
                           join fiador in this._context.FiadorDb
                           on persona.per_codigo_id equals fiador.per_codigo_id
+                          join s in this._context.SexosDb
+                          on persona.per_codigo_id equals s.id_sexo
                           where persona.per_codigo_id == IdPersona
-
 
                           select new FiadorViewModel
                           {
                               per_codigo_id = persona.per_codigo_id,
-                              IdFiador = fiador.IdFiador,
+                              FiadorID = fiador.FiadorID,
                               PrimerNombreDelFiador = fiador.PrimerNombreDelFiador,
                               SegundoNombreDelFiador = fiador.SegundoNombreDelFiador,
                               ApellidosDelFiador = fiador.ApellidosDelFiador,
                               FechaNacimientoDelFiador = fiador.FechaNacimientoDelFiador,
                               EdadDelFiador = fiador.EdadDelFiador,
-                              SexoDelFiador = fiador.SexoDelFiador,
+                              SexoDelFiador = s.nomenclatura_sexo,
                               PaisNacimientoDelFiador = fiador.PaisNacimientoDelFiador,
                               EmailFiador = fiador.EmailFiador,
                               TelefonoFiador = fiador.TelefonoFiador,
@@ -455,7 +455,7 @@ namespace Migrantes.Controllers
 
 
         #region Mètodo crea lista con los nombres de la persona seleccionada.
-        //Crea una lista con nombres de la persona
+        //Crea una lista con los nombres de la persona
         public void PersonaSeleccionada(int IdPersona)
 
         {

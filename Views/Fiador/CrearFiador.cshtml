@@ -10,6 +10,13 @@
     List<DocumentosPersonaDTO> NombreDeLaPersona = ViewBag.NombresPersona;
 }
 
+@*
+    <ul>
+    <li>
+    <strong>@Html.ActionLink("Menú principal", "Personas", "Personas")</strong>
+    </li>
+    </ul>*@
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css">
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Asset" media="all">
 
@@ -18,7 +25,6 @@
 se muestra un formulario para crearlo.-->
 @if (TempData["msjSinGuardar"] != null)
 {
-
     <div class="alert alert-danger alert-dismissible fade show" role="alert" style="font-size:large;font-family:Helvetica">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
             <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
@@ -160,28 +166,6 @@ se muestra un formulario para crearlo.-->
     *@
 
 
-@*
-    <ul>
-    <li>
-    <strong>@Html.ActionLink("Menú principal", "Personas", "Personas")</strong>
-    </li>
-    </ul>*@
-
-
-
-@*<div class="row">
-    <div class="col" style="text-align:left">
-    <div class="p-1 shadow-2 rounded-3 mb-2" style="font-family:Helvetica;border-radius:9px;">
-    <h2 class="text-primary"><strong>@ViewData["Title"]</strong></h2>
-    </div>
-    </div>
-    <div class="col" style="text-align:right">
-    <a class="btn btn-outline-primary" style="justify-items:right;" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
-    </div>
-    </div>
-    <hr>*@
-
-
 
 
 <!-- Formulario crear fiador -->
@@ -310,14 +294,6 @@ se muestra un formulario para crearlo.-->
 <!-- AlpineJS Library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.0/alpine.js"></script>
 
-@*
-<caption>
-    <strong class="text-success">
-        Formulario para registro del fiador.
-        <br /><strong class="text-danger">Powered by</strong><strong style="color:black;font-family:Helvetica">--Sourcing-Corp &copy;--</strong>
-    </strong>
-</caption>*@
-
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
@@ -338,7 +314,6 @@ se muestra un formulario para crearlo.-->
                 }
             })
         }
-
 
         $(document).ready(function() {
             $('.toast').toast('show');

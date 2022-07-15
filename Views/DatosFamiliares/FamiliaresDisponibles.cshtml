@@ -1,17 +1,19 @@
 ﻿@using Migrantes.Models.DTO
-@model IEnumerable<DocumentosPersonaDTO>
+@using Migrantes.ViewModels
+@model IEnumerable<DatosFamiliaresDTO>
 
 @{
-    ViewData["TitleDocumentos"] = "Documentos disponibles";
+    ViewData["Title"] = "Familiares disponibles";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    List<SelectListItem> TipoDocSelect = ViewBag.ListDoc;
-    List<DocumentosPersonaDTO> DocumentosPersona = ViewBag.ListadoDocumentos;
-    List<DocumentosPersonaDTO> NombreDeLaPersona = ViewBag.NombresPersona;
+    List<DatosFamiliaresDTO> FamiliaresPersona = ViewBag.ListDatosFam;
+    List<PersonaDTO> NombreDeLaPersona = ViewBag.NombresPersona;
 }
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 
 <!--Si la persona seleccionada no tiene documentos,
 se muestra una alerta y opción para agregar documentos-->
-@if (@ViewBag.IdDocumentoDisponible == 0)
+@if (Model.Count() == 0)
 {
     <div style="justify-content:center;display:flex;align-items:center" class="mb-2">
         <div class="toast" data-delay="90000000" style="border:thin;color:blue;border-radius: 9px;" role="alert" aria-live="assertive" aria-atomic="true">
@@ -24,9 +26,9 @@ se muestra una alerta y opción para agregar documentos-->
             {
                 <div class="toast-body">
                     <h4 class="text-primary text-center">
-                        <strong style="font-family:Helvetica, sans-serif;font-size:1.5rem;"> @TempData["alertaDocs1"] </strong>
+                        <strong style="font-family:Helvetica, sans-serif;font-size:1.5rem;"> @TempData["alertaDatosFamiliares1"] </strong>
                         <a class="text-center text-dark"><strong>@item.per_primer_nom @item.per_segundo_nom @item.per_primer_ape @item.per_segundo_ape</strong></a>
-                        <strong style="font-family:Helvetica, sans-serif;font-size:1.5rem;"> @TempData["alertaDocs2"] </strong>
+                        <strong style="font-family:Helvetica, sans-serif;font-size:1.5rem;"> @TempData["alertaDatosFamiliares2"] </strong>
                     </h4>
                 </div>
             }
@@ -36,12 +38,12 @@ se muestra una alerta y opción para agregar documentos-->
     <br />
     <center>
         <div class="form-group">
-            <a class="btn btn-primary" asp-controller="Documentos" asp-route-id="@ViewBag.IdPersona" asp-action="CrearDocumento">Agregar documento nuevo</a>&nbsp;
+            <a class="btn btn-primary" asp-controller="DatosFamiliares" asp-action="CrearDatosFamiliares" asp-route-id="@ViewBag.PersonaID">Agregar familiar</a>&nbsp;
             <a class="btn btn-outline-primary" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
         </div>
     </center>
 }
-
+@*
 <!--Alerta: documento guardado exitosamente-->
 @if (TempData["alertaDocGuardadoOK"] != null)
 {
@@ -84,9 +86,9 @@ se muestra una alerta y opción para agregar documentos-->
             </div>
         </div>
     </div>
-}
+}*@
 
-<!--Si la persona seleccionada ya tiene todos sus documentos,se muestra una alerta -->
+@*<!--Si la persona seleccionada ya tiene todos sus documentos,se muestra una alerta -->
 @if (TempData["msjDocsTotales"] != null)
 {
     <div style="justify-content:center;display:flex;align-items:center" class="mb-2">
@@ -107,15 +109,17 @@ se muestra una alerta y opción para agregar documentos-->
         </div>
     </div>
 }
+*@
+
 
 <!--Si la persona seleccionada tiene documentos,
 se muestra tabla de los documentos disponibles-->
-@if (@ViewBag.IdDocumentoDisponible != 0)
+@if (Model.Count() > 0)
 {
     <div class="row">
         <div class="col" style="text-align:left">
             <div class="p-1 shadow-2 rounded-3 mb-2" style="font-family:Helvetica;border-radius: 9px;">
-                <h2 class="text-primary"><strong>@ViewData["TitleDocumentos"]</strong></h2>
+                <h2 class="text-primary"><strong>@ViewData["Title"]</strong></h2>
             </div>
         </div>
         <div class="col" style="text-align:right">
@@ -138,7 +142,7 @@ se muestra tabla de los documentos disponibles-->
     <div class="card" style="font-family:Helvetica;box-shadow: 5px 10px 15px #888888;border-radius:5px">
         <div class="table-responsive text-nowrap">
             <form asp-action="ExportarDocsExcel" asp-controller="Documentos" id="FormChecks">
-                <table class="table-light table-striped text-center table-hover table-sm table-responsive-xl pre-scrollable">
+                <table class="table-light table-striped text-center table-hover table-md table-responsive-xl pre-scrollable">
                     <thead class="text-center" style="color:white">
                         <tr>
                             <th>
@@ -160,39 +164,85 @@ se muestra tabla de los documentos disponibles-->
                                 <input hidden type="checkbox" checked name="nombrePropiedades" value="RutaImagenPortada_B" />
                             </th>
                             <th>
+                                &nbsp;
                             </th>
                             <th>
+                                &nbsp;
+                            </th>
+                            <th>
+                                &nbsp;
+                            </th>
+                            <th>
+                                &nbsp;
+                            </th>
+                            <th>
+                                &nbsp;
+                            </th>
+                            <th>
+                                &nbsp;
+                            </th>
+                            <th>
+                                &nbsp;
+                            </th>
+                            <th>
+                                &nbsp;
+                            </th>
+                            <th>
+                                &nbsp;
                             </th>
                         <tr>
                             <th>
+                                &nbsp;
                                 <strong>
-                                    Tipo de documento
+                                    Pariente
                                 </strong>
                             </th>
                             <th>
+                                &nbsp;
                                 <strong>
-                                    Número del documento
+                                    Primer nombre
                                 </strong>
                             </th>
                             <th>
+                                &nbsp;
                                 <strong>
-                                    Fecha emisión
+                                    Segundo nombre
                                 </strong>
                             </th>
                             <th>
+                                &nbsp;
                                 <strong>
-                                    Fecha vencimiento
+                                    Apellidos
                                 </strong>
                             </th>
                             <th>
+                                &nbsp;
                                 <strong>
-                                    Portada
+                                    Telefono
                                 </strong>
                             </th>
                             <th>
+                                &nbsp;
                                 <strong>
-                                    Contraportada
+                                    E-mail
                                 </strong>
+                            </th>
+                            <th>
+                                &nbsp;
+                                <strong>
+                                    Profesion
+                                </strong>
+                            </th>
+                            <th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
                             </th>
                             <th>
                             </th>
@@ -205,25 +255,56 @@ se muestra tabla de los documentos disponibles-->
                         {
                             <tr class="table">
                                 <td>
-                                    @Html.DisplayFor(x => item.NombreDocumento)
+                                    &nbsp;
+                                    @Html.DisplayFor(x => item.NombreDelPariente)
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(x => item.ide_numero)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(x => item.ide_fecha_emision)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(x => item.ide_fecha_vencimiento)
-                                </td>
-                                <td>
-                                    <img style="border:1px solid;border-radius:6px" src="@item.RutaImagenPortada_A" width="153" height="75" />
 
+                                <td>
+                                    &nbsp;
+                                    @Html.DisplayFor(x => item.PrimerNombreFamiliar)
+                                </td>
+
+                                <td>
+                                    &nbsp;
+                                    @Html.DisplayFor(x => item.SegundoNombreFamiliar)
+                                </td>
+
+                                <td>
+                                    &nbsp;
+                                    @Html.DisplayFor(x => item.ApellidosFamiliar)
                                 </td>
                                 <td>
-                                    <img style="border:1px solid;border-radius:6px" src="@item.RutaImagenPortada_B" width="153" height="75" />
-
+                                    @Html.DisplayFor(x => item.TelefonoDelFamiliar)
                                 </td>
+                                <td>
+                                    @Html.DisplayFor(x => item.EmaiDelFamiliar)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(x => item.ProfesionDelFamiliar)
+                                </td>
+                                <td>
+                                    &nbsp;
+                                </td>
+                                <td>
+                                    &nbsp;
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+
+                                @*     <td>
+                        <img style="border:1px solid;border-radius:6px" src="@item.RutaImagenPortada_A" width="153" height="75" />
+
+                        </td>
+                        <td>
+                        <img style="border:1px solid;border-radius:6px" src="@item.RutaImagenPortada_B" width="153" height="75" />
+
+                        </td>*@
                                 <td>
                                     <div class="dropdown">
                                         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
@@ -232,17 +313,9 @@ se muestra tabla de los documentos disponibles-->
                                             </strong> <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">
-                                                Ver
-                                                <span class="caret"></span>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <a class="btn btn-outline-info" href=@item.RutaImagenPortada_A target="_blank"> Portada </a>
-                                                <a class="btn btn-outline-info" href=@item.RutaImagenPortada_B target="_blank"> Contraportada </a>
-                                            </ul>
-                                            <a class="btn btn-success" asp-controller="Documentos" asp-action="EditarDocumento" asp-route-id="@item.ide_id_persona"><i class="fa-solid fa-user-pen"></i>&nbsp;Editar</a>
-                                            <a class="btn btn-secondary" asp-controller="Documentos" asp-action="DetallesDocumento" asp-route-id="@item.ide_id_persona"><i class="fa-solid fa-file-lines"></i>&nbsp;Detalles</a>
-                                            <a class="btn btn-danger" asp-controller="Documentos" asp-action="EliminarDocumento" asp-route-id="@item.ide_id_persona"><i class="fa-solid fa-trash-can"></i>&nbsp;Eliminar</a>
+                                            <a class="btn btn-success" asp-controller="DatosFamiliares" asp-action="EditarDatosFamiliares" asp-route-id="@item.DatosFamiliaresID"><i class="fa-solid fa-user-pen"></i>&nbsp;Editar</a>
+                                            <a class="btn btn-secondary" asp-controller="DatosFamiliares" asp-action="DetallesDatosFamiliares" asp-route-id="@item.DatosFamiliaresID"><i class="fa-solid fa-file-lines"></i>&nbsp;Detalles</a>
+                                            <a class="btn btn-danger" asp-controller="DatosFamiliares" asp-action="EliminarDatosFamiliares" asp-route-id="@item.DatosFamiliaresID"><i class="fa-solid fa-trash-can"></i>&nbsp;Eliminar</a>
                                         </ul>
                                     </div>
                                 </td>
@@ -268,29 +341,19 @@ se muestra tabla de los documentos disponibles-->
     </div>
     <br />
     <br />
-    if (ViewBag.ListadoDocumentos.Count <= 2)
-    {
-        <center>
-            <div class="form-group">
-                <a class="btn btn-primary" asp-controller="Documentos" asp-action="CrearDocumento" asp-route-id="@ViewBag.IdPersona">Crear documento nuevo</a>&nbsp;
-                <button type="button" class="btn btn-success btn-sm" value="Exportar data a Excel"
+
+
+    <center>
+        <div class="form-group">
+            <a class="btn btn-primary" asp-controller="DatosFamiliares" asp-action="CrearDatosFamiliares" asp-route-id="@ViewBag.PersonaID">Agregar familiar nuevo</a>&nbsp;
+            <button type="button" class="btn btn-success btn-sm" value="Exportar data a Excel"
                 onclick="DescargarExcel()">
-                    <i style="font-size:24px" class="fa">&#xf1c3;</i>&nbsp;Exportar data a Excel
-                </button>
-            </div>
-        </center>
-    }
-    if (ViewBag.ListadoDocumentos.Count == 3)
-    {
-        <center>
-            <div class="form-group">
-                <button type="button" class="btn btn-success btn-sm" value="Exportar data a Excel"
-                onclick="DescargarExcel()">
-                    <i style="font-size:24px" class="fa">&#xf1c3;</i>&nbsp;Exportar data a Excel
-                </button>
-            </div>
-        </center>
-    }
+                <i style="font-size:24px" class="fa">&#xf1c3;</i>&nbsp;Exportar data a Excel
+            </button>
+        </div>
+    </center>
+
+
 }
 
 @section Scripts {

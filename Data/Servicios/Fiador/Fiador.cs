@@ -23,7 +23,7 @@ namespace Migrantes.Data.Servicios.Fiador
             ModeloFiador objFiador = new ModeloFiador();
 
             objFiador.per_codigo_id = FiadorCreado.per_codigo_id;
-            objFiador.IdFiador = FiadorCreado.IdFiador;
+            objFiador.FiadorID = FiadorCreado.FiadorID;
             objFiador.PrimerNombreDelFiador = FiadorCreado.PrimerNombreDelFiador;
             objFiador.SegundoNombreDelFiador = FiadorCreado.SegundoNombreDelFiador;
             objFiador.ApellidosDelFiador = FiadorCreado.ApellidosDelFiador;
@@ -49,7 +49,7 @@ namespace Migrantes.Data.Servicios.Fiador
             ModeloFiador objFiadorEditado = new ModeloFiador();
 
             objFiadorEditado.per_codigo_id = oFiadorEditado.per_codigo_id;
-            objFiadorEditado.IdFiador = oFiadorEditado.IdFiador;
+            objFiadorEditado.FiadorID = oFiadorEditado.FiadorID;
             objFiadorEditado.PrimerNombreDelFiador = oFiadorEditado.PrimerNombreDelFiador;
             objFiadorEditado.SegundoNombreDelFiador = oFiadorEditado.SegundoNombreDelFiador;
             objFiadorEditado.ApellidosDelFiador = oFiadorEditado.ApellidosDelFiador;
@@ -76,7 +76,7 @@ namespace Migrantes.Data.Servicios.Fiador
             ModeloFiador objFiadorEliminado = new ModeloFiador();
 
             objFiadorEliminado.per_codigo_id = FiadorEliminado.per_codigo_id;
-            objFiadorEliminado.IdFiador = FiadorEliminado.IdFiador;
+            objFiadorEliminado.FiadorID = FiadorEliminado.FiadorID;
             objFiadorEliminado.PrimerNombreDelFiador = FiadorEliminado.PrimerNombreDelFiador;
             objFiadorEliminado.SegundoNombreDelFiador = FiadorEliminado.SegundoNombreDelFiador;
             objFiadorEliminado.ApellidosDelFiador = FiadorEliminado.ApellidosDelFiador;
