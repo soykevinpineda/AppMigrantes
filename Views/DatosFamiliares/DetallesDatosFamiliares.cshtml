@@ -1,103 +1,137 @@
 ﻿@using Migrantes.Models.DTO
 @using Migrantes.ViewModels
-@model Migrantes.ViewModels.DatosFamiliaresViewModel
+@model Migrantes.Models.DTO.DatosFamiliaresDTO
 
 @{
-    ViewData["TitleDatosFamiliares"] = "Datos de familiares";
+    ViewData["TitleDatosFamiliares"] = "Detalles del familiar";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    List<DatosFamiliaresViewModel> ListDatosFamiliares = ViewBag.ListDatosFam;
+    List<SelectListItem> SelectPariente = ViewBag.Parientes;
+    List<DatosFamiliaresDTO> ListDatosFamiliares = ViewBag.ListDatosFam;
     List<PersonaDTO> NombreDeLaPersona = ViewBag.NombresPersona;
 }
 
 
-
-<!--Si la persona seleccionada posee datos familiares, se muestran las tarjetas -->
-@foreach (var item in ListDatosFamiliares)
-{
-
-    <div class="row">
-
-        <div class="col" style="text-align:left">
-            <div class="p-1 shadow-2 rounded-3 mb-2" style="font-family:Helvetica;border-radius: 9px;">
-                <h2 class="text-primary"><strong>@ViewData["TitleDatosFamiliares"]</strong></h2>
-            </div>
-        </div>
-        <div class="col" style="text-align:right">
-            <a class="btn btn-outline-primary" style="justify-items:right;" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+<!--Si la persona seleccionada posee datos familiares, se muestran detalles del familiar-->
+<div class="row">
+    <div class="col" style="text-align:left">
+        <div class="p-1 shadow-2 rounded-3 mb-2" style="font-family:Helvetica;border-radius: 9px;">
+            <h2 class="text-primary"><strong>@ViewData["TitleDatosFamiliares"]</strong></h2>
         </div>
     </div>
-    <hr>
+    <div class="col" style="text-align:right">
+        <a class="btn btn-outline-primary" style="justify-items:right;" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+    </div>
+</div>
+<hr>
 
-    <div class="align-content-center" id="TituloPer" data-bs-toggle="tooltip" data-bs-placement="top" title="Persona seleccionada">
+@foreach (var item in NombreDeLaPersona)
+{
+    <div class="align-content-center" data-bs-toggle="tooltip" data-bs-placement="top" title="Persona seleccionada">
         <center>
             <img src="~/persona.png" width="50" height="50" />
             <h3 class="text-center text-dark"><strong>@item.per_primer_nom @item.per_primer_ape @item.per_segundo_ape </strong></h3>
+            
         </center>
     </div>
-    <br />
-    <br />
+}
 
+
+<form asp-action="ActualizarFamiliaresEditados" asp-controller="DatosFamiliares" method="post" id="frm">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="@Model.per_codigo_id" />
+    <div class="form-group">
+        <input type="hidden" asp-for="per_codigo_id" class="form-control text-center" />
+        <input type="hidden" asp-for="DatosFamiliaresID" class="form-control text-center" />
+    </div>
     <div class="box">
         <div class="card" style="width:275px;box-shadow: 5px 10px 15px #888888;">
             <img src="~/Mujer.png" style="width:auto;height:auto;" class="card-img-top" alt="...">
             <div class="card-body">
+                <h5 class="card-title">Pariente</h5>
+               <select disabled asp-for="ParienteID" asp-items="@SelectPariente"></select>
+                <br />
 
-                <h5 class="card-title"><strong>Nombre del Pariente</strong></h5>
-                <p class="card-text">@item.PrimerNombreFamiliar @item.SegundoNombreFamiliar @item.ApellidosFamiliar</p>
+                <h5 class="card-title">Primer nombre</h5>
+                <input asp-for="PrimerNombreFamiliar" class="form-control text-center" />
+                <span asp-validation-for="PrimerNombreFamiliar" class="text-danger"></span>
+                <br />
 
-                <h5 class="card-title"><strong>Fecha de nacimiento</strong></h5>
-                <p class="card-text">@item.FechaNacimientoDelFamiliar</p>
+                <h5 class="card-title">Segundo nombre</h5>
+                <input asp-for="SegundoNombreFamiliar" class="form-control text-center" />
+                <span asp-validation-for="SegundoNombreFamiliar" class="text-danger"></span>
+                <br />
 
-                <h5 class="card-title"><strong>Edad</strong></h5>
-                <p class="card-text">@item.EdadDelFamiliar</p>
+                <h5 class="card-title">Apellidos</h5>
+                <input asp-for="ApellidosFamiliar" class="form-control text-center" />
+                <span asp-validation-for="ApellidosFamiliar" class="text-danger"></span>
+                <br />
 
-                <h5 class="card-title"><strong>País</strong></h5>
-                <p class="card-text">@item.PaisNacimientoDelFamiliar</p>
+                <h5 class="card-title">Fecha de nacimiento</h5>
+                <input asp-for="FechaNacimientoDelFamiliar" class="form-control text-center" />
+                <span asp-validation-for="FechaNacimientoDelFamiliar" class="text-danger"></span>
+                <br />
 
-                <h5 class="card-title"><strong>Profesión</strong></h5>
-                <p class="card-text">@item.ProfesionDelFamiliar</p>
+                <h5 class="card-title">Pais de nacimiento</h5>
+                <input asp-for="PaisNacimientoDelFamiliar" class="form-control text-center" />
+                <span asp-validation-for="PaisNacimientoDelFamiliar" class="text-danger"></span>
+                <br />
 
-                <h5 class="card-title"><strong>Teléfono</strong></h5>
-                <p class="card-text">@item.TelefonoDelFamiliar</p>
+                <h5 class="card-title">Profesión</h5>
+                <input asp-for="ProfesionDelFamiliar" class="form-control text-center" />
+                <span asp-validation-for="ProfesionDelFamiliar" class="text-danger"></span>
+                <br />
 
-                <h5 class="card-title"><strong>E-mail</strong></h5>
-                <p class="card-text">@item.EmaiDelFamiliar</p>
+                <h5 class="card-title"> Teléfono </h5>
+                <input asp-for="TelefonoDelFamiliar" class="form-control text-center" />
+                <span asp-validation-for="TelefonoDelFamiliar" class="text-danger"></span>
+                <br />
 
+                <h5 class="card-title"> Teléfono alternativo</h5>
+                <input asp-for="TelefonoAlternativoFamiliar" class="form-control text-center" />
+                <span asp-validation-for="TelefonoAlternativoFamiliar" class="text-danger"></span>
+                <br />
+
+                <h5 class="card-title">E-mail</h5>
+                <input asp-for="EmaiDelFamiliar" class="form-control text-center" />
+                <span asp-validation-for="EmaiDelFamiliar" class="text-danger"></span>
+                <br />
             </div>
         </div>
-        <style>
-            .box {
-                display: flex;
-                justify-content: space-evenly;
-            }
-        </style>
     </div>
-    <br />
-    <br />
-    <center>
-        <form asp-action="ExportarDatosFamiliaresExcel" asp-controller="DatosFamiliares" id="FormChecks">
-            <div class="form-group">
-                <a class="btn btn-primary" asp-controller="DatosFamiliares" asp-action="EditarDatosFamiliares" asp-route-id="@ViewBag.PersonaID"><i class="fa-solid fa-user-pen"></i>&nbsp;Editar</a>
-                <a class="btn btn-danger" asp-controller="DatosFamiliares" asp-action="EliminarDatosFamiliares" asp-route-id="@ViewBag.PersonaID"><i class="fa-solid fa-trash-can"></i>&nbsp;Eliminar</a>
-                <button type="button" class="btn btn-success btn-sm" value="Exportar data a Excel"
-                    onclick="DescargarExcel()">
-                    <i style="font-size:24px" class="fa">&#xf1c3;</i>&nbsp;Exportar data a Excel
-                </button>
-                <input type="checkbox" hidden checked name="nombrePropiedades" value="PrimerNombreFamiliar" />
-                <input type="checkbox" hidden checked name="nombrePropiedades" value="SegundoNombreFamiliar" />
-                <input type="checkbox" hidden checked name="nombrePropiedades" value="ApellidosFamiliar" />
-                <input type="checkbox" hidden checked name="nombrePropiedades" value="FechaNacimientoDelFamiliar" />
-                <input type="checkbox" hidden checked name="nombrePropiedades" value="EdadDelFamiliar" />
-                <input type="checkbox" hidden checked name="nombrePropiedades" value="PaisNacimientoDelFamiliar" />
-                <input type="checkbox" hidden checked name="nombrePropiedades" value="ProfesionDelFamiliar" />
-                <input type="checkbox" hidden checked name="nombrePropiedades" value="TelefonoDelFamiliar" />
-                <input type="checkbox" hidden checked name="nombrePropiedades" value="EmaiDelFamiliar" />
-                <input type="checkbox" hidden checked name="nombrePropiedades" value="FechaGrabacionDelFamiliar" />   
-            </div>
-        </form>
-    </center>
+    <style>
+        .box {
+            display: flex;
+            justify-content: space-evenly;
+        }
+    </style>
+  
+</form>
+<br />
 
-}
+
+<center>
+    <form asp-action="ExportarDatosFamiliaresExcel" asp-controller="DatosFamiliares" id="FormChecks">
+        <div class="form-group">
+            <a class="btn btn-primary" asp-controller="DatosFamiliares" asp-action="EditarDatosFamiliares" asp-route-id="@ViewBag.PersonaID"><i class="fa-solid fa-user-pen"></i>&nbsp;Editar</a>
+            <a class="btn btn-danger" asp-controller="DatosFamiliares" asp-action="EliminarDatosFamiliares" asp-route-id="@ViewBag.PersonaID"><i class="fa-solid fa-trash-can"></i>&nbsp;Eliminar</a>
+            <button type="button" class="btn btn-success btn-sm" value="Exportar data a Excel"
+                    onclick="DescargarExcel()">
+                <i style="font-size:24px" class="fa">&#xf1c3;</i>&nbsp;Exportar data a Excel
+            </button>
+            <input type="checkbox" hidden checked name="nombrePropiedades" value="PrimerNombreFamiliar" />
+            <input type="checkbox" hidden checked name="nombrePropiedades" value="SegundoNombreFamiliar" />
+            <input type="checkbox" hidden checked name="nombrePropiedades" value="ApellidosFamiliar" />
+            <input type="checkbox" hidden checked name="nombrePropiedades" value="FechaNacimientoDelFamiliar" />
+            <input type="checkbox" hidden checked name="nombrePropiedades" value="EdadDelFamiliar" />
+            <input type="checkbox" hidden checked name="nombrePropiedades" value="PaisNacimientoDelFamiliar" />
+            <input type="checkbox" hidden checked name="nombrePropiedades" value="ProfesionDelFamiliar" />
+            <input type="checkbox" hidden checked name="nombrePropiedades" value="TelefonoDelFamiliar" />
+            <input type="checkbox" hidden checked name="nombrePropiedades" value="EmaiDelFamiliar" />
+            <input type="checkbox" hidden checked name="nombrePropiedades" value="FechaGrabacionDelFamiliar" />
+        </div>
+    </form>
+</center>
+
 
 @section Scripts {
 
