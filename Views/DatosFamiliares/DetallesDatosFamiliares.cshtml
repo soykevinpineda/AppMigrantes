@@ -42,6 +42,10 @@
             <img src="~/Mujer.png" style="width:auto;height:auto;" class="card-img-top" alt="...">
             <div class="card-body">
 
+               <h5 class="card-title">Pariente</h5>
+               <select disabled asp-for="ParienteID" asp-items="@SelectPariente"></select>
+                <br />
+
                 <h5 class="card-title"><strong>Nombre del Pariente</strong></h5>
                 <p class="card-text">@item.PrimerNombreFamiliar @item.SegundoNombreFamiliar @item.ApellidosFamiliar</p>
 
