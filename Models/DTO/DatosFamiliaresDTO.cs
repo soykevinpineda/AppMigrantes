@@ -14,13 +14,13 @@ namespace Migrantes.Models.DTO
         public int per_codigo_id { get; set; }
 
 
-        [Display(Name = ("Parientes"))]
+        [Display(Name = ("Pariente"))]
         [Required(ErrorMessage = "Seleccione un pariente")]
         [ForeignKey("Parientes")]
         public int ParienteID { get; set; }
 
 
-        public string NombreDelPariente { get; set; }
+        public string DescripcionDelPariente { get; set; }
 
 
         [Display(Name = ("Primer nombre"))]
@@ -87,6 +87,9 @@ namespace Migrantes.Models.DTO
         [MaxLength(50)]
         public string per_segundo_ape { get; set; }
 
+        [Display(Name = ("Fecha de grabación"))]
+        [DataType(DataType.DateTime)]
+        public DateTime FechaGrabacionDelFamiliar { get; set; } = DateTime.Now;
 
 
     }

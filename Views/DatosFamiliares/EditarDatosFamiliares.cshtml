@@ -45,61 +45,58 @@
             <div class="card-body">
 
                 <h5 class="card-title">Primer nombre</h5>
-                <input  asp-for="PrimerNombreFamiliar" class="form-control text-center" />
+                <input asp-for="PrimerNombreFamiliar" class="form-control text-center" />
                 <span asp-validation-for="PrimerNombreFamiliar" class="text-danger"></span>
                 <br />
 
                 <h5 class="card-title">Segundo nombre</h5>
-                <input  asp-for="SegundoNombreFamiliar" class="form-control text-center" />
+                <input asp-for="SegundoNombreFamiliar" class="form-control text-center" />
                 <span asp-validation-for="SegundoNombreFamiliar" class="text-danger"></span>
                 <br />
 
                 <h5 class="card-title">Apellidos</h5>
-                <input  asp-for="ApellidosFamiliar" class="form-control text-center" />
+                <input asp-for="ApellidosFamiliar" class="form-control text-center" />
                 <span asp-validation-for="ApellidosFamiliar" class="text-danger"></span>
                 <br />
 
                 <h5 class="card-title">Fecha de nacimiento</h5>
-                <input  asp-for="FechaNacimientoDelFamiliar" class="form-control text-center" />
+                <input asp-for="FechaNacimientoDelFamiliar" class="form-control text-center" />
                 <span asp-validation-for="FechaNacimientoDelFamiliar" class="text-danger"></span>
                 <br />
 
                 <h5 class="card-title">Pais de nacimiento</h5>
-                <input  asp-for="PaisNacimientoDelFamiliar" class="form-control text-center" />
+                <input asp-for="PaisNacimientoDelFamiliar" class="form-control text-center" />
                 <span asp-validation-for="PaisNacimientoDelFamiliar" class="text-danger"></span>
                 <br />
 
                 <h5 class="card-title">Profesión</h5>
-                <input  asp-for="ProfesionDelFamiliar" class="form-control text-center" />
+                <input asp-for="ProfesionDelFamiliar" class="form-control text-center" />
                 <span asp-validation-for="ProfesionDelFamiliar" class="text-danger"></span>
                 <br />
 
-                   <h5 class="card-title"> Teléfono </h5>
-                <input  asp-for="TelefonoDelFamiliar" class="form-control text-center" />
+                <h5 class="card-title"> Teléfono </h5>
+                <input asp-for="TelefonoDelFamiliar" class="form-control text-center" />
                 <span asp-validation-for="TelefonoDelFamiliar" class="text-danger"></span>
                 <br />
 
-                    <h5 class="card-title"> Teléfono alternativo</h5>
-                <input  asp-for="TelefonoAlternativoFamiliar" class="form-control text-center" />
+                <h5 class="card-title"> Teléfono alternativo</h5>
+                <input asp-for="TelefonoAlternativoFamiliar" class="form-control text-center" />
                 <span asp-validation-for="TelefonoAlternativoFamiliar" class="text-danger"></span>
                 <br />
 
                 <h5 class="card-title">E-mail</h5>
-                <input  asp-for="EmaiDelFamiliar" class="form-control text-center" />
+                <input asp-for="EmaiDelFamiliar" class="form-control text-center" />
                 <span asp-validation-for="EmaiDelFamiliar" class="text-danger"></span>
                 <br />
             </div>
         </div>
-
-        
-            </div>
-            <style>
-                .box {
-                    display: flex;
-                    justify-content: space-evenly;
-                }
-            </style>
- 
+    </div>
+    <style>
+        .box {
+            display: flex;
+            justify-content: space-evenly;
+        }
+    </style>
     <br />
     <center>
         <div class="form-group">
@@ -108,11 +105,11 @@
     </center>
 </form>
 
-
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
     <script src="~/js/generic.js"></script>
     <script src="~/js/sweetalert.js"></script>
 
