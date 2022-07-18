@@ -1,6 +1,6 @@
 ﻿@using Migrantes.Models.DTO
 @using Migrantes.ViewModels
-@model Migrantes.ViewModels.DatosFamiliaresViewModel
+@model Migrantes.Models.DTO.DatosFamiliaresDTO
 
 @{
     ViewData["TitleDatosFamiliares"] = "Datos de familiares";
@@ -45,7 +45,7 @@
 
                <h5 class="card-title">Pariente</h5>
                <select disabled asp-for="ParienteID" asp-items="@SelectPariente"></select>
-                <br />
+               <br />
 
                 <h5 class="card-title"><strong>Nombre del Pariente</strong></h5>
                 <p class="card-text">@item.PrimerNombreFamiliar @item.SegundoNombreFamiliar @item.ApellidosFamiliar</p>
