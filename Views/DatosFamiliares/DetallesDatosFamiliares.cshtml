@@ -5,6 +5,7 @@
 @{
     ViewData["TitleDatosFamiliares"] = "Datos de familiares";
     Layout = "~/Views/Shared/_Layout.cshtml";
+     List<SelectListItem> SelectPariente = ViewBag.Parientes;
     List<DatosFamiliaresViewModel> ListDatosFamiliares = ViewBag.ListDatosFam;
     List<PersonaDTO> NombreDeLaPersona = ViewBag.NombresPersona;
 }
