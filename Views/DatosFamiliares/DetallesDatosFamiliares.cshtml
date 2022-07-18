@@ -5,13 +5,8 @@
 @{
     ViewData["TitleDatosFamiliares"] = "Detalles del familiar";
     Layout = "~/Views/Shared/_Layout.cshtml";
-<<<<<<< HEAD
-     List<SelectListItem> SelectPariente = ViewBag.Parientes;
-    List<DatosFamiliaresViewModel> ListDatosFamiliares = ViewBag.ListDatosFam;
-=======
     List<SelectListItem> SelectPariente = ViewBag.Parientes;
     List<DatosFamiliaresDTO> ListDatosFamiliares = ViewBag.ListDatosFam;
->>>>>>> f81b136ad6e09561ae3938c9661959a08619c442
     List<PersonaDTO> NombreDeLaPersona = ViewBag.NombresPersona;
 }
 
@@ -35,11 +30,11 @@
         <center>
             <img src="~/persona.png" width="50" height="50" />
             <h3 class="text-center text-dark"><strong>@item.per_primer_nom @item.per_primer_ape @item.per_segundo_ape </strong></h3>
-            
+
         </center>
     </div>
 }
-
+<br />
 
 <form asp-action="ActualizarFamiliaresEditados" asp-controller="DatosFamiliares" method="post" id="frm">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -53,22 +48,14 @@
             <img src="~/Mujer.png" style="width:auto;height:auto;" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">Pariente</h5>
-               <select disabled asp-for="ParienteID" asp-items="@SelectPariente"></select>
+                <select disabled asp-for="ParienteID" asp-items="@SelectPariente"></select>
                 <br />
 
-<<<<<<< HEAD
-               <h5 class="card-title">Pariente</h5>
-               <select disabled asp-for="ParienteID" asp-items="@SelectPariente"></select>
-               <br />
-
-                <h5 class="card-title"><strong>Nombre del Pariente</strong></h5>
-                <p class="card-text">@item.PrimerNombreFamiliar @item.SegundoNombreFamiliar @item.ApellidosFamiliar</p>
-=======
                 <h5 class="card-title">Primer nombre</h5>
                 <input asp-for="PrimerNombreFamiliar" class="form-control text-center" />
                 <span asp-validation-for="PrimerNombreFamiliar" class="text-danger"></span>
                 <br />
->>>>>>> f81b136ad6e09561ae3938c9661959a08619c442
+
 
                 <h5 class="card-title">Segundo nombre</h5>
                 <input asp-for="SegundoNombreFamiliar" class="form-control text-center" />
@@ -118,7 +105,7 @@
             justify-content: space-evenly;
         }
     </style>
-  
+
 </form>
 <br />
 
@@ -126,8 +113,8 @@
 <center>
     <form asp-action="ExportarDatosFamiliaresExcel" asp-controller="DatosFamiliares" id="FormChecks">
         <div class="form-group">
-            <a class="btn btn-primary" asp-controller="DatosFamiliares" asp-action="EditarDatosFamiliares" asp-route-id="@ViewBag.PersonaID"><i class="fa-solid fa-user-pen"></i>&nbsp;Editar</a>
-            <a class="btn btn-danger" asp-controller="DatosFamiliares" asp-action="EliminarDatosFamiliares" asp-route-id="@ViewBag.PersonaID"><i class="fa-solid fa-trash-can"></i>&nbsp;Eliminar</a>
+            <a class="btn btn-primary" asp-controller="DatosFamiliares" asp-action="EditarDatosFamiliares" asp-route-id="@ViewBag.DatosFamiliaresID"><i class="fa-solid fa-user-pen"></i>&nbsp;Editar</a>
+            <a class="btn btn-danger" asp-controller="DatosFamiliares" asp-action="EliminarDatosFamiliares" asp-route-id="@ViewBag.DatosFamiliaresID"><i class="fa-solid fa-trash-can"></i>&nbsp;Eliminar</a>
             <button type="button" class="btn btn-success btn-sm" value="Exportar data a Excel"
                     onclick="DescargarExcel()">
                 <i style="font-size:24px" class="fa">&#xf1c3;</i>&nbsp;Exportar data a Excel

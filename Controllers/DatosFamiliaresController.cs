@@ -52,13 +52,13 @@ namespace Migrantes.Controllers
 
         #region Mètodo para seleccionar nombres de la persona.
         //Crea una lista con nombres de la persona
-        public void NombrePersonaSeleccionada(int? IdPersona)
+        public void NombrePersonaSeleccionada(int? PersonaID)
 
         {
             List<PersonaDTO> ListNombres = new List<PersonaDTO>();
 
             ListNombres = (from p in this._context.PersonasDb
-                           where p.per_codigo_id == IdPersona
+                           where p.per_codigo_id == PersonaID
 
                            select new PersonaDTO
 
@@ -78,7 +78,7 @@ namespace Migrantes.Controllers
 
 
         #region Método crea una lista de datos familiares disponibles de la persona.
-        public void DatosFamiliaresDisponibles(int? idPersona)
+        public void DatosFamiliaresDisponibles(int? PersonaID)
         {
 
             //Se crea una lista utilizando un ViewModel
@@ -93,7 +93,7 @@ namespace Migrantes.Controllers
                                    on oDatosFamiliares.per_codigo_id equals persona.per_codigo_id
                                    join pariente in this._context.ParientesDb
                                    on oDatosFamiliares.ParienteID equals pariente.ParienteID
-                                   where oDatosFamiliares.per_codigo_id == idPersona
+                                   where oDatosFamiliares.per_codigo_id == PersonaID
 
                                    select new DatosFamiliaresDTO
 
@@ -119,7 +119,7 @@ namespace Migrantes.Controllers
                                    }).ToList();
 
             ViewBag.ListDatosFam = ListDatosFamiliares;
-
+            
         }
         #endregion
 
@@ -135,7 +135,7 @@ namespace Migrantes.Controllers
 
         public async Task ObtenerFamiliar(int? id)
         {
-           
+
             var GetFamily = await this._context.DatosFamiliaresDb
                 .FirstOrDefaultAsync(x => x.DatosFamiliaresID == id);
 
@@ -198,36 +198,41 @@ namespace Migrantes.Controllers
         public async Task<IActionResult> DetallesDatosFamiliares(int? id)
         {
 
-            ////Obtenemos la ruta de inicio del usuario.
-            //var urlRetornoDetallesDatosFamiliares = HttpContext.Request.Path + HttpContext.Request.QueryString;
-            //HttpContext.Session.SetString("UrlRetorno", urlRetornoDetallesDatosFamiliares);
+            //Obtenemos la ruta de inicio del usuario.
+            var urlRetornoDetallesDelFamiliar = HttpContext.Request.Path + HttpContext.Request.QueryString;
+            HttpContext.Session.SetString("UrlRetorno", urlRetornoDetallesDelFamiliar);
+
+            if (id == null)
+            {
+                return NotFound();
+            }
 
             //await ObtenerFamiliar(id);
 
-            var GetFamily = await this._context.DatosFamiliaresDb
+            var ObtenerFamiliar = await this._context.DatosFamiliaresDb
                .FirstOrDefaultAsync(x => x.DatosFamiliaresID == id);
 
+            ViewBag.DatosFamiliaresID = ObtenerFamiliar;
 
             var Pariente = new DatosFamiliaresDTO()
             {
-                per_codigo_id = GetFamily.DatosFamiliaresID,
-                DatosFamiliaresID = GetFamily.DatosFamiliaresID,
-                ParienteID = GetFamily.ParienteID,
-                PrimerNombreFamiliar = GetFamily.PrimerNombreFamiliar,
-                SegundoNombreFamiliar = GetFamily.SegundoNombreFamiliar,
-                ApellidosFamiliar = GetFamily.ApellidosFamiliar,
-                FechaNacimientoDelFamiliar = GetFamily.FechaNacimientoDelFamiliar,
-                PaisNacimientoDelFamiliar = GetFamily.PaisNacimientoDelFamiliar,
-                EdadDelFamiliar = GetFamily.EdadDelFamiliar,
-                TelefonoDelFamiliar = GetFamily.TelefonoDelFamiliar,
-                EmaiDelFamiliar = GetFamily.EmaiDelFamiliar,
-                ProfesionDelFamiliar = GetFamily.ProfesionDelFamiliar,
+                per_codigo_id = ObtenerFamiliar.per_codigo_id,
+                DatosFamiliaresID = ObtenerFamiliar.DatosFamiliaresID,
+                ParienteID = ObtenerFamiliar.ParienteID,
+                PrimerNombreFamiliar = ObtenerFamiliar.PrimerNombreFamiliar,
+                SegundoNombreFamiliar = ObtenerFamiliar.SegundoNombreFamiliar,
+                ApellidosFamiliar = ObtenerFamiliar.ApellidosFamiliar,
+                FechaNacimientoDelFamiliar = ObtenerFamiliar.FechaNacimientoDelFamiliar,
+                PaisNacimientoDelFamiliar = ObtenerFamiliar.PaisNacimientoDelFamiliar,
+                EdadDelFamiliar = ObtenerFamiliar.EdadDelFamiliar,
+                TelefonoDelFamiliar = ObtenerFamiliar.TelefonoDelFamiliar,
+                EmaiDelFamiliar = ObtenerFamiliar.EmaiDelFamiliar,
+                ProfesionDelFamiliar = ObtenerFamiliar.ProfesionDelFamiliar,
                 EstadoDatosFamiliares = 1
             };
 
             Parientes();
-            DatosFamiliaresDisponibles(id);
-            NombrePersonaSeleccionada(id); 
+            NombrePersonaSeleccionada(ObtenerFamiliar.per_codigo_id); 
 
             return await Task.Run(() => View(Pariente));
         }
@@ -235,7 +240,7 @@ namespace Migrantes.Controllers
 
         //Get: Se editan datos de familiares asociado al ID de la persona
         [HttpGet]
-        public IActionResult EditarDatosFamiliares(int? id)
+        public async Task<IActionResult> EditarDatosFamiliares(int? id)
         {
 
             if (id == null)
@@ -243,15 +248,34 @@ namespace Migrantes.Controllers
                 return NotFound();
             }
 
-            var ObjDatosFamiliares = this._context.DatosFamiliaresDb
-                .FirstOrDefault(x => x.per_codigo_id == id);
+            var ObtenerFamiliar = await this._context.DatosFamiliaresDb
+               .FirstOrDefaultAsync(x => x.DatosFamiliaresID == id);
 
-            DatosFamiliaresDisponibles(ObjDatosFamiliares.per_codigo_id);
+            ViewBag.DatosFamiliaresID = ObtenerFamiliar;
 
-            return View(ObjDatosFamiliares);
+            var EditarFamiliar = new DatosFamiliaresDTO()
+            {
+                per_codigo_id = ObtenerFamiliar.per_codigo_id,
+                DatosFamiliaresID = ObtenerFamiliar.DatosFamiliaresID,
+                ParienteID = ObtenerFamiliar.ParienteID,
+                PrimerNombreFamiliar = ObtenerFamiliar.PrimerNombreFamiliar,
+                SegundoNombreFamiliar = ObtenerFamiliar.SegundoNombreFamiliar,
+                ApellidosFamiliar = ObtenerFamiliar.ApellidosFamiliar,
+                FechaNacimientoDelFamiliar = ObtenerFamiliar.FechaNacimientoDelFamiliar,
+                PaisNacimientoDelFamiliar = ObtenerFamiliar.PaisNacimientoDelFamiliar,
+                EdadDelFamiliar = ObtenerFamiliar.EdadDelFamiliar,
+                TelefonoDelFamiliar = ObtenerFamiliar.TelefonoDelFamiliar,
+                EmaiDelFamiliar = ObtenerFamiliar.EmaiDelFamiliar,
+                ProfesionDelFamiliar = ObtenerFamiliar.ProfesionDelFamiliar,
+                EstadoDatosFamiliares = 1
+            };
 
+            Parientes();
+            DatosFamiliaresDisponibles(id);
+            NombrePersonaSeleccionada(ObtenerFamiliar.per_codigo_id);
+
+            return await Task.Run(() => View(EditarFamiliar));
         }
-
 
 
         //Post: Se actualiza datos editados de familiares asociado al ID de la persona
@@ -272,8 +296,8 @@ namespace Migrantes.Controllers
                 }
             }
 
-            var urlRetornoDetallesDatosFamiliares = HttpContext.Session.GetString("UrlRetorno");
-            return LocalRedirect(urlRetornoDetallesDatosFamiliares);
+            var urlRetornoDetallesDelFamiliar = HttpContext.Session.GetString("UrlRetorno");
+            return LocalRedirect(urlRetornoDetallesDelFamiliar);
 
         }
 
@@ -289,31 +313,31 @@ namespace Migrantes.Controllers
                 return NotFound();
             }
 
-            var objDatosFamiliaresEliminar = await this._context.DatosFamiliaresDb.AsNoTracking()
-                .FirstOrDefaultAsync(x => x.per_codigo_id == id);
+            var ObtenerFamiliar = await this._context.DatosFamiliaresDb
+             .FirstOrDefaultAsync(x => x.DatosFamiliaresID == id);
 
-            if (objDatosFamiliaresEliminar == null)
+            var EliminarFamiliar = new DatosFamiliaresDTO()
             {
-                return NotFound();
-            }
-
-            var oDatosFamiliares = new DatosFamiliaresViewModel()
-
-            {
-                DatosFamiliaresID = objDatosFamiliaresEliminar.DatosFamiliaresID,
-                PrimerNombreFamiliar = objDatosFamiliaresEliminar.PrimerNombreFamiliar,
-                SegundoNombreFamiliar = objDatosFamiliaresEliminar.SegundoNombreFamiliar,
-                ApellidosFamiliar = objDatosFamiliaresEliminar.ApellidosFamiliar,
-                FechaNacimientoDelFamiliar = objDatosFamiliaresEliminar.FechaNacimientoDelFamiliar,
-                PaisNacimientoDelFamiliar = objDatosFamiliaresEliminar.PaisNacimientoDelFamiliar,
-                EdadDelFamiliar = objDatosFamiliaresEliminar.EdadDelFamiliar,
-                TelefonoDelFamiliar = objDatosFamiliaresEliminar.TelefonoDelFamiliar,
-                EmaiDelFamiliar = objDatosFamiliaresEliminar.EmaiDelFamiliar,
-                ProfesionDelFamiliar = objDatosFamiliaresEliminar.ProfesionDelFamiliar,
+                per_codigo_id = ObtenerFamiliar.per_codigo_id,
+                DatosFamiliaresID = ObtenerFamiliar.DatosFamiliaresID,
+                ParienteID = ObtenerFamiliar.ParienteID,
+                PrimerNombreFamiliar = ObtenerFamiliar.PrimerNombreFamiliar,
+                SegundoNombreFamiliar = ObtenerFamiliar.SegundoNombreFamiliar,
+                ApellidosFamiliar = ObtenerFamiliar.ApellidosFamiliar,
+                FechaNacimientoDelFamiliar = ObtenerFamiliar.FechaNacimientoDelFamiliar,
+                PaisNacimientoDelFamiliar = ObtenerFamiliar.PaisNacimientoDelFamiliar,
+                EdadDelFamiliar = ObtenerFamiliar.EdadDelFamiliar,
+                TelefonoDelFamiliar = ObtenerFamiliar.TelefonoDelFamiliar,
+                EmaiDelFamiliar = ObtenerFamiliar.EmaiDelFamiliar,
+                ProfesionDelFamiliar = ObtenerFamiliar.ProfesionDelFamiliar,
                 EstadoDatosFamiliares = 1
             };
 
-            return View(objDatosFamiliaresEliminar);
+            Parientes();
+            DatosFamiliaresDisponibles(id);
+            NombrePersonaSeleccionada(ObtenerFamiliar.per_codigo_id);
+
+            return await Task.Run(() => View(EliminarFamiliar));
         }
 
 
@@ -341,7 +365,8 @@ namespace Migrantes.Controllers
                 throw;
             }
 
-            return RedirectToAction("Personas", "Personas");
+            var urlRetornoFamiliaresDisponibles = HttpContext.Session.GetString("UrlRetorno");
+            return LocalRedirect(urlRetornoFamiliaresDisponibles);
         }
 
 
@@ -350,11 +375,11 @@ namespace Migrantes.Controllers
         public async Task<IActionResult> FamiliaresDisponibles(int? id)
         {
             //Obtenemos la ruta de inicio del usuario.
-            var urlRetornoDocsDisponibles = HttpContext.Request.Path + HttpContext.Request.QueryString;
-            HttpContext.Session.SetString("UrlRetorno", urlRetornoDocsDisponibles);
+            var urlRetornoFamiliaresDisponibles = HttpContext.Request.Path + HttpContext.Request.QueryString;
+            HttpContext.Session.SetString("UrlRetorno", urlRetornoFamiliaresDisponibles);
 
             await ObtenerPersona(id);
-            //await ObtenerFamiliar(id);
+            await ObtenerFamiliar(id);
 
             if (id == null)
             {

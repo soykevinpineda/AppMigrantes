@@ -1,10 +1,11 @@
-﻿@using Migrantes.ViewModels
-@model Migrantes.ViewModels.DatosFamiliaresViewModel
+﻿@using Migrantes.Models.DTO
+@using Migrantes.ViewModels
+@model Migrantes.Models.DTO.DatosFamiliaresDTO
 
 @{
-    ViewData["TitleEliminarDatosFamiliares"] = "Eliminar datos de familiares";
+    ViewData["TitleEliminarDatosFamiliares"] = "Eliminar familiar";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    List<DatosFamiliaresViewModel> ListDatosFamiliares = ViewBag.ListDatosFam;
+    List<DatosFamiliaresDTO> ListDatosFamiliares = ViewBag.ListDatosFam;
 }
 
 <div class="row">

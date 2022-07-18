@@ -11,7 +11,7 @@ build_property.RootNamespace = Migrantes
 build_property.ProjectDir = C:\Users\khernandez\Documents\Project Migrantes\migrantes-sc-master\Migrantes\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
-build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = true
 build_property.MSBuildProjectDirectory = C:\Users\khernandez\Documents\Project Migrantes\migrantes-sc-master\Migrantes
 build_property._RazorSourceGeneratorDebug = 
 

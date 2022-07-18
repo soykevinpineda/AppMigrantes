@@ -33,6 +33,7 @@ namespace Migrantes.Data.Servicios.Familiares
             ObjFamiliares.PaisNacimientoDelFamiliar = oDatosFamiliaresCreados.PaisNacimientoDelFamiliar;
             ObjFamiliares.EdadDelFamiliar = EdadDelFamiliar;
             ObjFamiliares.TelefonoDelFamiliar = oDatosFamiliaresCreados.TelefonoDelFamiliar;
+            ObjFamiliares.TelefonoAlternativoFamiliar = oDatosFamiliaresCreados.TelefonoAlternativoFamiliar;
             ObjFamiliares.EmaiDelFamiliar = oDatosFamiliaresCreados.EmaiDelFamiliar;
             ObjFamiliares.ProfesionDelFamiliar = oDatosFamiliaresCreados.ProfesionDelFamiliar;
             ObjFamiliares.EstadoDatosFamiliares = 1;
@@ -59,6 +60,7 @@ namespace Migrantes.Data.Servicios.Familiares
             oDatosFamiliares.PaisNacimientoDelFamiliar = DatosFamiliaresEditados.PaisNacimientoDelFamiliar;
             oDatosFamiliares.EdadDelFamiliar = EdadDelFamiliar;
             oDatosFamiliares.TelefonoDelFamiliar = DatosFamiliaresEditados.TelefonoDelFamiliar;
+            oDatosFamiliares.TelefonoAlternativoFamiliar = DatosFamiliaresEditados.TelefonoAlternativoFamiliar;
             oDatosFamiliares.EmaiDelFamiliar = DatosFamiliaresEditados.EmaiDelFamiliar;
             oDatosFamiliares.ProfesionDelFamiliar = DatosFamiliaresEditados.ProfesionDelFamiliar;
             oDatosFamiliares.EstadoDatosFamiliares = 1;
@@ -83,6 +85,7 @@ namespace Migrantes.Data.Servicios.Familiares
             ObjFamiliares.PaisNacimientoDelFamiliar = DatosFamiliaresEliminados.PaisNacimientoDelFamiliar;
             ObjFamiliares.EdadDelFamiliar = DatosFamiliaresEliminados.EdadDelFamiliar;
             ObjFamiliares.TelefonoDelFamiliar = DatosFamiliaresEliminados.TelefonoDelFamiliar;
+            ObjFamiliares.TelefonoAlternativoFamiliar = DatosFamiliaresEliminados.TelefonoAlternativoFamiliar;
             ObjFamiliares.EmaiDelFamiliar = DatosFamiliaresEliminados.EmaiDelFamiliar;
             ObjFamiliares.ProfesionDelFamiliar = DatosFamiliaresEliminados.ProfesionDelFamiliar;
             ObjFamiliares.EstadoDatosFamiliares = 1;
