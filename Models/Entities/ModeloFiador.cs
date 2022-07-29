@@ -74,9 +74,6 @@ namespace Migrantes.Models.Entities
         [Display(Name = ("Entrego recibo de agua o luz?"))]
         public bool EntregoRecibo_Agua_o_Luz { get; set; }
 
-        [NotMapped]
-        public bool NoEntregoRecibo_Agua_o_Luz { get; set; } = false;
-
         [Display(Name = ("Fecha de grabación"))]
         [DataType(DataType.DateTime)]
         public DateTime FechaGrabacionDelFiador { get; set; } = DateTime.Now;

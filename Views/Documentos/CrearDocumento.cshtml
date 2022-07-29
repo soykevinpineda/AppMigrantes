@@ -1,25 +1,28 @@
 ﻿@using Migrantes.Models.DTO
 @model Migrantes.Models.DTO.DocumentosPersonaDTO
 @{
-   
-    ViewData["Title"] = "Formulario para documentos";
+
+    ViewData["Title"] = "Formulario para crear documentos";
     ViewData["TitleCargaDocumentos"] = "Carga de archivos";
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<SelectListItem> TipoDocSelect = ViewBag.ListDoc;
     List<DocumentosPersonaDTO> DocumentosPersona = ViewBag.ListadoDocumentos;
-    List<DocumentosPersonaDTO> NombreDeLaPersona = ViewBag.NombresPersona;
+    List<PersonaDTO> NombreDeLaPersona = ViewBag.NombresPersona;
 }
 
-
-<div class="row">
-    <div class="col" style="text-align:left">
-        <div class="p-1 shadow-2 rounded-3 mb-2" style="font-family:Helvetica;border-radius: 9px;">
+<div class="row align-items-center">
+    <div class="col-3">
+        <div>
+            <a class="btn btn-outline-primary" style="width:fit-content" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+        </div>
+    </div>
+    <div class="col-auto align-self-center">
+        <div class="text-center" style="font-family:Helvetica;">
             <h2 class="text-primary"><strong>@ViewData["Title"]</strong></h2>
         </div>
     </div>
-    <div class="col" style="text-align:right">
-        <a class="btn btn-outline-primary" style="justify-items:right;" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
-    </div>
+     <div class="col">
+     </div>
 </div>
 <hr>
 
@@ -27,7 +30,7 @@
 {
     <div class="align-content-left" id="TituloPer" data-bs-toggle="tooltip" data-bs-placement="top" title="Persona seleccionada">
         <center>
-            <img src="~/persona.png" width="50" height="50" />
+            <img src="~/persona.png" width="35" height="35" />
             <h3 class="text-center text-dark"><strong>@item.per_primer_nom @item.per_segundo_nom @item.per_primer_ape @item.per_segundo_ape</strong></h3>
         </center>
     </div>
@@ -51,7 +54,7 @@
                 <strong>
                     <label asp-for="ide_id_documento" class="control-label"></label>
                 </strong>
-                <select  asp-for="ide_id_documento" asp-items="@TipoDocSelect" class="form-control text-center"> </select>
+                <select asp-for="ide_id_documento" asp-items="@TipoDocSelect" class="form-control text-center"> </select>
                 <span asp-validation-for="ide_id_documento" class="text-danger"></span>
             </div>
             <br />

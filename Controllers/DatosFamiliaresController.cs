@@ -81,7 +81,7 @@ namespace Migrantes.Controllers
         public void DatosFamiliaresDisponibles(int? PersonaID)
         {
 
-            //Se crea una lista utilizando un ViewModel
+            //Se crea una lista utilizando un DTO
             List<DatosFamiliaresDTO> ListDatosFamiliares = new List<DatosFamiliaresDTO>();
 
 
@@ -113,31 +113,32 @@ namespace Migrantes.Controllers
                                        PaisNacimientoDelFamiliar = oDatosFamiliares.PaisNacimientoDelFamiliar,
                                        EdadDelFamiliar = oDatosFamiliares.EdadDelFamiliar,
                                        TelefonoDelFamiliar = oDatosFamiliares.TelefonoDelFamiliar,
+                                       TelefonoAlternativoFamiliar= oDatosFamiliares.TelefonoAlternativoFamiliar,
                                        EmaiDelFamiliar = oDatosFamiliares.EmaiDelFamiliar,
                                        ProfesionDelFamiliar = oDatosFamiliares.ProfesionDelFamiliar,
 
                                    }).ToList();
 
             ViewBag.ListDatosFam = ListDatosFamiliares;
-            
         }
         #endregion
 
 
-        public async Task ObtenerPersona(int? id)
+        public async Task ObtenerPersona(int? PersonaID)
         {
             var GetPerson = await this._context.PersonasDb
-                .FirstOrDefaultAsync(x => x.per_codigo_id == id);
+                .FirstOrDefaultAsync(x => x.per_codigo_id == PersonaID);
 
             ViewBag.PersonaID = GetPerson.per_codigo_id;
+         
         }
 
 
-        public async Task ObtenerFamiliar(int? id)
+        public async Task ObtenerFamiliar(int? PersonaID)
         {
 
             var GetFamily = await this._context.DatosFamiliaresDb
-                .FirstOrDefaultAsync(x => x.DatosFamiliaresID == id);
+                .FirstOrDefaultAsync(x => x.per_codigo_id == PersonaID);
 
             ViewBag.DatosFamiliaresID = GetFamily.DatosFamiliaresID;
         }
@@ -148,14 +149,14 @@ namespace Migrantes.Controllers
         //Get: Se agregan datos de familiares asociado al ID de la persona
         [HttpGet]
         public async Task<IActionResult> CrearDatosFamiliares(int? id)
-
         {
-            await ObtenerPersona(id);
 
             if (id == null)
             {
                 return NotFound();
             }
+
+            await ObtenerPersona(id);
 
             Parientes();
             DatosFamiliaresDisponibles(id);
@@ -207,32 +208,31 @@ namespace Migrantes.Controllers
                 return NotFound();
             }
 
-            //await ObtenerFamiliar(id);
-
-            var ObtenerFamiliar = await this._context.DatosFamiliaresDb
+            var FamiliarObtenido = await this._context.DatosFamiliaresDb
                .FirstOrDefaultAsync(x => x.DatosFamiliaresID == id);
 
-            ViewBag.DatosFamiliaresID = ObtenerFamiliar;
+            ViewBag.DatosFamiliaresID = FamiliarObtenido;
 
             var Pariente = new DatosFamiliaresDTO()
             {
-                per_codigo_id = ObtenerFamiliar.per_codigo_id,
-                DatosFamiliaresID = ObtenerFamiliar.DatosFamiliaresID,
-                ParienteID = ObtenerFamiliar.ParienteID,
-                PrimerNombreFamiliar = ObtenerFamiliar.PrimerNombreFamiliar,
-                SegundoNombreFamiliar = ObtenerFamiliar.SegundoNombreFamiliar,
-                ApellidosFamiliar = ObtenerFamiliar.ApellidosFamiliar,
-                FechaNacimientoDelFamiliar = ObtenerFamiliar.FechaNacimientoDelFamiliar,
-                PaisNacimientoDelFamiliar = ObtenerFamiliar.PaisNacimientoDelFamiliar,
-                EdadDelFamiliar = ObtenerFamiliar.EdadDelFamiliar,
-                TelefonoDelFamiliar = ObtenerFamiliar.TelefonoDelFamiliar,
-                EmaiDelFamiliar = ObtenerFamiliar.EmaiDelFamiliar,
-                ProfesionDelFamiliar = ObtenerFamiliar.ProfesionDelFamiliar,
+                per_codigo_id = FamiliarObtenido.per_codigo_id,
+                DatosFamiliaresID = FamiliarObtenido.DatosFamiliaresID,
+                ParienteID = FamiliarObtenido.ParienteID,
+                PrimerNombreFamiliar = FamiliarObtenido.PrimerNombreFamiliar,
+                SegundoNombreFamiliar = FamiliarObtenido.SegundoNombreFamiliar,
+                ApellidosFamiliar = FamiliarObtenido.ApellidosFamiliar,
+                FechaNacimientoDelFamiliar = FamiliarObtenido.FechaNacimientoDelFamiliar,
+                PaisNacimientoDelFamiliar = FamiliarObtenido.PaisNacimientoDelFamiliar,
+                EdadDelFamiliar = FamiliarObtenido.EdadDelFamiliar,
+                TelefonoDelFamiliar = FamiliarObtenido.TelefonoDelFamiliar,
+                TelefonoAlternativoFamiliar = FamiliarObtenido.TelefonoDelFamiliar,
+                EmaiDelFamiliar = FamiliarObtenido.EmaiDelFamiliar,
+                ProfesionDelFamiliar = FamiliarObtenido.ProfesionDelFamiliar,
                 EstadoDatosFamiliares = 1
             };
 
             Parientes();
-            NombrePersonaSeleccionada(ObtenerFamiliar.per_codigo_id); 
+            NombrePersonaSeleccionada(FamiliarObtenido.per_codigo_id); 
 
             return await Task.Run(() => View(Pariente));
         }
@@ -248,31 +248,32 @@ namespace Migrantes.Controllers
                 return NotFound();
             }
 
-            var ObtenerFamiliar = await this._context.DatosFamiliaresDb
+            var FamiliarObtenido = await this._context.DatosFamiliaresDb
                .FirstOrDefaultAsync(x => x.DatosFamiliaresID == id);
 
-            ViewBag.DatosFamiliaresID = ObtenerFamiliar;
+            ViewBag.DatosFamiliaresID = FamiliarObtenido;
 
             var EditarFamiliar = new DatosFamiliaresDTO()
             {
-                per_codigo_id = ObtenerFamiliar.per_codigo_id,
-                DatosFamiliaresID = ObtenerFamiliar.DatosFamiliaresID,
-                ParienteID = ObtenerFamiliar.ParienteID,
-                PrimerNombreFamiliar = ObtenerFamiliar.PrimerNombreFamiliar,
-                SegundoNombreFamiliar = ObtenerFamiliar.SegundoNombreFamiliar,
-                ApellidosFamiliar = ObtenerFamiliar.ApellidosFamiliar,
-                FechaNacimientoDelFamiliar = ObtenerFamiliar.FechaNacimientoDelFamiliar,
-                PaisNacimientoDelFamiliar = ObtenerFamiliar.PaisNacimientoDelFamiliar,
-                EdadDelFamiliar = ObtenerFamiliar.EdadDelFamiliar,
-                TelefonoDelFamiliar = ObtenerFamiliar.TelefonoDelFamiliar,
-                EmaiDelFamiliar = ObtenerFamiliar.EmaiDelFamiliar,
-                ProfesionDelFamiliar = ObtenerFamiliar.ProfesionDelFamiliar,
+                per_codigo_id = FamiliarObtenido.per_codigo_id,
+                DatosFamiliaresID = FamiliarObtenido.DatosFamiliaresID,
+                ParienteID = FamiliarObtenido.ParienteID,
+                PrimerNombreFamiliar = FamiliarObtenido.PrimerNombreFamiliar,
+                SegundoNombreFamiliar = FamiliarObtenido.SegundoNombreFamiliar,
+                ApellidosFamiliar = FamiliarObtenido.ApellidosFamiliar,
+                FechaNacimientoDelFamiliar = FamiliarObtenido.FechaNacimientoDelFamiliar,
+                PaisNacimientoDelFamiliar = FamiliarObtenido.PaisNacimientoDelFamiliar,
+                EdadDelFamiliar = FamiliarObtenido.EdadDelFamiliar,
+                TelefonoDelFamiliar = FamiliarObtenido.TelefonoDelFamiliar,
+                TelefonoAlternativoFamiliar = FamiliarObtenido.TelefonoAlternativoFamiliar,
+                EmaiDelFamiliar = FamiliarObtenido.EmaiDelFamiliar,
+                ProfesionDelFamiliar = FamiliarObtenido.ProfesionDelFamiliar,
                 EstadoDatosFamiliares = 1
             };
 
             Parientes();
-            DatosFamiliaresDisponibles(id);
-            NombrePersonaSeleccionada(ObtenerFamiliar.per_codigo_id);
+            DatosFamiliaresDisponibles(FamiliarObtenido.per_codigo_id);
+            NombrePersonaSeleccionada(FamiliarObtenido.per_codigo_id);
 
             return await Task.Run(() => View(EditarFamiliar));
         }
@@ -289,6 +290,7 @@ namespace Migrantes.Controllers
                 try
                 {
                     await this._familiares.ActualizarFamiliaresEditados(DatosFamiliaresEditados);
+                    TempData["alertaFamiliarActualizadoOK"] = "¡Familiar actualizado exitosamente!";
                 }
                 catch (Exception)
                 {
@@ -296,8 +298,8 @@ namespace Migrantes.Controllers
                 }
             }
 
-            var urlRetornoDetallesDelFamiliar = HttpContext.Session.GetString("UrlRetorno");
-            return LocalRedirect(urlRetornoDetallesDelFamiliar);
+            var urlRetornoFamiliaresDisponibles = HttpContext.Session.GetString("UrlRetorno");
+            return LocalRedirect(urlRetornoFamiliaresDisponibles);
 
         }
 
@@ -313,29 +315,30 @@ namespace Migrantes.Controllers
                 return NotFound();
             }
 
-            var ObtenerFamiliar = await this._context.DatosFamiliaresDb
+            var FamiliarObtenido = await this._context.DatosFamiliaresDb
              .FirstOrDefaultAsync(x => x.DatosFamiliaresID == id);
 
             var EliminarFamiliar = new DatosFamiliaresDTO()
             {
-                per_codigo_id = ObtenerFamiliar.per_codigo_id,
-                DatosFamiliaresID = ObtenerFamiliar.DatosFamiliaresID,
-                ParienteID = ObtenerFamiliar.ParienteID,
-                PrimerNombreFamiliar = ObtenerFamiliar.PrimerNombreFamiliar,
-                SegundoNombreFamiliar = ObtenerFamiliar.SegundoNombreFamiliar,
-                ApellidosFamiliar = ObtenerFamiliar.ApellidosFamiliar,
-                FechaNacimientoDelFamiliar = ObtenerFamiliar.FechaNacimientoDelFamiliar,
-                PaisNacimientoDelFamiliar = ObtenerFamiliar.PaisNacimientoDelFamiliar,
-                EdadDelFamiliar = ObtenerFamiliar.EdadDelFamiliar,
-                TelefonoDelFamiliar = ObtenerFamiliar.TelefonoDelFamiliar,
-                EmaiDelFamiliar = ObtenerFamiliar.EmaiDelFamiliar,
-                ProfesionDelFamiliar = ObtenerFamiliar.ProfesionDelFamiliar,
+                per_codigo_id = FamiliarObtenido.per_codigo_id,
+                DatosFamiliaresID = FamiliarObtenido.DatosFamiliaresID,
+                ParienteID = FamiliarObtenido.ParienteID,
+                PrimerNombreFamiliar = FamiliarObtenido.PrimerNombreFamiliar,
+                SegundoNombreFamiliar = FamiliarObtenido.SegundoNombreFamiliar,
+                ApellidosFamiliar = FamiliarObtenido.ApellidosFamiliar,
+                FechaNacimientoDelFamiliar = FamiliarObtenido.FechaNacimientoDelFamiliar,
+                PaisNacimientoDelFamiliar = FamiliarObtenido.PaisNacimientoDelFamiliar,
+                EdadDelFamiliar = FamiliarObtenido.EdadDelFamiliar,
+                TelefonoDelFamiliar = FamiliarObtenido.TelefonoDelFamiliar,
+                TelefonoAlternativoFamiliar = FamiliarObtenido.TelefonoAlternativoFamiliar,
+                EmaiDelFamiliar = FamiliarObtenido.EmaiDelFamiliar,
+                ProfesionDelFamiliar = FamiliarObtenido.ProfesionDelFamiliar,
                 EstadoDatosFamiliares = 1
             };
 
             Parientes();
             DatosFamiliaresDisponibles(id);
-            NombrePersonaSeleccionada(ObtenerFamiliar.per_codigo_id);
+            NombrePersonaSeleccionada(FamiliarObtenido.per_codigo_id);
 
             return await Task.Run(() => View(EliminarFamiliar));
         }
@@ -374,32 +377,31 @@ namespace Migrantes.Controllers
         [HttpGet]
         public async Task<IActionResult> FamiliaresDisponibles(int? id)
         {
-            //Obtenemos la ruta de inicio del usuario.
-            var urlRetornoFamiliaresDisponibles = HttpContext.Request.Path + HttpContext.Request.QueryString;
-            HttpContext.Session.SetString("UrlRetorno", urlRetornoFamiliaresDisponibles);
-
-            await ObtenerPersona(id);
-            await ObtenerFamiliar(id);
 
             if (id == null)
             {
                 return NotFound();
             }
 
+            //Obtenemos la ruta de inicio del usuario.
+            var urlRetornoFamiliaresDisponibles = HttpContext.Request.Path + HttpContext.Request.QueryString;
+            HttpContext.Session.SetString("UrlRetorno", urlRetornoFamiliaresDisponibles);
+
+            await ObtenerPersona(id);
             DatosFamiliaresDisponibles(id);
             NombrePersonaSeleccionada(id);
 
-              var GetFamily = this._context.DatosFamiliaresDb
+              var Familiar = this._context.DatosFamiliaresDb
                    .Count(x => x.per_codigo_id == id);
 
-              ViewBag.DatosFamiliaresID = GetFamily;
+              ViewBag.DatosFamiliaresID = Familiar;
 
             //Si no tiene datos familiares la persona, se llena una alerta.
-            if (ViewBag.DatosFamiliaresID == 0)
+            if (Familiar == 0)
             {
                 TempData["alertaDatosFamiliares1"] = "La persona seleccionada";
                 TempData["alertaDatosFamiliares2"] = "no posee datos familiares, desea agregarlos?";
-            }
+            } 
 
             List<DatosFamiliaresDTO> DatosFamiliares_ExportarExcel = new List<DatosFamiliaresDTO>();
 
@@ -422,6 +424,7 @@ namespace Migrantes.Controllers
                                                  PaisNacimientoDelFamiliar = df.PaisNacimientoDelFamiliar,
                                                  EdadDelFamiliar = df.EdadDelFamiliar,
                                                  TelefonoDelFamiliar = df.TelefonoDelFamiliar,
+                                                 TelefonoAlternativoFamiliar= df.TelefonoAlternativoFamiliar,   
                                                  EmaiDelFamiliar = df.EmaiDelFamiliar,
                                                  ProfesionDelFamiliar = df.ProfesionDelFamiliar,
                                                  EstadoDatosFamiliares = 1
@@ -432,14 +435,38 @@ namespace Migrantes.Controllers
 
             return View(DatosFamiliares_ExportarExcel);
         }
-
-
         #endregion Area datos de familiares
 
 
+        #region ComboBox Parientes
 
+        public List<SelectListItem> ParientesEditar()
+        {
+            List<SelectListItem> SelectListParientes = new List<SelectListItem>();//Combo Box
 
+            try
+            {
+                SelectListParientes = (from p in this._context.ParientesDb
+                                       where p.Estado == 1
+                                       select new SelectListItem
+                                       {
+                                           Text = p.DescripcionPariente,
+                                           Value = p.ParienteID.ToString()
+                                       }).ToList();
+                SelectListParientes.Insert(0, new SelectListItem
+                {
+                    Text = "--Seleccione--",
+                    Value = ""
+                });
+            }
+            catch (Exception)
+            {
+                throw;
+            }
 
+            return SelectListParientes;
+        }
+   
         //Combo Box: Parientes
         public void Parientes()
         {
@@ -468,35 +495,7 @@ namespace Migrantes.Controllers
             ViewBag.Parientes = SelectListParientes;
         }
 
-
-        //Lista para mostrar en la vista Editar
-        public List<SelectListItem> ParientesEditar()
-        {
-            List<SelectListItem> SelectListParientes = new List<SelectListItem>();//Combo Box
-
-            try
-            {
-                SelectListParientes = (from p in this._context.ParientesDb
-                                       where p.Estado == 1
-                                       select new SelectListItem
-                                       {
-                                           Text = p.DescripcionPariente,
-                                           Value = p.ParienteID.ToString()
-                                       }).ToList();
-                SelectListParientes.Insert(0, new SelectListItem
-                {
-                    Text = "--Seleccione--",
-                    Value = ""
-                });
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-
-            return SelectListParientes;
-        }
-
+        #endregion ComboBox Parientes
 
     }
 }

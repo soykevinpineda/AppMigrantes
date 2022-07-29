@@ -20,7 +20,27 @@ namespace Migrantes.Data.Servicios.Fiador
         {
             var edadFiador = DateTime.Now.Year - FiadorCreado.FechaNacimientoDelFiador.Year;
 
+
             ModeloFiador objFiador = new ModeloFiador();
+
+
+            if (FiadorCreado.PaisNacimientoDelFiador == null)
+            {
+                objFiador.PaisNacimientoDelFiador = "N/A";
+            }
+            else
+            {
+                objFiador.PaisNacimientoDelFiador = FiadorCreado.PaisNacimientoDelFiador;
+            }
+
+            if (FiadorCreado.TelefonoAlternoFiador == null)
+            {
+                objFiador.TelefonoAlternoFiador = "N/A";
+            }
+            else
+            {
+                objFiador.TelefonoAlternoFiador = FiadorCreado.TelefonoAlternoFiador;
+            }
 
             objFiador.per_codigo_id = FiadorCreado.per_codigo_id;
             objFiador.FiadorID = FiadorCreado.FiadorID;
@@ -29,11 +49,9 @@ namespace Migrantes.Data.Servicios.Fiador
             objFiador.ApellidosDelFiador = FiadorCreado.ApellidosDelFiador;
             objFiador.FechaNacimientoDelFiador = FiadorCreado.FechaNacimientoDelFiador;
             objFiador.EdadDelFiador = edadFiador;
-            objFiador.SexoDelFiador = FiadorCreado.SexoDelFiador;
-            objFiador.PaisNacimientoDelFiador = FiadorCreado.PaisNacimientoDelFiador;
+            objFiador.SexoDelFiador = FiadorCreado.SexoDelFiador;    
             objFiador.EmailFiador = FiadorCreado.EmailFiador;
-            objFiador.TelefonoFiador = FiadorCreado.TelefonoFiador;
-            objFiador.TelefonoAlternoFiador = FiadorCreado.TelefonoAlternoFiador;
+            objFiador.TelefonoFiador = FiadorCreado.TelefonoFiador;         
             objFiador.EntregoRecibo_Agua_o_Luz = FiadorCreado.EntregoRecibo_Agua_o_Luz;
             objFiador.NumCartasPersonales = FiadorCreado.NumCartasPersonales;
             objFiador.NumCartasFamiliares = FiadorCreado.NumCartasFamiliares;
@@ -48,6 +66,25 @@ namespace Migrantes.Data.Servicios.Fiador
 
             ModeloFiador objFiadorEditado = new ModeloFiador();
 
+
+            if (oFiadorEditado.PaisNacimientoDelFiador == null)
+            {
+                objFiadorEditado.PaisNacimientoDelFiador = "N/A";
+            }
+            else
+            {
+                objFiadorEditado.PaisNacimientoDelFiador = oFiadorEditado.PaisNacimientoDelFiador;
+            }
+
+            if (oFiadorEditado.TelefonoAlternoFiador == null)
+            {
+                objFiadorEditado.TelefonoAlternoFiador = "N/A";
+            }
+            else
+            {
+                objFiadorEditado.TelefonoAlternoFiador = oFiadorEditado.TelefonoAlternoFiador;
+            }
+
             objFiadorEditado.per_codigo_id = oFiadorEditado.per_codigo_id;
             objFiadorEditado.FiadorID = oFiadorEditado.FiadorID;
             objFiadorEditado.PrimerNombreDelFiador = oFiadorEditado.PrimerNombreDelFiador;
@@ -56,10 +93,8 @@ namespace Migrantes.Data.Servicios.Fiador
             objFiadorEditado.FechaNacimientoDelFiador = oFiadorEditado.FechaNacimientoDelFiador;
             objFiadorEditado.EdadDelFiador = edadFiador;
             objFiadorEditado.SexoDelFiador = oFiadorEditado.SexoDelFiador;
-            objFiadorEditado.PaisNacimientoDelFiador = oFiadorEditado.PaisNacimientoDelFiador;
             objFiadorEditado.EmailFiador = oFiadorEditado.EmailFiador;
-            objFiadorEditado.TelefonoFiador = oFiadorEditado.TelefonoFiador;
-            objFiadorEditado.TelefonoAlternoFiador = oFiadorEditado.TelefonoAlternoFiador;
+            objFiadorEditado.TelefonoFiador = oFiadorEditado.TelefonoFiador;        
             objFiadorEditado.EntregoRecibo_Agua_o_Luz = oFiadorEditado.EntregoRecibo_Agua_o_Luz;
             objFiadorEditado.NumCartasPersonales = oFiadorEditado.NumCartasPersonales;
             objFiadorEditado.NumCartasFamiliares = oFiadorEditado.NumCartasFamiliares;

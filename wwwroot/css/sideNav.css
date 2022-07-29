@@ -5,14 +5,14 @@
     left: -1px; /* Position them outside of the screen */
     transition: 0.3s; /* Add transition on hover */
     padding: 19px; /* 15px padding */
-    height: auto; /* altura */
-    width: 205px; /* Set a specific width */
+    height: 62px; /* altura */
+    width: 199px; /* Set a specific width */
     text-decoration: inherit; /* Remove underline */
     font-size: 17px; /* Increase font size */
     font-family: Helvetica; /* font style  */
     color: white; /* White text color */
     border-radius: 0 5px 5px 0; /* Rounded corners on the top right and bottom right side */
-    justify-content: normal;
+    justify-content: center;
     border: 1px solid;
     color: white;
 }
@@ -60,7 +60,7 @@
         transition: 0.3s; /* Add transition on hover */
         padding: 19px; /* 15px padding */
         height: auto; /* altura */
-        width: 205px; /* Set a specific width */
+        width: 199px; /* Set a specific width */
         text-decoration: inherit; /* Remove underline */
         font-size: 17px; /* Increase font size */
         font-family: Helvetica; /* font style  */

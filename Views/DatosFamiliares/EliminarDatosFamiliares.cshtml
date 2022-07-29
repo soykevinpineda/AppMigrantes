@@ -6,19 +6,34 @@
     ViewData["TitleEliminarDatosFamiliares"] = "Eliminar familiar";
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<DatosFamiliaresDTO> ListDatosFamiliares = ViewBag.ListDatosFam;
+    List<PersonaDTO> NombreDeLaPersona = ViewBag.NombresPersona;
 }
 
-<div class="row">
-    <div class="col" style="text-align:left">
-        <div class="p-1 shadow-2 rounded-3 mb-2" style="font-family:Helvetica;border-radius: 9px;">
+<div class="row align-self-center">
+    <div class="col">
+        <div>
+            <a class="btn btn-outline-primary" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+        </div>
+    </div>
+    <div class="col-auto justify-content-center">
+        <div class="text-center" style="font-family:Helvetica;">
             <h2 class="text-primary"><strong>@ViewData["TitleEliminarDatosFamiliares"]</strong></h2>
         </div>
     </div>
-    <div class="col" style="text-align:right">
-        <a class="btn btn-outline-primary" style="justify-items:right;" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+    <div class="col">
     </div>
 </div>
 <hr>
+
+@foreach (var item in NombreDeLaPersona)
+{
+    <div class="align-content-center" data-bs-toggle="tooltip" data-bs-placement="top" title="Persona seleccionada">
+        <center>
+            <img src="~/persona.png" width="35" height="35" />
+            <h3 class="text-center text-dark" style="font-size:20px;"><strong>@item.per_primer_nom @item.per_segundo_nom @item.per_primer_ape @item.per_segundo_ape </strong></h3>
+        </center>
+    </div>
+}
 <br />
 
 <form asp-action="EliminarConfirmadoDatosFamiliares" asp-controller="DatosFamiliares" method="post" id="frm">
@@ -29,68 +44,44 @@
         <input type="hidden" asp-for="DatosFamiliaresID" class="form-control text-center" />
     </div>
     <div class="box">
-        <div class="card" style="width:275px;box-shadow: 5px 10px 15px #888888;">
-            <img src="~/Mujer.png" style="width:auto;height:auto;" class="card-img-top" alt="...">
+        <div class="card" style="width:500px;box-shadow: 5px 10px 15px #888888;">
+            <img src="~/Mujer.png" style="width:11.5rem;height:11.5rem;" class="card-img-top" alt="...">
             <div class="card-body">
 
-                <h5 class="card-title">Primer nombre</h5>
-                <input disabled asp-for="PrimerNombreFamiliar" class="form-control text-center" />
-                <span asp-validation-for="PrimerNombreFamiliar" class="text-danger"></span>
-                <br />
-
-                <h5 class="card-title">Segundo nombre</h5>
-                <input disabled asp-for="SegundoNombreFamiliar" class="form-control text-center" />
-                <span asp-validation-for="SegundoNombreFamiliar" class="text-danger"></span>
-                <br />
-
-                <h5 class="card-title">Apellidos</h5>
-                <input disabled asp-for="ApellidosFamiliar" class="form-control text-center" />
-                <span asp-validation-for="ApellidosFamiliar" class="text-danger"></span>
-                <br />
-
-                <h5 class="card-title">Fecha de nacimiento</h5>
-                <input asp-for="FechaNacimientoDelFamiliar" class="form-control text-center" />
-                <span asp-validation-for="FechaNacimientoDelFamiliar" class="text-danger"></span>
-                <br />
-
-                <h5 class="card-title">Pais de nacimiento</h5>
-                <input asp-for="PaisNacimientoDelFamiliar" class="form-control text-center" />
-                <span asp-validation-for="PaisNacimientoDelFamiliar" class="text-danger"></span>
-                <br />
-
-                <h5 class="card-title">Profesión</h5>
-                <input asp-for="ProfesionDelFamiliar" class="form-control text-center" />
-                <span asp-validation-for="ProfesionDelFamiliar" class="text-danger"></span>
-                <br />
-
-                <h5 class="card-title"> Teléfono </h5>
-                <input asp-for="TelefonoDelFamiliar" class="form-control text-center" />
-                <span asp-validation-for="TelefonoDelFamiliar" class="text-danger"></span>
-                <br />
-
-                <h5 class="card-title">E-mail</h5>
-                <input asp-for="EmaiDelFamiliar" class="form-control text-center" />
-                <span asp-validation-for="EmaiDelFamiliar" class="text-danger"></span>
-                <br />
-
+                <div class="row">
+                    <div class="col">
+                        <h5 class="card-title">Primer nombre</h5>
+                        <input disabled asp-for="PrimerNombreFamiliar" class="form-control text-center" />
+                        <span asp-validation-for="PrimerNombreFamiliar" class="text-danger"></span>
+                    </div>
+                    <div class="col">
+                        <h5 class="card-title">Segundo nombre</h5>
+                        <input disabled asp-for="SegundoNombreFamiliar" class="form-control text-center" />
+                        <span asp-validation-for="SegundoNombreFamiliar" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h5 class="card-title">Apellidos</h5>
+                        <input disabled asp-for="ApellidosFamiliar" class="form-control text-center" />
+                        <span asp-validation-for="ApellidosFamiliar" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
         </div>
-        <style>
-            .box {
-                display: flex;
-                justify-content: space-evenly;
-            }
-        </style>
     </div>
     <br />
+    <br />
     <center>
-        <div class="form-group">
-            <form asp-action="EliminarConfirmadoDatosFamiliares" asp-controller="DatosFamiliares" method="post" id="frm">
-                <input type="submit" asp-for="per_codigo_id" class="btn btn-danger" type="button" onclick="Eliminar()" class="btn btn-danger" value="Eliminar" />
-            </form>
-        </div>
+        <form asp-action="EliminarConfirmadoDatosFamiliares" asp-controller="DatosFamiliares" method="post" id="frm" type="submit">
+            <button asp-for="per_codigo_id" type="button" class="btn btn-danger" value="Eliminar"
+                    onclick="Eliminar()">
+                <i class="fa-solid fa-trash-can"></i>&nbsp;Eliminar
+            </button>
+        </form>
     </center>
 </form>
+<br />
 
 @section Scripts {
     @{

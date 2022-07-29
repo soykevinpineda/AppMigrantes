@@ -11,16 +11,13 @@
 <!-- Sidenav -->
 <div id="mySidenav" class="sidenav">
     <a class="d-inline-block" asp-controller="Documentos" asp-action="DocumentosDisponibles" asp-route-id="@ViewBag.IdPersona" id="about">
-        Documentos  &nbsp;&nbsp; &nbsp;&nbsp;<img style="width:40px;height:40px" src="~/id-card (2).png" />
+       Documentos &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<svg id="debit-card-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon line" width="2rem" height="2rem"><path id="primary" d="M4,5H20a1,1,0,0,1,1,1V18a1,1,0,0,1-1,1H4a1,1,0,0,1-1-1V6A1,1,0,0,1,4,5ZM17,15H13M9,15H7M21,9H3" style="fill: none; stroke: rgb(255, 255, 255); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path></svg>
     </a>
     <a class="d-inline-block" asp-controller="DatosFamiliares" asp-action="FamiliaresDisponibles" asp-route-id="@ViewBag.IdPersona" id="blog">
-        Familiares &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;<img style="width:40px;height:40px" src="~/family (2).png" />
+        Familiares  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<svg id="minus-user-left-8-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon line" width="2rem" height="2rem"><path id="primary" d="M8.54,13A6,6,0,0,1,7.08,8,6,6,0,0,1,19,9a5.94,5.94,0,0,1-1.34,3.77,1,1,0,0,0,.28,1.45A7,7,0,0,1,21,20a1,1,0,0,1-1,1H7" style="fill: none; stroke: rgb(254, 254, 254); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><line id="primary-2" data-name="primary" x1="3" y1="17" x2="7" y2="17" style="fill: none; stroke: rgb(254, 254, 254); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line></svg>
     </a>
-    <a class="d-inline-block" asp-controller="Fiador" asp-action="DetallesFiador" asp-route-id="@ViewBag.IdPersona" id="projects">
-        Fiador &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img style="width:40px;height:40px" src="~/usuario (1).png" />
-    </a>
-    <a class="d-inline-block" asp-controller="Documentos" asp-action="DocumentosDisponibles" asp-route-id="@ViewBag.IdPersona" id="contact">
-        Contacto &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp; &nbsp;&nbsp;<img style="width:40px;height:40px" src="~/contactos (1).png" />
+    <a class="d-inline-block" asp-controller="Fiador" asp-action="FiadorDisponible" asp-route-id="@ViewBag.IdPersona" id="projects">
+        Fiador  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<svg id="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon line" width="2rem" height="2rem"><polygon id="primary" points="12 4 9.22 9.27 3 10.11 7.5 14.21 6.44 20 12 17.27 17.56 20 16.5 14.21 21 10.11 14.78 9.27 12 4" style="fill: none; stroke: rgb(255, 255, 255); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></polygon></svg>
     </a>
 </div>
 

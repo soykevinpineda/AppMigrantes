@@ -35,13 +35,19 @@ namespace Migrantes.Controllers
             this._context = context;
         }
 
+        public async Task ObtenerPersona(int? id)
+        {
 
+            var GetPerson = await this._context.PersonasDb
+                .FirstOrDefaultAsync(x => x.per_codigo_id == id);
+
+            ViewBag.PersonaID = GetPerson.per_codigo_id;
+        }
 
 
         #region Método Exportar Fiador a Excel
 
         public static List<FiadorViewModel> oFiadorExcel;
-
 
         public FileResult ExportarFiadorExcel(string[] nombrePropiedades)
         {
@@ -57,7 +63,7 @@ namespace Migrantes.Controllers
 
         //Get: Crear fiador asociado al ID de la persona selecionada.
         [HttpGet]
-        public IActionResult CrearFiador(int? id)
+        public async Task<IActionResult> CrearFiador(int? id)
         {
 
             if (id == null)
@@ -65,19 +71,11 @@ namespace Migrantes.Controllers
                 return NotFound();
             }
 
-            var Fiador_Persona = this._context.FiadorDb
-             .FirstOrDefault(x => x.per_codigo_id == id);
-
-            var Codigo_Persona = this._context.PersonasDb
-             .FirstOrDefault(x => x.per_codigo_id == id);
-
-            ViewBag.IdPersona = Codigo_Persona.per_codigo_id;
-
+            await ObtenerPersona(id);
             Sexos();
-            ListaDelFiador(Codigo_Persona.per_codigo_id);
-            PersonaSeleccionada(Codigo_Persona.per_codigo_id);
+            NombrePersonaSeleccionada(id);
 
-            return View();
+            return await Task.Run(() => View());
         }
 
 
@@ -87,17 +85,18 @@ namespace Migrantes.Controllers
         public async Task<ActionResult> GuardarFiador(FiadorViewModel FiadorCreado)
         {
 
+            Sexos();
+
             try
             {
                 if (!ModelState.IsValid)
                 {
-                    TempData["msjSinGuardar"] = "No se agrego al fiador, recuerda llenar todos los campos solicitados...";
-                    return View(FiadorCreado);
+                    return NotFound();
                 }
                 else
                 {
-                    TempData["msjGuardadoExitoso"] = "El fiador fue creado exitosamente!";
                     await this._fiador.GuardarFiador(FiadorCreado);
+                    TempData["msjGuardadoExitoso"] = "El fiador fue creado exitosamente!";
                 }
             }
 
@@ -106,9 +105,10 @@ namespace Migrantes.Controllers
                 throw;
             }
 
-            var urlRetornoFiadorDetalles = HttpContext.Session.GetString("UrlRetorno");
-            return LocalRedirect(urlRetornoFiadorDetalles);
+            var urlRetornoFiadorDisponible = HttpContext.Session.GetString("UrlRetorno");
+            return LocalRedirect(urlRetornoFiadorDisponible);
         }
+
 
         //Post: Editar fiador.
         [HttpPost]
@@ -121,17 +121,13 @@ namespace Migrantes.Controllers
                 return NotFound();
             }
 
-            var IdPersona = this._context.PersonasDb.AsNoTracking()
-            .FirstOrDefault(x => x.per_codigo_id == oFiadorEditado.per_codigo_id);
-
-            if (IdPersona == null)
-            {
-                return NotFound();
-            }
+            await ObtenerPersona(oFiadorEditado.per_codigo_id);
+            SexosEditar();
 
             try
             {
                 await this._fiador.GuardarFiadorEditado(oFiadorEditado);
+                TempData["alertaFiadorEditadoOK"] = "¡Fiador actualizado exitosamente!";
             }
             catch (Exception)
             {
@@ -142,35 +138,39 @@ namespace Migrantes.Controllers
             return LocalRedirect(urlRetornoFiadorDetalles);
         }
 
-        //Get: Detalles del fiador asociado al ID de la persona.
-        [HttpGet]
-        public IActionResult DetallesFiador(int? id)
+
+        public async Task<IActionResult> FiadorDisponible(int? id)
         {
+            //Obtenemos la ruta de inicio del usuario.
+            var urlRetornoFiadorDisponible = HttpContext.Request.Path + HttpContext.Request.QueryString;
+            HttpContext.Session.SetString("UrlRetorno", urlRetornoFiadorDisponible);
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            //Obtenemos la ruta de inicio del usuario.
-            var urlRetornoFiadorDetalles = HttpContext.Request.Path + HttpContext.Request.QueryString;
-            HttpContext.Session.SetString("UrlRetorno", urlRetornoFiadorDetalles);
+            await ObtenerPersona(id);
+            NombrePersonaSeleccionada(id);
 
-            var IdPersona = this._context.PersonasDb.AsNoTracking()
-              .FirstOrDefault(x => x.per_codigo_id == id);
-            ViewBag.IdPersona = IdPersona.per_codigo_id;
-
-            var Fiador_Persona = this._context.FiadorDb.AsNoTracking()
+            //Obtenemos el ID del Fiador si esta disponible en la DB.
+            var FiadorObtenido = this._context.FiadorDb.AsNoTracking()
                 .FirstOrDefault(x => x.per_codigo_id == id);
-            ViewBag.FiadorPersona = Fiador_Persona;
 
-            if (Fiador_Persona == null)
+            ViewBag.FiadorID = FiadorObtenido;
+
+            //Se llenan alertas si el fiador no es encontrado en la DB.
+            if (ViewBag.FiadorID == null)
             {
                 TempData["msjSinFiador1"] = "La persona seleccionada";
                 TempData["msjSinFiador2"] = "no posee un fiador, desea agregarlo?";
             }
 
-            PersonaSeleccionada(IdPersona.per_codigo_id);
-            ListaDelFiador(IdPersona.per_codigo_id);
+            //Obtenemos el fiador si es encontrado en la DB.
+            if (ViewBag.FiadorID != null)
+            {
+                Fiador(FiadorObtenido.per_codigo_id);
+            }
 
             List<FiadorViewModel> Fiador_exportarExcel = new List<FiadorViewModel>();
 
@@ -195,17 +195,18 @@ namespace Migrantes.Controllers
                                         EmailFiador = f.EmailFiador,
                                         TelefonoFiador = f.TelefonoFiador,
                                         TelefonoAlternoFiador = f.TelefonoAlternoFiador,
-                                        EntregoRecibo_Agua_o_Luz = f.EntregoRecibo_Agua_o_Luz,
                                         NumCartasPersonales = f.NumCartasPersonales,
-                                        NumCartasFamiliares = f.NumCartasFamiliares
+                                        NumCartasFamiliares = f.NumCartasFamiliares,
+                                        EntregoRecibo_Agua_o_Luz = f.EntregoRecibo_Agua_o_Luz,
+                                        FechaGrabacionDelFiador = f.FechaGrabacionDelFiador
 
                                     }).ToList();
 
             oFiadorExcel = Fiador_exportarExcel;
 
-            return View();
-        }
+            return await Task.Run(() => View(Fiador_exportarExcel));
 
+        }
 
         //Get: Editar fiador.
         [HttpGet]
@@ -217,15 +218,7 @@ namespace Migrantes.Controllers
                 return NotFound();
             }
 
-            var IdPersona = this._context.PersonasDb
-            .FirstOrDefault(x => x.per_codigo_id == id);
-
-            ViewBag.IdPersona = IdPersona.per_codigo_id;
-
-            if (IdPersona == null)
-            {
-                return NotFound();
-            }
+            await ObtenerPersona(id);
 
             var Fiador_Persona = await this._context.FiadorDb
                .FirstOrDefaultAsync(x => x.per_codigo_id == id);
@@ -236,7 +229,7 @@ namespace Migrantes.Controllers
             }
 
             Sexos();
-            SexosEditar();
+            NombrePersonaSeleccionada(id);
 
             var objFiadorEditado = new FiadorViewModel()
 
@@ -260,7 +253,8 @@ namespace Migrantes.Controllers
 
             };
 
-            return View(objFiadorEditado);
+            return await Task.Run(() => View(objFiadorEditado));
+
         }
 
         //Get: Eliminar fiador.
@@ -273,6 +267,10 @@ namespace Migrantes.Controllers
                 return NotFound();
             }
 
+            await ObtenerPersona(id);
+            NombrePersonaSeleccionada(id);
+            Sexos();
+
             var FiadorDeLaPersona = await this._context.FiadorDb.AsNoTracking()
               .FirstOrDefaultAsync(x => x.per_codigo_id == id);
 
@@ -281,19 +279,7 @@ namespace Migrantes.Controllers
                 return NotFound();
             }
 
-            var IdPersona = this._context.PersonasDb.AsNoTracking()
-             .FirstOrDefault(x => x.per_codigo_id == id);
-            ViewBag.IdPersona = IdPersona.per_codigo_id;
-
-            if (ViewBag.IdPersona == null)
-            {
-                return NotFound();
-            }
-
-            Sexos();
-
             var objEliminarFiador = new FiadorViewModel()
-
             {
                 per_codigo_id = FiadorDeLaPersona.per_codigo_id,
                 FiadorID = FiadorDeLaPersona.FiadorID,
@@ -324,15 +310,12 @@ namespace Migrantes.Controllers
         public async Task<IActionResult> EliminarFiadorConfirmado(FiadorViewModel oFiadorEliminado)
         {
 
-            var IdPersona = this._context.PersonasDb.AsNoTracking()
-            .FirstOrDefault(x => x.per_codigo_id == oFiadorEliminado.per_codigo_id);
-
-            ViewBag.IdPersona = IdPersona.per_codigo_id;
+            await ObtenerPersona(oFiadorEliminado.per_codigo_id);
 
             var FiadorDePersona = await this._context.FiadorDb.AsNoTracking()
                .AsNoTracking().FirstOrDefaultAsync(x => x.FiadorID == oFiadorEliminado.FiadorID);
 
-            if (FiadorDePersona == null || oFiadorEliminado == null)
+            if (oFiadorEliminado == null || FiadorDePersona == null)
             {
                 return NotFound();
             }
@@ -354,40 +337,39 @@ namespace Migrantes.Controllers
 
 
         #region Método crea una lista del fiador disponible de la persona.
-        public void ListaDelFiador(int IdPersona)
-
+        public void Fiador(int PersonaID)
         {
-            List<FiadorViewModel> ListFiador = new List<FiadorViewModel>();
+            List<FiadorViewModel> ListaFiador = new List<FiadorViewModel>();
 
-            ListFiador = (from persona in this._context.PersonasDb
-                          join fiador in this._context.FiadorDb
-                          on persona.per_codigo_id equals fiador.per_codigo_id
-                          join s in this._context.SexosDb
-                          on persona.per_codigo_id equals s.id_sexo
-                          where persona.per_codigo_id == IdPersona
+            ListaFiador = (from persona in this._context.PersonasDb
+                           join fiador in this._context.FiadorDb
+                           on persona.per_codigo_id equals fiador.per_codigo_id
+                           join s in this._context.SexosDb
+                           on fiador.per_codigo_id equals s.id_sexo
+                           where persona.per_codigo_id == PersonaID
 
-                          select new FiadorViewModel
-                          {
-                              per_codigo_id = persona.per_codigo_id,
-                              FiadorID = fiador.FiadorID,
-                              PrimerNombreDelFiador = fiador.PrimerNombreDelFiador,
-                              SegundoNombreDelFiador = fiador.SegundoNombreDelFiador,
-                              ApellidosDelFiador = fiador.ApellidosDelFiador,
-                              FechaNacimientoDelFiador = fiador.FechaNacimientoDelFiador,
-                              EdadDelFiador = fiador.EdadDelFiador,
-                              SexoDelFiador = s.nomenclatura_sexo,
-                              PaisNacimientoDelFiador = fiador.PaisNacimientoDelFiador,
-                              EmailFiador = fiador.EmailFiador,
-                              TelefonoFiador = fiador.TelefonoFiador,
-                              TelefonoAlternoFiador = fiador.TelefonoAlternoFiador,
-                              NumCartasPersonales = fiador.NumCartasPersonales,
-                              NumCartasFamiliares = fiador.NumCartasFamiliares,
-                              EntregoRecibo_Agua_o_Luz = fiador.EntregoRecibo_Agua_o_Luz,
-                              FechaGrabacionDelFiador = fiador.FechaGrabacionDelFiador,
+                           select new FiadorViewModel
+                           {
+                               per_codigo_id = persona.per_codigo_id,
+                               FiadorID = fiador.FiadorID,
+                               PrimerNombreDelFiador = fiador.PrimerNombreDelFiador,
+                               SegundoNombreDelFiador = fiador.SegundoNombreDelFiador,
+                               ApellidosDelFiador = fiador.ApellidosDelFiador,
+                               FechaNacimientoDelFiador = fiador.FechaNacimientoDelFiador,
+                               EdadDelFiador = fiador.EdadDelFiador,
+                               SexoDelFiador = s.nomenclatura_sexo,
+                               PaisNacimientoDelFiador = fiador.PaisNacimientoDelFiador,
+                               EmailFiador = fiador.EmailFiador,
+                               TelefonoFiador = fiador.TelefonoFiador,
+                               TelefonoAlternoFiador = fiador.TelefonoAlternoFiador,
+                               NumCartasPersonales = fiador.NumCartasPersonales,
+                               NumCartasFamiliares = fiador.NumCartasFamiliares,
+                               EntregoRecibo_Agua_o_Luz = fiador.EntregoRecibo_Agua_o_Luz,
+                               FechaGrabacionDelFiador = fiador.FechaGrabacionDelFiador,
 
-                          }).ToList();
+                           }).ToList();
 
-            ViewBag.ListadoFiador = ListFiador;
+            ViewBag.FiadorObtenido = ListaFiador;
 
         }
         #endregion
@@ -454,17 +436,18 @@ namespace Migrantes.Controllers
         #endregion Procedimientos Sexo 
 
 
-        #region Mètodo crea lista con los nombres de la persona seleccionada.
-        //Crea una lista con los nombres de la persona
-        public void PersonaSeleccionada(int IdPersona)
+
+        #region Mètodo para seleccionar nombres de la persona.
+        //Crea una lista con nombres de la persona
+        public void NombrePersonaSeleccionada(int? PersonaID)
 
         {
-            List<DocumentosPersonaDTO> ListNombres = new List<DocumentosPersonaDTO>();
+            List<PersonaDTO> ListNombres = new List<PersonaDTO>();
 
             ListNombres = (from p in this._context.PersonasDb
-                           where p.per_codigo_id == IdPersona
+                           where p.per_codigo_id == PersonaID
 
-                           select new DocumentosPersonaDTO
+                           select new PersonaDTO
 
                            {
                                per_codigo_id = p.per_codigo_id,
@@ -478,7 +461,7 @@ namespace Migrantes.Controllers
             ViewBag.NombresPersona = ListNombres;
 
         }
-        #endregion Mètodo crea lista con los nombres de la persona seleccionada.
+        #endregion Mètodo para seleccionar nombres de la persona.
 
     }
 

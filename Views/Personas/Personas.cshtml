@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<link href="https://unpkg.com/bootstrap-table@1.20.2/dist/bootstrap-table.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css">
 
 <!--Alerta: Sin datos en la base de datos y opcion para agregar un registro.-->
@@ -160,7 +161,7 @@
                 <div class="card" style="font-family:Helvetica;">
                     <div class="table-responsive text-nowrap" style="align-content:space-evenly">
                         <form asp-action="ExportarPersonasExcel" asp-controller="Personas" id="FormChecks">
-                            <table class="table-light table-striped text-center table-hover table-sm table-responsive-xl pre-scrollable">
+                            <table id="table" class="table-light table-striped text-center table-hover table-sm table-responsive-xl pre-scrollable">
                                 <thead class="text-center" style="color:white;">
                                     <tr>
                                         <th>
@@ -238,8 +239,6 @@
                                         </th>
                                         <th>
                                         </th>
-                                        <th>
-                                        </th>
                                     </tr>
                                     <tr>
                                         <th>
@@ -272,11 +271,7 @@
                                                 @Html.DisplayNameFor(model => model.Edad)
                                             </strong>
                                         </th>
-                                        <th>
-                                            <strong>
-                                                @Html.DisplayNameFor(model => model.EstadoCivil)
-                                            </strong>
-                                        </th>
+
                                         <th>
                                             <strong>
                                                 Teléfono
@@ -371,10 +366,7 @@
                                                     </strong>
                                                 }
                                             </td>
-                                            <td>
-                                                @Html.DisplayFor(x => item.EstadoCivil)
 
-                                            </td>
                                             <td>
                                                 @Html.DisplayFor(x => item.per_telefono_movil)
                                             </td>
@@ -422,7 +414,7 @@
                                                             Acciones
                                                         </strong> <span class="caret"></span>
                                                     </button>
-                                                    <ul class="dropdown-menu">
+                                                    <ul class="dropdown-menu" style="background:rgba(0,0,0,0.4);">
                                                         <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.per_codigo_id"><i class="fa-solid fa-user-pen"></i>&nbsp;Editar</a>
                                                         <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.per_codigo_id"><i class="fa-solid fa-file-lines"></i>&nbsp;Detalles</a>
                                                         <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.per_codigo_id"><i class="fa-solid fa-trash-can"></i>&nbsp;Eliminar</a>
@@ -472,6 +464,7 @@
 
 <!-- AlpineJS Library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.0/alpine.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.20.2/dist/bootstrap-table.min.js"></script>
 
 @section Scripts{
     <script>

@@ -51,8 +51,6 @@ namespace Migrantes.Controllers
             ViewBag.PersonaID = GetPerson.per_codigo_id;
         }
 
-
-
         #region Area documentos de la persona
 
 
@@ -259,7 +257,7 @@ namespace Migrantes.Controllers
                 }
 
                 await this._documentos.GuardarDocumentoEditado(DocumentoEditado);
-                TempData["alertaDocsEditadoOK"] = "¡Documento editado exitosamente!";
+                TempData["alertaDocsEditadoOK"] = "¡Documento actualizado exitosamente!";
 
             }
             catch (Exception)
@@ -332,6 +330,7 @@ namespace Migrantes.Controllers
             }
 
             TipoDoc(documento.ide_id_persona);
+            PersonaSeleccionada(documento.ide_codigo_id);
 
             var Doc = new DocumentosViewModel()
             {
@@ -477,7 +476,7 @@ namespace Migrantes.Controllers
                                             per_primer_nom = persona.per_primer_nom,
                                             per_segundo_nom = persona.per_segundo_nom,
                                             per_primer_ape = persona.per_primer_ape,
-                                            ide_id_documento = identidad.ide_id_documento,
+                                            ide_id_documento = TipoDoc.tid_id_documento,
                                             ide_numero = identidad.ide_numero,
                                             ide_fecha_emision = identidad.ide_fecha_emision,
                                             ide_fecha_vencimiento = identidad.ide_fecha_vencimiento
@@ -612,15 +611,15 @@ namespace Migrantes.Controllers
 
         #region Mètodo crea lista con los nombres de la persona seleccionada.
         //Crea una lista con nombres de la persona
-        public void PersonaSeleccionada(int? IdPersona)
+        public void PersonaSeleccionada(int? PersonaID)
 
         {
-            List<DocumentosPersonaDTO> ListNombres = new List<DocumentosPersonaDTO>();
+            List<PersonaDTO> ListNombres = new List<PersonaDTO>();
 
             ListNombres = (from p in this._context.PersonasDb
-                           where p.per_codigo_id == IdPersona
+                           where p.per_codigo_id == PersonaID
 
-                           select new DocumentosPersonaDTO
+                           select new PersonaDTO
 
                            {
                                per_codigo_id = p.per_codigo_id,

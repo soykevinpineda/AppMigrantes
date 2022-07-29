@@ -11,9 +11,32 @@
 
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 
-<!--Si la persona seleccionada no tiene documentos,
-se muestra una alerta y opción para agregar documentos-->
-@if (Model.Count() == 0)
+
+<!--Alerta: familiar guardado exitosamente-->
+@if (TempData["alertaFamiliarActualizadoOK"] != null)
+{
+    <div style="justify-content:center;display:flex;align-items:center" class="mb-2">
+        <div class="toast" data-delay="4000" style="border:thin;color:blue;border-radius: 9px;" role="alert" aria-live="assertive" aria-atomic="true">
+            <div style="background:#28a745" class="toast-header">
+                <img src="~/img/scblancopeque-200x91.png" style="width:10%;height:10%" class="rounded mr-2" alt="..." />
+                <strong class="mr-auto text-white">Notificación SC</strong>
+                <small class="text-white">justo ahora</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                <h4 class="text-primary text-center">
+                    <strong style="font-family:Helvetica, sans-serif;font-size:1.5rem;"> @TempData["alertaFamiliarActualizadoOK"] </strong>
+                </h4>
+            </div>
+        </div>
+    </div>
+}
+
+<!--Si la persona seleccionada no tiene familiares,
+se muestra una alerta y opción para agregar familiares-->
+@if (TempData["alertaDatosFamiliares1"] != null)
 {
     <div style="justify-content:center;display:flex;align-items:center" class="mb-2">
         <div class="toast" data-delay="90000000" style="border:thin;color:blue;border-radius: 9px;" role="alert" aria-live="assertive" aria-atomic="true">
@@ -43,6 +66,7 @@ se muestra una alerta y opción para agregar documentos-->
         </div>
     </center>
 }
+
 @*
 <!--Alerta: documento guardado exitosamente-->
 @if (TempData["alertaDocGuardadoOK"] != null)
@@ -116,23 +140,28 @@ se muestra una alerta y opción para agregar documentos-->
 se muestra tabla de los documentos disponibles-->
 @if (Model.Count() > 0)
 {
-    <div class="row">
-        <div class="col" style="text-align:left">
-            <div class="p-1 shadow-2 rounded-3 mb-2" style="font-family:Helvetica;border-radius: 9px;">
+    <div class="row align-self-center">
+        <div class="col">
+            <div>
+                <a class="btn btn-outline-primary" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+            </div>
+        </div>
+        <div class="col-auto justify-content-center">
+            <div class="text-center" style="font-family:Helvetica;">
                 <h2 class="text-primary"><strong>@ViewData["Title"]</strong></h2>
             </div>
         </div>
-        <div class="col" style="text-align:right">
-            <a class="btn btn-outline-primary" style="justify-items:right;" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+        <div class="col">
         </div>
     </div>
     <hr>
+
     @foreach (var item in NombreDeLaPersona)
     {
         <div class="align-content-left" id="TituloPer" data-bs-toggle="tooltip" data-bs-placement="top" title="Persona seleccionada">
             <center>
-                <img src="~/persona.png" width="50" height="50" />
-                <h3 class="text-center text-dark"><strong>@item.per_primer_nom @item.per_segundo_nom @item.per_primer_ape @item.per_segundo_ape</strong></h3>
+                <img src="~/persona.png" width="35" height="35" />
+                <h3 class="text-center text-dark" style="font-size:20px;"><strong>@item.per_primer_nom @item.per_segundo_nom @item.per_primer_ape @item.per_segundo_ape</strong></h3>
             </center>
         </div>
     }
@@ -141,27 +170,50 @@ se muestra tabla de los documentos disponibles-->
 
     <div class="card" style="font-family:Helvetica;box-shadow: 5px 10px 15px #888888;border-radius:5px">
         <div class="table-responsive text-nowrap">
-            <form asp-action="ExportarDocsExcel" asp-controller="Documentos" id="FormChecks">
+            <form asp-action="ExportarDatosFamiliaresExcel" asp-controller="DatosFamiliares" id="FormChecks">
                 <table class="table-light table-striped text-center table-hover table-md table-responsive-xl pre-scrollable">
                     <thead class="text-center" style="color:white">
                         <tr>
                             <th>
-                                <input hidden type="checkbox" checked name="nombrePropiedades" value="ide_id_documento" />
                             </th>
                             <th>
-                                <input hidden type="checkbox" checked name="nombrePropiedades" value="ide_numero" />
                             </th>
                             <th>
-                                <input hidden type="checkbox" checked name="nombrePropiedades" value="ide_fecha_emision" />
                             </th>
                             <th>
-                                <input hidden type="checkbox" checked name="nombrePropiedades" value="ide_fecha_vencimiento" />
                             </th>
                             <th>
-                                <input hidden type="checkbox" checked name="nombrePropiedades" value="NombreImagenPortada_A" />
-                                <input hidden type="checkbox" checked name="nombrePropiedades" value="RutaImagenPortada_A" />
-                                <input hidden type="checkbox" checked name="nombrePropiedades" value="NombreImagenPortada_B" />
-                                <input hidden type="checkbox" checked name="nombrePropiedades" value="RutaImagenPortada_B" />
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+
+                                <input hidden type="checkbox" checked name="nombrePropiedades" value="DescripcionDelPariente" />
+                                <input hidden type="checkbox" checked name="nombrePropiedades" value="PrimerNombreFamiliar" />
+                                <input hidden type="checkbox" checked name="nombrePropiedades" value="SegundoNombreFamiliar" />
+                                <input hidden type="checkbox" checked name="nombrePropiedades" value="ApellidosFamiliar" />
+                                <input hidden type="checkbox" checked name="nombrePropiedades" value="FechaNacimientoDelFamiliar" />
+                                <input hidden type="checkbox" checked name="nombrePropiedades" value="PaisNacimientoDelFamiliar" />
+                                <input hidden type="checkbox" checked name="nombrePropiedades" value="EdadDelFamiliar" />
+                                <input hidden type="checkbox" checked name="nombrePropiedades" value="ProfesionDelFamiliar" />
+                                <input hidden type="checkbox" checked name="nombrePropiedades" value="TelefonoDelFamiliar" />
+                                <input hidden type="checkbox" checked name="nombrePropiedades" value="TelefonoAlternativoFamiliar" />
+                                <input hidden type="checkbox" checked name="nombrePropiedades" value="EmaiDelFamiliar" />
+                                <input hidden type="checkbox" checked name="nombrePropiedades" value="FechaGrabacionDelFamiliar" />
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
                             </th>
                             <th>
                                 &nbsp;
@@ -172,24 +224,10 @@ se muestra tabla de los documentos disponibles-->
                             <th>
                                 &nbsp;
                             </th>
+
                             <th>
-                                &nbsp;
                             </th>
-                            <th>
-                                &nbsp;
-                            </th>
-                            <th>
-                                &nbsp;
-                            </th>
-                            <th>
-                                &nbsp;
-                            </th>
-                            <th>
-                                &nbsp;
-                            </th>
-                            <th>
-                                &nbsp;
-                            </th>
+
                         <tr>
                             <th>
                                 &nbsp;
@@ -227,12 +265,7 @@ se muestra tabla de los documentos disponibles-->
                                     E-mail
                                 </strong>
                             </th>
-                            <th>
-                                &nbsp;
-                                <strong>
-                                    Profesion
-                                </strong>
-                            </th>
+
                             <th>
                             <th>
                             </th>
@@ -246,6 +279,17 @@ se muestra tabla de los documentos disponibles-->
                             </th>
                             <th>
                             </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+
                         </tr>
                     </thead>
 
@@ -279,9 +323,7 @@ se muestra tabla de los documentos disponibles-->
                                 <td>
                                     @Html.DisplayFor(x => item.EmaiDelFamiliar)
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(x => item.ProfesionDelFamiliar)
-                                </td>
+
                                 <td>
                                     &nbsp;
                                 </td>
@@ -296,15 +338,10 @@ se muestra tabla de los documentos disponibles-->
                                 </td>
                                 <td>
                                 </td>
-
-                                @*     <td>
-                        <img style="border:1px solid;border-radius:6px" src="@item.RutaImagenPortada_A" width="153" height="75" />
-
-                        </td>
-                        <td>
-                        <img style="border:1px solid;border-radius:6px" src="@item.RutaImagenPortada_B" width="153" height="75" />
-
-                        </td>*@
+                                <td>
+                                </td>
+                                <td>
+                                </td>
                                 <td>
                                     <div class="dropdown">
                                         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
@@ -312,12 +349,16 @@ se muestra tabla de los documentos disponibles-->
                                                 Acciones
                                             </strong> <span class="caret"></span>
                                         </button>
-                                        <ul class="dropdown-menu">
+                                       <ul class="dropdown-menu" style="background:rgba(0,0,0,0.4);">
                                             <a class="btn btn-success" asp-controller="DatosFamiliares" asp-action="EditarDatosFamiliares" asp-route-id="@item.DatosFamiliaresID"><i class="fa-solid fa-user-pen"></i>&nbsp;Editar</a>
                                             <a class="btn btn-secondary" asp-controller="DatosFamiliares" asp-action="DetallesDatosFamiliares" asp-route-id="@item.DatosFamiliaresID"><i class="fa-solid fa-file-lines"></i>&nbsp;Detalles</a>
                                             <a class="btn btn-danger" asp-controller="DatosFamiliares" asp-action="EliminarDatosFamiliares" asp-route-id="@item.DatosFamiliaresID"><i class="fa-solid fa-trash-can"></i>&nbsp;Eliminar</a>
                                         </ul>
                                     </div>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
                                 </td>
                             </tr>
                         }
@@ -342,7 +383,6 @@ se muestra tabla de los documentos disponibles-->
     <br />
     <br />
 
-
     <center>
         <div class="form-group">
             <a class="btn btn-primary" asp-controller="DatosFamiliares" asp-action="CrearDatosFamiliares" asp-route-id="@ViewBag.PersonaID">Agregar familiar nuevo</a>&nbsp;
@@ -352,8 +392,6 @@ se muestra tabla de los documentos disponibles-->
             </button>
         </div>
     </center>
-
-
 }
 
 @section Scripts {

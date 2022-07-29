@@ -6,12 +6,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<SelectListItem> TipoDocSelect = ViewBag.ListDoc;
     List<DocumentosPersonaDTO> DocumentosPersona = ViewBag.ListadoDocumentos;
-    List<DocumentosPersonaDTO> NombreDeLaPersona = ViewBag.NombresPersona;
+    List<PersonaDTO> NombreDeLaPersona = ViewBag.NombresPersona;
 }
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 
 <!--Si la persona seleccionada no tiene documentos,
 se muestra una alerta y opción para agregar documentos-->
-@if (@ViewBag.IdDocumentoDisponible == 0)
+@if (ViewBag.IdDocumentoDisponible == 0)
 {
     <div style="justify-content:center;display:flex;align-items:center" class="mb-2">
         <div class="toast" data-delay="90000000" style="border:thin;color:blue;border-radius: 9px;" role="alert" aria-live="assertive" aria-atomic="true">
@@ -46,7 +48,7 @@ se muestra una alerta y opción para agregar documentos-->
 @if (TempData["alertaDocGuardadoOK"] != null)
 {
     <div style="justify-content:center;display:flex;align-items:center" class="mb-2">
-        <div class="toast" data-delay="6000" style="border:thin;color:blue;border-radius: 9px;" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast" data-delay="4000" style="border:thin;color:blue;border-radius: 9px;" role="alert" aria-live="assertive" aria-atomic="true">
             <div style="background:#28a745" class="toast-header">
                 <img src="~/img/scblancopeque-200x91.png" style="width:10%;height:10%" class="rounded mr-2" alt="..." />
                 <strong class="mr-auto text-white">Notificación SC</strong>
@@ -79,7 +81,7 @@ se muestra una alerta y opción para agregar documentos-->
             </div>
             <div class="toast-body">
                 <h4 class="text-primary text-center">
-                    <strong style="font-family:Helvetica, sans-serif;font-size:1.5rem;"> @TempData["alertaDocsEditadoOK"] </strong>
+                    <strong style="font-family:Helvetica,sans-serif;font-size:1.5rem;"> @TempData["alertaDocsEditadoOK"] </strong>
                 </h4>
             </div>
         </div>
@@ -112,52 +114,100 @@ se muestra una alerta y opción para agregar documentos-->
 se muestra tabla de los documentos disponibles-->
 @if (@ViewBag.IdDocumentoDisponible != 0)
 {
-    <div class="row">
-        <div class="col" style="text-align:left">
-            <div class="p-1 shadow-2 rounded-3 mb-2" style="font-family:Helvetica;border-radius: 9px;">
+    <div class="row align-self-center">
+        <div class="col">
+            <div>
+                <a class="btn btn-outline-primary" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+            </div>
+        </div>
+        <div class="col-auto justify-content-center">
+            <div class="text-center" style="font-family:Helvetica;">
                 <h2 class="text-primary"><strong>@ViewData["TitleDocumentos"]</strong></h2>
             </div>
         </div>
-        <div class="col" style="text-align:right">
-            <a class="btn btn-outline-primary" style="justify-items:right;" asp-controller="Personas" asp-action="Personas">Regresar a la lista</a>
+        <div class="col">
         </div>
     </div>
+
     <hr>
+
     @foreach (var item in NombreDeLaPersona)
     {
         <div class="align-content-left" id="TituloPer" data-bs-toggle="tooltip" data-bs-placement="top" title="Persona seleccionada">
             <center>
-                <img src="~/persona.png" width="50" height="50" />
-                <h3 class="text-center text-dark"><strong>@item.per_primer_nom @item.per_segundo_nom @item.per_primer_ape @item.per_segundo_ape</strong></h3>
+                <img src="~/persona.png" width="35px" height="35px" />
+                <h3 class="text-center text-dark" style="font-size:20px;"><strong>@item.per_primer_nom @item.per_segundo_nom @item.per_primer_ape @item.per_segundo_ape</strong></h3>
             </center>
         </div>
     }
     <br />
     <br />
 
-    <div class="card" style="font-family:Helvetica;box-shadow: 5px 10px 15px #888888;border-radius:5px">
+    <div class="box" style="font-family:Helvetica;box-shadow: 5px 10px 15px #888888;border-radius:5px">
         <div class="table-responsive text-nowrap">
             <form asp-action="ExportarDocsExcel" asp-controller="Documentos" id="FormChecks">
-                <table class="table-light table-striped text-center table-hover table-sm table-responsive-xl pre-scrollable">
+                <table class="table-light table-striped table-hover table-sm table-responsive-xl pre-scrollable">
                     <thead class="text-center" style="color:white">
                         <tr>
                             <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
                                 <input hidden type="checkbox" checked name="nombrePropiedades" value="ide_id_documento" />
-                            </th>
-                            <th>
                                 <input hidden type="checkbox" checked name="nombrePropiedades" value="ide_numero" />
-                            </th>
-                            <th>
                                 <input hidden type="checkbox" checked name="nombrePropiedades" value="ide_fecha_emision" />
-                            </th>
-                            <th>
                                 <input hidden type="checkbox" checked name="nombrePropiedades" value="ide_fecha_vencimiento" />
-                            </th>
-                            <th>
                                 <input hidden type="checkbox" checked name="nombrePropiedades" value="NombreImagenPortada_A" />
                                 <input hidden type="checkbox" checked name="nombrePropiedades" value="RutaImagenPortada_A" />
                                 <input hidden type="checkbox" checked name="nombrePropiedades" value="NombreImagenPortada_B" />
                                 <input hidden type="checkbox" checked name="nombrePropiedades" value="RutaImagenPortada_B" />
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
                             </th>
                             <th>
                             </th>
@@ -175,19 +225,13 @@ se muestra tabla de los documentos disponibles-->
                                 </strong>
                             </th>
                             <th>
-                                <strong>
-                                    Fecha emisión
-                                </strong>
-                            </th>
-                            <th>
-                                <strong>
-                                    Fecha vencimiento
-                                </strong>
                             </th>
                             <th>
                                 <strong>
                                     Portada
                                 </strong>
+                            </th>
+                            <th>
                             </th>
                             <th>
                                 <strong>
@@ -196,6 +240,49 @@ se muestra tabla de los documentos disponibles-->
                             </th>
                             <th>
                             </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+
                         </tr>
                     </thead>
 
@@ -211,19 +298,54 @@ se muestra tabla de los documentos disponibles-->
                                     @Html.DisplayFor(x => item.ide_numero)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(x => item.ide_fecha_emision)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(x => item.ide_fecha_vencimiento)
                                 </td>
                                 <td>
                                     <img style="border:1px solid;border-radius:6px" src="@item.RutaImagenPortada_A" width="153" height="75" />
 
                                 </td>
                                 <td>
+                                </td>
+                                <td>
                                     <img style="border:1px solid;border-radius:6px" src="@item.RutaImagenPortada_B" width="153" height="75" />
 
                                 </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+
                                 <td>
                                     <div class="dropdown">
                                         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
@@ -231,20 +353,26 @@ se muestra tabla de los documentos disponibles-->
                                                 Acciones
                                             </strong> <span class="caret"></span>
                                         </button>
-                                        <ul class="dropdown-menu">
+                                        <ul class="dropdown-menu" style="background:rgba(0,0,0,0.4)">
                                             <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">
                                                 Ver
                                                 <span class="caret"></span>
                                             </button>
-                                            <ul class="dropdown-menu">
-                                                <a class="btn btn-outline-info" href=@item.RutaImagenPortada_A target="_blank"> Portada </a>
-                                                <a class="btn btn-outline-info" href=@item.RutaImagenPortada_B target="_blank"> Contraportada </a>
+                                            <ul class="dropdown-menu" style="background:rgba(0,0,0,0.4)">
+                                                <a class="btn btn-info" href=@item.RutaImagenPortada_A target="_blank"> Portada </a>
+                                                <a class="btn btn-info" href=@item.RutaImagenPortada_B target="_blank"> Contraportada </a>
                                             </ul>
                                             <a class="btn btn-success" asp-controller="Documentos" asp-action="EditarDocumento" asp-route-id="@item.ide_id_persona"><i class="fa-solid fa-user-pen"></i>&nbsp;Editar</a>
                                             <a class="btn btn-secondary" asp-controller="Documentos" asp-action="DetallesDocumento" asp-route-id="@item.ide_id_persona"><i class="fa-solid fa-file-lines"></i>&nbsp;Detalles</a>
                                             <a class="btn btn-danger" asp-controller="Documentos" asp-action="EliminarDocumento" asp-route-id="@item.ide_id_persona"><i class="fa-solid fa-trash-can"></i>&nbsp;Eliminar</a>
                                         </ul>
                                     </div>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
                                 </td>
                             </tr>
                         }
@@ -260,6 +388,7 @@ se muestra tabla de los documentos disponibles-->
 
                         .table-responsive {
                             height: auto;
+
                         }
                     </style>
                 </table>
@@ -272,7 +401,7 @@ se muestra tabla de los documentos disponibles-->
     {
         <center>
             <div class="form-group">
-                <a class="btn btn-primary" asp-controller="Documentos" asp-action="CrearDocumento" asp-route-id="@ViewBag.IdPersona">Crear documento nuevo</a>&nbsp;
+                <a class="btn btn-primary" asp-controller="Documentos" asp-action="CrearDocumento" asp-route-id="@ViewBag.IdPersona">Agregar documento nuevo </a>&nbsp;
                 <button type="button" class="btn btn-success btn-sm" value="Exportar data a Excel"
                 onclick="DescargarExcel()">
                     <i style="font-size:24px" class="fa">&#xf1c3;</i>&nbsp;Exportar data a Excel

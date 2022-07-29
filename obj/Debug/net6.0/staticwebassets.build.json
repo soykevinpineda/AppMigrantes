@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "vRpRD+DchfvfGJpwW99x7dt59oKtdSUfEu7aO3oUCrY=",
+  "Hash": "/SuHq5amCAKC2ouDYJspXi/SlhAaQt6+hxX9RFcV9Mc=",
   "Source": "Migrantes",
   "BasePath": "_content/Migrantes",
   "Mode": "Default",
@@ -1088,6 +1088,23 @@
       "OriginalItemSpec": "wwwroot\\contactos (1).png"
     },
     {
+      "Identity": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\css\\BackImg.css",
+      "SourceId": "Migrantes",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\",
+      "BasePath": "_content/Migrantes",
+      "RelativePath": "css/BackImg.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\BackImg.css"
+    },
+    {
       "Identity": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\css\\button.css",
       "SourceId": "Migrantes",
       "SourceType": "Discovered",
@@ -1156,12 +1173,12 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\DocumentosAdjuntos\\DocsLadoA\\francesco-ungaro-EW72A5KoN9I-unsplash_15072022-1101049614.jpg",
+      "Identity": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\DocumentosAdjuntos\\DocsLadoA\\eberhard-grossgasteiger-OQWUssLSHYU-unsplash_27072022-1424243327.jpg",
       "SourceId": "Migrantes",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\",
       "BasePath": "_content/Migrantes",
-      "RelativePath": "DocumentosAdjuntos/DocsLadoA/francesco-ungaro-EW72A5KoN9I-unsplash_15072022-1101049614.jpg",
+      "RelativePath": "DocumentosAdjuntos/DocsLadoA/eberhard-grossgasteiger-OQWUssLSHYU-unsplash_27072022-1424243327.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1170,15 +1187,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\DocumentosAdjuntos\\DocsLadoA\\francesco-ungaro-EW72A5KoN9I-unsplash_15072022-1101049614.jpg"
+      "OriginalItemSpec": "wwwroot\\DocumentosAdjuntos\\DocsLadoA\\eberhard-grossgasteiger-OQWUssLSHYU-unsplash_27072022-1424243327.jpg"
     },
     {
-      "Identity": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\DocumentosAdjuntos\\DocsLadoA\\Goku2_11072022-1124124184.jpg",
+      "Identity": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\DocumentosAdjuntos\\DocsLadoB\\alain-gehri-5GM_lm9PUn4-unsplash_27072022-1424243460.jpg",
       "SourceId": "Migrantes",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\",
       "BasePath": "_content/Migrantes",
-      "RelativePath": "DocumentosAdjuntos/DocsLadoA/Goku2_11072022-1124124184.jpg",
+      "RelativePath": "DocumentosAdjuntos/DocsLadoB/alain-gehri-5GM_lm9PUn4-unsplash_27072022-1424243460.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1187,41 +1204,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\DocumentosAdjuntos\\DocsLadoA\\Goku2_11072022-1124124184.jpg"
-    },
-    {
-      "Identity": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\DocumentosAdjuntos\\DocsLadoB\\francesco-ungaro-EW72A5KoN9I-unsplash_15072022-1101049689.jpg",
-      "SourceId": "Migrantes",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\",
-      "BasePath": "_content/Migrantes",
-      "RelativePath": "DocumentosAdjuntos/DocsLadoB/francesco-ungaro-EW72A5KoN9I-unsplash_15072022-1101049689.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\DocumentosAdjuntos\\DocsLadoB\\francesco-ungaro-EW72A5KoN9I-unsplash_15072022-1101049689.jpg"
-    },
-    {
-      "Identity": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\DocumentosAdjuntos\\DocsLadoB\\Goku1_11072022-1124124211.jpg",
-      "SourceId": "Migrantes",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\",
-      "BasePath": "_content/Migrantes",
-      "RelativePath": "DocumentosAdjuntos/DocsLadoB/Goku1_11072022-1124124211.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\DocumentosAdjuntos\\DocsLadoB\\Goku1_11072022-1124124211.jpg"
+      "OriginalItemSpec": "wwwroot\\DocumentosAdjuntos\\DocsLadoB\\alain-gehri-5GM_lm9PUn4-unsplash_27072022-1424243460.jpg"
     },
     {
       "Identity": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\family (2).png",
@@ -36922,6 +36905,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\id-card (2).png"
+    },
+    {
+      "Identity": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\img\\Fiador.png",
+      "SourceId": "Migrantes",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\",
+      "BasePath": "_content/Migrantes",
+      "RelativePath": "img/Fiador.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\Fiador.png"
     },
     {
       "Identity": "C:\\Users\\khernandez\\Documents\\Project Migrantes\\migrantes-sc-master\\Migrantes\\wwwroot\\img\\navbarmenu.png",
